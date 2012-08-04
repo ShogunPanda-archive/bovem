@@ -8,7 +8,7 @@ require "spec_helper"
 
 describe Bovem::Configuration do
   class BaseConfiguration < Bovem::Configuration
-    attr_accessor :property
+    property :property
   end
 
   let(:log_file) { "/tmp/bovem-test-log-#{Time.now.strftime("%Y%m%d-%H:%M:%S")}" }
@@ -41,6 +41,21 @@ describe Bovem::Configuration do
       expect(config.property).to eq(5678)
 
       File.unlink(test_prefix)
+    end
+  end
+
+  describe ".property" do
+    it "add the property to the object" do
+      subject = BaseConfiguration.new
+
+      expect(subject.respond_to?(:new_property)).to be_false
+      expect(subject.respond_to?(:new_property=)).to be_false
+      BaseConfiguration.property :new_property, :default => "VALUE"
+      expect(subject.respond_to?(:new_property)).to be_true
+      expect(subject.respond_to?(:new_property=)).to be_true
+      expect(subject.new_property).to eq("VALUE")
+      subject.new_property = "NEW VALUE"
+      expect(subject.new_property).to eq("NEW VALUE")
     end
   end
 end

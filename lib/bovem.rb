@@ -8,7 +8,7 @@ require "rainbow"
 require "logger"
 require "lazier"
 
-#Lazier.load!
+Lazier.load!(:object)
 
 require "bovem/version" if !defined?(Bovem::Version)
 require "bovem/errors"

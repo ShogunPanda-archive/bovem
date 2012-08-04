@@ -32,5 +32,3 @@ Gem::Specification.new do |gem|
   gem.add_development_dependency("redcarpet", "~> 2.1.0")
   gem.add_development_dependency("github-markup", "~> 0.7.0")
 end
-
-

@@ -7,11 +7,12 @@
 module Bovem
   # This class holds the configuration of the applicaton.
   #
-  # Extend this class and add valid properties via `attr_accessor` methods.
+  # Extend this class and add valid properties via {property property} method.
   # Example:
+  #
   # ```ruby
   # class MyConfiguration << Bovem::Configuration
-  #   attr_accessor :property
+  #   property :property, :default => "VALUE"
   # end
   #
   # # Configuration file
@@ -19,17 +20,19 @@ module Bovem
   # ```
   class Configuration
     # Creates a new configuration.
+    #
     # A configuration file is a plain Ruby file with a top-level {Configuration config} object.
     #
     # @param file [String] The file to read.
     # @param overrides [Hash] A set of values which override those set in the configuration file.
     # @param logger [Logger] The logger to use for notifications.
-    # @see parse
+    # @see #parse
     def initialize(file = nil, overrides = {}, logger = nil)
       self.parse(file, overrides, logger)
     end
 
     # Creates a new configuration.
+    #
     # A configuration file is a plain Ruby file with a top-level {Configuration config} object.
     #
     # Example:
@@ -64,6 +67,22 @@ module Bovem
       end
 
       self
+    end
+
+    # Defines a new property for the configuration
+    #
+    # @param name [Symbol] The name of the property.
+    # @param options [Hash] A set of options for the property. Currently, only `:default` (which holds the default value) is supported.
+    def self.property(name, options = {})
+      options = {} if !options.is_a?(::Hash)
+
+      define_method(name.to_s) do
+        self.instance_variable_get("@#{name}") || options[:default]
+      end
+
+      define_method("#{name}=") do |value|
+        self.instance_variable_set("@#{name}", value)
+      end
     end
   end
 end
