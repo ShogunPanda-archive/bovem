@@ -66,17 +66,20 @@ module Bovem
     # @param style [String] The style to parse.
     # @return [String] A string with ANSI color codes.
     def self.parse_style(style)
-      style = style.ensure_string
-      sym = style.to_sym
       rv = ""
 
-      if ::Bovem::TERM_EFFECTS.include?(sym) then
-        rv = "\e[#{Bovem::TERM_EFFECTS[sym]}m"
-      elsif style.index("bg_") == 0 then
-        sym = style[3, style.length].to_sym
-        rv = "\e[#{40 + ::Bovem::TERM_COLORS[sym]}m" if ::Bovem::TERM_COLORS.include?(sym)
-      elsif style != "reset" then
-        rv = "\e[#{30 + ::Bovem::TERM_COLORS[sym]}m" if ::Bovem::TERM_COLORS.include?(sym)
+      if style.present? then
+        style = style.ensure_string
+        sym = style.to_sym
+
+        if ::Bovem::TERM_EFFECTS.include?(sym) then
+          rv = "\e[#{Bovem::TERM_EFFECTS[sym]}m"
+        elsif style.index("bg_") == 0 then
+          sym = style[3, style.length].to_sym
+          rv = "\e[#{40 + ::Bovem::TERM_COLORS[sym]}m" if ::Bovem::TERM_COLORS.include?(sym)
+        elsif style != "reset" then
+          rv = "\e[#{30 + ::Bovem::TERM_COLORS[sym]}m" if ::Bovem::TERM_COLORS.include?(sym)
+        end
       end
 
       rv

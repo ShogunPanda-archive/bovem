@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    bovem (0.8.0)
+    bovem (0.8.1)
       lazier (~> 1.0)
 
 GEM
