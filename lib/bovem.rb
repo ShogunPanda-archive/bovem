@@ -4,7 +4,6 @@
 # Licensed under the MIT license, which can be found at http://www.opensource.org/licenses/mit-license.php.
 #
 
-require "rainbow"
 require "logger"
 require "lazier"
 
@@ -14,3 +13,4 @@ require "bovem/version" if !defined?(Bovem::Version)
 require "bovem/errors"
 require "bovem/configuration"
 require "bovem/logger"
+require "bovem/console"

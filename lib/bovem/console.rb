@@ -1,0 +1,527 @@
+# encoding: utf-8
+#
+# This file is part of the bovem gem. Copyright (C) 2012 and above Shogun <shogun_panda@me.com>.
+# Licensed under the MIT license, which can be found at http://www.opensource.org/licenses/mit-license.php.
+#
+
+module Bovem
+  # List of valid terminal colors.
+  TERM_COLORS = {
+    :black => 0,
+    :red => 1,
+    :green => 2,
+    :yellow => 3,
+    :blue => 4,
+    :magenta => 5,
+    :cyan => 6,
+    :white => 7,
+    :default => 9,
+  }
+
+  # List of valid terminal text effects.
+  TERM_EFFECTS = {
+    :reset => 0,
+    :bright => 1,
+    :italic => 3,
+    :underline => 4,
+    :blink => 5,
+    :inverse => 7,
+    :hide => 8,
+  }
+
+  # This is a text utility wrapper console I/O.
+  class Console
+    # The line width. Default to `80`.
+    attr_accessor :line_width
+
+    # The current screen width.
+    attr_accessor :screen_width
+
+    # Current indentation width.
+    attr_accessor :indentation
+
+    # The string used for indentation.
+    attr_accessor :indentation_string
+
+    # Whether to show executed commands.
+    # attr_accessor :show_commands
+
+    # Whether to show output of executed commands.
+    # attr_accessor :show_outputs
+
+    # Whether to simply print commands rather than executing them.
+    # attr_accessor :skip_commands
+
+    # Returns a unique instance for Console.
+    #
+    # @return [Console] A new instance.
+    def self.instance
+      @instance ||= ::Bovem::Console.new
+    end
+
+    # Parse a style and returns terminal codes.
+    #
+    # Supported styles and colors are those in {Bovem::TERM_COLORS} and {Bovem::TERM_EFFECTS}. You can also prefix colors with `bg_` (like `bg_red`) for background colors.
+    #
+    # @param style [String] The style to parse.
+    # @return [String] A string with ANSI color codes.
+    def self.parse_style(style)
+      style = style.ensure_string
+      sym = style.to_sym
+      rv = ""
+
+      if ::Bovem::TERM_EFFECTS.include?(sym) then
+        rv = "\e[#{Bovem::TERM_EFFECTS[sym]}m"
+      elsif style.index("bg_") == 0 then
+        sym = style[3, style.length].to_sym
+        rv = "\e[#{40 + ::Bovem::TERM_COLORS[sym]}m" if ::Bovem::TERM_COLORS.include?(sym)
+      elsif style != "reset" then
+        rv = "\e[#{30 + ::Bovem::TERM_COLORS[sym]}m" if ::Bovem::TERM_COLORS.include?(sym)
+      end
+
+      rv
+    end
+
+    # Replaces colors markers in a string.
+    #
+    # @param message [String] The message to analyze.
+    # @param plain [Boolean] If ignore (cleanify) color markers into the message.
+    # @return [String] The replaced message.
+    # @see #parse_style
+    def self.replace_markers(message, plain = false)
+      stack = []
+
+      regexp = /((\{mark=([a-z\-_]+)\})|(\{\/mark\}))/mi
+
+      message = message.gsub(regexp) do
+        tag = $1
+        styles = $3
+        replacement = ""
+
+        if tag == "{/mark}" then # If it is a tag, pop from the latest opened.
+          stack.pop
+          styles = stack.last
+          replacement = plain || stack.blank? ? "" : styles.split("-").collect { |s| self.parse_style(s) }.join("")
+        else
+          replacement = plain ? "" : styles.split("-").collect { |s| self.parse_style(s) }.join("")
+
+          if replacement.length > 0 then
+            stack << "reset" if stack.blank?
+            stack << styles
+          end
+        end
+
+        replacement
+      end
+
+      message
+    end
+
+    # Executes a command and returns its output.
+    #
+    # @param command [String] The command to execute.
+    # @return [String] The command's output.
+    def self.execute(command)
+      %x{#{command}}
+    end
+
+    # Initializes a new Console.
+    def initialize
+      @line_width = 80
+      @indentation = 0
+      @indentation_string = " "
+    end
+
+    # Gets the current screen width.
+    #
+    # @return [Fixnum] The screen width.
+    def get_screen_width
+      ::Bovem::Console.execute("tput cols").to_integer
+    end
+
+    # Sets the new indentation width.
+    #
+    # @param width [Fixnum] The new width.
+    # @param is_absolute [Boolean] If the new width should not be added to the current one but rather replace it.
+    # @return [Fixnum] The new indentation width.
+    def set_indentation(width, is_absolute = false)
+      self.indentation = [(!is_absolute ? self.indentation : 0) + width, 0].max.to_i
+      self.indentation
+    end
+
+    # Resets indentation width to `0`.
+    #
+    # @return [Fixnum] The new indentation width.
+    def reset_indentation
+      self.indentation = 0
+      self.indentation
+    end
+
+    # Starts a indented region of text.
+    #
+    # @param width [Fixnum] The new width.
+    # @param is_absolute [Boolean] If the new width should not be added to the current one but rather replace it.
+    # @return [Fixnum] The new indentation width.
+    def with_indentation(width, is_absolute = false)
+      old = self.indentation
+      self.set_indentation(width, is_absolute)
+      yield
+      self.set_indentation(old, true)
+
+      self.indentation
+    end
+
+    # Wraps a message in fixed line width.
+    #
+    # @param message [String] The message to wrap.
+    # @param width [Fixnum] The maximum width of a line. Default to the current line width.
+    # @return [String] The wrapped message.
+    def wrap(message, width = nil)
+      if width.to_integer <= 0 then
+        message
+      else
+        width = (width == true || width.to_integer < 0 ? @line_width : width.to_integer)
+
+        message.split("\n").collect { |line|
+          line.length > width ? line.gsub(/(.{1,#{width}})(\s+|$)/, "\\1\n").strip : line
+        }.join("\n")
+      end
+    end
+
+    # Indents a message.
+    #
+    # @param message [String] The message to indent.
+    # @param width [Fixnum] The indentation width. `true` means to use thecurrent indentation, a negative value of `-x` will indent of `x` absolute spaces. `nil` or `false` will skip indentation.
+    # @param newline_separator [String] The character used for newlines.
+    # @return [String] The indentend message.
+    def indent(message, width = true, newline_separator = "\n")
+      if width.to_integer != 0 then
+        width = (width == true ? 0 : width.to_integer)
+        width = width < 0 ? -width : @indentation + width
+
+        message = message.split(newline_separator).collect {|line|
+          (@indentation_string * width) + line
+        }.join(newline_separator)
+      end
+
+      message
+    end
+
+    # Replaces colors markers in a string.
+    #
+    # Supported styles and colors are those in {Bovem::TERM_COLORS} and {Bovem::TERM_EFFECTS}. You can also prefix colors with `bg_` (like `bg_red`) for background colors.
+    #
+    # @param message [String] The message to analyze.
+    # @param plain [Boolean] If ignore (cleanify )color markers into the message.
+    # @return [String] The replaced message.
+    def replace_markers(message, plain = false)
+      ::Bovem::Console.replace_markers(message, plain)
+    end
+
+    # Formats a message.
+    #
+    # You can style text by using `{color}` and `{reset}` syntax.
+    #
+    # @param message [String] The message to format.
+    # @param suffix [Object] If not `nil` or `false`, a suffix to add to the message. `true` means to add `\n`.
+    # @param indent [Object] If not `nil` or `false`, the width to use for indentation. `true` means to use thecurrent indentation, a negative value of `-x` will indent of `x` absolute spaces.
+    # @param wrap [Object] If not `nil` or `false`, the maximum length of a line. `true` means the current line width.
+    # @param plain [Boolean] If ignore color markers into the message.
+    # @return [String] The formatted message.
+    def format(message, suffix = "\n", indent = true, wrap = true, plain = false)
+      rv = message
+
+      rv = self.replace_markers(rv, plain) # Replace markers
+      rv = self.wrap(rv, wrap) # Wrap
+      rv = self.indent(rv, indent) # Indent
+
+      rv += suffix if suffix # Add the suffix
+      rv
+    end
+
+    # Formats a message to be written right-aligned.
+    #
+    # @param message [String] The message to format.
+    # @param width [Fixnum] The screen width. If `true`, it is automatically computed.
+    # @param go_up [Boolean] If go up one line before formatting.
+    # @param plain [Boolean] If ignore color markers into the message.
+    # @return [String] The formatted message.
+    def format_right(message, width = true, go_up = true, plain = false)
+      message = self.replace_markers(message, plain)
+
+      rv = go_up ? "\e[A" : ""
+
+      @screen_width ||= self.get_screen_width
+      width = (width == true || width.to_integer < 1 ? @screen_width : width.to_integer)
+
+      # Get padding
+      padding = width - message.to_s.gsub(/(\e\[[0-9]*[a-z]?)|(\\n)/i, "").length
+
+      # Return
+      rv + "\e[0G\e[#{padding}C" + message
+    end
+
+    # Writes a message.
+    #
+    # @param message [String] The message to format.
+    # @param suffix [Object] If not `nil` or `false`, a suffix to add to the message. `true` means to add `\n`.
+    # @param indent [Object] If not `nil` or `false`, the width to use for indentation. `true` means to use thecurrent indentation, a negative value of `-x` will indent of `x` absolute spaces.
+    # @param wrap [Object] If not `nil` or `false`, the maximum length of a line for wrapped text. `true` means the current line width.
+    # @param plain [Boolean] If ignore color markers into the message.
+    # @param print [Boolean] If `false`, the result will be returned instead of be printed.
+    # @return [String] The printed message.
+    #
+    # @see #format
+    def write(message, suffix = "\n", indent = true, wrap = false, plain = false, print = true)
+      rv = self.format(message, suffix, indent, wrap, plain)
+      Kernel.puts(rv) if print
+      rv
+    end
+
+    # Writes a status to the output. Valid values are `:ok`, `:pass`, `:fail`, `:warn`.
+    #
+    # @param status [Symbol] The status to write.
+    # @param plain [Boolean] If not use colors.
+    # @param go_up [Boolean] If go up one line before formatting.
+    # @param right [Boolean] If to print results on the right.
+    # @param print [Boolean] If `false`, the result will be returned instead of be printed.
+    # @return [Array] An dictionary with `:label` and `:color` keys for the status.
+    def status(status, plain = false, go_up = true, right = true, print = true)
+      statuses = {
+        :ok => {:label => " OK ", :color => "bright green"},
+        :pass => {:label => "PASS", :color => "bright cyan"},
+        :warn => {:label => "WARN", :color => "bright yellow"},
+        :fail => {:label => "FAIL", :color => "bright red"}
+      }
+      statuses.default = statuses[:pass]
+
+      rv = statuses[status]
+
+      if print then
+        banner = self.get_banner(rv[:label], rv[:color])
+
+        if right then
+          Kernel.puts self.format_right(banner + " ", true, go_up, plain)
+        else
+          Kernel.puts self.format(banner + " ", "\n", true, true, plain)
+        end
+      end
+
+      rv
+    end
+
+    # Gets a banner for the messages.
+    #
+    # @param label [String] The label for the banner.
+    # @param base_color [String] The color for the label.
+    # @param full_colored [String] If all the message should be of the label color.
+    # @param bracket_color [String] The color of the brackets.
+    # @param brackets [Array] An array of dimension 2 to use for brackets.
+    # @return [String] The banner.
+    # @see #format
+    def get_banner(label, base_color, full_colored = false, bracket_color = "blue", brackets = ["[", "]"])
+      brackets = brackets.ensure_array
+      bracket_color = base_color if full_colored
+      "{mark=%s}%s{mark=%s}%s{/mark}%s{/mark}" % [bracket_color.parameterize, brackets[0], base_color.parameterize, label, brackets[1]]
+    end
+
+    # Writes a message prepending a cyan type banner.
+    #
+    # @param message [String] The message to format.
+    # @param suffix [Object] If not `nil` or `false`, a suffix to add to the message. `true` means to add `\n`.
+    # @param indent [Object] If not `nil` or `false`, the width to use for indentation. `true` means to use thecurrent indentation, a negative value of `-x` will indent of `x` absolute spaces.
+    # @param wrap [Object] If not `nil` or `false`, the maximum length of a line for wrapped text. `true` means the current line width.
+    # @param plain [Boolean] If ignore color markers into the message.
+    # @param indented_banner [Boolean] If also the banner should be indented.
+    # @param full_colored [Boolean] If the banner should be fully colored.
+    # @param print [Boolean] If `false`, the result will be returned instead of be printed.
+    #
+    # @see #format
+    def info(message, suffix = "\n", indent = true, wrap = false, plain = false, indented_banner = false, full_colored = false, print = true)
+      banner = self.get_banner(" INFO", "bright cyan", full_colored)
+      message = self.indent(message, indented_banner ? 0 : indent)
+      self.write(banner + " " + message, suffix, indented_banner ? indent : 0, wrap, plain, print)
+    end
+
+    # Writes a message prepending a green type banner.
+    #
+    # @param message [String] The message to format.
+    # @param suffix [Object] If not `nil` or `false`, a suffix to add to the message. `true` means to add `\n`.
+    # @param indent [Object] If not `nil` or `false`, the width to use for indentation. `true` means to use thecurrent indentation, a negative value of `-x` will indent of `x` absolute spaces.
+    # @param wrap [Object] If not `nil` or `false`, the maximum length of a line for wrapped text. `true` means the current line width.
+    # @param plain [Boolean] If ignore color markers into the message.
+    # @param indented_banner [Boolean] If also the banner should be indented.
+    # @param full_colored [Boolean] If the banner should be fully colored.
+    # @param print [Boolean] If `false`, the result will be returned instead of be printed.
+    #
+    # @see #format
+    def begin(message, suffix = "\n", indent = true, wrap = false, plain = false, indented_banner = false, full_colored = false, print = true)
+      banner = "    " + self.get_banner("*", "bright green")
+      message = self.indent(message, indented_banner ? 0 : indent)
+      self.write(banner + " " + message, suffix, indented_banner ? indent : 0, wrap, plain, print)
+    end
+
+    # Writes a message prepending a yellow type banner.
+    #
+    # @param message [String] The message to format.
+    # @param suffix [Object] If not `nil` or `false`, a suffix to add to the message. `true` means to add `\n`.
+    # @param indent [Object] If not `nil` or `false`, the width to use for indentation. `true` means to use thecurrent indentation, a negative value of `-x` will indent of `x` absolute spaces.
+    # @param wrap [Object] If not `nil` or `false`, the maximum length of a line for wrapped text. `true` means the current line width.
+    # @param plain [Boolean] If ignore color markers into the message.
+    # @param indented_banner [Boolean] If also the banner should be indented.
+    # @param full_colored [Boolean] If the banner should be fully colored.
+    # @param print [Boolean] If `false`, the result will be returned instead of be printed.
+    #
+    # @see #format
+    def warn(message, suffix = "\n", indent = true, wrap = false, plain = false, indented_banner = false, full_colored = false, print = true)
+      banner = self.get_banner(" WARN", "bright yellow", full_colored)
+      message = self.indent(message, indented_banner ? 0 : indent)
+      self.write(banner + " " + message, suffix, indented_banner ? indent : 0, wrap, plain, print)
+    end
+
+    # Writes a message prepending a red type banner.
+    #
+    # @param message [String] The message to format.
+    # @param suffix [Object] If not `nil` or `false`, a suffix to add to the message. `true` means to add `\n`.
+    # @param indent [Object] If not `nil` or `false`, the width to use for indentation. `true` means to use thecurrent indentation, a negative value of `-x` will indent of `x` absolute spaces.
+    # @param wrap [Object] If not `nil` or `false`, the maximum length of a line for wrapped text. `true` means the current line width.
+    # @param plain [Boolean] If ignore color markers into the message.
+    # @param indented_banner [Boolean] If also the banner should be indented.
+    # @param full_colored [Boolean] If the banner should be fully colored.
+    # @param print [Boolean] If `false`, the result will be returned instead of be printed.
+    #
+    # @see #format
+    def error(message, suffix = "\n", indent = true, wrap = false, plain = false, indented_banner = false, full_colored = false, print = true)
+      banner = self.get_banner("ERROR", "bright red", full_colored)
+      message = self.indent(message, indented_banner ? 0 : indent)
+      self.write(banner + " " + message, suffix, indented_banner ? indent : 0, wrap, plain, print)
+    end
+
+    # Writes a message prepending a red type banner and then quits the application.
+    #
+    # @param message [String] The message to format.
+    # @param suffix [Object] If not `nil` or `false`, a suffix to add to the message. `true` means to add `\n`.
+    # @param indent [Object] If not `nil` or `false`, the width to use for indentation. `true` means to use thecurrent indentation, a negative value of `-x` will indent of `x` absolute spaces.
+    # @param wrap [Object] If not `nil` or `false`, the maximum length of a line for wrapped text. `true` means the current line width.
+    # @param plain [Boolean] If ignore color markers into the message.
+    # @param indented_banner [Boolean] If also the banner should be indented.
+    # @param full_colored [Boolean] If the banner should be fully colored.
+    # @param return_code [Fixnum] The code to return to the shell.
+    # @param print [Boolean] If `false`, the result will be returned instead of be printed.
+    #
+    # @see #format
+    def fatal(message, suffix = "\n", indent = true, wrap = false, plain = false, indented_banner = false, full_colored = false, return_code = -1, print = true)
+      self.error(message, suffix, indent, wrap, plain, indented_banner, full_colored, print)
+      Kernel.abort(return_code)
+    end
+
+    # Writes a message prepending a magenta type banner.
+    #
+    # @param message [String] The message to format.
+    # @param suffix [Object] If not `nil` or `false`, a suffix to add to the message. `true` means to add `\n`.
+    # @param indent [Object] If not `nil` or `false`, the width to use for indentation. `true` means to use thecurrent indentation, a negative value of `-x` will indent of `x` absolute spaces.
+    # @param wrap [Object] If not `nil` or `false`, the maximum length of a line for wrapped text. `true` means the current line width.
+    # @param plain [Boolean] If ignore color markers into the message.
+    # @param indented_banner [Boolean] If also the banner should be indented.
+    # @param full_colored [Boolean] If the banner should be fully colored.
+    # @param print [Boolean] If `false`, the result will be returned instead of be printed.
+    #
+    # @see #format
+    def debug(message, suffix = "\n", indent = true, wrap = false, plain = false, indented_banner = false, full_colored = false, print = true)
+      banner = self.get_banner("DEBUG", "bright magenta", full_colored)
+      message = self.indent(message, indented_banner ? 0 : indent)
+      self.write(banner + " " + message, suffix, indented_banner ? indent : 0, wrap, plain, print)
+    end
+
+    # Reads a string from the console.
+    #
+    # @param prompt [String|Boolean] A prompt to show. If `true`, `Please insert a value:` will be used, if `nil` or `false` no prompt will be shown.
+    # @param default_value [String] Default value if user simply pressed the enter key.
+    # @param validator [Array|Regexp] An array of values or a Regexp to match the submitted value against.
+    # @param echo [Boolean] If to show submitted text to the user.
+    def read(prompt = true, default_value = nil, validator = nil, echo = true)
+      # TODO: Echo and print prompt without newline
+
+      # Write the prompt
+      prompt = "Please insert a value" if prompt == true
+      final_prompt = !prompt.nil? ? prompt.gsub(/:?\s*$/, "") + ": " : nil
+
+      # Adjust validator
+      validator = validator.ensure_array.collect {|v| v.ensure_string} if validator.present? && !validator.is_a?(::Regexp)
+
+      # Handle echo
+      stty = ::Bovem::Console.execute("which stty").strip
+      disable_echo = !echo && stty.present? && /-echo\b/mix.match(::Bovem::Console.execute(stty)).nil?
+
+      # Disable echo
+      ::Bovem::Console.execute("#{stty} -echo") if disable_echo
+
+      begin
+        catch(:reply) do
+          while true do
+            valid = true
+
+            if final_prompt then
+              Kernel.print self.format(final_prompt, false, false)
+              $stdout.flush
+            end
+
+            reply = Kernel.gets.chop
+            reply = default_value if reply.empty?
+
+            # Match against the validator
+            if validator.present? then
+              if validator.is_a?(Array) then
+                valid = false if validator.length > 0 && !validator.include?(reply)
+              elsif validator.is_a?(Regexp) then
+                valid = false if !validator.match(reply)
+              end
+            end
+
+            if !valid then
+              self.write("Sorry, your reply was not understood. Please try again.", false, false)
+            else
+              throw(:reply, reply)
+            end
+          end
+        end
+      rescue Interrupt
+        default_value
+      ensure
+        ::Bovem::Console.execute("#{stty} echo") if disable_echo
+      end
+    end
+
+    # Execute a block of code in a indentation region and then prints out and ending status message.
+    #
+    # @param message [String] The message to format.
+    # @param suffix [Object] If not `nil` or `false`, a suffix to add to the message. `true` means to add `\n`.
+    # @param indent [Object] If not `nil` or `false`, the width to use for indentation. `true` means to use thecurrent indentation, a negative value of `-x` will indent of `x` absolute spaces.
+    # @param wrap [Object] If not `nil` or `false`, the maximum length of a line for wrapped text. `true` means the current line width.
+    # @param plain [Boolean] If ignore color markers into the message.
+    # @param indented_banner [Boolean] If also the banner should be indented.
+    # @param full_colored [Boolean] If the banner should be fully colored.
+    # @param block_indentation [Fixnum] The new width for the indented region.
+    # @param block_indentation_absolute [Boolean] If the new width should not be added to the current one but rather replace it.
+    # @return [Symbol] The exit status for the block.
+    def task(message = nil, suffix = "\n", indent = true, wrap = false, plain = false, indented_banner = false, full_colored = false, block_indentation = 2, block_indentation_absolute = false)
+      status = nil
+
+      self.begin(message, suffix, indent, wrap, plain, indented_banner, full_colored) if message.present?
+
+      self.with_indentation(block_indentation, block_indentation_absolute) do
+        rv = block_given? ? yield.ensure_array : [:ok] # Execute block
+        status = rv[0] # Return value
+
+        if status == :fatal then
+          self.status(:fail, plain)
+          exit(rv.length > 1 ? rv[1].to_integer : -1)
+        else
+          self.status(status, plain)
+        end
+      end
+
+      status
+    end
+  end
+end

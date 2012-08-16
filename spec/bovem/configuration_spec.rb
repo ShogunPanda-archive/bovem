@@ -7,7 +7,7 @@
 require "spec_helper"
 
 describe Bovem::Configuration do
-  class BaseConfiguration < Bovem::Configuration
+  class BaseConfiguration < ::Bovem::Configuration
     property :property
   end
 
@@ -27,8 +27,8 @@ describe Bovem::Configuration do
       file1 = ::File.open("#{test_prefix}-1", "w") {|f| f.write("config.property = ") }
       file2 = ::File.open("#{test_prefix}-2", "w") {|f| f.write("config.non_property = 1234") }
 
-      expect { config = BaseConfiguration.new("#{test_prefix}-1")}.to raise_error(Bovem::Errors::InvalidConfiguration)
-      expect { config = BaseConfiguration.new("#{test_prefix}-2")}.to raise_error(Bovem::Errors::InvalidConfiguration)
+      expect { config = BaseConfiguration.new("#{test_prefix}-1")}.to raise_error(::Bovem::Errors::InvalidConfiguration)
+      expect { config = BaseConfiguration.new("#{test_prefix}-2")}.to raise_error(::Bovem::Errors::InvalidConfiguration)
 
       File.unlink("#{test_prefix}-1")
       File.unlink("#{test_prefix}-2")

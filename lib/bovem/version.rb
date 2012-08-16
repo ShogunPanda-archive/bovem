@@ -14,7 +14,7 @@ module Bovem
     MAJOR = 0
 
     # The minor version.
-    MINOR = 6
+    MINOR = 8
 
     # The patch version.
     PATCH = 0

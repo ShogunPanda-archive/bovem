@@ -75,8 +75,7 @@ module Bovem
           else :white
         end
 
-        header = ("[%s T+%0.5f] %s:" %[datetime.strftime("%Y/%b/%d %H:%M:%S"), [datetime.to_f - self.start_time.to_f, 0].max, severity.rjust(5)]).bright
-        header = header.color(color) if color.present?
+        header = ::Bovem::Console.replace_markers("{mark=bright-#{color}}[%s T+%0.5f] %s:{/mark}" %[datetime.strftime("%Y/%b/%d %H:%M:%S"), [datetime.to_f - self.start_time.to_f, 0].max, severity.rjust(5)])
         "%s %s\n" % [header, msg]
       }
     end
