@@ -106,7 +106,7 @@ module Bovem
       mark_regexp = /((\{mark=([a-z\-_\s,]+)\})|(\{\/mark\}))/mi
       split_regex = /\s*[\s,-]\s*/
 
-      message = message.gsub(mark_regexp) do
+      message = message.ensure_string.gsub(mark_regexp) do
         tag = $1
         styles = $3
         replacement = ""
