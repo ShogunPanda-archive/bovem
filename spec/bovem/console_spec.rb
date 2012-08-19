@@ -306,6 +306,8 @@ describe Bovem::Console do
 
   describe "#read" do
     it "should show a prompt" do
+      Kernel.stub(:gets).and_return("VALUE\n")
+
       prompt = "PROMPT"
       Kernel.should_receive(:print).with("Please insert a value: ")
       console.read(true)
@@ -367,6 +369,7 @@ describe Bovem::Console do
     end
 
     it "should hide echo to the user when the terminal shows echo" do
+      Kernel.stub(:gets).and_return("VALUE\n")
       stty = %x{which stty}.strip
 
       ::Bovem::Console.should_receive(:execute).with("which stty").and_return(stty)
@@ -377,6 +380,7 @@ describe Bovem::Console do
     end
 
     it "shouldn't hide echo again when the terminal already hides it" do
+      Kernel.stub(:gets).and_return("VALUE\n")
       stty = %x{which stty}.strip
 
       ::Bovem::Console.should_receive(:execute).with("which stty").and_return(stty)
