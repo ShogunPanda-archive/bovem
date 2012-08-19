@@ -5,7 +5,7 @@
 #
 
 module Bovem
-  # This class holds the configuration of the applicaton.
+  # This class holds the configuration of an applicaton.
   #
   # Extend this class and add valid properties via {property property} method.
   # Example:
@@ -31,7 +31,7 @@ module Bovem
       self.parse(file, overrides, logger)
     end
 
-    # Creates a new configuration.
+    # Parses a configuration file.
     #
     # A configuration file is a plain Ruby file with a top-level {Configuration config} object.
     #
@@ -69,7 +69,7 @@ module Bovem
       self
     end
 
-    # Defines a new property for the configuration
+    # Defines a new property for the configuration.
     #
     # @param name [Symbol] The name of the property.
     # @param options [Hash] A set of options for the property. Currently, only `:default` (which holds the default value) is supported.

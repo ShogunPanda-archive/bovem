@@ -13,7 +13,8 @@ module Bovem
     # The file or device to log messages to.
     attr_reader :device
 
-    # Creates a new logger
+    # Creates a new logger.
+    #
     # @see http://www.ruby-doc.org/stdlib-1.9.3/libdoc/logger/rdoc/Logger.html
     #
     # @param logdev [String|IO] The log device. This is a filename (String) or IO object (typically STDOUT, STDERR, or an open file).
@@ -24,7 +25,7 @@ module Bovem
       super(logdev, shift_age, shift_size)
     end
 
-    # Creates a new logger
+    # Creates a new logger.
     #
     # @param file [String|IO] The log device. This is a filename (String) or IO object (typically STDOUT, STDERR, or an open file).
     # @param level [Fixnum] The minimum severity to log. See http://www.ruby-doc.org/stdlib-1.9.3/libdoc/logger/rdoc/Logger.html for valid levels.

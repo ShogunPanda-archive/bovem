@@ -61,7 +61,7 @@ describe Bovem::Console do
 
   describe "#get_screen_width" do
     it "should execute tput cols" do
-      ::Bovem::Console.should_receive("execute").with("tput cols")
+      ::Bovem::Console.should_receive(:execute).with("tput cols")
       console.get_screen_width
     end
 
@@ -159,7 +159,7 @@ describe Bovem::Console do
 
   describe "#replace_markers" do
     it "should just forwards to .replace_markers" do
-      ::Bovem::Console.should_receive("replace_markers").with("A", "B")
+      ::Bovem::Console.should_receive(:replace_markers).with("A", "B")
       console.replace_markers("A", "B")
     end
   end
@@ -181,7 +181,7 @@ describe Bovem::Console do
 
   describe "#write" do
     it "should call #format" do
-      console.should_receive("format").with("A", "B", "C", "D", "E")
+      console.should_receive(:format).with("A", "B", "C", "D", "E")
       console.write("A", "B", "C", "D", "E")
     end
   end
@@ -199,85 +199,84 @@ describe Bovem::Console do
 
   describe "#info" do
     it "should forward everything to #get_banner" do
-      console.should_receive("get_banner").with(" INFO", "bright cyan", false).at_least(1).and_return("")
+      console.should_receive(:get_banner).with(" INFO", "bright cyan", false).at_least(1).and_return("")
       console.info("OK", "\n", true, false, false, false, false, false)
-      console.should_receive("get_banner").with(" INFO", "bright cyan", true).at_least(1).and_return("")
+      console.should_receive(:get_banner).with(" INFO", "bright cyan", true).at_least(1).and_return("")
       console.info("OK", "\n", true, false, false, false, true, false)
     end
 
     it "should forward everything to #write" do
-      console.should_receive("write").with(/.+/, "B", "C", "D", "E", false)
+      console.should_receive(:write).with(/.+/, "B", "C", "D", "E", false)
       console.info("A", "B", "C", "D", "E", "F", "G", false)
     end
   end
 
   describe "#begin" do
     it "should forward everything to #get_banner" do
-      console.should_receive("get_banner").with("*", "bright green").at_least(1).and_return("")
+      console.should_receive(:get_banner).with("*", "bright green").at_least(1).and_return("")
       console.begin("OK", "\n", true, false, false, false, false, false)
     end
 
     it "should forward everything to #write" do
-      console.should_receive("write").with(/.+/, "B", "C", "D", "E", false)
+      console.should_receive(:write).with(/.+/, "B", "C", "D", "E", false)
       console.begin("A", "B", "C", "D", "E", "F", "G", false)
     end
   end
 
   describe "#warn" do
     it "should forward everything to #get_banner" do
-      console.should_receive("get_banner").with(" WARN", "bright yellow", false).at_least(1).and_return("")
+      console.should_receive(:get_banner).with(" WARN", "bright yellow", false).at_least(1).and_return("")
       console.warn("OK", "\n", true, false, false, false, false, false)
-      console.should_receive("get_banner").with(" WARN", "bright yellow", true).at_least(1).and_return("")
+      console.should_receive(:get_banner).with(" WARN", "bright yellow", true).at_least(1).and_return("")
       console.warn("OK", "\n", true, false, false, false, true, false)
     end
 
     it "should forward everything to #write" do
-      console.should_receive("write").with(/.+/, "B", "C", "D", "E", false)
+      console.should_receive(:write).with(/.+/, "B", "C", "D", "E", false)
       console.warn("A", "B", "C", "D", "E", "F", "G", false)
     end
   end
 
   describe "#error" do
     it "should forward everything to #get_banner" do
-      console.should_receive("get_banner").with("ERROR", "bright red", false).at_least(1).and_return("")
+      console.should_receive(:get_banner).with("ERROR", "bright red", false).at_least(1).and_return("")
       console.error("OK", "\n", true, false, false, false, false, false)
-      console.should_receive("get_banner").with("ERROR", "bright red", true).at_least(1).and_return("")
+      console.should_receive(:get_banner).with("ERROR", "bright red", true).at_least(1).and_return("")
       console.error("OK", "\n", true, false, false, false, true, false)
     end
 
     it "should forward everything to #write" do
-      console.should_receive("write").with(/.+/, "B", "C", "D", "E", false)
+      console.should_receive(:write).with(/.+/, "B", "C", "D", "E", false)
       console.error("A", "B", "C", "D", "E", "F", "G", false)
     end
   end
 
   describe "#fatal" do
     it "should forward anything to #error" do
-      Kernel.stub(:abort).and_return(true)
-      console.should_receive("error").with("A", "B", "C", "D", "E", "F", "G", false)
+      Kernel.stub(:exit).and_return(true)
+      console.should_receive(:error).with("A", "B", "C", "D", "E", "F", "G", false)
       console.fatal("A", "B", "C", "D", "E", "F", "G", "H", false)
     end
 
     it "should call abort with the right error code" do
-      Kernel.stub(:abort).and_return(true)
+      Kernel.stub(:exit).and_return(true)
 
-      Kernel.should_receive("abort").with(-1).at_least(1)
+      Kernel.should_receive(:exit).with(-1).exactly(2)
       console.fatal("A", "B", "C", "D", "E", "F", "G", -1, false)
-      Kernel.should_receive("abort").with("H").at_least(1)
       console.fatal("A", "B", "C", "D", "E", "F", "G", "H", false)
     end
   end
 
   describe "#debug" do
     it "should forward everything to #get_banner" do
-      console.should_receive("get_banner").with("DEBUG", "bright magenta", false).at_least(1).and_return("")
+      console.should_receive(:get_banner).with("DEBUG", "bright magenta", false).at_least(1).and_return("")
       console.debug("OK", "\n", true, false, false, false, false, false)
-      console.should_receive("get_banner").with("DEBUG", "bright magenta", true).at_least(1).and_return("")
+      console.should_receive(:get_banner).with("DEBUG", "bright magenta", true).at_least(1).and_return("")
       console.debug("OK", "\n", true, false, false, false, true, false)
     end
 
     it "should forward everything to #write" do
-      console.should_receive("write").with(/.+/, "B", "C", "D", "E", false)
+      console.should_receive(:write).with(/.+/, "B", "C", "D", "E", false)
       console.debug("A", "B", "C", "D", "E", "F", "G", false)
     end
   end
@@ -288,19 +287,19 @@ describe Bovem::Console do
       expect(console.status(:pass, false, true, false)).to eq({:label => "PASS", :color => "bright cyan"})
       expect(console.status(:warn, false, true, false)).to eq({:label => "WARN", :color => "bright yellow"})
       expect(console.status(:fail, false, true, false)).to eq({:label => "FAIL", :color => "bright red"})
-      expect(console.status("NO", false, true, false)).to eq({:label => "PASS", :color => "bright cyan"})
-      expect(console.status(nil, false, true, false)).to eq({:label => "PASS", :color => "bright cyan"})
+      expect(console.status("NO", false, true, false)).to eq({:label => " OK ", :color => "bright green"})
+      expect(console.status(nil, false, true, false)).to eq({:label => " OK ", :color => "bright green"})
     end
 
     it "should create the banner" do
-      console.should_receive("get_banner").with(" OK ", "bright green").and_return("")
+      console.should_receive(:get_banner).with(" OK ", "bright green").and_return("")
       console.status(:ok)
     end
 
     it "should format correctly" do
-      console.should_receive("format_right").with(/.+/, true, true, false)
+      console.should_receive(:format_right).with(/.+/, true, true, false)
       console.status(:ok, false, true)
-      console.should_receive("format").with(/.+/, "\n", true, true, false)
+      console.should_receive(:format).with(/.+/, "\n", true, true, false)
       console.status(:ok, false, true, false)
     end
   end
@@ -308,9 +307,9 @@ describe Bovem::Console do
   describe "#read" do
     it "should show a prompt" do
       prompt = "PROMPT"
-      Kernel.should_receive("print").with("Please insert a value: ")
+      Kernel.should_receive(:print).with("Please insert a value: ")
       console.read(true)
-      Kernel.should_receive("print").with(prompt + ": ")
+      Kernel.should_receive(:print).with(prompt + ": ")
       console.read(prompt)
       Kernel.should_not_receive("print")
       console.read(nil)
@@ -340,7 +339,7 @@ describe Bovem::Console do
         end
       end
 
-      console.should_receive("write").with("Sorry, your reply was not understood. Please try again.", false, false).exactly(4)
+      console.should_receive(:write).with("Sorry, your reply was not understood. Please try again.", false, false).exactly(4)
       count = 0
       console.read(nil, nil, "A")
       count = 0
@@ -363,25 +362,25 @@ describe Bovem::Console do
         end
       end
 
-      console.should_receive("write").with("Sorry, your reply was not understood. Please try again.", false, false)
+      console.should_receive(:write).with("Sorry, your reply was not understood. Please try again.", false, false)
       console.read(nil, nil, /[abc]/)
     end
 
     it "should hide echo to the user when the terminal shows echo" do
       stty = %x{which stty}.strip
 
-      ::Bovem::Console.should_receive("execute").with("which stty").and_return(stty)
-      ::Bovem::Console.should_receive("execute").with(stty).and_return("speed 9600 baud;\nlflags: echoe echoke echoctl pendin\niflags: iutf8\noflags: -oxtabs\ncflags: cs8 -parenb")
-      ::Bovem::Console.should_receive("execute").with("#{stty} -echo")
-      ::Bovem::Console.should_receive("execute").with("#{stty} echo")
+      ::Bovem::Console.should_receive(:execute).with("which stty").and_return(stty)
+      ::Bovem::Console.should_receive(:execute).with(stty).and_return("speed 9600 baud;\nlflags: echoe echoke echoctl pendin\niflags: iutf8\noflags: -oxtabs\ncflags: cs8 -parenb")
+      ::Bovem::Console.should_receive(:execute).with("#{stty} -echo")
+      ::Bovem::Console.should_receive(:execute).with("#{stty} echo")
       console.read(nil, nil, nil, false)
     end
 
     it "shouldn't hide echo again when the terminal already hides it" do
       stty = %x{which stty}.strip
 
-      ::Bovem::Console.should_receive("execute").with("which stty").and_return(stty)
-      ::Bovem::Console.should_receive("execute").with(stty).and_return("speed 9600 baud;\nlflags: -echo echoe echoke echoctl pendin\niflags: iutf8\noflags: -oxtabs\ncflags: cs8 -parenb")
+      ::Bovem::Console.should_receive(:execute).with("which stty").and_return(stty)
+      ::Bovem::Console.should_receive(:execute).with(stty).and_return("speed 9600 baud;\nlflags: -echo echoe echoke echoctl pendin\niflags: iutf8\noflags: -oxtabs\ncflags: cs8 -parenb")
       ::Bovem::Console.should_not_receive("execute").with("#{stty} -echo")
       ::Bovem::Console.should_not_receive("execute").with("#{stty} echo")
       console.read(nil, nil, nil, false)
@@ -395,13 +394,13 @@ describe Bovem::Console do
     end
 
     it "should print the message and indentate correctly" do
-      console.should_receive("begin").with("A", "B", "C", "D", "E", "F", "G")
-      console.should_receive("with_indentation").with("H", "I")
+      console.should_receive(:begin).with("A", "B", "C", "D", "E", "F", "G")
+      console.should_receive(:with_indentation).with("H", "I")
       console.task("A", "B", "C", "D", "E", "F", "G", "H", "I") { :ok }
     end
 
     it "should execute the given block" do
-      ::Bovem::Console.should_receive("foo")
+      ::Bovem::Console.should_receive(:foo)
       console.task { ::Bovem::Console.foo }
     end
 

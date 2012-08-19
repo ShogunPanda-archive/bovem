@@ -6,6 +6,8 @@
 
 require "logger"
 require "lazier"
+require "open4"
+require "find"
 
 Lazier.load!(:object)
 
@@ -14,3 +16,4 @@ require "bovem/errors"
 require "bovem/configuration"
 require "bovem/logger"
 require "bovem/console"
+require "bovem/shell"

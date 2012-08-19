@@ -22,6 +22,7 @@ Gem::Specification.new do |gem|
   gem.require_paths = ["lib"]
 
   gem.add_dependency("lazier", "~> 1.0")
+  gem.add_dependency("open4", "~> 1.3.0")
 
   gem.add_development_dependency("rspec", "~> 2.11.0")
   gem.add_development_dependency("rake", "~> 0.9.0")
