@@ -29,9 +29,10 @@ module Bovem
     # @param run [Boolean] If `false`, it will just print a message with the full command that will be run.
     # @param show_exit [Boolean] If show the exit status.
     # @param show_output [Boolean] If show command output.
+    # @param show_command [Boolean] If show the command that will be run.
     # @param fatal [Boolean] If quit in case of fatal errors.
     # @return [Hash] An hash with `status` and `output` keys.
-    def run(command, message = nil, run = true, show_exit = true, show_output = false, fatal = true)
+    def run(command, message = nil, run = true, show_exit = true, show_output = false, show_command = false, fatal = true)
       rv = {:status => 0, :output => ""}
       command = command.ensure_string
 
@@ -45,6 +46,7 @@ module Bovem
       else # Run
         output = ""
 
+        self.console.info("Running command: {mark=bright}\"#{command}\"{/mark}...") if show_command
         rv[:status] = ::Open4::open4(command + " 2>&1") { |pid, stdin, stdout, stderr|
           stdout.each_line do |line|
             output << line

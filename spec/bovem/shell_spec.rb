@@ -39,7 +39,12 @@ describe Bovem::Shell do
       shell.run("echo OK", nil, true, false)
     end
 
-    it "should only print the command" do
+    it "should print the command line" do
+      shell.console.should_receive("info").with("Running command: {mark=bright}\"echo OK\"{/mark}...")
+      shell.run("echo OK", nil, true, false, false, true)
+    end
+
+    it "should only print the command if requested to" do
       shell.console.should_receive("warn").with("Will run command: {mark=bright}\"echo OK\"{/mark}...")
       ::Open4.should_not_receive("open4")
       shell.run("echo OK", nil, false, false)
@@ -55,7 +60,7 @@ describe Bovem::Shell do
       shell.console.should_receive(:status).with(:ok)
       shell.run("echo OK", nil, true, true)
       shell.console.should_receive(:status).with(:fail)
-      shell.run("echo1 OK", nil, true, true, false, false)
+      shell.run("echo1 OK", nil, true, true, false, false, false)
     end
 
     it "should print output" do
@@ -64,7 +69,7 @@ describe Bovem::Shell do
     end
 
     it "should raise a exception for failures" do
-      expect { shell.run("echo1 OK", nil, true, false, false, false) }.to_not raise_error(SystemExit)
+      expect { shell.run("echo1 OK", nil, true, false, false, false, false) }.to_not raise_error(SystemExit)
       expect { shell.run("echo1 OK", nil, true, false, false) }.to raise_error(SystemExit)
     end
   end

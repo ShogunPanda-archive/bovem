@@ -54,14 +54,14 @@ describe Bovem::Console do
   describe "#initialize" do
     it "should correctly set defaults" do
       expect(console.indentation).to eq(0)
-      expect(console.line_width).to eq(80)
+      expect(console.line_width).to eq(`tput cols`.to_integer)
       expect(console.indentation_string).to eq(" ")
     end
   end
 
   describe "#get_screen_width" do
     it "should execute tput cols" do
-      ::Bovem::Console.should_receive(:execute).with("tput cols")
+      ::Bovem::Console.should_receive(:execute).with("tput cols").at_least(1)
       console.get_screen_width
     end
 
@@ -372,6 +372,7 @@ describe Bovem::Console do
       Kernel.stub(:gets).and_return("VALUE\n")
       stty = %x{which stty}.strip
 
+      ::Bovem::Console.should_receive(:execute).with("tput cols").and_return(80)
       ::Bovem::Console.should_receive(:execute).with("which stty").and_return(stty)
       ::Bovem::Console.should_receive(:execute).with(stty).and_return("speed 9600 baud;\nlflags: echoe echoke echoctl pendin\niflags: iutf8\noflags: -oxtabs\ncflags: cs8 -parenb")
       ::Bovem::Console.should_receive(:execute).with("#{stty} -echo")

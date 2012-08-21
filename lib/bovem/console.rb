@@ -140,7 +140,7 @@ module Bovem
 
     # Initializes a new Console.
     def initialize
-      @line_width = 80
+      @line_width = self.get_screen_width
       @indentation = 0
       @indentation_string = " "
     end
@@ -149,7 +149,7 @@ module Bovem
     #
     # @return [Fixnum] The screen width.
     def get_screen_width
-      ::Bovem::Console.execute("tput cols").to_integer
+      ::Bovem::Console.execute("tput cols").to_integer(80)
     end
 
     # Sets the new indentation width.
@@ -193,7 +193,7 @@ module Bovem
       if width.to_integer <= 0 then
         message
       else
-        width = (width == true || width.to_integer < 0 ? @line_width : width.to_integer)
+        width = (width == true || width.to_integer < 0 ? self.get_screen_width : width.to_integer)
 
         message.split("\n").collect { |line|
           line.length > width ? line.gsub(/(.{1,#{width}})(\s+|$)/, "\\1\n").strip : line
@@ -247,10 +247,23 @@ module Bovem
       rv = message
 
       rv = self.replace_markers(rv, plain) # Replace markers
+
+      # Compute the real width available for the screen, if we both indent and wrap
+      if wrap == true then
+        wrap = @line_width
+
+        if indent == true then
+          wrap -= self.indentation
+        else
+          indent_i = indent.to_integer
+          wrap -= (indent_i > 0 ? self.indentation : 0) + indent_i
+        end
+      end
+
       rv = self.wrap(rv, wrap) # Wrap
       rv = self.indent(rv, indent) # Indent
 
-      rv += suffix if suffix # Add the suffix
+      rv += suffix.ensure_string if suffix # Add the suffix
       rv
     end
 
