@@ -8,6 +8,7 @@ require "logger"
 require "lazier"
 require "open4"
 require "find"
+require "fileutils"
 
 Lazier.load!(:object)
 

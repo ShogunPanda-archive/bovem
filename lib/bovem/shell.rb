@@ -264,7 +264,7 @@ module Bovem
 
       if self.check(directory, [:directory, :executable]) then
         begin
-          self.console.info("Moving into directory {mark=bright}#{directory}{/mark}")
+          self.console.info("Moving into directory {mark=bright}#{directory}{/mark}") if show_messages
           Dir.chdir(directory)
           rv = true
         rescue Exception => e
@@ -275,7 +275,7 @@ module Bovem
 
       if rv && original then
         begin
-          self.console.info("Moving back into directory {mark=bright}#{original}{/mark}")
+          self.console.info("Moving back into directory {mark=bright}#{original}{/mark}") if show_messages
           Dir.chdir(original) if restore
         rescue Exception => e
           rv = false
