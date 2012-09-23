@@ -51,6 +51,12 @@ describe Bovem::Console do
     end
   end
 
+  describe ".min_banner_length" do
+    it "should return a number" do
+      expect(::Bovem::Console.min_banner_length).to be_a(Fixnum)
+    end
+  end
+
   describe "#initialize" do
     it "should correctly set defaults" do
       expect(console.indentation).to eq(0)
@@ -186,6 +192,14 @@ describe Bovem::Console do
     end
   end
 
+  describe "#write_banner_aligned" do
+    it "should call #min_banner_length and #format" do
+      ::Bovem::Console.should_receive(:min_banner_length).and_return(1)
+      console.should_receive(:format).with("    A", "B", "C", "D", "E")
+      console.write_banner_aligned("A", "B", "C", "D", "E")
+    end
+  end
+
   describe "#get_banner" do
     it "should correctly format arguments" do
       expect(console.get_banner("LABEL", "red")).to eq("{mark=blue}[{mark=red}LABEL{/mark}]{/mark}")
@@ -199,9 +213,9 @@ describe Bovem::Console do
 
   describe "#info" do
     it "should forward everything to #get_banner" do
-      console.should_receive(:get_banner).with(" INFO", "bright cyan", false).at_least(1).and_return("")
+      console.should_receive(:get_banner).with("I", "bright cyan", false).at_least(1).and_return("")
       console.info("OK", "\n", true, false, false, false, false, false)
-      console.should_receive(:get_banner).with(" INFO", "bright cyan", true).at_least(1).and_return("")
+      console.should_receive(:get_banner).with("I", "bright cyan", true).at_least(1).and_return("")
       console.info("OK", "\n", true, false, false, false, true, false)
     end
 
@@ -225,9 +239,9 @@ describe Bovem::Console do
 
   describe "#warn" do
     it "should forward everything to #get_banner" do
-      console.should_receive(:get_banner).with(" WARN", "bright yellow", false).at_least(1).and_return("")
+      console.should_receive(:get_banner).with("W", "bright yellow", false).at_least(1).and_return("")
       console.warn("OK", "\n", true, false, false, false, false, false)
-      console.should_receive(:get_banner).with(" WARN", "bright yellow", true).at_least(1).and_return("")
+      console.should_receive(:get_banner).with("W", "bright yellow", true).at_least(1).and_return("")
       console.warn("OK", "\n", true, false, false, false, true, false)
     end
 
@@ -239,9 +253,9 @@ describe Bovem::Console do
 
   describe "#error" do
     it "should forward everything to #get_banner" do
-      console.should_receive(:get_banner).with("ERROR", "bright red", false).at_least(1).and_return("")
+      console.should_receive(:get_banner).with("E", "bright red", false).at_least(1).and_return("")
       console.error("OK", "\n", true, false, false, false, false, false)
-      console.should_receive(:get_banner).with("ERROR", "bright red", true).at_least(1).and_return("")
+      console.should_receive(:get_banner).with("E", "bright red", true).at_least(1).and_return("")
       console.error("OK", "\n", true, false, false, false, true, false)
     end
 
@@ -269,9 +283,9 @@ describe Bovem::Console do
 
   describe "#debug" do
     it "should forward everything to #get_banner" do
-      console.should_receive(:get_banner).with("DEBUG", "bright magenta", false).at_least(1).and_return("")
+      console.should_receive(:get_banner).with("D", "bright magenta", false).at_least(1).and_return("")
       console.debug("OK", "\n", true, false, false, false, false, false)
-      console.should_receive(:get_banner).with("DEBUG", "bright magenta", true).at_least(1).and_return("")
+      console.should_receive(:get_banner).with("D", "bright magenta", true).at_least(1).and_return("")
       console.debug("OK", "\n", true, false, false, false, true, false)
     end
 
@@ -410,10 +424,11 @@ describe Bovem::Console do
     end
 
     it "should write the correct status" do
+      console.stub(:begin)
       console.should_receive(:status).with(:ok, false)
-      console.task { :ok }
+      console.task("OK") { :ok }
       console.should_receive(:status).with(:fail, false)
-      expect { console.task { :fatal }}.to raise_error(SystemExit)
+      expect { console.task("") { :fatal }}.to raise_error(SystemExit)
     end
 
     it "should abort correctly" do

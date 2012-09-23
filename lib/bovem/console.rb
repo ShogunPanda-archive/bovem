@@ -130,6 +130,12 @@ module Bovem
       message
     end
 
+    # Returns the minimum length of a banner, not including brackets and leading spaces.
+    # @return [Fixnum] The minimum length of a banner.
+    def self.min_banner_length
+      1
+    end
+
     # Executes a command and returns its output.
     #
     # @param command [String] The command to execute.
@@ -306,6 +312,21 @@ module Bovem
       rv
     end
 
+    # Writes a message, aligning to a call with an empty banner.
+    #
+    # @param message [String] The message to format.
+    # @param suffix [Object] If not `nil` or `false`, a suffix to add to the message. `true` means to add `\n`.
+    # @param indent [Object] If not `nil` or `false`, the width to use for indentation. `true` means to use the current indentation, a negative value of `-x` will indent of `x` absolute spaces.
+    # @param wrap [Object] If not `nil` or `false`, the maximum length of a line for wrapped text. `true` means the current line width.
+    # @param plain [Boolean] If ignore color markers into the message.
+    # @param print [Boolean] If `false`, the result will be returned instead of be printed.
+    # @return [String] The printed message.
+    #
+    # @see #format
+    def write_banner_aligned(message, suffix = "\n", indent = true, wrap = false, plain = false, print = true)
+      self.write((" " * (::Bovem::Console.min_banner_length + 3)) + message.ensure_string, suffix, indent, wrap, plain, print)
+    end
+
     # Writes a status to the output. Valid values are `:ok`, `:pass`, `:fail`, `:warn`.
     #
     # @param status [Symbol] The status to write.
@@ -348,6 +369,7 @@ module Bovem
     # @return [String] The banner.
     # @see #format
     def get_banner(label, base_color, full_colored = false, bracket_color = "blue", brackets = ["[", "]"])
+      label = label.rjust(Bovem::Console.min_banner_length, " ")
       brackets = brackets.ensure_array
       bracket_color = base_color if full_colored
       "{mark=%s}%s{mark=%s}%s{/mark}%s{/mark}" % [bracket_color.parameterize, brackets[0], base_color.parameterize, label, brackets[1]]
@@ -366,7 +388,7 @@ module Bovem
     #
     # @see #format
     def info(message, suffix = "\n", indent = true, wrap = false, plain = false, indented_banner = false, full_colored = false, print = true)
-      banner = self.get_banner(" INFO", "bright cyan", full_colored)
+      banner = self.get_banner("I", "bright cyan", full_colored)
       message = self.indent(message, indented_banner ? 0 : indent)
       self.write(banner + " " + message, suffix, indented_banner ? indent : 0, wrap, plain, print)
     end
@@ -384,7 +406,7 @@ module Bovem
     #
     # @see #format
     def begin(message, suffix = "\n", indent = true, wrap = false, plain = false, indented_banner = false, full_colored = false, print = true)
-      banner = "    " + self.get_banner("*", "bright green")
+      banner = self.get_banner("*", "bright green")
       message = self.indent(message, indented_banner ? 0 : indent)
       self.write(banner + " " + message, suffix, indented_banner ? indent : 0, wrap, plain, print)
     end
@@ -402,7 +424,7 @@ module Bovem
     #
     # @see #format
     def warn(message, suffix = "\n", indent = true, wrap = false, plain = false, indented_banner = false, full_colored = false, print = true)
-      banner = self.get_banner(" WARN", "bright yellow", full_colored)
+      banner = self.get_banner("W", "bright yellow", full_colored)
       message = self.indent(message, indented_banner ? 0 : indent)
       self.write(banner + " " + message, suffix, indented_banner ? indent : 0, wrap, plain, print)
     end
@@ -420,7 +442,7 @@ module Bovem
     #
     # @see #format
     def error(message, suffix = "\n", indent = true, wrap = false, plain = false, indented_banner = false, full_colored = false, print = true)
-      banner = self.get_banner("ERROR", "bright red", full_colored)
+      banner = self.get_banner("E", "bright red", full_colored)
       message = self.indent(message, indented_banner ? 0 : indent)
       self.write(banner + " " + message, suffix, indented_banner ? indent : 0, wrap, plain, print)
     end
@@ -456,7 +478,7 @@ module Bovem
     #
     # @see #format
     def debug(message, suffix = "\n", indent = true, wrap = false, plain = false, indented_banner = false, full_colored = false, print = true)
-      banner = self.get_banner("DEBUG", "bright magenta", full_colored)
+      banner = self.get_banner("D", "bright magenta", full_colored)
       message = self.indent(message, indented_banner ? 0 : indent)
       self.write(banner + " " + message, suffix, indented_banner ? indent : 0, wrap, plain, print)
     end
@@ -543,7 +565,7 @@ module Bovem
           self.status(:fail, plain)
           exit(rv.length > 1 ? rv[1].to_integer : -1)
         else
-          self.status(status, plain)
+          self.status(status, plain) if message.present?
         end
       end
 

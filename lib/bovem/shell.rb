@@ -342,9 +342,13 @@ module Bovem
 
     # Find a list of files in directories matching given regexps or patterns.
     #
+    # You can also pass a block to perform matching. The block will receive a single argument and the path will be considered matched if the blocks not evaluates to `nil` or `false`.
+    #
+    # Inside the block, you can call `Find.prune` to stop searching in the current directory.
+    #
     # @param directories [String] A list of directories where to search files.
-    # @param patterns [Array] A list of regexps or patterns to match files. If empty, every file is returned.
-    # @param by_extension [Boolean] If to only search in extensions.
+    # @param patterns [Array] A list of regexps or patterns to match files. If empty, every file is returned. Ignored if a block is provided.
+    # @param by_extension [Boolean] If to only search in extensions. Ignored if a block is provided.
     # @param case_sensitive [Boolean] If the search is case sensitive. Only meaningful for string patterns.
     def find(directories, patterns = [], by_extension = false, case_sensitive = false)
       rv = []
@@ -361,8 +365,12 @@ module Bovem
         if self.check(directory, [:directory, :readable, :executable]) then
           Find.find(directory) do |entry|
             found = patterns.blank? ? true : catch(:found) do
-              patterns.each do |pattern|
-                throw(:found, true) if pattern.match(entry) && (!by_extension || !File.directory?(entry))
+              if block_given? then
+                throw(:found, true) if yield(entry)
+              else
+                patterns.each do |pattern|
+                  throw(:found, true) if pattern.match(entry) && (!by_extension || !File.directory?(entry))
+                end
               end
 
               false

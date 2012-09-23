@@ -474,5 +474,20 @@ describe Bovem::Shell do
       expect(shell.find(root + "/lib/bovem", /bovem/, true)).to eq([])
       expect(shell.find(root + "/lib/bovem", "RB", true, true)).to eq([])
     end
+
+    it "should filter files basing using a block" do
+      files = []
+
+      Find.find(root + "/lib/bovem/") do |file|
+        files << file if !File.directory?(file)
+      end
+
+      expect(shell.find(root + "/lib/bovem", /rb/, true) { |file|
+        !File.directory?(file)
+      }).to eq(files)
+      expect(shell.find(root + "/lib/bovem", /bovem/, true) { |file|
+        false
+      }).to eq([])
+    end
   end
 end
