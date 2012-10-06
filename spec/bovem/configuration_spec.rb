@@ -14,13 +14,17 @@ describe Bovem::Configuration do
   let(:log_file) { "/tmp/bovem-test-log-#{Time.now.strftime("%Y%m%d-%H:%M:%S")}" }
   let(:test_prefix) { "/tmp/bovem-test-#{Time.now.strftime("%Y%m%d-%H:%M:%S")}" }
 
-  describe "#initialize" do
+  describe "#parse" do
     it "reads a valid configuration file" do
       file = ::File.open("#{test_prefix}", "w") {|f| f.write("config.property = 1234") }
 
       config = BaseConfiguration.new(test_prefix)
       expect(config.property).to eq(1234)
       File.unlink(test_prefix)
+    end
+
+    it "reject a missing or unreadable file" do
+      expect { config = BaseConfiguration.new("/non-existing")}.to raise_error(::Bovem::Errors::InvalidConfiguration)
     end
 
     it "reject an invalid configuration" do

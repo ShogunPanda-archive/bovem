@@ -45,17 +45,22 @@ module Bovem
     # @param logger [Logger] The logger to use for notifications.
     # @param overrides [Hash] A set of values which override those set in the configuration file.
     def parse(file = nil, overrides = {}, logger = nil)
-      if file.present? then
-        begin
-          # Open the file
-          path = ::Pathname.new(file).realpath
-          logger.info("Using configuration file #{path}.") if logger
-          self.tap do |config|
-            eval(::File.read(path))
+      file = file.present? ? File.expand_path(file) : nil
+
+      if file then # We have a file to parse
+        if File.readable?(file) then
+          begin
+            # Open the file
+            path = ::Pathname.new(file).realpath
+            logger.info("Using configuration file #{path}.") if logger
+            self.tap do |config|
+              eval(::File.read(path))
+            end
+          rescue ::Exception => e
+            raise Bovem::Errors::InvalidConfiguration.new("Config file #{file} is not valid.")
           end
-        rescue ::Errno::ENOENT, ::LoadError
-        rescue ::Exception => e
-          raise Bovem::Errors::InvalidConfiguration.new("Config file #{file} is not valid.")
+        else
+          raise Bovem::Errors::InvalidConfiguration.new("Config file #{file} is not existing or not readable.")
         end
       end
 
