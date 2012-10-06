@@ -1,20 +1,6 @@
-*.gem
-*.rbc
-.bundle
-.config
-coverage
-lib/bundler/man
-pkg
-rdoc
-spec/reports
-
-# YARD artifacts
-.yardoc
-_yardoc
-doc/
-
-# RubyMine
-.idea/
-
-# Misc
+Gemfile.lock
 tester.rb
+coverage/
+pkg/
+.idea/
+.yardoc/

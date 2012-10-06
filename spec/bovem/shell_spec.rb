@@ -52,7 +52,7 @@ describe Bovem::Shell do
 
     it "should only execute a command" do
       shell.console.should_not_receive("warn").with("Will run command: {mark=bright}\"echo OK\"{/mark}...")
-      ::Open4.should_receive("open4").and_return(::OpenStruct.new(:exitstatus => 0))
+      ::Open4.should_receive("popen4").and_return(::OpenStruct.new(:exitstatus => 0))
       shell.run("echo OK", nil, true, false)
     end
 
@@ -226,7 +226,7 @@ describe Bovem::Shell do
 
     it "should only print the list of files" do
       FileUtils.should_not_receive(:cp_r)
-      FileUtils.should_not_receive(:move)
+      FileUtils.should_not_receive(:mv)
 
       shell.console.should_receive(:warn).with("Will copy a file:")
       expect(shell.copy_or_move(temp_file_1, temp_file_2, :copy, false)).to be_true
@@ -251,7 +251,7 @@ describe Bovem::Shell do
 
     it "should complain about other exceptions" do
       FileUtils.stub(:cp_r).and_raise(ArgumentError.new("ERROR"))
-      FileUtils.stub(:move).and_raise(ArgumentError.new("ERROR"))
+      FileUtils.stub(:mv).and_raise(ArgumentError.new("ERROR"))
       File.open(temp_file_1, "w") {|f| f.write("OK") }
 
       shell.console.should_receive(:error).with("Cannot copy file {mark=bright}#{temp_file_1}{/mark} to directory {mark=bright}#{File.dirname(temp_file_2)}{/mark} due to this error: [ArgumentError] ERROR.", "\n", 5)
@@ -264,7 +264,7 @@ describe Bovem::Shell do
     describe "should exit when requested to" do
       it "by calling :fatal" do
         FileUtils.stub(:cp_r).and_raise(ArgumentError.new("ERROR"))
-        FileUtils.stub(:move).and_raise(ArgumentError.new("ERROR"))
+        FileUtils.stub(:mv).and_raise(ArgumentError.new("ERROR"))
 
         File.open(temp_file_1, "w") {|f| f.write("OK") }
         File.open(temp_file_2, "w") {|f| f.write("OK") }

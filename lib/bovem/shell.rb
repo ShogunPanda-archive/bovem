@@ -47,7 +47,7 @@ module Bovem
         output = ""
 
         self.console.info("Running command: {mark=bright}\"#{command}\"{/mark}...") if show_command
-        rv[:status] = ::Open4::open4(command + " 2>&1") { |pid, stdin, stdout, stderr|
+        rv[:status] = ::Open4::popen4(command + " 2>&1") { |pid, stdin, stdout, stderr|
           stdout.each_line do |line|
             output << line
             Kernel.print line if show_output
@@ -192,7 +192,7 @@ module Bovem
 
           # Do operation
           begin
-            FileUtils.send(operation == :move ? :move : :cp_r, src, dst, {:noop => false, :verbose => false})
+            FileUtils.send(operation == :move ? :mv : :cp_r, src, dst, {:noop => false, :verbose => false})
           rescue Errno::EACCES => e
             if single then
               @console.send(fatal ? :fatal : :error, "Cannot #{operation} file {mark=bright}#{src}{/mark} to non writable directory {mark=bright}#{dst_dir}{/mark}.")
