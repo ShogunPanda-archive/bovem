@@ -514,7 +514,7 @@ module Bovem
               $stdout.flush
             end
 
-            reply = Kernel.gets.chop
+            reply = $stdin.gets.chop
             reply = default_value if reply.empty?
 
             # Match against the validator

@@ -320,7 +320,7 @@ describe Bovem::Console do
 
   describe "#read" do
     it "should show a prompt" do
-      Kernel.stub(:gets).and_return("VALUE\n")
+      $stdin.stub(:gets).and_return("VALUE\n")
 
       prompt = "PROMPT"
       Kernel.should_receive(:print).with("Please insert a value: ")
@@ -332,21 +332,21 @@ describe Bovem::Console do
     end
 
     it "should read a value or a default" do
-      Kernel.stub(:gets).and_return("VALUE\n")
+      $stdin.stub(:gets).and_return("VALUE\n")
       expect(console.read(nil, "DEFAULT")).to eq("VALUE")
-      Kernel.stub(:gets).and_return("\n")
+      $stdin.stub(:gets).and_return("\n")
       expect(console.read(nil, "DEFAULT")).to eq("DEFAULT")
     end
 
     it "should return the default value if the user quits" do
-      Kernel.stub(:gets).and_raise(Interrupt)
+      $stdin.stub(:gets).and_raise(Interrupt)
       expect(console.read(nil, "DEFAULT")).to eq("DEFAULT")
     end
 
     it "should validate against an object or array validator" do
       count = 0
 
-      Kernel.stub(:gets) do
+      $stdin.stub(:gets) do
         if count == 0 then
           count += 1
           "2\n"
@@ -369,7 +369,7 @@ describe Bovem::Console do
     it "should validate against an regexp validator" do
       count = 0
 
-      Kernel.stub(:gets) do
+      $stdin.stub(:gets) do
         if count == 0 then
           count += 1
           "2\n"
@@ -383,7 +383,7 @@ describe Bovem::Console do
     end
 
     it "should hide echo to the user when the terminal shows echo" do
-      Kernel.stub(:gets).and_return("VALUE\n")
+      $stdin.stub(:gets).and_return("VALUE\n")
       stty = %x{which stty}.strip
 
       ::Bovem::Console.should_receive(:execute).with("tput cols").and_return(80)
@@ -395,7 +395,7 @@ describe Bovem::Console do
     end
 
     it "shouldn't hide echo again when the terminal already hides it" do
-      Kernel.stub(:gets).and_return("VALUE\n")
+      $stdin.stub(:gets).and_return("VALUE\n")
       stty = %x{which stty}.strip
 
       ::Bovem::Console.should_receive(:execute).with("which stty").and_return(stty)
