@@ -43,34 +43,40 @@ describe Bovem::Logger do
       buffer.string.split("\n").last.strip.gsub(/ T\+\d+\.\d+/, "")
     end
 
+    before(:each) do
+      now = Time.now
+      Time.stub(:now).and_return(now)
+      @time = now.strftime("%Y/%b/%d %H:%M:%S")
+    end
+
     it "should correctly format a DEBUG message" do
       logger.debug("Message.")
-      expect(get_last_line(output)).to eq("\e[1m\e[36m[#{::Time.now.strftime("%Y/%b/%d %H:%M:%S")}] DEBUG:\e[0m Message.")
+      expect(get_last_line(output)).to eq("\e[1m\e[36m[#{@time}] DEBUG:\e[0m Message.")
     end
 
     it "should correctly format a INFO message" do
       logger.info("Message.")
-      expect(get_last_line(output)).to eq("\e[1m\e[32m[#{::Time.now.strftime("%Y/%b/%d %H:%M:%S")}]  INFO:\e[0m Message.")
+      expect(get_last_line(output)).to eq("\e[1m\e[32m[#{@time}]  INFO:\e[0m Message.")
     end
 
     it "should correctly format a WARN message" do
       logger.warn("Message.")
-      expect(get_last_line(output)).to eq("\e[1m\e[33m[#{::Time.now.strftime("%Y/%b/%d %H:%M:%S")}]  WARN:\e[0m Message.")
+      expect(get_last_line(output)).to eq("\e[1m\e[33m[#{@time}]  WARN:\e[0m Message.")
     end
 
     it "should correctly format a ERROR message" do
       logger.error("Message.")
-      expect(get_last_line(output)).to eq("\e[1m\e[31m[#{::Time.now.strftime("%Y/%b/%d %H:%M:%S")}] ERROR:\e[0m Message.")
+      expect(get_last_line(output)).to eq("\e[1m\e[31m[#{@time}] ERROR:\e[0m Message.")
     end
 
     it "should correctly format a FATAL message" do
       logger.fatal("Message.")
-      expect(get_last_line(output)).to eq("\e[1m\e[35m[#{::Time.now.strftime("%Y/%b/%d %H:%M:%S")}] FATAL:\e[0m Message.")
+      expect(get_last_line(output)).to eq("\e[1m\e[35m[#{@time}] FATAL:\e[0m Message.")
     end
 
     it "should correctly format a INVALID message" do
       logger.log(::Logger::UNKNOWN, "Message.")
-      expect(get_last_line(output)).to eq("\e[1m\e[37m[#{::Time.now.strftime("%Y/%b/%d %H:%M:%S")}]   ANY:\e[0m Message.")
+      expect(get_last_line(output)).to eq("\e[1m\e[37m[#{@time}]   ANY:\e[0m Message.")
     end
   end
 
