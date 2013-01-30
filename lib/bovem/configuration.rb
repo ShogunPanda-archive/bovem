@@ -49,29 +49,21 @@ module Bovem
     def parse(file = nil, overrides = {}, logger = nil)
       file = file.present? ? File.expand_path(file) : nil
 
-      if file then # We have a file to parse
-        if File.readable?(file) then
-          begin
-            # Open the file
-            path = ::Pathname.new(file).realpath
-            logger.info(self.i18n.using(path)) if logger
-            self.tap do |config|
-              eval(::File.read(path))
-            end
-          rescue ::Exception => e
-            raise Bovem::Errors::InvalidConfiguration.new(self.i18n.configuration.invalid(file))
-          end
-        else
-          raise Bovem::Errors::InvalidConfiguration.new(self.i18n.configuration.not_found(file))
+      if file && File.readable?(file) then
+        begin
+          # Open the file
+          path = ::Pathname.new(file).realpath
+          logger.info(self.i18n.using(path)) if logger
+          self.tap {|config| eval(::File.read(path)) }
+        rescue ::Exception => e
+          raise Bovem::Errors::InvalidConfiguration.new(self.i18n.configuration.invalid(file))
         end
+      else
+        raise Bovem::Errors::InvalidConfiguration.new(self.i18n.configuration.not_found(file)) if file
       end
 
       # Apply overrides
-      if overrides.is_a?(::Hash) then
-        overrides.each_pair do |k, v|
-          self.send("#{k}=", v) if self.respond_to?("#{k}=")
-        end
-      end
+      overrides.try(:each_pair) {|k, v| self.try("#{k}=", v) if self.respond_to?("#{k}=") } 
 
       self
     end
