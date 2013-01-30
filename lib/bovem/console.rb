@@ -44,17 +44,24 @@ module Bovem
       if style !~ /^[,-]$/ then
         sym = style.to_sym
 
-        if ::Bovem::TERM_EFFECTS.include?(sym) then
-          "\e[#{Bovem::TERM_EFFECTS[sym]}m"
-        elsif style.index("bg_") == 0 then
-          sym = style[3, style.length].to_sym
-          "\e[#{40 + ::Bovem::TERM_COLORS[sym]}m" if ::Bovem::TERM_COLORS.include?(sym)
-        elsif style != "reset" then
-          "\e[#{30 + ::Bovem::TERM_COLORS[sym]}m" if ::Bovem::TERM_COLORS.include?(sym)
-        end
+        ::Bovem::Console.replace_term_code(Bovem::TERM_EFFECTS, style, 0) ||
+        ::Bovem::Console.replace_term_code(Bovem::TERM_COLORS, style, 30) ||
+        ::Bovem::Console.replace_term_code(Bovem::TERM_COLORS, style.gsub(/^bg_/, ""), 40) ||
+        ""
       else
         ""
       end
+    end
+
+    # Replaces a terminal code.
+    #
+    # @param codes [Array] The valid list of codes.
+    # @param code [String] The code to lookup.
+    # @param modifier [Fixnum] The modifier to apply to the code.
+    # @return [String|nil] The terminal code or `nil` if the code was not found.
+    def self.replace_term_code(codes, code, modifier = 0)
+      sym = code.to_sym
+      codes.include?(sym) ? "\e[#{modifier + codes[sym]}m" : nil
     end
 
     # Replaces colors markers in a string.
@@ -78,7 +85,8 @@ module Bovem
 
       message.ensure_string.gsub(/((\{mark=([a-z\-_\s,]+)\})|(\{\/mark\}))/mi) do
         if $1 == "{/mark}" then # If it is a tag, pop from the latest opened.
-          plain || !stack.pop ? "" : stack.last.split(split_regex).collect { |s| self.parse_style(s) }.join("")
+          stack.pop
+          plain || stack.blank? ? "" : stack.last.split(split_regex).collect { |s| self.parse_style(s) }.join("")
         else
           styles = $3
           replacement = plain ? "" : styles.split(split_regex).collect { |s| self.parse_style(s) }.join("")
