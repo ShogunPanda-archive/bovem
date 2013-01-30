@@ -77,10 +77,9 @@ module Bovem
       stack = []
       split_regex = /\s*[\s,-]\s*/
 
-      message = message.ensure_string.gsub(/((\{mark=([a-z\-_\s,]+)\})|(\{\/mark\}))/mi) do
+      message.ensure_string.gsub(/((\{mark=([a-z\-_\s,]+)\})|(\{\/mark\}))/mi) do
         if $1 == "{/mark}" then # If it is a tag, pop from the latest opened.
-          stack.pop
-          plain || stack.blank? ? "" : stack.last.split(split_regex).collect { |s| self.parse_style(s) }.join("")
+          plain || !stack.pop ? "" : stack.last.split(split_regex).collect { |s| self.parse_style(s) }.join("")
         else
           styles = $3
           replacement = plain ? "" : styles.split(split_regex).collect { |s| self.parse_style(s) }.join("")
@@ -93,8 +92,6 @@ module Bovem
           replacement
         end
       end
-
-      message
     end
 
     # Returns the minimum length of a banner, not including brackets and leading spaces.
