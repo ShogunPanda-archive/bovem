@@ -1,56 +1,29 @@
 # encoding: utf-8
 #
-# This file is part of the bovem gem. Copyright (C) 2012 and above Shogun <shogun_panda@me.com>.
+# This file is part of the bovem gem. Copyright (C) 2013 and above Shogun <shogun_panda@me.com>.
 # Licensed under the MIT license, which can be found at http://www.opensource.org/licenses/mit-license.php.
 #
 
 module Bovem
   # List of valid terminal colors.
-  TERM_COLORS = {
-    :black => 0,
-    :red => 1,
-    :green => 2,
-    :yellow => 3,
-    :blue => 4,
-    :magenta => 5,
-    :cyan => 6,
-    :white => 7,
-    :default => 9,
-  }
+  TERM_COLORS = { black: 0, red: 1, green: 2, yellow: 3, blue: 4, magenta: 5,  cyan: 6, white: 7, default: 9}
 
   # List of valid terminal text effects.
-  TERM_EFFECTS = {
-    :reset => 0,
-    :bright => 1,
-    :italic => 3,
-    :underline => 4,
-    :blink => 5,
-    :inverse => 7,
-    :hide => 8,
-  }
+  TERM_EFFECTS = { reset: 0, bright: 1, italic: 3, underline: 4, blink: 5, inverse: 7, hide: 8 }
 
   # This is a text utility wrapper console I/O.
+  #
+  # @attr [Fixnum] line_width The line width. Default to `80`.
+  # @attr [Fixnum] screen_width The current screen width.
+  # @attr [Fixnum] indentation Current indentation width.
+  # @attr [String] indentation_string The string used for indentation.
   class Console
-    # The line width. Default to `80`.
     attr_accessor :line_width
-
-    # The current screen width.
     attr_accessor :screen_width
-
-    # Current indentation width.
     attr_accessor :indentation
-
-    # The string used for indentation.
     attr_accessor :indentation_string
 
-    # Whether to show executed commands.
-    # attr_accessor :show_commands
-
-    # Whether to show output of executed commands.
-    # attr_accessor :show_outputs
-
-    # Whether to simply print commands rather than executing them.
-    # attr_accessor :skip_commands
+    include Lazier::I18n
 
     # Returns a unique instance for Console.
     #
@@ -149,6 +122,7 @@ module Bovem
       @line_width = self.get_screen_width
       @indentation = 0
       @indentation_string = " "
+      self.i18n_setup(:bovem, ::File.absolute_path(::Pathname.new(::File.dirname(__FILE__)).to_s + "/../../locales/"))
     end
 
     # Gets the current screen width.
@@ -337,10 +311,10 @@ module Bovem
     # @return [Array] An dictionary with `:label` and `:color` keys for the status.
     def status(status, plain = false, go_up = true, right = true, print = true)
       statuses = {
-        :ok => {:label => " OK ", :color => "bright green"},
-        :pass => {:label => "PASS", :color => "bright cyan"},
-        :warn => {:label => "WARN", :color => "bright yellow"},
-        :fail => {:label => "FAIL", :color => "bright red"}
+        ok: {label: " OK ", color: "bright green"},
+        pass: {label: "PASS", color: "bright cyan"},
+        warn: {label: "WARN", color: "bright yellow"},
+        fail: {label: "FAIL", color: "bright red"}
       }
       statuses.default = statuses[:ok]
 
@@ -491,7 +465,7 @@ module Bovem
     # @param echo [Boolean] If to show submitted text to the user.
     def read(prompt = true, default_value = nil, validator = nil, echo = true)
       # Write the prompt
-      prompt = "Please insert a value" if prompt == true
+      prompt = self.i18n.console.prompt if prompt == true
       final_prompt = !prompt.nil? ? prompt.gsub(/:?\s*$/, "") + ": " : nil
 
       # Adjust validator
@@ -527,7 +501,7 @@ module Bovem
             end
 
             if !valid then
-              self.write("Sorry, your reply was not understood. Please try again.", false, false)
+              self.write(self.i18n.console.unknown_reply, false, false)
             else
               throw(:reply, reply)
             end

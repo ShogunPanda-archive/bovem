@@ -1,13 +1,17 @@
 # encoding: utf-8
 #
-# This file is part of the bovem gem. Copyright (C) 2012 and above Shogun <shogun_panda@me.com>.
+# This file is part of the bovem gem. Copyright (C) 2013 and above Shogun <shogun_panda@me.com>.
 # Licensed under the MIT license, which can be found at http://www.opensource.org/licenses/mit-license.php.
 #
 
 require "spec_helper"
 
 describe Bovem::Shell do
-  let(:shell) { ::Bovem::Shell.new }
+  let(:shell) {
+    s = ::Bovem::Shell.new
+    s.i18n = :en
+    s
+  }
   let(:temp_file_1) { "/tmp/bovem-test-1-#{Time.now.strftime("%Y%m%d-%H%M%S")}" }
   let(:temp_file_2) { "/tmp/bovem-test-2-#{Time.now.strftime("%Y%m%d-%H%M%S")}" }
   let(:temp_file_3) { "/tmp/bovem-test-3-#{Time.now.strftime("%Y%m%d-%H%M%S")}" }
@@ -52,7 +56,7 @@ describe Bovem::Shell do
 
     it "should only execute a command" do
       shell.console.should_not_receive("warn").with("Will run command: {mark=bright}\"echo OK\"{/mark}...")
-      ::Open4.should_receive("popen4").and_return(::OpenStruct.new(:exitstatus => 0))
+      ::Open4.should_receive("popen4").and_return(::OpenStruct.new(exitstatus: 0))
       shell.run("echo OK", nil, true, false)
     end
 

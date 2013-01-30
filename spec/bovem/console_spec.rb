@@ -1,13 +1,17 @@
 # encoding: utf-8
 #
-# This file is part of the bovem gem. Copyright (C) 2012 and above Shogun <shogun_panda@me.com>.
+# This file is part of the bovem gem. Copyright (C) 2013 and above Shogun <shogun_panda@me.com>.
 # Licensed under the MIT license, which can be found at http://www.opensource.org/licenses/mit-license.php.
 #
 
 require "spec_helper"
 
 describe Bovem::Console do
-  let(:console) { ::Bovem::Console.new }
+  let(:console) {
+    c = ::Bovem::Console.new
+    c.i18n = :en
+    c
+  }
 
   before(:each) do
     Kernel.stub(:puts).and_return(nil)
@@ -297,12 +301,12 @@ describe Bovem::Console do
 
   describe "status" do
     it "should get the right status" do
-      expect(console.status(:ok, false, true, false)).to eq({:label => " OK ", :color => "bright green"})
-      expect(console.status(:pass, false, true, false)).to eq({:label => "PASS", :color => "bright cyan"})
-      expect(console.status(:warn, false, true, false)).to eq({:label => "WARN", :color => "bright yellow"})
-      expect(console.status(:fail, false, true, false)).to eq({:label => "FAIL", :color => "bright red"})
-      expect(console.status("NO", false, true, false)).to eq({:label => " OK ", :color => "bright green"})
-      expect(console.status(nil, false, true, false)).to eq({:label => " OK ", :color => "bright green"})
+      expect(console.status(:ok, false, true, false)).to eq({label: " OK ", color: "bright green"})
+      expect(console.status(:pass, false, true, false)).to eq({label: "PASS", color: "bright cyan"})
+      expect(console.status(:warn, false, true, false)).to eq({label: "WARN", color: "bright yellow"})
+      expect(console.status(:fail, false, true, false)).to eq({label: "FAIL", color: "bright red"})
+      expect(console.status("NO", false, true, false)).to eq({label: " OK ", color: "bright green"})
+      expect(console.status(nil, false, true, false)).to eq({label: " OK ", color: "bright green"})
     end
 
     it "should create the banner" do

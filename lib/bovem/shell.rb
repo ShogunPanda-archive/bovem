@@ -1,13 +1,16 @@
 # encoding: utf-8
 #
-# This file is part of the bovem gem. Copyright (C) 2012 and above Shogun <shogun_panda@me.com>.
+# This file is part of the bovem gem. Copyright (C) 2013 and above Shogun <shogun_panda@me.com>.
 # Licensed under the MIT license, which can be found at http://www.opensource.org/licenses/mit-license.php.
 #
 
 module Bovem
   # A utility class for most common shell operation.
+  #
+  # @attr [Console] console # A console instance.
   class Shell
-    # A {Console Console} instance.
+    include Lazier::I18n
+
     attr_accessor :console
 
     # Returns a unique instance for Shell.
@@ -20,6 +23,7 @@ module Bovem
     # Initializes a new Shell.
     def initialize
       @console = ::Bovem::Console.instance
+      self.i18n_setup(:bovem, ::File.absolute_path(::Pathname.new(::File.dirname(__FILE__)).to_s + "/../../locales/"))
     end
 
     # Runs a command into the shell.
@@ -33,7 +37,7 @@ module Bovem
     # @param fatal [Boolean] If quit in case of fatal errors.
     # @return [Hash] An hash with `status` and `output` keys.
     def run(command, message = nil, run = true, show_exit = true, show_output = false, show_command = false, fatal = true)
-      rv = {:status => 0, :output => ""}
+      rv = {status: 0, output: ""}
       command = command.ensure_string
 
       # Show the command
@@ -41,12 +45,12 @@ module Bovem
 
 
       if !run then # Print a message
-        self.console.warn("Will run command: {mark=bright}\"#{command}\"{/mark}...")
+        self.console.warn(self.i18n.shell.run_dry(command))
         self.console.status(:ok) if show_exit
       else # Run
         output = ""
 
-        self.console.info("Running command: {mark=bright}\"#{command}\"{/mark}...") if show_command
+        self.console.info(self.i18n.shell.run(command)) if show_command
         rv[:status] = ::Open4::popen4(command + " 2>&1") { |pid, stdin, stdout, stderr|
           stdout.each_line do |line|
             output << line
@@ -103,26 +107,26 @@ module Bovem
       files = files.ensure_array.compact.collect {|f| File.expand_path(f.ensure_string) }
 
       if !run then
-        self.console.warn("Will remove file(s):")
+        self.console.warn(self.i18n.shell.remove_dry)
         self.console.with_indentation(11) do
           files.each do |file| self.console.write(file) end
         end
       else
         rv = catch(:rv) do
           begin
-            FileUtils.rm_r(files, {:noop => false, :verbose => false, :secure => true})
+            FileUtils.rm_r(files, {noop: false, verbose: false, secure: true})
             throw(:rv, true)
           rescue Errno::EACCES => e
-            self.console.send(fatal ? :fatal : :error, "Cannot remove following non writable file: {mark=bright}#{e.message.gsub(/.+ - (.+)/, "\\1")}{/mark}")
+            self.console.send(fatal ? :fatal : :error, self.i18n.shell.remove_unwritable(e.message.gsub(/.+ - (.+)/, "\\1")))
           rescue Errno::ENOENT => e
-            self.console.send(fatal ? :fatal : :error, "Cannot remove following non existent file: {mark=bright}#{e.message.gsub(/.+ - (.+)/, "\\1")}{/mark}")
+            self.console.send(fatal ? :fatal : :error, self.i18n.shell.remove_not_found(e.message.gsub(/.+ - (.+)/, "\\1")))
           rescue Exception => e
             if show_errors then
-              self.console.error("Cannot remove following file(s):")
+              self.console.error(self.i18n.shell.remove_error)
               self.console.with_indentation(11) do
                 files.each do |file| self.console.write(file) end
               end
-              self.console.write("due to this error: [#{e.class.to_s}] #{e}.", "\n", 5)
+              self.console.write(self.i18n.shell.error(e.class.to_s, e), "\n", 5)
               Kernel.exit(-1) if fatal
             end
           end
@@ -146,6 +150,7 @@ module Bovem
     def copy_or_move(src, dst, operation, run = true, show_errors = false, fatal = true)
       rv = true
       operation = :copy if operation != :move
+      operation_s = self.i18n.shell.send(operation)
       single = !src.is_a?(Array)
 
       if single then
@@ -158,15 +163,15 @@ module Bovem
 
       if !run then
         if single then
-          self.console.warn("Will #{operation} a file:")
-          self.console.write("From: {mark=bright}#{File.expand_path(src.ensure_string)}{/mark}", "\n", 11)
-          self.console.write("To: {mark=bright}#{dst}{/mark}", "\n", 11)
+          self.console.warn(self.i18n.shell.copy_move_single_dry(operation_s))
+          self.console.write(self.i18n.shell.copy_move_from(File.expand_path(src.ensure_string)), "\n", 11)
+          self.console.write(self.i18n.shell.copy_move_to(dst), "\n", 11)
         else
-          self.console.warn("Will #{operation} following entries:")
+          self.console.warn(self.i18n.shell.copy_move_multi_dry(operation_s))
           self.console.with_indentation(11) do
             src.each do |s| self.console.write(s) end
           end
-          self.console.write("to directory: {mark=bright}#{dst}{/mark}", "\n", 5)
+          self.console.write(self.i18n.shell.copy_move_to_multi(dst), "\n", 5)
         end
       else
         rv = catch(:rv) do
@@ -178,26 +183,26 @@ module Bovem
           throw(:rv, false) if !has_dir
 
           if single && self.check(dst, :dir) then
-            @console.send(fatal ? :fatal : :error, "Cannot #{operation} file {mark=bright}#{src}{/mark} to {mark=bright}#{dst}{/mark} because it is currently a directory.")
+            @console.send(fatal ? :fatal : :error, self.i18n.shell.copy_move_single_to_directory(operation_s, src, dst))
             throw(:rv, false)
           end
 
           # Check that every file is existing
           src.ensure_array.each do |s|
             if !self.check(s, :exists) then
-              @console.send(fatal ? :fatal : :error, "Cannot #{operation} non existent file {mark=bright}#{s}{/mark}.")
+              @console.send(fatal ? :fatal : :error, self.i18n.shell.copy_move_src_not_found(operation_s, s))
               throw(:rv, false)
             end
           end
 
           # Do operation
           begin
-            FileUtils.send(operation == :move ? :mv : :cp_r, src, dst, {:noop => false, :verbose => false})
+            FileUtils.send(operation == :move ? :mv : :cp_r, src, dst, {noop: false, verbose: false})
           rescue Errno::EACCES => e
             if single then
-              @console.send(fatal ? :fatal : :error, "Cannot #{operation} file {mark=bright}#{src}{/mark} to non writable directory {mark=bright}#{dst_dir}{/mark}.")
+              @console.send(fatal ? :fatal : :error, self.i18n.shell.copy_move_dst_not_writable_single(operation_s, src, dst_dir))
             else
-              self.console.error("Cannot #{operation} following file(s) to non writable directory {mark=bright}#{dst}{/mark}:")
+              self.console.error(self.i18n.shell.copy_move_dst_not_writable_single(operation_s, dst))
               self.console.with_indentation(11) do
                 src.each do |s| self.console.write(s) end
               end
@@ -207,13 +212,13 @@ module Bovem
             throw(:rv, false)
           rescue Exception => e
             if single then
-              @console.send(fatal ? :fatal : :error, "Cannot #{operation} file {mark=bright}#{src}{/mark} to directory {mark=bright}#{dst_dir}{/mark} due to this error: [#{e.class.to_s}] #{e}.", "\n", 5)
+              @console.send(fatal ? :fatal : :error, self.i18n.shell.copy_move_error_single(operation_s, src, dst_dir, e.class.to_s, e), "\n", 5)
             else
-              self.console.error("Cannot #{operation} following entries to {mark=bright}#{dst}{/mark}:")
+              self.console.error(self.i18n.shell.copy_move_error_multi(operation_s, dst))
               self.console.with_indentation(11) do
                 src.each do |s| self.console.write(s) end
               end
-              self.console.write("due to this error: [#{e.class.to_s}] #{e}.", "\n", 5)
+              self.console.write(self.i18n.shell.error(e.class.to_s, e), "\n", 5)
               Kernel.exit(-1) if fatal
             end
 
@@ -264,7 +269,7 @@ module Bovem
 
       if self.check(directory, [:directory, :executable]) then
         begin
-          self.console.info("Moving into directory {mark=bright}#{directory}{/mark}") if show_messages
+          self.console.info(self.i18n.shell.move_in(directory)) if show_messages
           Dir.chdir(directory)
           rv = true
         rescue Exception => e
@@ -275,7 +280,7 @@ module Bovem
 
       if rv && original then
         begin
-          self.console.info("Moving back into directory {mark=bright}#{original}{/mark}") if show_messages
+          self.console.info(self.i18n.shell.move_out(original)) if show_messages
           Dir.chdir(original) if restore
         rescue Exception => e
           rv = false
@@ -300,7 +305,7 @@ module Bovem
       directories = directories.ensure_array.compact {|d| File.expand_path(d.ensure_string) }
 
       if !run then # Just print
-        self.console.warn("Will create directories:")
+        self.console.warn(self.i18n.shell.mkdir_dry)
         self.console.with_indentation(11) do
           directories.each do |directory| self.console.write(directory) end
         end
@@ -309,22 +314,22 @@ module Bovem
           rv = catch(:rv) do
             # Perform tests
             if self.check(directory, :directory) then
-              self.console.send(fatal ? :fatal : :error, "The directory {mark=bright}#{directory}{/mark} already exists.")
+              self.console.send(fatal ? :fatal : :error, self.i18n.shell.mkdir_existing(directory))
             elsif self.check(directory, :exist) then
-              self.console.send(fatal ? :fatal : :error, "Path {mark=bright}#{directory}{/mark} is currently a file.")
+              self.console.send(fatal ? :fatal : :error, self.i18n.shell.mkdir_file(directory))
             else
               begin # Create directory
-                FileUtils.mkdir_p(directory, {:mode => mode, :noop => false, :verbose => false})
+                FileUtils.mkdir_p(directory, {mode: mode, noop: false, verbose: false})
                 throw(:rv, true)
               rescue Errno::EACCES => e
-                self.console.send(fatal ? :fatal : :error, "Cannot create following directory due to permission denied: {mark=bright}#{e.message.gsub(/.+ - (.+)/, "\\1")}{/mark}.")
+                self.console.send(fatal ? :fatal : :error, self.i18n.shell.mkdir_denied(e.message.gsub(/.+ - (.+)/, "\\1")))
               rescue Exception => e
                 if show_errors then
-                  self.console.error("Cannot create following directories:")
+                  self.console.error(self.i18n.shell.mkdir_error)
                   self.console.with_indentation(11) do
                     directories.each do |directory| self.console.write(directory) end
                   end
-                  self.console.write("due to this error: [#{e.class.to_s}] #{e}.", "\n", 5)
+                  self.console.write(self.i18n.shell.error(e.class.to_s, e), "\n", 5)
                   Kernel.exit(-1) if fatal
                 end
               end

@@ -1,6 +1,6 @@
 # encoding: utf-8
 #
-# This file is part of the bovem gem. Copyright (C) 2012 and above Shogun <shogun_panda@me.com>.
+# This file is part of the bovem gem. Copyright (C) 2013 and above Shogun <shogun_panda@me.com>.
 # Licensed under the MIT license, which can be found at http://www.opensource.org/licenses/mit-license.php.
 #
 
@@ -41,7 +41,7 @@ describe Bovem::Configuration do
     it "allows overrides" do
       file = ::File.open("#{test_prefix}", "w") {|f| f.write("config.property = 1234") }
 
-      config = BaseConfiguration.new(test_prefix, {:property => 5678, :non_property => 1234})
+      config = BaseConfiguration.new(test_prefix, {property: 5678, non_property: 1234})
       expect(config.property).to eq(5678)
 
       File.unlink(test_prefix)
@@ -54,7 +54,7 @@ describe Bovem::Configuration do
 
       expect(subject.respond_to?(:new_property)).to be_false
       expect(subject.respond_to?(:new_property=)).to be_false
-      BaseConfiguration.property :new_property, :default => "VALUE"
+      BaseConfiguration.property(:new_property, default: "VALUE")
       expect(subject.respond_to?(:new_property)).to be_true
       expect(subject.respond_to?(:new_property=)).to be_true
       expect(subject.new_property).to eq("VALUE")

@@ -1,0 +1,43 @@
+# encoding: utf-8
+#
+# This file is part of the bovem gem. Copyright (C) 2013 and above Shogun <shogun_panda@me.com>.
+# Licensed under the MIT license, which can be found at http://www.opensource.org/licenses/mit-license.php.
+#
+
+---
+  bovem:
+    configuration:
+      using: "Uso il file di configurazione %1."
+      invalid: "Il file di configurazione %1 non è valido."
+      not_found: "Il file di configurazione %1 non esiste o non è leggibile."
+    console:
+      prompt: "Per favore inserisci un valore"
+      unknown_reply: "Mi dispiace, la tua risposta non è stata compresa. Per favore prova di nuovo."
+    shell:
+      error: "a causa di quest'errore: [%1] %2."
+      run: "Eseguo il comando: {mark=bright}\"%1\"{/mark}..."
+      run_dry: "Eseguirò il comando: {mark=bright}\"%1\"{/mark}..."
+      remove_dry: "Rimuoverò i files:"
+      remove_unwritable: "Non posso rimuovere il file di sola lettura: {mark=bright}%1{/mark}"
+      remove_not_found: "Non posso rimuovere il file non esistente: {mark=bright}%1{/mark}"
+      remove_error: "Non posso rimuovere i seguenti file:"
+      copy: "la copia"
+      move: "lo spostamento"
+      copy_move_single_dry: "Eseguirò %1 di un file:"
+      copy_move_multi_dry: "Eseguirò %1 dei seguenti elementi:"
+      copy_move_from: "Da: {mark=bright}%1{/mark}"
+      copy_move_to: "A: {mark=bright}%1{/mark}"
+      copy_move_to_multi: "nella cartella: {mark=bright}%1{/mark}"
+      copy_move_single_to_directory: "Impossibile eseguire %1 del file {mark=bright}%2{/mark} in {mark=bright}%3{/mark} perché è attualmente una cartella."
+      copy_move_src_not_found: "Impossibile eseguire %1 del file non esistente {mark=bright}%2{/mark}."
+      copy_move_dst_not_writable_single: "Impossibile eseguire %1 del file {mark=bright}%2{/mark} nella cartella di sola lettura {mark=bright}%3{/mark}."
+      copy_move_dst_not_writable_multi: "Impossibile eseguire %1 dei seguenti elementi nella cartella di sola lettura {mark=bright}%2{/mark}:"
+      copy_move_error_single: "Impossibile eseguire %1 file {mark=bright}%2{/mark} nella cartella {mark=bright}%3{/mark} a causa di quest'errore: [%4] %5."
+      copy_move_error_multi: "Impossibile eseguire %1 dei seguenti elementi {mark=bright}%2{/mark}:"
+      move_in: "Entro nella cartella {mark=bright}%1{/mark}"
+      move_out: "Torno indietro alla cartella {mark=bright}%1{/mark}"
+      mkdir_dry: "Creerò le cartelle:"
+      mkdir_existing: "La cartella {mark=bright}%1{/mark} è già esistente."
+      mkdir_file: "Il percorso {mark=bright}%1{/mark} è attualmente un file."
+      mkdir_denied: "Impossible creare la seguente cartella a causa di permessi negati: {mark=bright}%1{/mark}."
+      mkdir_error: "Impossibile creare le seguenti cartelle:"

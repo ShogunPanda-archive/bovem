@@ -1,6 +1,6 @@
 # encoding: utf-8
 #
-# This file is part of the bovem gem. Copyright (C) 2012 and above Shogun <shogun_panda@me.com>.
+# This file is part of the bovem gem. Copyright (C) 2013 and above Shogun <shogun_panda@me.com>.
 # Licensed under the MIT license, which can be found at http://www.opensource.org/licenses/mit-license.php.
 #
 
@@ -19,6 +19,8 @@ module Bovem
   # config.property = "VALUE"
   # ```
   class Configuration
+    include Lazier::I18n
+
     # Creates a new configuration.
     #
     # A configuration file is a plain Ruby file with a top-level {Configuration config} object.
@@ -52,15 +54,15 @@ module Bovem
           begin
             # Open the file
             path = ::Pathname.new(file).realpath
-            logger.info("Using configuration file #{path}.") if logger
+            logger.info(self.i18n.using(path)) if logger
             self.tap do |config|
               eval(::File.read(path))
             end
           rescue ::Exception => e
-            raise Bovem::Errors::InvalidConfiguration.new("Config file #{file} is not valid.")
+            raise Bovem::Errors::InvalidConfiguration.new(self.i18n.configuration.invalid(file))
           end
         else
-          raise Bovem::Errors::InvalidConfiguration.new("Config file #{file} is not existing or not readable.")
+          raise Bovem::Errors::InvalidConfiguration.new(self.i18n.configuration.not_found(file))
         end
       end
 

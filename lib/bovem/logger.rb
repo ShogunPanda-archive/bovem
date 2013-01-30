@@ -1,16 +1,16 @@
 # encoding: utf-8
 #
-# This file is part of the bovem gem. Copyright (C) 2012 and above Shogun <shogun_panda@me.com>.
+# This file is part of the bovem gem. Copyright (C) 2013 and above Shogun <shogun_panda@me.com>.
 # Licensed under the MIT license, which can be found at http://www.opensource.org/licenses/mit-license.php.
 #
 
 module Bovem
   # A custom logger.
+  #
+  # @attr [Time] start_time The start time of first line. This allows to show a `T+0.1234` information into the log.
+  # @attr [IO|String] device The file or device to log messages to.
   class Logger < ::Logger
-    # The start time of first line. This allows to show a `T+0.1234` information into the log.
     mattr_accessor :start_time
-
-    # The file or device to log messages to.
     attr_reader :device
 
     # Creates a new logger.

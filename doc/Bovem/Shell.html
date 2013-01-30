@@ -6,7 +6,7 @@
 <title>
   Class: Bovem::Shell
   
-    &mdash; Documentation by YARD 0.8.2.1
+    &mdash; Documentation by YARD 0.8.3
   
 </title>
 
@@ -90,11 +90,15 @@
     
   
     
+      <dt class="r2">Includes:</dt>
+      <dd class="r2">Lazier::I18n</dd>
+      
+    
   
   
   
-    <dt class="r2 last">Defined in:</dt>
-    <dd class="r2 last">lib/bovem/shell.rb</dd>
+    <dt class="r1 last">Defined in:</dt>
+    <dd class="r1 last">lib/bovem/shell.rb</dd>
   
 </dl>
 <div class="clear"></div>
@@ -119,7 +123,7 @@
       <li class="public ">
   <span class="summary_signature">
     
-      <a href="#console-instance_method" title="#console (instance method)">- (Object) <strong>console</strong> </a>
+      <a href="#console-instance_method" title="#console (instance method)">- (Console) <strong>console</strong> </a>
     
 
     
@@ -136,7 +140,7 @@
   
 
   
-    <span class="summary_desc"><div class='inline'><p>A <span class='object_link'><a href="Console.html" title="Bovem::Console (class)">Console</a></span> instance.</p>
+    <span class="summary_desc"><div class='inline'><h1>A console instance.</h1>
 </div></span>
   
 </li>
@@ -422,7 +426,8 @@
     </ul>
   
 
-<div id="constructor_details" class="method_details_list">
+
+  <div id="constructor_details" class="method_details_list">
   <h2>Constructor Details</h2>
   
     <div class="method_details first">
@@ -450,15 +455,17 @@
       <pre class="lines">
 
 
-21
-22
-23</pre>
+24
+25
+26
+27</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/bovem/shell.rb', line 21</span>
+      <pre class="code"><span class="info file"># File 'lib/bovem/shell.rb', line 24</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_initialize'>initialize</span>
   <span class='ivar'>@console</span> <span class='op'>=</span> <span class='op'>::</span><span class='const'>Bovem</span><span class='op'>::</span><span class='const'>Console</span><span class='period'>.</span><span class='id identifier rubyid_instance'>instance</span>
+  <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_i18n_setup'>i18n_setup</span><span class='lparen'>(</span><span class='symbol'>:bovem</span><span class='comma'>,</span> <span class='op'>::</span><span class='const'>File</span><span class='period'>.</span><span class='id identifier rubyid_absolute_path'>absolute_path</span><span class='lparen'>(</span><span class='op'>::</span><span class='const'>Pathname</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='op'>::</span><span class='const'>File</span><span class='period'>.</span><span class='id identifier rubyid_dirname'>dirname</span><span class='lparen'>(</span><span class='kw'>__FILE__</span><span class='rparen'>)</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_to_s'>to_s</span> <span class='op'>+</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>/../../locales/</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span><span class='rparen'>)</span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -475,7 +482,7 @@
       <div class="method_details first">
   <h3 class="signature first" id="console-instance_method">
   
-    - (<tt>Object</tt>) <strong>console</strong> 
+    - (<tt><span class='object_link'><a href="Console.html" title="Bovem::Console (class)">Console</a></span></tt>) <strong>console</strong> 
   
 
   
@@ -483,13 +490,30 @@
   
 </h3><div class="docstring">
   <div class="discussion">
-    <p>A <span class='object_link'><a href="Console.html" title="Bovem::Console (class)">Console</a></span> instance.</p>
+    <h1>A console instance.</h1>
 
 
   </div>
 </div>
 <div class="tags">
   
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt><span class='object_link'><a href="Console.html" title="Bovem::Console (class)">Console</a></span></tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'><p>the current value of console</p>
+</div>
+      
+    </li>
+  
+</ul>
 
 </div><table class="source_code">
   <tr>
@@ -561,12 +585,12 @@
       <pre class="lines">
 
 
-16
-17
-18</pre>
+19
+20
+21</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/bovem/shell.rb', line 16</span>
+      <pre class="code"><span class="info file"># File 'lib/bovem/shell.rb', line 19</span>
 
 <span class='kw'>def</span> <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_instance'>instance</span>
   <span class='ivar'>@instance</span> <span class='op'>||=</span> <span class='op'>::</span><span class='const'>Bovem</span><span class='op'>::</span><span class='const'>Shell</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span>
@@ -643,10 +667,6 @@
       <pre class="lines">
 
 
-73
-74
-75
-76
 77
 78
 79
@@ -662,10 +682,14 @@
 89
 90
 91
-92</pre>
+92
+93
+94
+95
+96</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/bovem/shell.rb', line 73</span>
+      <pre class="code"><span class="info file"># File 'lib/bovem/shell.rb', line 77</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_check'>check</span><span class='lparen'>(</span><span class='id identifier rubyid_path'>path</span><span class='comma'>,</span> <span class='id identifier rubyid_tests'>tests</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_path'>path</span> <span class='op'>=</span> <span class='id identifier rubyid_path'>path</span><span class='period'>.</span><span class='id identifier rubyid_ensure_string'>ensure_string</span>
@@ -819,12 +843,12 @@
       <pre class="lines">
 
 
-238
-239
-240</pre>
+243
+244
+245</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/bovem/shell.rb', line 238</span>
+      <pre class="code"><span class="info file"># File 'lib/bovem/shell.rb', line 243</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_copy'>copy</span><span class='lparen'>(</span><span class='id identifier rubyid_src'>src</span><span class='comma'>,</span> <span class='id identifier rubyid_dst'>dst</span><span class='comma'>,</span> <span class='id identifier rubyid_run'>run</span> <span class='op'>=</span> <span class='kw'>true</span><span class='comma'>,</span> <span class='id identifier rubyid_show_errors'>show_errors</span> <span class='op'>=</span> <span class='kw'>false</span><span class='comma'>,</span> <span class='id identifier rubyid_fatal'>fatal</span> <span class='op'>=</span> <span class='kw'>true</span><span class='rparen'>)</span>
   <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_copy_or_move'>copy_or_move</span><span class='lparen'>(</span><span class='id identifier rubyid_src'>src</span><span class='comma'>,</span> <span class='id identifier rubyid_dst'>dst</span><span class='comma'>,</span> <span class='symbol'>:copy</span><span class='comma'>,</span> <span class='id identifier rubyid_run'>run</span><span class='comma'>,</span> <span class='id identifier rubyid_show_errors'>show_errors</span><span class='comma'>,</span> <span class='id identifier rubyid_fatal'>fatal</span><span class='rparen'>)</span>
@@ -976,10 +1000,6 @@
       <pre class="lines">
 
 
-146
-147
-148
-149
 150
 151
 152
@@ -1058,14 +1078,20 @@
 225
 226
 227
-228</pre>
+228
+229
+230
+231
+232
+233</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/bovem/shell.rb', line 146</span>
+      <pre class="code"><span class="info file"># File 'lib/bovem/shell.rb', line 150</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_copy_or_move'>copy_or_move</span><span class='lparen'>(</span><span class='id identifier rubyid_src'>src</span><span class='comma'>,</span> <span class='id identifier rubyid_dst'>dst</span><span class='comma'>,</span> <span class='id identifier rubyid_operation'>operation</span><span class='comma'>,</span> <span class='id identifier rubyid_run'>run</span> <span class='op'>=</span> <span class='kw'>true</span><span class='comma'>,</span> <span class='id identifier rubyid_show_errors'>show_errors</span> <span class='op'>=</span> <span class='kw'>false</span><span class='comma'>,</span> <span class='id identifier rubyid_fatal'>fatal</span> <span class='op'>=</span> <span class='kw'>true</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_rv'>rv</span> <span class='op'>=</span> <span class='kw'>true</span>
   <span class='id identifier rubyid_operation'>operation</span> <span class='op'>=</span> <span class='symbol'>:copy</span> <span class='kw'>if</span> <span class='id identifier rubyid_operation'>operation</span> <span class='op'>!=</span> <span class='symbol'>:move</span>
+  <span class='id identifier rubyid_operation_s'>operation_s</span> <span class='op'>=</span> <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_i18n'>i18n</span><span class='period'>.</span><span class='id identifier rubyid_shell'>shell</span><span class='period'>.</span><span class='id identifier rubyid_send'>send</span><span class='lparen'>(</span><span class='id identifier rubyid_operation'>operation</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_single'>single</span> <span class='op'>=</span> <span class='op'>!</span><span class='id identifier rubyid_src'>src</span><span class='period'>.</span><span class='id identifier rubyid_is_a?'>is_a?</span><span class='lparen'>(</span><span class='const'>Array</span><span class='rparen'>)</span>
 
   <span class='kw'>if</span> <span class='id identifier rubyid_single'>single</span> <span class='kw'>then</span>
@@ -1078,15 +1104,15 @@
 
   <span class='kw'>if</span> <span class='op'>!</span><span class='id identifier rubyid_run'>run</span> <span class='kw'>then</span>
     <span class='kw'>if</span> <span class='id identifier rubyid_single'>single</span> <span class='kw'>then</span>
-      <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_console'>console</span><span class='period'>.</span><span class='id identifier rubyid_warn'>warn</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>Will </span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_operation'>operation</span><span class='rbrace'>}</span><span class='tstring_content'> a file:</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span>
-      <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_console'>console</span><span class='period'>.</span><span class='id identifier rubyid_write'>write</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>From: {mark=bright}</span><span class='embexpr_beg'>#{</span><span class='const'>File</span><span class='period'>.</span><span class='id identifier rubyid_expand_path'>expand_path</span><span class='lparen'>(</span><span class='id identifier rubyid_src'>src</span><span class='period'>.</span><span class='id identifier rubyid_ensure_string'>ensure_string</span><span class='rparen'>)</span><span class='rbrace'>}</span><span class='tstring_content'>{/mark}</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>\n</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='int'>11</span><span class='rparen'>)</span>
-      <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_console'>console</span><span class='period'>.</span><span class='id identifier rubyid_write'>write</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>To: {mark=bright}</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_dst'>dst</span><span class='rbrace'>}</span><span class='tstring_content'>{/mark}</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>\n</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='int'>11</span><span class='rparen'>)</span>
+      <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_console'>console</span><span class='period'>.</span><span class='id identifier rubyid_warn'>warn</span><span class='lparen'>(</span><span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_i18n'>i18n</span><span class='period'>.</span><span class='id identifier rubyid_shell'>shell</span><span class='period'>.</span><span class='id identifier rubyid_copy_move_single_dry'>copy_move_single_dry</span><span class='lparen'>(</span><span class='id identifier rubyid_operation_s'>operation_s</span><span class='rparen'>)</span><span class='rparen'>)</span>
+      <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_console'>console</span><span class='period'>.</span><span class='id identifier rubyid_write'>write</span><span class='lparen'>(</span><span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_i18n'>i18n</span><span class='period'>.</span><span class='id identifier rubyid_shell'>shell</span><span class='period'>.</span><span class='id identifier rubyid_copy_move_from'>copy_move_from</span><span class='lparen'>(</span><span class='const'>File</span><span class='period'>.</span><span class='id identifier rubyid_expand_path'>expand_path</span><span class='lparen'>(</span><span class='id identifier rubyid_src'>src</span><span class='period'>.</span><span class='id identifier rubyid_ensure_string'>ensure_string</span><span class='rparen'>)</span><span class='rparen'>)</span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>\n</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='int'>11</span><span class='rparen'>)</span>
+      <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_console'>console</span><span class='period'>.</span><span class='id identifier rubyid_write'>write</span><span class='lparen'>(</span><span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_i18n'>i18n</span><span class='period'>.</span><span class='id identifier rubyid_shell'>shell</span><span class='period'>.</span><span class='id identifier rubyid_copy_move_to'>copy_move_to</span><span class='lparen'>(</span><span class='id identifier rubyid_dst'>dst</span><span class='rparen'>)</span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>\n</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='int'>11</span><span class='rparen'>)</span>
     <span class='kw'>else</span>
-      <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_console'>console</span><span class='period'>.</span><span class='id identifier rubyid_warn'>warn</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>Will </span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_operation'>operation</span><span class='rbrace'>}</span><span class='tstring_content'> following entries:</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span>
+      <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_console'>console</span><span class='period'>.</span><span class='id identifier rubyid_warn'>warn</span><span class='lparen'>(</span><span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_i18n'>i18n</span><span class='period'>.</span><span class='id identifier rubyid_shell'>shell</span><span class='period'>.</span><span class='id identifier rubyid_copy_move_multi_dry'>copy_move_multi_dry</span><span class='lparen'>(</span><span class='id identifier rubyid_operation_s'>operation_s</span><span class='rparen'>)</span><span class='rparen'>)</span>
       <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_console'>console</span><span class='period'>.</span><span class='id identifier rubyid_with_indentation'>with_indentation</span><span class='lparen'>(</span><span class='int'>11</span><span class='rparen'>)</span> <span class='kw'>do</span>
         <span class='id identifier rubyid_src'>src</span><span class='period'>.</span><span class='id identifier rubyid_each'>each</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_s'>s</span><span class='op'>|</span> <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_console'>console</span><span class='period'>.</span><span class='id identifier rubyid_write'>write</span><span class='lparen'>(</span><span class='id identifier rubyid_s'>s</span><span class='rparen'>)</span> <span class='kw'>end</span>
       <span class='kw'>end</span>
-      <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_console'>console</span><span class='period'>.</span><span class='id identifier rubyid_write'>write</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>to directory: {mark=bright}</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_dst'>dst</span><span class='rbrace'>}</span><span class='tstring_content'>{/mark}</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>\n</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='int'>5</span><span class='rparen'>)</span>
+      <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_console'>console</span><span class='period'>.</span><span class='id identifier rubyid_write'>write</span><span class='lparen'>(</span><span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_i18n'>i18n</span><span class='period'>.</span><span class='id identifier rubyid_shell'>shell</span><span class='period'>.</span><span class='id identifier rubyid_copy_move_to_multi'>copy_move_to_multi</span><span class='lparen'>(</span><span class='id identifier rubyid_dst'>dst</span><span class='rparen'>)</span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>\n</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='int'>5</span><span class='rparen'>)</span>
     <span class='kw'>end</span>
   <span class='kw'>else</span>
     <span class='id identifier rubyid_rv'>rv</span> <span class='op'>=</span> <span class='id identifier rubyid_catch'>catch</span><span class='lparen'>(</span><span class='symbol'>:rv</span><span class='rparen'>)</span> <span class='kw'>do</span>
@@ -1098,26 +1124,26 @@
       <span class='id identifier rubyid_throw'>throw</span><span class='lparen'>(</span><span class='symbol'>:rv</span><span class='comma'>,</span> <span class='kw'>false</span><span class='rparen'>)</span> <span class='kw'>if</span> <span class='op'>!</span><span class='id identifier rubyid_has_dir'>has_dir</span>
 
       <span class='kw'>if</span> <span class='id identifier rubyid_single'>single</span> <span class='op'>&amp;&amp;</span> <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_check'>check</span><span class='lparen'>(</span><span class='id identifier rubyid_dst'>dst</span><span class='comma'>,</span> <span class='symbol'>:dir</span><span class='rparen'>)</span> <span class='kw'>then</span>
-        <span class='ivar'>@console</span><span class='period'>.</span><span class='id identifier rubyid_send'>send</span><span class='lparen'>(</span><span class='id identifier rubyid_fatal'>fatal</span> <span class='op'>?</span> <span class='symbol'>:fatal</span> <span class='op'>:</span> <span class='symbol'>:error</span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>Cannot </span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_operation'>operation</span><span class='rbrace'>}</span><span class='tstring_content'> file {mark=bright}</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_src'>src</span><span class='rbrace'>}</span><span class='tstring_content'>{/mark} to {mark=bright}</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_dst'>dst</span><span class='rbrace'>}</span><span class='tstring_content'>{/mark} because it is currently a directory.</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span>
+        <span class='ivar'>@console</span><span class='period'>.</span><span class='id identifier rubyid_send'>send</span><span class='lparen'>(</span><span class='id identifier rubyid_fatal'>fatal</span> <span class='op'>?</span> <span class='symbol'>:fatal</span> <span class='op'>:</span> <span class='symbol'>:error</span><span class='comma'>,</span> <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_i18n'>i18n</span><span class='period'>.</span><span class='id identifier rubyid_shell'>shell</span><span class='period'>.</span><span class='id identifier rubyid_copy_move_single_to_directory'>copy_move_single_to_directory</span><span class='lparen'>(</span><span class='id identifier rubyid_operation_s'>operation_s</span><span class='comma'>,</span> <span class='id identifier rubyid_src'>src</span><span class='comma'>,</span> <span class='id identifier rubyid_dst'>dst</span><span class='rparen'>)</span><span class='rparen'>)</span>
         <span class='id identifier rubyid_throw'>throw</span><span class='lparen'>(</span><span class='symbol'>:rv</span><span class='comma'>,</span> <span class='kw'>false</span><span class='rparen'>)</span>
       <span class='kw'>end</span>
 
       <span class='comment'># Check that every file is existing
 </span>      <span class='id identifier rubyid_src'>src</span><span class='period'>.</span><span class='id identifier rubyid_ensure_array'>ensure_array</span><span class='period'>.</span><span class='id identifier rubyid_each'>each</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_s'>s</span><span class='op'>|</span>
         <span class='kw'>if</span> <span class='op'>!</span><span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_check'>check</span><span class='lparen'>(</span><span class='id identifier rubyid_s'>s</span><span class='comma'>,</span> <span class='symbol'>:exists</span><span class='rparen'>)</span> <span class='kw'>then</span>
-          <span class='ivar'>@console</span><span class='period'>.</span><span class='id identifier rubyid_send'>send</span><span class='lparen'>(</span><span class='id identifier rubyid_fatal'>fatal</span> <span class='op'>?</span> <span class='symbol'>:fatal</span> <span class='op'>:</span> <span class='symbol'>:error</span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>Cannot </span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_operation'>operation</span><span class='rbrace'>}</span><span class='tstring_content'> non existent file {mark=bright}</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_s'>s</span><span class='rbrace'>}</span><span class='tstring_content'>{/mark}.</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span>
+          <span class='ivar'>@console</span><span class='period'>.</span><span class='id identifier rubyid_send'>send</span><span class='lparen'>(</span><span class='id identifier rubyid_fatal'>fatal</span> <span class='op'>?</span> <span class='symbol'>:fatal</span> <span class='op'>:</span> <span class='symbol'>:error</span><span class='comma'>,</span> <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_i18n'>i18n</span><span class='period'>.</span><span class='id identifier rubyid_shell'>shell</span><span class='period'>.</span><span class='id identifier rubyid_copy_move_src_not_found'>copy_move_src_not_found</span><span class='lparen'>(</span><span class='id identifier rubyid_operation_s'>operation_s</span><span class='comma'>,</span> <span class='id identifier rubyid_s'>s</span><span class='rparen'>)</span><span class='rparen'>)</span>
           <span class='id identifier rubyid_throw'>throw</span><span class='lparen'>(</span><span class='symbol'>:rv</span><span class='comma'>,</span> <span class='kw'>false</span><span class='rparen'>)</span>
         <span class='kw'>end</span>
       <span class='kw'>end</span>
 
       <span class='comment'># Do operation
 </span>      <span class='kw'>begin</span>
-        <span class='const'>FileUtils</span><span class='period'>.</span><span class='id identifier rubyid_send'>send</span><span class='lparen'>(</span><span class='id identifier rubyid_operation'>operation</span> <span class='op'>==</span> <span class='symbol'>:move</span> <span class='op'>?</span> <span class='symbol'>:mv</span> <span class='op'>:</span> <span class='symbol'>:cp_r</span><span class='comma'>,</span> <span class='id identifier rubyid_src'>src</span><span class='comma'>,</span> <span class='id identifier rubyid_dst'>dst</span><span class='comma'>,</span> <span class='lbrace'>{</span><span class='symbol'>:noop</span> <span class='op'>=&gt;</span> <span class='kw'>false</span><span class='comma'>,</span> <span class='symbol'>:verbose</span> <span class='op'>=&gt;</span> <span class='kw'>false</span><span class='rbrace'>}</span><span class='rparen'>)</span>
+        <span class='const'>FileUtils</span><span class='period'>.</span><span class='id identifier rubyid_send'>send</span><span class='lparen'>(</span><span class='id identifier rubyid_operation'>operation</span> <span class='op'>==</span> <span class='symbol'>:move</span> <span class='op'>?</span> <span class='symbol'>:mv</span> <span class='op'>:</span> <span class='symbol'>:cp_r</span><span class='comma'>,</span> <span class='id identifier rubyid_src'>src</span><span class='comma'>,</span> <span class='id identifier rubyid_dst'>dst</span><span class='comma'>,</span> <span class='lbrace'>{</span><span class='label'>noop:</span> <span class='kw'>false</span><span class='comma'>,</span> <span class='label'>verbose:</span> <span class='kw'>false</span><span class='rbrace'>}</span><span class='rparen'>)</span>
       <span class='kw'>rescue</span> <span class='const'>Errno</span><span class='op'>::</span><span class='const'>EACCES</span> <span class='op'>=&gt;</span> <span class='id identifier rubyid_e'>e</span>
         <span class='kw'>if</span> <span class='id identifier rubyid_single'>single</span> <span class='kw'>then</span>
-          <span class='ivar'>@console</span><span class='period'>.</span><span class='id identifier rubyid_send'>send</span><span class='lparen'>(</span><span class='id identifier rubyid_fatal'>fatal</span> <span class='op'>?</span> <span class='symbol'>:fatal</span> <span class='op'>:</span> <span class='symbol'>:error</span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>Cannot </span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_operation'>operation</span><span class='rbrace'>}</span><span class='tstring_content'> file {mark=bright}</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_src'>src</span><span class='rbrace'>}</span><span class='tstring_content'>{/mark} to non writable directory {mark=bright}</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_dst_dir'>dst_dir</span><span class='rbrace'>}</span><span class='tstring_content'>{/mark}.</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span>
+          <span class='ivar'>@console</span><span class='period'>.</span><span class='id identifier rubyid_send'>send</span><span class='lparen'>(</span><span class='id identifier rubyid_fatal'>fatal</span> <span class='op'>?</span> <span class='symbol'>:fatal</span> <span class='op'>:</span> <span class='symbol'>:error</span><span class='comma'>,</span> <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_i18n'>i18n</span><span class='period'>.</span><span class='id identifier rubyid_shell'>shell</span><span class='period'>.</span><span class='id identifier rubyid_copy_move_dst_not_writable_single'>copy_move_dst_not_writable_single</span><span class='lparen'>(</span><span class='id identifier rubyid_operation_s'>operation_s</span><span class='comma'>,</span> <span class='id identifier rubyid_src'>src</span><span class='comma'>,</span> <span class='id identifier rubyid_dst_dir'>dst_dir</span><span class='rparen'>)</span><span class='rparen'>)</span>
         <span class='kw'>else</span>
-          <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_console'>console</span><span class='period'>.</span><span class='id identifier rubyid_error'>error</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>Cannot </span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_operation'>operation</span><span class='rbrace'>}</span><span class='tstring_content'> following file(s) to non writable directory {mark=bright}</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_dst'>dst</span><span class='rbrace'>}</span><span class='tstring_content'>{/mark}:</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span>
+          <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_console'>console</span><span class='period'>.</span><span class='id identifier rubyid_error'>error</span><span class='lparen'>(</span><span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_i18n'>i18n</span><span class='period'>.</span><span class='id identifier rubyid_shell'>shell</span><span class='period'>.</span><span class='id identifier rubyid_copy_move_dst_not_writable_single'>copy_move_dst_not_writable_single</span><span class='lparen'>(</span><span class='id identifier rubyid_operation_s'>operation_s</span><span class='comma'>,</span> <span class='id identifier rubyid_dst'>dst</span><span class='rparen'>)</span><span class='rparen'>)</span>
           <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_console'>console</span><span class='period'>.</span><span class='id identifier rubyid_with_indentation'>with_indentation</span><span class='lparen'>(</span><span class='int'>11</span><span class='rparen'>)</span> <span class='kw'>do</span>
             <span class='id identifier rubyid_src'>src</span><span class='period'>.</span><span class='id identifier rubyid_each'>each</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_s'>s</span><span class='op'>|</span> <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_console'>console</span><span class='period'>.</span><span class='id identifier rubyid_write'>write</span><span class='lparen'>(</span><span class='id identifier rubyid_s'>s</span><span class='rparen'>)</span> <span class='kw'>end</span>
           <span class='kw'>end</span>
@@ -1127,13 +1153,13 @@
         <span class='id identifier rubyid_throw'>throw</span><span class='lparen'>(</span><span class='symbol'>:rv</span><span class='comma'>,</span> <span class='kw'>false</span><span class='rparen'>)</span>
       <span class='kw'>rescue</span> <span class='const'>Exception</span> <span class='op'>=&gt;</span> <span class='id identifier rubyid_e'>e</span>
         <span class='kw'>if</span> <span class='id identifier rubyid_single'>single</span> <span class='kw'>then</span>
-          <span class='ivar'>@console</span><span class='period'>.</span><span class='id identifier rubyid_send'>send</span><span class='lparen'>(</span><span class='id identifier rubyid_fatal'>fatal</span> <span class='op'>?</span> <span class='symbol'>:fatal</span> <span class='op'>:</span> <span class='symbol'>:error</span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>Cannot </span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_operation'>operation</span><span class='rbrace'>}</span><span class='tstring_content'> file {mark=bright}</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_src'>src</span><span class='rbrace'>}</span><span class='tstring_content'>{/mark} to directory {mark=bright}</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_dst_dir'>dst_dir</span><span class='rbrace'>}</span><span class='tstring_content'>{/mark} due to this error: [</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_e'>e</span><span class='period'>.</span><span class='id identifier rubyid_class'>class</span><span class='period'>.</span><span class='id identifier rubyid_to_s'>to_s</span><span class='rbrace'>}</span><span class='tstring_content'>] </span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_e'>e</span><span class='rbrace'>}</span><span class='tstring_content'>.</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>\n</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='int'>5</span><span class='rparen'>)</span>
+          <span class='ivar'>@console</span><span class='period'>.</span><span class='id identifier rubyid_send'>send</span><span class='lparen'>(</span><span class='id identifier rubyid_fatal'>fatal</span> <span class='op'>?</span> <span class='symbol'>:fatal</span> <span class='op'>:</span> <span class='symbol'>:error</span><span class='comma'>,</span> <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_i18n'>i18n</span><span class='period'>.</span><span class='id identifier rubyid_shell'>shell</span><span class='period'>.</span><span class='id identifier rubyid_copy_move_error_single'>copy_move_error_single</span><span class='lparen'>(</span><span class='id identifier rubyid_operation_s'>operation_s</span><span class='comma'>,</span> <span class='id identifier rubyid_src'>src</span><span class='comma'>,</span> <span class='id identifier rubyid_dst_dir'>dst_dir</span><span class='comma'>,</span> <span class='id identifier rubyid_e'>e</span><span class='period'>.</span><span class='id identifier rubyid_class'>class</span><span class='period'>.</span><span class='id identifier rubyid_to_s'>to_s</span><span class='comma'>,</span> <span class='id identifier rubyid_e'>e</span><span class='rparen'>)</span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>\n</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='int'>5</span><span class='rparen'>)</span>
         <span class='kw'>else</span>
-          <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_console'>console</span><span class='period'>.</span><span class='id identifier rubyid_error'>error</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>Cannot </span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_operation'>operation</span><span class='rbrace'>}</span><span class='tstring_content'> following entries to {mark=bright}</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_dst'>dst</span><span class='rbrace'>}</span><span class='tstring_content'>{/mark}:</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span>
+          <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_console'>console</span><span class='period'>.</span><span class='id identifier rubyid_error'>error</span><span class='lparen'>(</span><span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_i18n'>i18n</span><span class='period'>.</span><span class='id identifier rubyid_shell'>shell</span><span class='period'>.</span><span class='id identifier rubyid_copy_move_error_multi'>copy_move_error_multi</span><span class='lparen'>(</span><span class='id identifier rubyid_operation_s'>operation_s</span><span class='comma'>,</span> <span class='id identifier rubyid_dst'>dst</span><span class='rparen'>)</span><span class='rparen'>)</span>
           <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_console'>console</span><span class='period'>.</span><span class='id identifier rubyid_with_indentation'>with_indentation</span><span class='lparen'>(</span><span class='int'>11</span><span class='rparen'>)</span> <span class='kw'>do</span>
             <span class='id identifier rubyid_src'>src</span><span class='period'>.</span><span class='id identifier rubyid_each'>each</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_s'>s</span><span class='op'>|</span> <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_console'>console</span><span class='period'>.</span><span class='id identifier rubyid_write'>write</span><span class='lparen'>(</span><span class='id identifier rubyid_s'>s</span><span class='rparen'>)</span> <span class='kw'>end</span>
           <span class='kw'>end</span>
-          <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_console'>console</span><span class='period'>.</span><span class='id identifier rubyid_write'>write</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>due to this error: [</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_e'>e</span><span class='period'>.</span><span class='id identifier rubyid_class'>class</span><span class='period'>.</span><span class='id identifier rubyid_to_s'>to_s</span><span class='rbrace'>}</span><span class='tstring_content'>] </span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_e'>e</span><span class='rbrace'>}</span><span class='tstring_content'>.</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>\n</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='int'>5</span><span class='rparen'>)</span>
+          <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_console'>console</span><span class='period'>.</span><span class='id identifier rubyid_write'>write</span><span class='lparen'>(</span><span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_i18n'>i18n</span><span class='period'>.</span><span class='id identifier rubyid_shell'>shell</span><span class='period'>.</span><span class='id identifier rubyid_error'>error</span><span class='lparen'>(</span><span class='id identifier rubyid_e'>e</span><span class='period'>.</span><span class='id identifier rubyid_class'>class</span><span class='period'>.</span><span class='id identifier rubyid_to_s'>to_s</span><span class='comma'>,</span> <span class='id identifier rubyid_e'>e</span><span class='rparen'>)</span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>\n</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='int'>5</span><span class='rparen'>)</span>
           <span class='const'>Kernel</span><span class='period'>.</span><span class='id identifier rubyid_exit'>exit</span><span class='lparen'>(</span><span class='op'>-</span><span class='int'>1</span><span class='rparen'>)</span> <span class='kw'>if</span> <span class='id identifier rubyid_fatal'>fatal</span>
         <span class='kw'>end</span>
 
@@ -1280,11 +1306,6 @@
       <pre class="lines">
 
 
-296
-297
-298
-299
-300
 301
 302
 303
@@ -1325,10 +1346,15 @@
 338
 339
 340
-341</pre>
+341
+342
+343
+344
+345
+346</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/bovem/shell.rb', line 296</span>
+      <pre class="code"><span class="info file"># File 'lib/bovem/shell.rb', line 301</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_create_directories'>create_directories</span><span class='lparen'>(</span><span class='id identifier rubyid_directories'>directories</span><span class='comma'>,</span> <span class='id identifier rubyid_mode'>mode</span> <span class='op'>=</span> <span class='int'>0755</span><span class='comma'>,</span> <span class='id identifier rubyid_run'>run</span> <span class='op'>=</span> <span class='kw'>true</span><span class='comma'>,</span> <span class='id identifier rubyid_show_errors'>show_errors</span> <span class='op'>=</span> <span class='kw'>false</span><span class='comma'>,</span> <span class='id identifier rubyid_fatal'>fatal</span> <span class='op'>=</span> <span class='kw'>true</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_rv'>rv</span> <span class='op'>=</span> <span class='kw'>true</span>
@@ -1337,7 +1363,7 @@
 </span>  <span class='id identifier rubyid_directories'>directories</span> <span class='op'>=</span> <span class='id identifier rubyid_directories'>directories</span><span class='period'>.</span><span class='id identifier rubyid_ensure_array'>ensure_array</span><span class='period'>.</span><span class='id identifier rubyid_compact'>compact</span> <span class='lbrace'>{</span><span class='op'>|</span><span class='id identifier rubyid_d'>d</span><span class='op'>|</span> <span class='const'>File</span><span class='period'>.</span><span class='id identifier rubyid_expand_path'>expand_path</span><span class='lparen'>(</span><span class='id identifier rubyid_d'>d</span><span class='period'>.</span><span class='id identifier rubyid_ensure_string'>ensure_string</span><span class='rparen'>)</span> <span class='rbrace'>}</span>
 
   <span class='kw'>if</span> <span class='op'>!</span><span class='id identifier rubyid_run'>run</span> <span class='kw'>then</span> <span class='comment'># Just print
-</span>    <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_console'>console</span><span class='period'>.</span><span class='id identifier rubyid_warn'>warn</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>Will create directories:</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span>
+</span>    <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_console'>console</span><span class='period'>.</span><span class='id identifier rubyid_warn'>warn</span><span class='lparen'>(</span><span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_i18n'>i18n</span><span class='period'>.</span><span class='id identifier rubyid_shell'>shell</span><span class='period'>.</span><span class='id identifier rubyid_mkdir_dry'>mkdir_dry</span><span class='rparen'>)</span>
     <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_console'>console</span><span class='period'>.</span><span class='id identifier rubyid_with_indentation'>with_indentation</span><span class='lparen'>(</span><span class='int'>11</span><span class='rparen'>)</span> <span class='kw'>do</span>
       <span class='id identifier rubyid_directories'>directories</span><span class='period'>.</span><span class='id identifier rubyid_each'>each</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_directory'>directory</span><span class='op'>|</span> <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_console'>console</span><span class='period'>.</span><span class='id identifier rubyid_write'>write</span><span class='lparen'>(</span><span class='id identifier rubyid_directory'>directory</span><span class='rparen'>)</span> <span class='kw'>end</span>
     <span class='kw'>end</span>
@@ -1346,22 +1372,22 @@
       <span class='id identifier rubyid_rv'>rv</span> <span class='op'>=</span> <span class='id identifier rubyid_catch'>catch</span><span class='lparen'>(</span><span class='symbol'>:rv</span><span class='rparen'>)</span> <span class='kw'>do</span>
         <span class='comment'># Perform tests
 </span>        <span class='kw'>if</span> <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_check'>check</span><span class='lparen'>(</span><span class='id identifier rubyid_directory'>directory</span><span class='comma'>,</span> <span class='symbol'>:directory</span><span class='rparen'>)</span> <span class='kw'>then</span>
-          <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_console'>console</span><span class='period'>.</span><span class='id identifier rubyid_send'>send</span><span class='lparen'>(</span><span class='id identifier rubyid_fatal'>fatal</span> <span class='op'>?</span> <span class='symbol'>:fatal</span> <span class='op'>:</span> <span class='symbol'>:error</span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>The directory {mark=bright}</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_directory'>directory</span><span class='rbrace'>}</span><span class='tstring_content'>{/mark} already exists.</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span>
+          <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_console'>console</span><span class='period'>.</span><span class='id identifier rubyid_send'>send</span><span class='lparen'>(</span><span class='id identifier rubyid_fatal'>fatal</span> <span class='op'>?</span> <span class='symbol'>:fatal</span> <span class='op'>:</span> <span class='symbol'>:error</span><span class='comma'>,</span> <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_i18n'>i18n</span><span class='period'>.</span><span class='id identifier rubyid_shell'>shell</span><span class='period'>.</span><span class='id identifier rubyid_mkdir_existing'>mkdir_existing</span><span class='lparen'>(</span><span class='id identifier rubyid_directory'>directory</span><span class='rparen'>)</span><span class='rparen'>)</span>
         <span class='kw'>elsif</span> <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_check'>check</span><span class='lparen'>(</span><span class='id identifier rubyid_directory'>directory</span><span class='comma'>,</span> <span class='symbol'>:exist</span><span class='rparen'>)</span> <span class='kw'>then</span>
-          <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_console'>console</span><span class='period'>.</span><span class='id identifier rubyid_send'>send</span><span class='lparen'>(</span><span class='id identifier rubyid_fatal'>fatal</span> <span class='op'>?</span> <span class='symbol'>:fatal</span> <span class='op'>:</span> <span class='symbol'>:error</span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>Path {mark=bright}</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_directory'>directory</span><span class='rbrace'>}</span><span class='tstring_content'>{/mark} is currently a file.</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span>
+          <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_console'>console</span><span class='period'>.</span><span class='id identifier rubyid_send'>send</span><span class='lparen'>(</span><span class='id identifier rubyid_fatal'>fatal</span> <span class='op'>?</span> <span class='symbol'>:fatal</span> <span class='op'>:</span> <span class='symbol'>:error</span><span class='comma'>,</span> <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_i18n'>i18n</span><span class='period'>.</span><span class='id identifier rubyid_shell'>shell</span><span class='period'>.</span><span class='id identifier rubyid_mkdir_file'>mkdir_file</span><span class='lparen'>(</span><span class='id identifier rubyid_directory'>directory</span><span class='rparen'>)</span><span class='rparen'>)</span>
         <span class='kw'>else</span>
           <span class='kw'>begin</span> <span class='comment'># Create directory
-</span>            <span class='const'>FileUtils</span><span class='period'>.</span><span class='id identifier rubyid_mkdir_p'>mkdir_p</span><span class='lparen'>(</span><span class='id identifier rubyid_directory'>directory</span><span class='comma'>,</span> <span class='lbrace'>{</span><span class='symbol'>:mode</span> <span class='op'>=&gt;</span> <span class='id identifier rubyid_mode'>mode</span><span class='comma'>,</span> <span class='symbol'>:noop</span> <span class='op'>=&gt;</span> <span class='kw'>false</span><span class='comma'>,</span> <span class='symbol'>:verbose</span> <span class='op'>=&gt;</span> <span class='kw'>false</span><span class='rbrace'>}</span><span class='rparen'>)</span>
+</span>            <span class='const'>FileUtils</span><span class='period'>.</span><span class='id identifier rubyid_mkdir_p'>mkdir_p</span><span class='lparen'>(</span><span class='id identifier rubyid_directory'>directory</span><span class='comma'>,</span> <span class='lbrace'>{</span><span class='label'>mode:</span> <span class='id identifier rubyid_mode'>mode</span><span class='comma'>,</span> <span class='label'>noop:</span> <span class='kw'>false</span><span class='comma'>,</span> <span class='label'>verbose:</span> <span class='kw'>false</span><span class='rbrace'>}</span><span class='rparen'>)</span>
             <span class='id identifier rubyid_throw'>throw</span><span class='lparen'>(</span><span class='symbol'>:rv</span><span class='comma'>,</span> <span class='kw'>true</span><span class='rparen'>)</span>
           <span class='kw'>rescue</span> <span class='const'>Errno</span><span class='op'>::</span><span class='const'>EACCES</span> <span class='op'>=&gt;</span> <span class='id identifier rubyid_e'>e</span>
-            <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_console'>console</span><span class='period'>.</span><span class='id identifier rubyid_send'>send</span><span class='lparen'>(</span><span class='id identifier rubyid_fatal'>fatal</span> <span class='op'>?</span> <span class='symbol'>:fatal</span> <span class='op'>:</span> <span class='symbol'>:error</span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>Cannot create following directory due to permission denied: {mark=bright}</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_e'>e</span><span class='period'>.</span><span class='id identifier rubyid_message'>message</span><span class='period'>.</span><span class='id identifier rubyid_gsub'>gsub</span><span class='lparen'>(</span><span class='tstring'><span class='regexp_beg'>/</span><span class='tstring_content'>.+ - (.+)</span><span class='regexp_end'>/</span></span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>\\1</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span><span class='rbrace'>}</span><span class='tstring_content'>{/mark}.</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span>
+            <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_console'>console</span><span class='period'>.</span><span class='id identifier rubyid_send'>send</span><span class='lparen'>(</span><span class='id identifier rubyid_fatal'>fatal</span> <span class='op'>?</span> <span class='symbol'>:fatal</span> <span class='op'>:</span> <span class='symbol'>:error</span><span class='comma'>,</span> <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_i18n'>i18n</span><span class='period'>.</span><span class='id identifier rubyid_shell'>shell</span><span class='period'>.</span><span class='id identifier rubyid_mkdir_denied'>mkdir_denied</span><span class='lparen'>(</span><span class='id identifier rubyid_e'>e</span><span class='period'>.</span><span class='id identifier rubyid_message'>message</span><span class='period'>.</span><span class='id identifier rubyid_gsub'>gsub</span><span class='lparen'>(</span><span class='tstring'><span class='regexp_beg'>/</span><span class='tstring_content'>.+ - (.+)</span><span class='regexp_end'>/</span></span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>\\1</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span><span class='rparen'>)</span><span class='rparen'>)</span>
           <span class='kw'>rescue</span> <span class='const'>Exception</span> <span class='op'>=&gt;</span> <span class='id identifier rubyid_e'>e</span>
             <span class='kw'>if</span> <span class='id identifier rubyid_show_errors'>show_errors</span> <span class='kw'>then</span>
-              <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_console'>console</span><span class='period'>.</span><span class='id identifier rubyid_error'>error</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>Cannot create following directories:</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span>
+              <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_console'>console</span><span class='period'>.</span><span class='id identifier rubyid_error'>error</span><span class='lparen'>(</span><span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_i18n'>i18n</span><span class='period'>.</span><span class='id identifier rubyid_shell'>shell</span><span class='period'>.</span><span class='id identifier rubyid_mkdir_error'>mkdir_error</span><span class='rparen'>)</span>
               <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_console'>console</span><span class='period'>.</span><span class='id identifier rubyid_with_indentation'>with_indentation</span><span class='lparen'>(</span><span class='int'>11</span><span class='rparen'>)</span> <span class='kw'>do</span>
                 <span class='id identifier rubyid_directories'>directories</span><span class='period'>.</span><span class='id identifier rubyid_each'>each</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_directory'>directory</span><span class='op'>|</span> <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_console'>console</span><span class='period'>.</span><span class='id identifier rubyid_write'>write</span><span class='lparen'>(</span><span class='id identifier rubyid_directory'>directory</span><span class='rparen'>)</span> <span class='kw'>end</span>
               <span class='kw'>end</span>
-              <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_console'>console</span><span class='period'>.</span><span class='id identifier rubyid_write'>write</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>due to this error: [</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_e'>e</span><span class='period'>.</span><span class='id identifier rubyid_class'>class</span><span class='period'>.</span><span class='id identifier rubyid_to_s'>to_s</span><span class='rbrace'>}</span><span class='tstring_content'>] </span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_e'>e</span><span class='rbrace'>}</span><span class='tstring_content'>.</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>\n</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='int'>5</span><span class='rparen'>)</span>
+              <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_console'>console</span><span class='period'>.</span><span class='id identifier rubyid_write'>write</span><span class='lparen'>(</span><span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_i18n'>i18n</span><span class='period'>.</span><span class='id identifier rubyid_shell'>shell</span><span class='period'>.</span><span class='id identifier rubyid_error'>error</span><span class='lparen'>(</span><span class='id identifier rubyid_e'>e</span><span class='period'>.</span><span class='id identifier rubyid_class'>class</span><span class='period'>.</span><span class='id identifier rubyid_to_s'>to_s</span><span class='comma'>,</span> <span class='id identifier rubyid_e'>e</span><span class='rparen'>)</span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>\n</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='int'>5</span><span class='rparen'>)</span>
               <span class='const'>Kernel</span><span class='period'>.</span><span class='id identifier rubyid_exit'>exit</span><span class='lparen'>(</span><span class='op'>-</span><span class='int'>1</span><span class='rparen'>)</span> <span class='kw'>if</span> <span class='id identifier rubyid_fatal'>fatal</span>
             <span class='kw'>end</span>
           <span class='kw'>end</span>
@@ -1493,10 +1519,6 @@
       <pre class="lines">
 
 
-101
-102
-103
-104
 105
 106
 107
@@ -1527,36 +1549,40 @@
 132
 133
 134
-135</pre>
+135
+136
+137
+138
+139</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/bovem/shell.rb', line 101</span>
+      <pre class="code"><span class="info file"># File 'lib/bovem/shell.rb', line 105</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_delete'>delete</span><span class='lparen'>(</span><span class='id identifier rubyid_files'>files</span><span class='comma'>,</span> <span class='id identifier rubyid_run'>run</span> <span class='op'>=</span> <span class='kw'>true</span><span class='comma'>,</span> <span class='id identifier rubyid_show_errors'>show_errors</span> <span class='op'>=</span> <span class='kw'>false</span><span class='comma'>,</span> <span class='id identifier rubyid_fatal'>fatal</span> <span class='op'>=</span> <span class='kw'>true</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_rv'>rv</span> <span class='op'>=</span> <span class='kw'>true</span>
   <span class='id identifier rubyid_files'>files</span> <span class='op'>=</span> <span class='id identifier rubyid_files'>files</span><span class='period'>.</span><span class='id identifier rubyid_ensure_array'>ensure_array</span><span class='period'>.</span><span class='id identifier rubyid_compact'>compact</span><span class='period'>.</span><span class='id identifier rubyid_collect'>collect</span> <span class='lbrace'>{</span><span class='op'>|</span><span class='id identifier rubyid_f'>f</span><span class='op'>|</span> <span class='const'>File</span><span class='period'>.</span><span class='id identifier rubyid_expand_path'>expand_path</span><span class='lparen'>(</span><span class='id identifier rubyid_f'>f</span><span class='period'>.</span><span class='id identifier rubyid_ensure_string'>ensure_string</span><span class='rparen'>)</span> <span class='rbrace'>}</span>
 
   <span class='kw'>if</span> <span class='op'>!</span><span class='id identifier rubyid_run'>run</span> <span class='kw'>then</span>
-    <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_console'>console</span><span class='period'>.</span><span class='id identifier rubyid_warn'>warn</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>Will remove file(s):</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span>
+    <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_console'>console</span><span class='period'>.</span><span class='id identifier rubyid_warn'>warn</span><span class='lparen'>(</span><span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_i18n'>i18n</span><span class='period'>.</span><span class='id identifier rubyid_shell'>shell</span><span class='period'>.</span><span class='id identifier rubyid_remove_dry'>remove_dry</span><span class='rparen'>)</span>
     <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_console'>console</span><span class='period'>.</span><span class='id identifier rubyid_with_indentation'>with_indentation</span><span class='lparen'>(</span><span class='int'>11</span><span class='rparen'>)</span> <span class='kw'>do</span>
       <span class='id identifier rubyid_files'>files</span><span class='period'>.</span><span class='id identifier rubyid_each'>each</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_file'>file</span><span class='op'>|</span> <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_console'>console</span><span class='period'>.</span><span class='id identifier rubyid_write'>write</span><span class='lparen'>(</span><span class='id identifier rubyid_file'>file</span><span class='rparen'>)</span> <span class='kw'>end</span>
     <span class='kw'>end</span>
   <span class='kw'>else</span>
     <span class='id identifier rubyid_rv'>rv</span> <span class='op'>=</span> <span class='id identifier rubyid_catch'>catch</span><span class='lparen'>(</span><span class='symbol'>:rv</span><span class='rparen'>)</span> <span class='kw'>do</span>
       <span class='kw'>begin</span>
-        <span class='const'>FileUtils</span><span class='period'>.</span><span class='id identifier rubyid_rm_r'>rm_r</span><span class='lparen'>(</span><span class='id identifier rubyid_files'>files</span><span class='comma'>,</span> <span class='lbrace'>{</span><span class='symbol'>:noop</span> <span class='op'>=&gt;</span> <span class='kw'>false</span><span class='comma'>,</span> <span class='symbol'>:verbose</span> <span class='op'>=&gt;</span> <span class='kw'>false</span><span class='comma'>,</span> <span class='symbol'>:secure</span> <span class='op'>=&gt;</span> <span class='kw'>true</span><span class='rbrace'>}</span><span class='rparen'>)</span>
+        <span class='const'>FileUtils</span><span class='period'>.</span><span class='id identifier rubyid_rm_r'>rm_r</span><span class='lparen'>(</span><span class='id identifier rubyid_files'>files</span><span class='comma'>,</span> <span class='lbrace'>{</span><span class='label'>noop:</span> <span class='kw'>false</span><span class='comma'>,</span> <span class='label'>verbose:</span> <span class='kw'>false</span><span class='comma'>,</span> <span class='label'>secure:</span> <span class='kw'>true</span><span class='rbrace'>}</span><span class='rparen'>)</span>
         <span class='id identifier rubyid_throw'>throw</span><span class='lparen'>(</span><span class='symbol'>:rv</span><span class='comma'>,</span> <span class='kw'>true</span><span class='rparen'>)</span>
       <span class='kw'>rescue</span> <span class='const'>Errno</span><span class='op'>::</span><span class='const'>EACCES</span> <span class='op'>=&gt;</span> <span class='id identifier rubyid_e'>e</span>
-        <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_console'>console</span><span class='period'>.</span><span class='id identifier rubyid_send'>send</span><span class='lparen'>(</span><span class='id identifier rubyid_fatal'>fatal</span> <span class='op'>?</span> <span class='symbol'>:fatal</span> <span class='op'>:</span> <span class='symbol'>:error</span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>Cannot remove following non writable file: {mark=bright}</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_e'>e</span><span class='period'>.</span><span class='id identifier rubyid_message'>message</span><span class='period'>.</span><span class='id identifier rubyid_gsub'>gsub</span><span class='lparen'>(</span><span class='tstring'><span class='regexp_beg'>/</span><span class='tstring_content'>.+ - (.+)</span><span class='regexp_end'>/</span></span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>\\1</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span><span class='rbrace'>}</span><span class='tstring_content'>{/mark}</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span>
+        <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_console'>console</span><span class='period'>.</span><span class='id identifier rubyid_send'>send</span><span class='lparen'>(</span><span class='id identifier rubyid_fatal'>fatal</span> <span class='op'>?</span> <span class='symbol'>:fatal</span> <span class='op'>:</span> <span class='symbol'>:error</span><span class='comma'>,</span> <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_i18n'>i18n</span><span class='period'>.</span><span class='id identifier rubyid_shell'>shell</span><span class='period'>.</span><span class='id identifier rubyid_remove_unwritable'>remove_unwritable</span><span class='lparen'>(</span><span class='id identifier rubyid_e'>e</span><span class='period'>.</span><span class='id identifier rubyid_message'>message</span><span class='period'>.</span><span class='id identifier rubyid_gsub'>gsub</span><span class='lparen'>(</span><span class='tstring'><span class='regexp_beg'>/</span><span class='tstring_content'>.+ - (.+)</span><span class='regexp_end'>/</span></span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>\\1</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span><span class='rparen'>)</span><span class='rparen'>)</span>
       <span class='kw'>rescue</span> <span class='const'>Errno</span><span class='op'>::</span><span class='const'>ENOENT</span> <span class='op'>=&gt;</span> <span class='id identifier rubyid_e'>e</span>
-        <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_console'>console</span><span class='period'>.</span><span class='id identifier rubyid_send'>send</span><span class='lparen'>(</span><span class='id identifier rubyid_fatal'>fatal</span> <span class='op'>?</span> <span class='symbol'>:fatal</span> <span class='op'>:</span> <span class='symbol'>:error</span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>Cannot remove following non existent file: {mark=bright}</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_e'>e</span><span class='period'>.</span><span class='id identifier rubyid_message'>message</span><span class='period'>.</span><span class='id identifier rubyid_gsub'>gsub</span><span class='lparen'>(</span><span class='tstring'><span class='regexp_beg'>/</span><span class='tstring_content'>.+ - (.+)</span><span class='regexp_end'>/</span></span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>\\1</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span><span class='rbrace'>}</span><span class='tstring_content'>{/mark}</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span>
+        <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_console'>console</span><span class='period'>.</span><span class='id identifier rubyid_send'>send</span><span class='lparen'>(</span><span class='id identifier rubyid_fatal'>fatal</span> <span class='op'>?</span> <span class='symbol'>:fatal</span> <span class='op'>:</span> <span class='symbol'>:error</span><span class='comma'>,</span> <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_i18n'>i18n</span><span class='period'>.</span><span class='id identifier rubyid_shell'>shell</span><span class='period'>.</span><span class='id identifier rubyid_remove_not_found'>remove_not_found</span><span class='lparen'>(</span><span class='id identifier rubyid_e'>e</span><span class='period'>.</span><span class='id identifier rubyid_message'>message</span><span class='period'>.</span><span class='id identifier rubyid_gsub'>gsub</span><span class='lparen'>(</span><span class='tstring'><span class='regexp_beg'>/</span><span class='tstring_content'>.+ - (.+)</span><span class='regexp_end'>/</span></span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>\\1</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span><span class='rparen'>)</span><span class='rparen'>)</span>
       <span class='kw'>rescue</span> <span class='const'>Exception</span> <span class='op'>=&gt;</span> <span class='id identifier rubyid_e'>e</span>
         <span class='kw'>if</span> <span class='id identifier rubyid_show_errors'>show_errors</span> <span class='kw'>then</span>
-          <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_console'>console</span><span class='period'>.</span><span class='id identifier rubyid_error'>error</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>Cannot remove following file(s):</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span>
+          <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_console'>console</span><span class='period'>.</span><span class='id identifier rubyid_error'>error</span><span class='lparen'>(</span><span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_i18n'>i18n</span><span class='period'>.</span><span class='id identifier rubyid_shell'>shell</span><span class='period'>.</span><span class='id identifier rubyid_remove_error'>remove_error</span><span class='rparen'>)</span>
           <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_console'>console</span><span class='period'>.</span><span class='id identifier rubyid_with_indentation'>with_indentation</span><span class='lparen'>(</span><span class='int'>11</span><span class='rparen'>)</span> <span class='kw'>do</span>
             <span class='id identifier rubyid_files'>files</span><span class='period'>.</span><span class='id identifier rubyid_each'>each</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_file'>file</span><span class='op'>|</span> <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_console'>console</span><span class='period'>.</span><span class='id identifier rubyid_write'>write</span><span class='lparen'>(</span><span class='id identifier rubyid_file'>file</span><span class='rparen'>)</span> <span class='kw'>end</span>
           <span class='kw'>end</span>
-          <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_console'>console</span><span class='period'>.</span><span class='id identifier rubyid_write'>write</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>due to this error: [</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_e'>e</span><span class='period'>.</span><span class='id identifier rubyid_class'>class</span><span class='period'>.</span><span class='id identifier rubyid_to_s'>to_s</span><span class='rbrace'>}</span><span class='tstring_content'>] </span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_e'>e</span><span class='rbrace'>}</span><span class='tstring_content'>.</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>\n</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='int'>5</span><span class='rparen'>)</span>
+          <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_console'>console</span><span class='period'>.</span><span class='id identifier rubyid_write'>write</span><span class='lparen'>(</span><span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_i18n'>i18n</span><span class='period'>.</span><span class='id identifier rubyid_shell'>shell</span><span class='period'>.</span><span class='id identifier rubyid_error'>error</span><span class='lparen'>(</span><span class='id identifier rubyid_e'>e</span><span class='period'>.</span><span class='id identifier rubyid_class'>class</span><span class='period'>.</span><span class='id identifier rubyid_to_s'>to_s</span><span class='comma'>,</span> <span class='id identifier rubyid_e'>e</span><span class='rparen'>)</span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>\n</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='int'>5</span><span class='rparen'>)</span>
           <span class='const'>Kernel</span><span class='period'>.</span><span class='id identifier rubyid_exit'>exit</span><span class='lparen'>(</span><span class='op'>-</span><span class='int'>1</span><span class='rparen'>)</span> <span class='kw'>if</span> <span class='id identifier rubyid_fatal'>fatal</span>
         <span class='kw'>end</span>
       <span class='kw'>end</span>
@@ -1671,11 +1697,6 @@
       <pre class="lines">
 
 
-353
-354
-355
-356
-357
 358
 359
 360
@@ -1703,10 +1724,15 @@
 382
 383
 384
-385</pre>
+385
+386
+387
+388
+389
+390</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/bovem/shell.rb', line 353</span>
+      <pre class="code"><span class="info file"># File 'lib/bovem/shell.rb', line 358</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_find'>find</span><span class='lparen'>(</span><span class='id identifier rubyid_directories'>directories</span><span class='comma'>,</span> <span class='id identifier rubyid_patterns'>patterns</span> <span class='op'>=</span> <span class='lbracket'>[</span><span class='rbracket'>]</span><span class='comma'>,</span> <span class='id identifier rubyid_by_extension'>by_extension</span> <span class='op'>=</span> <span class='kw'>false</span><span class='comma'>,</span> <span class='id identifier rubyid_case_sensitive'>case_sensitive</span> <span class='op'>=</span> <span class='kw'>false</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_rv'>rv</span> <span class='op'>=</span> <span class='lbracket'>[</span><span class='rbracket'>]</span>
@@ -1873,12 +1899,12 @@
       <pre class="lines">
 
 
-250
-251
-252</pre>
+255
+256
+257</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/bovem/shell.rb', line 250</span>
+      <pre class="code"><span class="info file"># File 'lib/bovem/shell.rb', line 255</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_move'>move</span><span class='lparen'>(</span><span class='id identifier rubyid_src'>src</span><span class='comma'>,</span> <span class='id identifier rubyid_dst'>dst</span><span class='comma'>,</span> <span class='id identifier rubyid_run'>run</span> <span class='op'>=</span> <span class='kw'>true</span><span class='comma'>,</span> <span class='id identifier rubyid_show_errors'>show_errors</span> <span class='op'>=</span> <span class='kw'>false</span><span class='comma'>,</span> <span class='id identifier rubyid_fatal'>fatal</span> <span class='op'>=</span> <span class='kw'>true</span><span class='rparen'>)</span>
   <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_copy_or_move'>copy_or_move</span><span class='lparen'>(</span><span class='id identifier rubyid_src'>src</span><span class='comma'>,</span> <span class='id identifier rubyid_dst'>dst</span><span class='comma'>,</span> <span class='symbol'>:move</span><span class='comma'>,</span> <span class='id identifier rubyid_run'>run</span><span class='comma'>,</span> <span class='id identifier rubyid_show_errors'>show_errors</span><span class='comma'>,</span> <span class='id identifier rubyid_fatal'>fatal</span><span class='rparen'>)</span>
@@ -2051,10 +2077,6 @@
       <pre class="lines">
 
 
-35
-36
-37
-38
 39
 40
 41
@@ -2080,13 +2102,17 @@
 61
 62
 63
-64</pre>
+64
+65
+66
+67
+68</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/bovem/shell.rb', line 35</span>
+      <pre class="code"><span class="info file"># File 'lib/bovem/shell.rb', line 39</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_run'>run</span><span class='lparen'>(</span><span class='id identifier rubyid_command'>command</span><span class='comma'>,</span> <span class='id identifier rubyid_message'>message</span> <span class='op'>=</span> <span class='kw'>nil</span><span class='comma'>,</span> <span class='id identifier rubyid_run'>run</span> <span class='op'>=</span> <span class='kw'>true</span><span class='comma'>,</span> <span class='id identifier rubyid_show_exit'>show_exit</span> <span class='op'>=</span> <span class='kw'>true</span><span class='comma'>,</span> <span class='id identifier rubyid_show_output'>show_output</span> <span class='op'>=</span> <span class='kw'>false</span><span class='comma'>,</span> <span class='id identifier rubyid_show_command'>show_command</span> <span class='op'>=</span> <span class='kw'>false</span><span class='comma'>,</span> <span class='id identifier rubyid_fatal'>fatal</span> <span class='op'>=</span> <span class='kw'>true</span><span class='rparen'>)</span>
-  <span class='id identifier rubyid_rv'>rv</span> <span class='op'>=</span> <span class='lbrace'>{</span><span class='symbol'>:status</span> <span class='op'>=&gt;</span> <span class='int'>0</span><span class='comma'>,</span> <span class='symbol'>:output</span> <span class='op'>=&gt;</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_end'>&quot;</span></span><span class='rbrace'>}</span>
+  <span class='id identifier rubyid_rv'>rv</span> <span class='op'>=</span> <span class='lbrace'>{</span><span class='label'>status:</span> <span class='int'>0</span><span class='comma'>,</span> <span class='label'>output:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_end'>&quot;</span></span><span class='rbrace'>}</span>
   <span class='id identifier rubyid_command'>command</span> <span class='op'>=</span> <span class='id identifier rubyid_command'>command</span><span class='period'>.</span><span class='id identifier rubyid_ensure_string'>ensure_string</span>
 
   <span class='comment'># Show the command
@@ -2094,12 +2120,12 @@
 
 
   <span class='kw'>if</span> <span class='op'>!</span><span class='id identifier rubyid_run'>run</span> <span class='kw'>then</span> <span class='comment'># Print a message
-</span>    <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_console'>console</span><span class='period'>.</span><span class='id identifier rubyid_warn'>warn</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>Will run command: {mark=bright}\&quot;</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_command'>command</span><span class='rbrace'>}</span><span class='tstring_content'>\&quot;{/mark}...</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span>
+</span>    <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_console'>console</span><span class='period'>.</span><span class='id identifier rubyid_warn'>warn</span><span class='lparen'>(</span><span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_i18n'>i18n</span><span class='period'>.</span><span class='id identifier rubyid_shell'>shell</span><span class='period'>.</span><span class='id identifier rubyid_run_dry'>run_dry</span><span class='lparen'>(</span><span class='id identifier rubyid_command'>command</span><span class='rparen'>)</span><span class='rparen'>)</span>
     <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_console'>console</span><span class='period'>.</span><span class='id identifier rubyid_status'>status</span><span class='lparen'>(</span><span class='symbol'>:ok</span><span class='rparen'>)</span> <span class='kw'>if</span> <span class='id identifier rubyid_show_exit'>show_exit</span>
   <span class='kw'>else</span> <span class='comment'># Run
 </span>    <span class='id identifier rubyid_output'>output</span> <span class='op'>=</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_end'>&quot;</span></span>
 
-    <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_console'>console</span><span class='period'>.</span><span class='id identifier rubyid_info'>info</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>Running command: {mark=bright}\&quot;</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_command'>command</span><span class='rbrace'>}</span><span class='tstring_content'>\&quot;{/mark}...</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span> <span class='kw'>if</span> <span class='id identifier rubyid_show_command'>show_command</span>
+    <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_console'>console</span><span class='period'>.</span><span class='id identifier rubyid_info'>info</span><span class='lparen'>(</span><span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_i18n'>i18n</span><span class='period'>.</span><span class='id identifier rubyid_shell'>shell</span><span class='period'>.</span><span class='id identifier rubyid_run'>run</span><span class='lparen'>(</span><span class='id identifier rubyid_command'>command</span><span class='rparen'>)</span><span class='rparen'>)</span> <span class='kw'>if</span> <span class='id identifier rubyid_show_command'>show_command</span>
     <span class='id identifier rubyid_rv'>rv</span><span class='lbracket'>[</span><span class='symbol'>:status</span><span class='rbracket'>]</span> <span class='op'>=</span> <span class='op'>::</span><span class='const'>Open4</span><span class='op'>::</span><span class='id identifier rubyid_popen4'>popen4</span><span class='lparen'>(</span><span class='id identifier rubyid_command'>command</span> <span class='op'>+</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'> 2&gt;&amp;1</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span> <span class='lbrace'>{</span> <span class='op'>|</span><span class='id identifier rubyid_pid'>pid</span><span class='comma'>,</span> <span class='id identifier rubyid_stdin'>stdin</span><span class='comma'>,</span> <span class='id identifier rubyid_stdout'>stdout</span><span class='comma'>,</span> <span class='id identifier rubyid_stderr'>stderr</span><span class='op'>|</span>
       <span class='id identifier rubyid_stdout'>stdout</span><span class='period'>.</span><span class='id identifier rubyid_each_line'>each_line</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_line'>line</span><span class='op'>|</span>
         <span class='id identifier rubyid_output'>output</span> <span class='op'>&lt;&lt;</span> <span class='id identifier rubyid_line'>line</span>
@@ -2215,11 +2241,6 @@
       <pre class="lines">
 
 
-260
-261
-262
-263
-264
 265
 266
 267
@@ -2241,10 +2262,15 @@
 283
 284
 285
-286</pre>
+286
+287
+288
+289
+290
+291</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/bovem/shell.rb', line 260</span>
+      <pre class="code"><span class="info file"># File 'lib/bovem/shell.rb', line 265</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_within_directory'>within_directory</span><span class='lparen'>(</span><span class='id identifier rubyid_directory'>directory</span><span class='comma'>,</span> <span class='id identifier rubyid_restore'>restore</span> <span class='op'>=</span> <span class='kw'>true</span><span class='comma'>,</span> <span class='id identifier rubyid_show_messages'>show_messages</span> <span class='op'>=</span> <span class='kw'>false</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_rv'>rv</span> <span class='op'>=</span> <span class='kw'>false</span>
@@ -2253,7 +2279,7 @@
 
   <span class='kw'>if</span> <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_check'>check</span><span class='lparen'>(</span><span class='id identifier rubyid_directory'>directory</span><span class='comma'>,</span> <span class='lbracket'>[</span><span class='symbol'>:directory</span><span class='comma'>,</span> <span class='symbol'>:executable</span><span class='rbracket'>]</span><span class='rparen'>)</span> <span class='kw'>then</span>
     <span class='kw'>begin</span>
-      <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_console'>console</span><span class='period'>.</span><span class='id identifier rubyid_info'>info</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>Moving into directory {mark=bright}</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_directory'>directory</span><span class='rbrace'>}</span><span class='tstring_content'>{/mark}</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span> <span class='kw'>if</span> <span class='id identifier rubyid_show_messages'>show_messages</span>
+      <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_console'>console</span><span class='period'>.</span><span class='id identifier rubyid_info'>info</span><span class='lparen'>(</span><span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_i18n'>i18n</span><span class='period'>.</span><span class='id identifier rubyid_shell'>shell</span><span class='period'>.</span><span class='id identifier rubyid_move_in'>move_in</span><span class='lparen'>(</span><span class='id identifier rubyid_directory'>directory</span><span class='rparen'>)</span><span class='rparen'>)</span> <span class='kw'>if</span> <span class='id identifier rubyid_show_messages'>show_messages</span>
       <span class='const'>Dir</span><span class='period'>.</span><span class='id identifier rubyid_chdir'>chdir</span><span class='lparen'>(</span><span class='id identifier rubyid_directory'>directory</span><span class='rparen'>)</span>
       <span class='id identifier rubyid_rv'>rv</span> <span class='op'>=</span> <span class='kw'>true</span>
     <span class='kw'>rescue</span> <span class='const'>Exception</span> <span class='op'>=&gt;</span> <span class='id identifier rubyid_e'>e</span>
@@ -2264,7 +2290,7 @@
 
   <span class='kw'>if</span> <span class='id identifier rubyid_rv'>rv</span> <span class='op'>&amp;&amp;</span> <span class='id identifier rubyid_original'>original</span> <span class='kw'>then</span>
     <span class='kw'>begin</span>
-      <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_console'>console</span><span class='period'>.</span><span class='id identifier rubyid_info'>info</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>Moving back into directory {mark=bright}</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_original'>original</span><span class='rbrace'>}</span><span class='tstring_content'>{/mark}</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span> <span class='kw'>if</span> <span class='id identifier rubyid_show_messages'>show_messages</span>
+      <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_console'>console</span><span class='period'>.</span><span class='id identifier rubyid_info'>info</span><span class='lparen'>(</span><span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_i18n'>i18n</span><span class='period'>.</span><span class='id identifier rubyid_shell'>shell</span><span class='period'>.</span><span class='id identifier rubyid_move_out'>move_out</span><span class='lparen'>(</span><span class='id identifier rubyid_original'>original</span><span class='rparen'>)</span><span class='rparen'>)</span> <span class='kw'>if</span> <span class='id identifier rubyid_show_messages'>show_messages</span>
       <span class='const'>Dir</span><span class='period'>.</span><span class='id identifier rubyid_chdir'>chdir</span><span class='lparen'>(</span><span class='id identifier rubyid_original'>original</span><span class='rparen'>)</span> <span class='kw'>if</span> <span class='id identifier rubyid_restore'>restore</span>
     <span class='kw'>rescue</span> <span class='const'>Exception</span> <span class='op'>=&gt;</span> <span class='id identifier rubyid_e'>e</span>
       <span class='id identifier rubyid_rv'>rv</span> <span class='op'>=</span> <span class='kw'>false</span>
@@ -2283,9 +2309,9 @@
 </div>
 
     <div id="footer">
-  Generated on Mon Oct 22 09:30:27 2012 by
+  Generated on Wed Jan 30 08:10:08 2013 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
-  0.8.2.1 (ruby-1.9.2).
+  0.8.3 (ruby-1.9.3).
 </div>
 
   </body>
