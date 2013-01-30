@@ -356,23 +356,6 @@ module Bovem
       "{mark=%s}%s{mark=%s}%s{/mark}%s{/mark}" % [bracket_color.parameterize, brackets[0], base_color.parameterize, label, brackets[1]]
     end
 
-    # Writes a message prepending a cyan banner.
-    #
-    # @param message [String] The message to format.
-    # @param suffix [Object] If not `nil` or `false`, a suffix to add to the message. `true` means to add `\n`.
-    # @param indent [Object] If not `nil` or `false`, the width to use for indentation. `true` means to use the current indentation, a negative value of `-x` will indent of `x` absolute spaces.
-    # @param wrap [Object] If not `nil` or `false`, the maximum length of a line for wrapped text. `true` means the current line width.
-    # @param plain [Boolean] If ignore color markers into the message.
-    # @param indented_banner [Boolean] If also the banner should be indented.
-    # @param full_colored [Boolean] If the banner should be fully colored.
-    # @param print [Boolean] If `false`, the result will be returned instead of be printed.
-    #
-    # @see #format
-    def info(message, suffix = "\n", indent = true, wrap = false, plain = false, indented_banner = false, full_colored = false, print = true)
-      write_message("I", "bright cyan", message, suffix, indent, wrap, plain, indented_banner, full_colored, print)
-
-    end
-
     # Writes a message prepending a green banner.
     #
     # @param message [String] The message to format.
@@ -389,38 +372,6 @@ module Bovem
       banner = self.get_banner("*", "bright green")
       message = self.indent(message, indented_banner ? 0 : indent)
       self.write(banner + " " + message, suffix, indented_banner ? indent : 0, wrap, plain, print)
-    end
-
-    # Writes a message prepending a yellow banner.
-    #
-    # @param message [String] The message to format.
-    # @param suffix [Object] If not `nil` or `false`, a suffix to add to the message. `true` means to add `\n`.
-    # @param indent [Object] If not `nil` or `false`, the width to use for indentation. `true` means to use the current indentation, a negative value of `-x` will indent of `x` absolute spaces.
-    # @param wrap [Object] If not `nil` or `false`, the maximum length of a line for wrapped text. `true` means the current line width.
-    # @param plain [Boolean] If ignore color markers into the message.
-    # @param indented_banner [Boolean] If also the banner should be indented.
-    # @param full_colored [Boolean] If the banner should be fully colored.
-    # @param print [Boolean] If `false`, the result will be returned instead of be printed.
-    #
-    # @see #format
-    def warn(message, suffix = "\n", indent = true, wrap = false, plain = false, indented_banner = false, full_colored = false, print = true)
-      write_message("W", "bright yellow", message, suffix, indent, wrap, plain, indented_banner, full_colored, print)
-    end
-
-    # Writes a message prepending a red banner.
-    #
-    # @param message [String] The message to format.
-    # @param suffix [Object] If not `nil` or `false`, a suffix to add to the message. `true` means to add `\n`.
-    # @param indent [Object] If not `nil` or `false`, the width to use for indentation. `true` means to use the current indentation, a negative value of `-x` will indent of `x` absolute spaces.
-    # @param wrap [Object] If not `nil` or `false`, the maximum length of a line for wrapped text. `true` means the current line width.
-    # @param plain [Boolean] If ignore color markers into the message.
-    # @param indented_banner [Boolean] If also the banner should be indented.
-    # @param full_colored [Boolean] If the banner should be fully colored.
-    # @param print [Boolean] If `false`, the result will be returned instead of be printed.
-    #
-    # @see #format
-    def error(message, suffix = "\n", indent = true, wrap = false, plain = false, indented_banner = false, full_colored = false, print = true)
-      write_message("E", "bright red", message, suffix, indent, wrap, plain, indented_banner, full_colored, print)
     end
 
     # Writes a message prepending a red banner and then quits the application.
@@ -441,6 +392,57 @@ module Bovem
       Kernel.exit(return_code.to_integer(-1))
     end
 
+    # Writes a message prepending a cyan banner.
+    #
+    # @param message [String] The message to format.
+    # @param suffix [Object] If not `nil` or `false`, a suffix to add to the message. `true` means to add `\n`.
+    # @param indent [Object] If not `nil` or `false`, the width to use for indentation. `true` means to use the current indentation, a negative value of `-x` will indent of `x` absolute spaces.
+    # @param wrap [Object] If not `nil` or `false`, the maximum length of a line for wrapped text. `true` means the current line width.
+    # @param plain [Boolean] If ignore color markers into the message.
+    # @param indented_banner [Boolean] If also the banner should be indented.
+    # @param full_colored [Boolean] If the banner should be fully colored.
+    # @param print [Boolean] If `false`, the result will be returned instead of be printed.
+    # @param banner [Array] An array with a letter and style to use for the banner.
+    #
+    # @see #format
+    def info(message, suffix = "\n", indent = true, wrap = false, plain = false, indented_banner = false, full_colored = false, print = true, banner = ["I", "bright cyan"])
+      banner = self.get_banner(banner[0], banner[1], full_colored)
+      message = self.indent(message, indented_banner ? 0 : indent)
+      self.write(banner + " " + message, suffix, indented_banner ? indent : 0, wrap, plain, print)
+    end
+
+    # Writes a message prepending a yellow banner.
+    #
+    # @param message [String] The message to format.
+    # @param suffix [Object] If not `nil` or `false`, a suffix to add to the message. `true` means to add `\n`.
+    # @param indent [Object] If not `nil` or `false`, the width to use for indentation. `true` means to use the current indentation, a negative value of `-x` will indent of `x` absolute spaces.
+    # @param wrap [Object] If not `nil` or `false`, the maximum length of a line for wrapped text. `true` means the current line width.
+    # @param plain [Boolean] If ignore color markers into the message.
+    # @param indented_banner [Boolean] If also the banner should be indented.
+    # @param full_colored [Boolean] If the banner should be fully colored.
+    # @param print [Boolean] If `false`, the result will be returned instead of be printed.
+    #
+    # @see #format
+    def warn(message, suffix = "\n", indent = true, wrap = false, plain = false, indented_banner = false, full_colored = false, print = true)
+      self.info(message, suffix, indent, wrap, plain, indented_banner, full_colored, print, ["W", "bright yellow"])
+    end
+
+    # Writes a message prepending a red banner.
+    #
+    # @param message [String] The message to format.
+    # @param suffix [Object] If not `nil` or `false`, a suffix to add to the message. `true` means to add `\n`.
+    # @param indent [Object] If not `nil` or `false`, the width to use for indentation. `true` means to use the current indentation, a negative value of `-x` will indent of `x` absolute spaces.
+    # @param wrap [Object] If not `nil` or `false`, the maximum length of a line for wrapped text. `true` means the current line width.
+    # @param plain [Boolean] If ignore color markers into the message.
+    # @param indented_banner [Boolean] If also the banner should be indented.
+    # @param full_colored [Boolean] If the banner should be fully colored.
+    # @param print [Boolean] If `false`, the result will be returned instead of be printed.
+    #
+    # @see #format
+    def error(message, suffix = "\n", indent = true, wrap = false, plain = false, indented_banner = false, full_colored = false, print = true)
+      self.info(message, suffix, indent, wrap, plain, indented_banner, full_colored, print, ["E", "bright red"])
+    end
+
     # Writes a message prepending a magenta banner.
     #
     # @param message [String] The message to format.
@@ -454,7 +456,7 @@ module Bovem
     #
     # @see #format
     def debug(message, suffix = "\n", indent = true, wrap = false, plain = false, indented_banner = false, full_colored = false, print = true)
-      write_message("D", "bright magenta", message, suffix, indent, wrap, plain, indented_banner, full_colored, print)
+      self.info(message, suffix, indent, wrap, plain, indented_banner, full_colored, print, ["D", "bright magenta"])
     end
 
     # Reads a string from the console.
