@@ -39,7 +39,6 @@ module Bovem
     # @param style [String] The style to parse.
     # @return [String] A string with ANSI color codes.
     def self.parse_style(style)
-      rv = ""
       style = style.ensure_string.strip.parameterize
 
       if style.present? && style !~ /^[,-]$/ then
@@ -47,16 +46,16 @@ module Bovem
         sym = style.to_sym
 
         if ::Bovem::TERM_EFFECTS.include?(sym) then
-          rv = "\e[#{Bovem::TERM_EFFECTS[sym]}m"
+          "\e[#{Bovem::TERM_EFFECTS[sym]}m"
         elsif style.index("bg_") == 0 then
           sym = style[3, style.length].to_sym
-          rv = "\e[#{40 + ::Bovem::TERM_COLORS[sym]}m" if ::Bovem::TERM_COLORS.include?(sym)
+          "\e[#{40 + ::Bovem::TERM_COLORS[sym]}m" if ::Bovem::TERM_COLORS.include?(sym)
         elsif style != "reset" then
-          rv = "\e[#{30 + ::Bovem::TERM_COLORS[sym]}m" if ::Bovem::TERM_COLORS.include?(sym)
+          "\e[#{30 + ::Bovem::TERM_COLORS[sym]}m" if ::Bovem::TERM_COLORS.include?(sym)
         end
+      else
+        ""
       end
-
-      rv
     end
 
     # Replaces colors markers in a string.
@@ -76,28 +75,23 @@ module Bovem
     # @see #parse_style
     def self.replace_markers(message, plain = false)
       stack = []
-      mark_regexp = /((\{mark=([a-z\-_\s,]+)\})|(\{\/mark\}))/mi
       split_regex = /\s*[\s,-]\s*/
 
-      message = message.ensure_string.gsub(mark_regexp) do
-        tag = $1
-        styles = $3
-        replacement = ""
-
-        if tag == "{/mark}" then # If it is a tag, pop from the latest opened.
+      message = message.ensure_string.gsub(/((\{mark=([a-z\-_\s,]+)\})|(\{\/mark\}))/mi) do
+        if $1 == "{/mark}" then # If it is a tag, pop from the latest opened.
           stack.pop
-          styles = stack.last
-          replacement = plain || stack.blank? ? "" : styles.split(split_regex).collect { |s| self.parse_style(s) }.join("")
+          plain || stack.blank? ? "" : stack.last.split(split_regex).collect { |s| self.parse_style(s) }.join("")
         else
+          styles = $3
           replacement = plain ? "" : styles.split(split_regex).collect { |s| self.parse_style(s) }.join("")
 
           if replacement.length > 0 then
             stack << "reset" if stack.blank?
             stack << styles
           end
-        end
 
-        replacement
+          replacement
+        end
       end
 
       message
