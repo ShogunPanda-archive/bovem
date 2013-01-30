@@ -14,6 +14,7 @@ describe Bovem::Console do
   }
 
   before(:each) do
+    ENV["TERM"] = "xterm-256color"
     Kernel.stub(:puts).and_return(nil)
   end
 

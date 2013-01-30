@@ -528,20 +528,29 @@ module Bovem
       status = nil
 
       self.begin(message, suffix, indent, wrap, plain, indented_banner, full_colored) if message.present?
-
       self.with_indentation(block_indentation, block_indentation_absolute) do
         rv = block_given? ? yield.ensure_array : [:ok] # Execute block
+        exit_task(message, rv, plain) # Handle task exit
         status = rv[0] # Return value
 
-        if status == :fatal then
-          self.status(:fail, plain)
-          exit(rv.length > 1 ? rv[1].to_integer : -1)
-        else
-          self.status(status, plain) if message.present?
-        end
       end
 
       status
     end
+
+    private
+      # Handles task exit.
+      #
+      # @param message [String] The message to format.
+      # @param rv [Array] An array with exit status and exit code.
+      # @param plain [Boolean] If ignore color markers into the message.
+      def exit_task(message, rv, plain)
+        if rv[0] == :fatal then
+          self.status(:fail, plain)
+          exit(rv.length > 1 ? rv[1].to_integer : -1)
+        else
+          self.status(rv[0], plain) if message.present?
+        end
+      end
   end
 end
