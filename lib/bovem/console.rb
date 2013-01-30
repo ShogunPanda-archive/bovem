@@ -53,6 +53,16 @@ module Bovem
       end
     end
 
+    # Parses a set of styles and returns terminals codes.
+    # Supported styles and colors are those in {Bovem::TERM\_COLORS} and {Bovem::TERM\_EFFECTS}. You can also prefix colors with `bg_` (like `bg_red`) for background colors.
+    #
+    # @param styles [String] The styles to parse.
+    # @return [String] A string with ANSI color codes.
+    def self.parse_styles(styles)
+      styles.split(/\s*[\s,-]\s*/).collect { |s| self.parse_style(s) }.join("")
+    end
+
+    #
     # Replaces a terminal code.
     #
     # @param codes [Array] The valid list of codes.
@@ -81,15 +91,14 @@ module Bovem
     # @see #parse_style
     def self.replace_markers(message, plain = false)
       stack = []
-      split_regex = /\s*[\s,-]\s*/
 
       message.ensure_string.gsub(/((\{mark=([a-z\-_\s,]+)\})|(\{\/mark\}))/mi) do
         if $1 == "{/mark}" then # If it is a tag, pop from the latest opened.
           stack.pop
-          plain || stack.blank? ? "" : stack.last.split(split_regex).collect { |s| self.parse_style(s) }.join("")
+          plain || stack.blank? ? "" : ::Bovem::Console.parse_styles(stack.last)
         else
           styles = $3
-          replacement = plain ? "" : styles.split(split_regex).collect { |s| self.parse_style(s) }.join("")
+          replacement = plain ? "" : ::Bovem::Console.parse_styles(styles)
 
           if replacement.length > 0 then
             stack << "reset" if stack.blank?
