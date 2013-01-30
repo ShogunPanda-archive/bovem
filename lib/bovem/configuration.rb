@@ -49,7 +49,13 @@ module Bovem
     def parse(file = nil, overrides = {}, logger = nil)
       file = file.present? ? File.expand_path(file) : nil
 
-      read_configuration_file(file, logger) if file
+      if file then
+        if File.readable?(file) then
+          read_configuration_file(file, logger)
+        else
+          raise Bovem::Errors::InvalidConfiguration.new(self.i18n.configuration.not_found(file))
+        end
+      end
 
       # Apply overrides
       if overrides.is_a?(::Hash) then
@@ -83,19 +89,15 @@ module Bovem
       # @param file [String] The file to read.
       # @param logger [Logger] The logger to use for notifications.
       def read_configuration_file(file, logger)
-        if File.readable?(file) then
-          begin
-            # Open the file
-            path = ::Pathname.new(file).realpath
-            logger.info(self.i18n.using(path)) if logger
-            self.tap do |config|
-              eval(::File.read(path))
-            end
-          rescue ::Exception => e
-            raise Bovem::Errors::InvalidConfiguration.new(self.i18n.configuration.invalid(file))
+        begin
+          # Open the file
+          path = ::Pathname.new(file).realpath
+          logger.info(self.i18n.using(path)) if logger
+          self.tap do |config|
+            eval(::File.read(path))
           end
-        else
-          raise Bovem::Errors::InvalidConfiguration.new(self.i18n.configuration.not_found(file))
+        rescue ::Exception => e
+          raise Bovem::Errors::InvalidConfiguration.new(self.i18n.configuration.invalid(file))
         end
       end
   end
