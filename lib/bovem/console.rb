@@ -41,8 +41,7 @@ module Bovem
     def self.parse_style(style)
       style = style.ensure_string.strip.parameterize
 
-      if style.present? && style !~ /^[,-]$/ then
-        style = style.ensure_string
+      if style !~ /^[,-]$/ then
         sym = style.to_sym
 
         if ::Bovem::TERM_EFFECTS.include?(sym) then
