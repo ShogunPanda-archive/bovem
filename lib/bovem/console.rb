@@ -369,9 +369,8 @@ module Bovem
     #
     # @see #format
     def info(message, suffix = "\n", indent = true, wrap = false, plain = false, indented_banner = false, full_colored = false, print = true)
-      banner = self.get_banner("I", "bright cyan", full_colored)
-      message = self.indent(message, indented_banner ? 0 : indent)
-      self.write(banner + " " + message, suffix, indented_banner ? indent : 0, wrap, plain, print)
+      write_message("I", "bright cyan", message, suffix, indent, wrap, plain, indented_banner, full_colored, print)
+
     end
 
     # Writes a message prepending a green banner.
@@ -405,9 +404,7 @@ module Bovem
     #
     # @see #format
     def warn(message, suffix = "\n", indent = true, wrap = false, plain = false, indented_banner = false, full_colored = false, print = true)
-      banner = self.get_banner("W", "bright yellow", full_colored)
-      message = self.indent(message, indented_banner ? 0 : indent)
-      self.write(banner + " " + message, suffix, indented_banner ? indent : 0, wrap, plain, print)
+      write_message("W", "bright yellow", message, suffix, indent, wrap, plain, indented_banner, full_colored, print)
     end
 
     # Writes a message prepending a red banner.
@@ -423,9 +420,7 @@ module Bovem
     #
     # @see #format
     def error(message, suffix = "\n", indent = true, wrap = false, plain = false, indented_banner = false, full_colored = false, print = true)
-      banner = self.get_banner("E", "bright red", full_colored)
-      message = self.indent(message, indented_banner ? 0 : indent)
-      self.write(banner + " " + message, suffix, indented_banner ? indent : 0, wrap, plain, print)
+      write_message("E", "bright red", message, suffix, indent, wrap, plain, indented_banner, full_colored, print)
     end
 
     # Writes a message prepending a red banner and then quits the application.
@@ -459,9 +454,7 @@ module Bovem
     #
     # @see #format
     def debug(message, suffix = "\n", indent = true, wrap = false, plain = false, indented_banner = false, full_colored = false, print = true)
-      banner = self.get_banner("D", "bright magenta", full_colored)
-      message = self.indent(message, indented_banner ? 0 : indent)
-      self.write(banner + " " + message, suffix, indented_banner ? indent : 0, wrap, plain, print)
+      write_message("D", "bright magenta", message, suffix, indent, wrap, plain, indented_banner, full_colored, print)
     end
 
     # Reads a string from the console.
@@ -560,6 +553,26 @@ module Bovem
         else
           self.status(rv[0], plain) if message.present?
         end
+      end
+
+      # Writes a message with a specified banner.
+      #
+      # @param banner_letter [String] The letter to use for the banner.
+      # @param banner_color [String] The color to use for the banner.
+      # @param message [String] The message to format.
+      # @param suffix [Object] If not `nil` or `false`, a suffix to add to the message. `true` means to add `\n`.
+      # @param indent [Object] If not `nil` or `false`, the width to use for indentation. `true` means to use the current indentation, a negative value of `-x` will indent of `x` absolute spaces.
+      # @param wrap [Object] If not `nil` or `false`, the maximum length of a line for wrapped text. `true` means the current line width.
+      # @param plain [Boolean] If ignore color markers into the message.
+      # @param indented_banner [Boolean] If also the banner should be indented.
+      # @param full_colored [Boolean] If the banner should be fully colored.
+      # @param print [Boolean] If `false`, the result will be returned instead of be printed.
+      #
+      # @see #format
+      def write_message(banner_letter, banner_color, message, suffix = "\n", indent = true, wrap = false, plain = false, indented_banner = false, full_colored = false, print = true)
+        banner = self.get_banner(banner_letter, banner_color, full_colored)
+        message = self.indent(message, indented_banner ? 0 : indent)
+        self.write(banner + " " + message, suffix, indented_banner ? indent : 0, wrap, plain, print)
       end
   end
 end
