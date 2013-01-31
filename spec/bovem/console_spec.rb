@@ -33,6 +33,7 @@ describe Bovem::Console do
       expect(::Bovem::Console.parse_style("FOO")).to eq("")
       expect(::Bovem::Console.parse_style(nil)).to eq("")
       expect(::Bovem::Console.parse_style(["A"])).to eq("")
+      expect(::Bovem::Console.parse_style("-")).to eq("")
     end
   end
 
