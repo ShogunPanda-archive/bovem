@@ -424,7 +424,8 @@ module Bovem
     #
     # @see #format
     def warn(message, suffix = "\n", indent = true, wrap = false, plain = false, indented_banner = false, full_colored = false, print = true)
-      self.info(message, suffix, indent, wrap, plain, indented_banner, full_colored, print, ["W", "bright yellow"])
+      banner = ["W", "bright yellow"]
+      self.info(message, suffix, indent, wrap, plain, indented_banner, full_colored, print, banner)
     end
 
     # Writes a message prepending a red banner.
@@ -440,7 +441,8 @@ module Bovem
     #
     # @see #format
     def error(message, suffix = "\n", indent = true, wrap = false, plain = false, indented_banner = false, full_colored = false, print = true)
-      self.info(message, suffix, indent, wrap, plain, indented_banner, full_colored, print, ["E", "bright red"])
+      banner = ["E", "bright red"]
+      self.info(message, suffix, indent, wrap, plain, indented_banner, full_colored, print, banner)
     end
 
     # Writes a message prepending a magenta banner.
