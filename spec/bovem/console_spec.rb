@@ -72,8 +72,9 @@ describe Bovem::Console do
   end
 
   describe "#get_screen_width" do
-    it "should execute tput cols" do
-      ::Bovem::Console.should_receive(:execute).with("tput cols").at_least(1)
+    it "should execute \"tput cols\" and \"which stty\"" do
+      ::Bovem::Console.should_receive(:execute).with("tput cols").at_least(1).and_call_original
+      ::Bovem::Console.should_receive(:execute).with("which stty").at_least(1).and_call_original
       console.get_screen_width
     end
 

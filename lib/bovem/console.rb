@@ -478,31 +478,18 @@ module Bovem
       with_echo_handling(echo) do
         begin
           catch(:reply) do
-            if prompt then
-              Kernel.print self.format(prompt, false, false)
-              $stdout.flush
-            end
+            while true do
+              reply = read_input_value(prompt, default_value)
+              reply = validate_input_value(reply, validator)
 
-            reply = $stdin.gets.chop
-            reply = default_value if reply.empty?
-
-            # Match against the validator
-            if validator.present? then
-              if validator.is_a?(Array) then
-                reply = nil if validator.length > 0 && !validator.include?(reply)
-              elsif validator.is_a?(Regexp) then
-                reply = nil if !validator.match(reply)
+              if reply then
+                throw(:reply, reply)
+              else
+                self.write(self.i18n.console.unknown_reply, false, false)
               end
             end
-
-            if !reply then
-              self.write(self.i18n.console.unknown_reply, false, false)
-              redo
-            else
-              throw(:reply, reply)
-            end
           end
-        rescue Interrupt
+        rescue Interrupt => e
           default_value
         end
       end
@@ -569,6 +556,39 @@ module Bovem
         ::Bovem::Console.execute("#{@stty} echo") if disable_echo
 
         rv
+      end
+
+      # Read an input from the terminal.
+      #
+      # @param prompt [String] A message to show to the user.
+      # @param default_value [Object] A default value to enter if the user just pressed the enter key.
+      # @return [Object] The read value.
+      def read_input_value(prompt, default_value = nil)
+        if prompt then
+          Kernel.print self.format(prompt, false, false)
+          $stdout.flush
+        end
+
+        reply = $stdin.gets.chop
+        reply.present? ? reply : default_value
+      end
+
+      # Validates a read value from the terminal.
+      #
+      # @param reply [String] The value to validate.
+      # @param validator [Array|Regexp] An array of values or a Regexp to match the submitted value against.
+      # @return [String|nil] The validated value or `nil`, if the value is invalid.
+      def validate_input_value(reply, validator)
+        # Match against the validator
+        if validator.present? then
+          if validator.is_a?(Array) then
+            reply = nil if validator.length > 0 && !validator.include?(reply)
+          elsif validator.is_a?(Regexp) then
+            reply = nil if !validator.match(reply)
+          end
+        end
+
+        reply
       end
   end
 end
