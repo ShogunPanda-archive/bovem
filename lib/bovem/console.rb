@@ -470,7 +470,7 @@ module Bovem
     # @param validator [Array|Regexp] An array of values or a Regexp to match the submitted value against.
     # @param echo [Boolean] If to show submitted text to the user.
     def read(prompt = true, default_value = nil, validator = nil, echo = true)
-      prompt = (prompt == true ? self.i18n.console.prompt : prompt).gsub(/:?\s*$/, "") + ": " if prompt.present?
+      prompt = sanitize_prompt(prompt)
 
       # Adjust validator
       validator = sanitize_validator(validator)
@@ -479,14 +479,8 @@ module Bovem
         begin
           catch(:reply) do
             while true do
-              reply = read_input_value(prompt, default_value)
-              reply = validate_input_value(reply, validator)
-
-              if reply then
-                throw(:reply, reply)
-              else
-                self.write(self.i18n.console.unknown_reply, false, false)
-              end
+              reply = validate_input_value(read_input_value(prompt, default_value), validator)
+              handle_reply(reply)
             end
           end
         rescue Interrupt => e
@@ -533,6 +527,18 @@ module Bovem
           exit(rv.length > 1 ? rv[1].to_integer : -1)
         else
           self.status(rv[0], plain) if message.present?
+        end
+      end
+
+      # Returns a prompt for input prompting.
+      #
+      # @param prompt [String]
+      # @return [String|nil] The prompt to use or `nil`, if no message must be prompted.
+      def sanitize_prompt(prompt)
+        if prompt.present?
+          (prompt == true ? self.i18n.console.prompt : prompt).gsub(/:?\s*$/, "") + ": "
+        else
+          nil
         end
       end
 
@@ -589,6 +595,17 @@ module Bovem
         end
 
         reply
+      end
+
+      # Handles a read value from the terminal.
+      #
+      # @param reply [String] The value to handle.
+      def handle_reply(reply)
+        if reply then
+          throw(:reply, reply)
+        else
+          self.write(self.i18n.console.unknown_reply, false, false)
+        end
       end
   end
 end
