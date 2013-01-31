@@ -129,6 +129,7 @@ module Bovem
       @line_width = self.get_screen_width
       @indentation = 0
       @indentation_string = " "
+      @stty = ::Bovem::Console.execute("which stty").strip
       self.i18n_setup(:bovem, ::File.absolute_path(::Pathname.new(::File.dirname(__FILE__)).to_s + "/../../locales/"))
     end
 
@@ -469,27 +470,16 @@ module Bovem
     # @param validator [Array|Regexp] An array of values or a Regexp to match the submitted value against.
     # @param echo [Boolean] If to show submitted text to the user.
     def read(prompt = true, default_value = nil, validator = nil, echo = true)
-      # Write the prompt
-      prompt = self.i18n.console.prompt if prompt == true
-      final_prompt = !prompt.nil? ? prompt.gsub(/:?\s*$/, "") + ": " : nil
+      prompt = (prompt == true ? self.i18n.console.prompt : prompt).gsub(/:?\s*$/, "") + ": " if prompt.present?
 
       # Adjust validator
-      validator = validator.ensure_array.collect {|v| v.ensure_string} if validator.present? && !validator.is_a?(::Regexp)
+      validator = sanitize_validator(validator)
 
-      # Handle echo
-      stty = ::Bovem::Console.execute("which stty").strip
-      disable_echo = !echo && stty.present? && /-echo\b/mix.match(::Bovem::Console.execute(stty)).nil?
-
-      # Disable echo
-      ::Bovem::Console.execute("#{stty} -echo") if disable_echo
-
-      begin
-        catch(:reply) do
-          while true do
-            valid = true
-
-            if final_prompt then
-              Kernel.print self.format(final_prompt, false, false)
+      with_echo_handling(echo) do
+        begin
+          catch(:reply) do
+            if prompt then
+              Kernel.print self.format(prompt, false, false)
               $stdout.flush
             end
 
@@ -499,23 +489,22 @@ module Bovem
             # Match against the validator
             if validator.present? then
               if validator.is_a?(Array) then
-                valid = false if validator.length > 0 && !validator.include?(reply)
+                reply = nil if validator.length > 0 && !validator.include?(reply)
               elsif validator.is_a?(Regexp) then
-                valid = false if !validator.match(reply)
+                reply = nil if !validator.match(reply)
               end
             end
 
-            if !valid then
+            if !reply then
               self.write(self.i18n.console.unknown_reply, false, false)
+              redo
             else
               throw(:reply, reply)
             end
           end
+        rescue Interrupt
+          default_value
         end
-      rescue Interrupt
-        default_value
-      ensure
-        ::Bovem::Console.execute("#{stty} echo") if disable_echo
       end
     end
 
@@ -558,6 +547,28 @@ module Bovem
         else
           self.status(rv[0], plain) if message.present?
         end
+      end
+
+      # Make sure that the validators are an array of string if not a regexp.
+      #
+      # @param validator [String|Regexp] The validator to sanitize.
+      # @return [Object] A list of strings, a Regexp or nil.
+      def sanitize_validator(validator)
+        validator.present? && !validator.is_a?(::Regexp) ? validator.ensure_array.collect {|v| v.ensure_string} : validator
+      end
+
+      # Handle terminal echoing.
+      #
+      # @param echo [Boolean] If disabled echoing
+      def with_echo_handling(echo = true)
+        rv = nil
+
+        disable_echo = !echo && @stty.present? && /-echo\b/mix.match(::Bovem::Console.execute(@stty)).nil?
+        ::Bovem::Console.execute("#{@stty} -echo") if disable_echo
+        rv = yield
+        ::Bovem::Console.execute("#{@stty} echo") if disable_echo
+
+        rv
       end
   end
 end
