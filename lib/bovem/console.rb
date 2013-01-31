@@ -512,6 +512,99 @@ module Bovem
 
         status
       end
+
+      private
+        # Handles task exit.
+        #
+        # @param message [String] The message to format.
+        # @param rv [Array] An array with exit status and exit code.
+        # @param plain [Boolean] If ignore color markers into the message.
+        def exit_task(message, rv, plain)
+          if rv[0] == :fatal then
+            self.status(:fail, plain)
+            exit(rv.length > 1 ? rv[1].to_integer : -1)
+          else
+            self.status(rv[0], plain) if message.present?
+          end
+        end
+
+        # Returns a prompt for input prompting.
+        #
+        # @param prompt [String]
+        # @return [String|nil] The prompt to use or `nil`, if no message must be prompted.
+        def sanitize_prompt(prompt)
+          if prompt.present?
+            (prompt == true ? self.i18n.console.prompt : prompt).gsub(/:?\s*$/, "") + ": "
+          else
+            nil
+          end
+        end
+
+        # Make sure that the validators are an array of string if not a regexp.
+        #
+        # @param validator [String|Regexp] The validator to sanitize.
+        # @return [Object] A list of strings, a Regexp or nil.
+        def sanitize_validator(validator)
+          validator.present? && !validator.is_a?(::Regexp) ? validator.ensure_array.collect {|v| v.ensure_string} : validator
+        end
+
+        # Handle terminal echoing.
+        #
+        # @param echo [Boolean] If disabled echoing
+        def with_echo_handling(echo = true)
+          rv = nil
+
+          disable_echo = !echo && @stty.present? && /-echo\b/mix.match(::Bovem::Console.execute(@stty)).nil?
+          ::Bovem::Console.execute("#{@stty} -echo") if disable_echo
+          rv = yield
+          ::Bovem::Console.execute("#{@stty} echo") if disable_echo
+
+          rv
+        end
+
+        # Read an input from the terminal.
+        #
+        # @param prompt [String] A message to show to the user.
+        # @param default_value [Object] A default value to enter if the user just pressed the enter key.
+        # @return [Object] The read value.
+        def read_input_value(prompt, default_value = nil)
+          if prompt then
+            Kernel.print self.format(prompt, false, false)
+            $stdout.flush
+          end
+
+          reply = $stdin.gets.chop
+          reply.present? ? reply : default_value
+        end
+
+        # Validates a read value from the terminal.
+        #
+        # @param reply [String] The value to validate.
+        # @param validator [Array|Regexp] An array of values or a Regexp to match the submitted value against.
+        # @return [String|nil] The validated value or `nil`, if the value is invalid.
+        def validate_input_value(reply, validator)
+          # Match against the validator
+          if validator.present? then
+            if validator.is_a?(Array) then
+              reply = nil if validator.length > 0 && !validator.include?(reply)
+            elsif validator.is_a?(Regexp) then
+              reply = nil if !validator.match(reply)
+            end
+          end
+
+          reply
+        end
+
+        # Handles a read value from the terminal.
+        #
+        # @param reply [String] The value to handle.
+        def handle_reply(reply)
+          if reply then
+            throw(:reply, reply)
+          else
+            self.write(self.i18n.console.unknown_reply, false, false)
+          end
+        end
     end
   end
 
@@ -548,98 +641,5 @@ module Bovem
       @stty = ::Bovem::Console.execute("which stty").strip
       self.i18n_setup(:bovem, ::File.absolute_path(::Pathname.new(::File.dirname(__FILE__)).to_s + "/../../locales/"))
     end
-
-    private
-      # Handles task exit.
-      #
-      # @param message [String] The message to format.
-      # @param rv [Array] An array with exit status and exit code.
-      # @param plain [Boolean] If ignore color markers into the message.
-      def exit_task(message, rv, plain)
-        if rv[0] == :fatal then
-          self.status(:fail, plain)
-          exit(rv.length > 1 ? rv[1].to_integer : -1)
-        else
-          self.status(rv[0], plain) if message.present?
-        end
-      end
-
-      # Returns a prompt for input prompting.
-      #
-      # @param prompt [String]
-      # @return [String|nil] The prompt to use or `nil`, if no message must be prompted.
-      def sanitize_prompt(prompt)
-        if prompt.present?
-          (prompt == true ? self.i18n.console.prompt : prompt).gsub(/:?\s*$/, "") + ": "
-        else
-          nil
-        end
-      end
-
-      # Make sure that the validators are an array of string if not a regexp.
-      #
-      # @param validator [String|Regexp] The validator to sanitize.
-      # @return [Object] A list of strings, a Regexp or nil.
-      def sanitize_validator(validator)
-        validator.present? && !validator.is_a?(::Regexp) ? validator.ensure_array.collect {|v| v.ensure_string} : validator
-      end
-
-      # Handle terminal echoing.
-      #
-      # @param echo [Boolean] If disabled echoing
-      def with_echo_handling(echo = true)
-        rv = nil
-
-        disable_echo = !echo && @stty.present? && /-echo\b/mix.match(::Bovem::Console.execute(@stty)).nil?
-        ::Bovem::Console.execute("#{@stty} -echo") if disable_echo
-        rv = yield
-        ::Bovem::Console.execute("#{@stty} echo") if disable_echo
-
-        rv
-      end
-
-      # Read an input from the terminal.
-      #
-      # @param prompt [String] A message to show to the user.
-      # @param default_value [Object] A default value to enter if the user just pressed the enter key.
-      # @return [Object] The read value.
-      def read_input_value(prompt, default_value = nil)
-        if prompt then
-          Kernel.print self.format(prompt, false, false)
-          $stdout.flush
-        end
-
-        reply = $stdin.gets.chop
-        reply.present? ? reply : default_value
-      end
-
-      # Validates a read value from the terminal.
-      #
-      # @param reply [String] The value to validate.
-      # @param validator [Array|Regexp] An array of values or a Regexp to match the submitted value against.
-      # @return [String|nil] The validated value or `nil`, if the value is invalid.
-      def validate_input_value(reply, validator)
-        # Match against the validator
-        if validator.present? then
-          if validator.is_a?(Array) then
-            reply = nil if validator.length > 0 && !validator.include?(reply)
-          elsif validator.is_a?(Regexp) then
-            reply = nil if !validator.match(reply)
-          end
-        end
-
-        reply
-      end
-
-      # Handles a read value from the terminal.
-      #
-      # @param reply [String] The value to handle.
-      def handle_reply(reply)
-        if reply then
-          throw(:reply, reply)
-        else
-          self.write(self.i18n.console.unknown_reply, false, false)
-        end
-      end
   end
 end
