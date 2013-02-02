@@ -609,10 +609,14 @@ module Bovem
 
   # This is a text utility wrapper console I/O.
   #
-  # @attr [Fixnum] line_width The line width. Default to `80`.
-  # @attr [Fixnum] screen_width The current screen width.
-  # @attr [Fixnum] indentation Current indentation width.
-  # @attr [String] indentation_string The string used for indentation.
+  # @attribute line_width
+  #   @return [Fixnum] The line width. Default to `80`.
+  # @attribute screen_width
+  #   @return [Fixnum] The current screen width.
+  # @attribute indentation
+  #   @return [Fixnum] Current indentation width.
+  # @attribute indentation_string
+  #   @return [String] The string used for indentation.
   class Console
     attr_accessor :line_width
     attr_accessor :screen_width

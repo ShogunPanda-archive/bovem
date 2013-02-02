@@ -537,7 +537,8 @@ module Bovem
 
   # A utility class for most common shell operation.
   #
-  # @attr [Console] console # A console instance.
+  # @attribute console
+  #   @return [Console] A console instance.
   class Shell
     include Lazier::I18n
     include Bovem::ShellMethods::General

@@ -7,10 +7,15 @@
 module Bovem
   # A custom logger.
   #
-  # @attr [Time] start_time The start time of first line. This allows to show a `T+0.1234` information into the log.
-  # @attr [IO|String] device The file or device to log messages to.
+  # @attribute [r] device
+  #   @return [IO|String] The file or device to log messages to.
   class Logger < ::Logger
-    mattr_accessor :start_time
+    # @attribute start_time
+    #   @return [Time] The start time of first line. This allows to show a `T+0.1234` information into the log.
+    class << self
+      attr_accessor :start_time
+    end
+
     attr_reader :device
 
     # Creates a new logger.
