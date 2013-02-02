@@ -125,16 +125,15 @@ module Bovem
       # @param is_absolute [Boolean] If the new width should not be added to the current one but rather replace it.
       # @return [Fixnum] The new indentation width.
       def set_indentation(width, is_absolute = false)
-        self.indentation = [(!is_absolute ? self.indentation : 0) + width, 0].max.to_i
-        self.indentation
+        @indentation = [(!is_absolute ? @indentation : 0) + width, 0].max.to_i
+        @indentation
       end
 
       # Resets indentation width to `0`.
       #
       # @return [Fixnum] The new indentation width.
       def reset_indentation
-        self.indentation = 0
-        self.indentation
+        @indentation = 0
       end
 
       # Starts a indented region of text.
@@ -143,12 +142,12 @@ module Bovem
       # @param is_absolute [Boolean] If the new width should not be added to the current one but rather replace it.
       # @return [Fixnum] The new indentation width.
       def with_indentation(width = 3, is_absolute = false)
-        old = self.indentation
+        old = @indentation
         self.set_indentation(width, is_absolute)
         yield
         self.set_indentation(old, true)
 
-        self.indentation
+        @indentation
       end
 
       # Wraps a message in fixed line width.
@@ -209,10 +208,10 @@ module Bovem
           wrap = @line_width
 
           if indent == true then
-            wrap -= self.indentation
+            wrap -= @indentation
           else
             indent_i = indent.to_integer
-            wrap -= (indent_i > 0 ? self.indentation : 0) + indent_i
+            wrap -= (indent_i > 0 ? @indentation : 0) + indent_i
           end
         end
 
