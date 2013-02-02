@@ -181,19 +181,13 @@ module Bovem
       def copy_or_move(src, dst, operation, run = true, show_errors = false, fatal = true)        
         rv = true
         locale = self.i18n.shell
-
-        operation = :copy if operation != :move
-        operation_s = locale.send(operation)
-        single = !src.is_a?(Array)
-
-        src = single ? File.expand_path(src) : src.collect {|s| File.expand_path(s) }
-        dst = File.expand_path(dst.ensure_string)
+        operation, operation_s, single, src, dst = sanitize_copy_or_move_arguments(operation, src, dst)
 
         if !run then
           dry_run_copy_or_move(single, operation_s, src, dst)
         else
           rv = catch(:rv) do
-            dst_dir = prepare_destination(single, src, dst, operation_s, show_errors, fatal)
+            dst_dir = prepare_destination(single, src, dst, operation_s, show_errors, fatal )
 
             check_sources(src, operation_s, fatal)
 
@@ -207,7 +201,7 @@ module Bovem
             rescue Exception => e
               single_msg = locale.copy_move_error_single(operation_s, src, dst_dir, e.class.to_s, e)
               multi_msg = locale.copy_move_error_multi(operation_s, dst)
-              handle_copy_move_failure(single, src, fatal, single, multi_msg, locale.error(e.class.to_s, e))
+              handle_copy_move_failure(single, src, fatal, single_msg, multi_msg, locale.error(e.class.to_s, e))
             end
 
             true
@@ -218,6 +212,20 @@ module Bovem
       end
 
       private
+        # Sanitizes arguments for copy or move.
+        #
+        # @param operation [String] The operation which will be executed.
+        # @param src [String|Array] The entries to copy or move. If is an Array, `dst` is assumed to be a directory.
+        # @param dst [String] The destination. **Any existing entries will be overwritten.** Any required directory will be created.
+        # @return [Array] A list of sanitized arguments.
+        def sanitize_copy_or_move_arguments(operation, src, dst)
+          operation = :copy if operation != :move
+          single = !src.is_a?(Array)
+          src = single ? File.expand_path(src) : src.collect {|s| File.expand_path(s) }
+
+          [operation, self.i18n.shell.send(operation), single, src, File.expand_path(dst.ensure_string)]
+        end
+
         # Shows which copy or move operation are going to executed.
         #
         # @param single [Boolean] Whether `src` is a single file or directory.

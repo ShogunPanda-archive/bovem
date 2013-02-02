@@ -246,10 +246,10 @@ describe Bovem::Shell do
     it "should complain about non writeable parent directory" do
       File.open(temp_file_1, "w") {|f| f.write("OK") }
 
-      shell.console.should_receive(:error).with("Cannot copy file {mark=bright}#{temp_file_1}{/mark} to non writable directory {mark=bright}/dev{/mark}.")
+      shell.console.should_receive(:error).with("Cannot copy file {mark=bright}#{temp_file_1}{/mark} to non writable directory {mark=bright}/dev{/mark}.", "\n", 5)
       expect(shell.copy_or_move(temp_file_1, "/dev/bovem", :copy, true, false, false)).to be_false
 
-      shell.console.should_receive(:error).with("Cannot move file {mark=bright}#{temp_file_1}{/mark} to non writable directory {mark=bright}/dev{/mark}.")
+      shell.console.should_receive(:error).with("Cannot move file {mark=bright}#{temp_file_1}{/mark} to non writable directory {mark=bright}/dev{/mark}.", "\n", 5)
       expect(shell.copy_or_move(temp_file_1, "/dev/bovem", :move, true, false, false)).to be_false
     end
 
