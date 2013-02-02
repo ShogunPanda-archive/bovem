@@ -7,6 +7,26 @@
 module Bovem
   # Methods of the {Shell Shell} class.
   module ShellMethods
+    # General methods.
+    module General
+      def handle_failure(e, access_error, not_found_error, general_error, entries, fatal, show_errors)
+        if e.is_a?(Errno::EACCES)
+          self.console.send(fatal ? :fatal : :error, self.i18n.shell.send(access_error, e.message.gsub(/.+ - (.+)/, "\\1")))
+        elsif e.is_a?(Errno::ENOENT)
+          self.console.send(fatal ? :fatal : :error, self.i18n.shell.send(not_found_error, e.message.gsub(/.+ - (.+)/, "\\1")))
+        else
+          if show_errors then
+            self.console.error(self.i18n.shell.send(general_error))
+            self.console.with_indentation(11) do
+              entries.each do |entry| self.console.write(entry) end
+            end
+            self.console.write(self.i18n.shell.error(e.class.to_s, e), "\n", 5)
+            Kernel.exit(-1) if fatal
+          end
+        end
+      end
+    end
+
     # Methods to find or check entries.
     module Read
       # Tests a path against a list of test.
@@ -288,19 +308,8 @@ module Bovem
             begin
               FileUtils.rm_r(files, {noop: false, verbose: false, secure: true})
               throw(:rv, true)
-            rescue Errno::EACCES => e
-              self.console.send(fatal ? :fatal : :error, self.i18n.shell.remove_unwritable(e.message.gsub(/.+ - (.+)/, "\\1")))
-            rescue Errno::ENOENT => e
-              self.console.send(fatal ? :fatal : :error, self.i18n.shell.remove_not_found(e.message.gsub(/.+ - (.+)/, "\\1")))
-            rescue Exception => e
-              if show_errors then
-                self.console.error(self.i18n.shell.remove_error)
-                self.console.with_indentation(11) do
-                  files.each do |file| self.console.write(file) end
-                end
-                self.console.write(self.i18n.shell.error(e.class.to_s, e), "\n", 5)
-                Kernel.exit(-1) if fatal
-              end
+            rescue => e
+              handle_failure(e, :remove_unwritable, :remove_not_found, :remove_error, files, fatal, show_errors)
             end
 
             false
@@ -421,26 +430,11 @@ module Bovem
           begin # Create directory
             FileUtils.mkdir_p(directory, {mode: mode, noop: false, verbose: false})
             rv = true
-          rescue Errno::EACCES => ae
-            self.console.send(fatal ? :fatal : :error, self.i18n.shell.mkdir_denied(ae.message.gsub(/.+ - (.+)/, "\\1")))
           rescue Exception => e
-            handle_directory_errors(e, directories, fatal) if show_errors
+            handle_failure(e, :mkdir_denied, nil, :mkdir_error, directories, fatal, show_errors)
           end
 
           rv
-        end
-
-        # Show errors when a directory creation failed.
-        # @param e [Exception] The occurred exception.
-        # @param directories [Array] The list of directories to create.
-        # @param fatal [Boolean] If quit in case of fatal errors.
-        def handle_directory_errors(e, directories, fatal)
-          self.console.error(self.i18n.shell.mkdir_error)
-          self.console.with_indentation(11) do
-            directories.each do |directory| self.console.write(directory) end
-          end
-          self.console.write(self.i18n.shell.error(e.class.to_s, e), "\n", 5)
-          Kernel.exit(-1) if fatal
         end
     end
   end
@@ -450,6 +444,7 @@ module Bovem
   # @attr [Console] console # A console instance.
   class Shell
     include Lazier::I18n
+    include Bovem::ShellMethods::General
     include Bovem::ShellMethods::Read
     include Bovem::ShellMethods::Write
     include Bovem::ShellMethods::Execute
