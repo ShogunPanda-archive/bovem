@@ -286,22 +286,11 @@ module Bovem
         # Show the command
         @console.begin(message) if message.present?
 
-
         if !run then # Print a message
           @console.warn(locale.run_dry(command))
           @console.status(:ok) if show_exit
         else # Run
-          output = ""
-
-          @console.info(locale.run(command)) if show_command
-          rv[:status] = ::Open4::popen4(command + " 2>&1") { |pid, stdin, stdout, stderr|
-            stdout.each_line do |line|
-              output << line
-              Kernel.print line if show_output
-            end
-          }.exitstatus
-
-          rv[:output] = output
+          rv = execute_command(command, show_command, show_output)
         end
 
         # Return
@@ -342,6 +331,27 @@ module Bovem
 
         rv
       end
+
+      private
+        # Runs a command into the shell.
+        #
+        # @param command [String] The string to run.
+        # @param show_command [Boolean] If show the command that will be run.
+        # @param show_output [Boolean] If show command output.
+        # @return [Hash] An hash with `status` and `output` keys.
+        def execute_command(command, show_command, show_output)
+          output = ""
+
+          @console.info(self.i18n.shell.run(command)) if show_command
+          status = ::Open4::popen4(command + " 2>&1") { |pid, stdin, stdout, stderr|
+            stdout.each_line do |line|
+              output << line
+              Kernel.print line if show_output
+            end
+          }.exitstatus
+
+          {status: status, output: output}
+        end
     end
 
     # Methods to interact with directories.
