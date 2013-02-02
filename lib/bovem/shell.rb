@@ -9,21 +9,37 @@ module Bovem
   module ShellMethods
     # General methods.
     module General
+      # Handles general failure of a file/directory method.
+      #
+      # @param e [Exception] The occurred exception.
+      # @param access_error [String|Symbol] The message to show in case of access errors.
+      # @param not_found_error [String|Symbol] The message to show in case of a not found entry.
+      # @param general_error [String|Symbol] The message to show in case of other errors.
+      # @param entries [Array] The list of entries which failed.
+      # @param fatal [Boolean] If quit in case of fatal errors.
+      # @param show_errors [Boolean] Whether to show errors.
       def handle_failure(e, access_error, not_found_error, general_error, entries, fatal, show_errors)
         if e.is_a?(Errno::EACCES)
           self.console.send(fatal ? :fatal : :error, self.i18n.shell.send(access_error, e.message.gsub(/.+ - (.+)/, "\\1")))
         elsif e.is_a?(Errno::ENOENT)
           self.console.send(fatal ? :fatal : :error, self.i18n.shell.send(not_found_error, e.message.gsub(/.+ - (.+)/, "\\1")))
         else
-          if show_errors then
-            self.console.error(self.i18n.shell.send(general_error))
-            self.console.with_indentation(11) do
-              entries.each do |entry| self.console.write(entry) end
-            end
-            self.console.write(self.i18n.shell.error(e.class.to_s, e), "\n", 5)
-            Kernel.exit(-1) if fatal
-          end
+          show_general_failure(e, general_error, entries, fatal) if show_errors
         end
+      end
+
+      # Shows errors when a directory creation failed.
+      #
+      # @param e [Exception] The occurred exception.
+      # @param entries [Array] The list of entries which failed.
+      # @param fatal [Boolean] If quit in case of fatal errors.
+      def show_general_failure(e, general_error, entries, fatal)
+        self.console.error(self.i18n.shell.send(general_error))
+        self.console.with_indentation(11) do
+          entries.each do |entry| self.console.write(entry) end
+        end
+        self.console.write(self.i18n.shell.error(e.class.to_s, e), "\n", 5)
+        Kernel.exit(-1) if fatal
       end
     end
 
