@@ -145,6 +145,30 @@ module Bovem
 
     # Methods to copy or move entries.
     module Write
+      # Copies a set of files or directory to another location.
+      #
+      # @param src [String|Array] The entries to copy. If is an Array, `dst` is assumed to be a directory.
+      # @param dst [String] The destination. **Any existing entries will be overwritten.** Any required directory will be created.
+      # @param run [Boolean] If `false`, it will just print a list of message that would be copied or moved.
+      # @param show_errors [Boolean] If show errors.
+      # @param fatal [Boolean] If quit in case of fatal errors.
+      # @return [Boolean] `true` if operation succeeded, `false` otherwise.
+      def copy(src, dst, run = true, show_errors = false, fatal = true)
+        self.copy_or_move(src, dst, :copy, run, show_errors, fatal)
+      end
+
+      # Moves a set of files or directory to another location.
+      #
+      # @param src [String|Array] The entries to move. If is an Array, `dst` is assumed to be a directory.
+      # @param dst [String] The destination. **Any existing entries will be overwritten.** Any required directory will be created.
+      # @param run [Boolean] If `false`, it will just print a list of message that would be deleted.
+      # @param show_errors [Boolean] If show errors.
+      # @param fatal [Boolean] If quit in case of fatal errors.
+      # @return [Boolean] `true` if operation succeeded, `false` otherwise.
+      def move(src, dst, run = true, show_errors = false, fatal = true)
+        self.copy_or_move(src, dst, :move, run, show_errors, fatal)
+      end
+
       # Copies or moves a set of files or directory to another location.
       #
       # @param src [String|Array] The entries to copy or move. If is an Array, `dst` is assumed to be a directory.
@@ -162,47 +186,16 @@ module Bovem
         operation_s = locale.send(operation)
         single = !src.is_a?(Array)
 
-        if single then
-          src = File.expand_path(src)
-        else
-          src = src.collect {|s| File.expand_path(s) }
-        end
-
+        src = single ? File.expand_path(src) : src.collect {|s| File.expand_path(s) }
         dst = File.expand_path(dst.ensure_string)
 
         if !run then
-          if single then
-            @console.warn(locale.copy_move_single_dry(operation_s))
-            @console.write(locale.copy_move_from(File.expand_path(src.ensure_string)), "\n", 11)
-            @console.write(locale.copy_move_to(dst), "\n", 11)
-          else
-            @console.warn(locale.copy_move_multi_dry(operation_s))
-            @console.with_indentation(11) do
-              src.each do |s| @console.write(s) end
-            end
-            @console.write(locale.copy_move_to_multi(dst), "\n", 5)
-          end
+          dry_run_copy_or_move(single, operation_s, src, dst)
         else
           rv = catch(:rv) do
-            dst_dir = single ? File.dirname(dst) : dst
-            has_dir = self.check(dst_dir, :dir)
+            dst_dir = prepare_destination(single, src, dst, operation_s, show_errors, fatal)
 
-            # Create directory
-            has_dir = self.create_directories(dst_dir, 0755, true, show_errors, fatal) if !has_dir
-            throw(:rv, false) if !has_dir
-
-            if single && self.check(dst, :dir) then
-              @console.send(fatal ? :fatal : :error, locale.copy_move_single_to_directory(operation_s, src, dst))
-              throw(:rv, false)
-            end
-
-            # Check that every file is existing
-            src.ensure_array.each do |s|
-              if !self.check(s, :exists) then
-                @console.send(fatal ? :fatal : :error, locale.copy_move_src_not_found(operation_s, s))
-                throw(:rv, false)
-              end
-            end
+            check_sources(src, operation_s, fatal)
 
             # Do operation
             begin
@@ -241,29 +234,72 @@ module Bovem
         rv
       end
 
-      # Copies a set of files or directory to another location.
-      #
-      # @param src [String|Array] The entries to copy. If is an Array, `dst` is assumed to be a directory.
-      # @param dst [String] The destination. **Any existing entries will be overwritten.** Any required directory will be created.
-      # @param run [Boolean] If `false`, it will just print a list of message that would be copied or moved.
-      # @param show_errors [Boolean] If show errors.
-      # @param fatal [Boolean] If quit in case of fatal errors.
-      # @return [Boolean] `true` if operation succeeded, `false` otherwise.
-      def copy(src, dst, run = true, show_errors = false, fatal = true)
-        self.copy_or_move(src, dst, :copy, run, show_errors, fatal)
-      end
+      private
+        # Shows which copy or move operation are going to executed.
+        #
+        # @param single [Boolean] Whether `src` is a single file or directory.
+        # @param operation [String] The operation which will be executed.
+        # @param src [String|Array] The entries to copy or move. If is an Array, `dst` is assumed to be a directory.
+        # @param dst [String] The destination. **Any existing entries will be overwritten.** Any required directory will be created.
+        def dry_run_copy_or_move(single, operation, src, dst)
+          locale = self.i18n.shell
 
-      # Moves a set of files or directory to another location.
-      #
-      # @param src [String|Array] The entries to move. If is an Array, `dst` is assumed to be a directory.
-      # @param dst [String] The destination. **Any existing entries will be overwritten.** Any required directory will be created.
-      # @param run [Boolean] If `false`, it will just print a list of message that would be deleted.
-      # @param show_errors [Boolean] If show errors.
-      # @param fatal [Boolean] If quit in case of fatal errors.
-      # @return [Boolean] `true` if operation succeeded, `false` otherwise.
-      def move(src, dst, run = true, show_errors = false, fatal = true)
-        self.copy_or_move(src, dst, :move, run, show_errors, fatal)
-      end
+          if single then
+            @console.warn(locale.copy_move_single_dry(operation))
+            @console.write(locale.copy_move_from(File.expand_path(src.ensure_string)), "\n", 11)
+            @console.write(locale.copy_move_to(dst), "\n", 11)
+          else
+            @console.warn(locale.copy_move_multi_dry(operation))
+            @console.with_indentation(11) do
+              src.each do |s| @console.write(s) end
+            end
+            @console.write(locale.copy_move_to_multi(dst), "\n", 5)
+          end
+        end
+
+        # Prepares a destination directory for a copy or move.
+        #
+        # @param single [Boolean] Whether `src` is a single file or directory.
+        # @param src [String|Array] The entries to copy or move. If is an Array, `dst` is assumed to be a directory.
+        # @param dst [String] The destination. **Any existing entries will be overwritten.** Any required directory will be created.
+        # @param operation [String] The operation which will be executed.
+        # @param show_errors [Boolean] If show errors.
+        # @param fatal [Boolean] If quit in case of fatal errors.
+        # @return [String] The prepared destination.
+        def prepare_destination(single, src, dst, operation, show_errors, fatal)
+          dst_dir = single ? File.dirname(dst) : dst
+          has_dir = self.check(dst_dir, :dir)
+
+          # Create directory
+          has_dir = self.create_directories(dst_dir, 0755, true, show_errors, fatal) if !has_dir
+          throw(:rv, false) if !has_dir
+
+          if single && self.check(dst, :dir) then
+            @console.send(fatal ? :fatal : :error, self.i18n.shell.copy_move_single_to_directory(operation, src, dst))
+            throw(:rv, false)
+          end
+
+          dst_dir
+        end
+
+        # Checks every sources for a copy or move.
+        #
+        # @param src [String|Array] The entries to copy or move. If is an Array, `dst` is assumed to be a directory.
+        # @param operation [String] The operation which will be executed.
+        # @param fatal [Boolean] If quit in case of fatal errors.
+        def check_sources(src, operation, fatal)
+          # Check that every file is existing
+          src.ensure_array.each do |s|
+            if !self.check(s, :exists) then
+              @console.send(fatal ? :fatal : :error, self.i18n.shell.copy_move_src_not_found(operation, s))
+              throw(:rv, false)
+            end
+          end
+        end
+
+        def handle_operation_failure
+
+        end
     end
 
     # Methods to run commands or delete entries.
@@ -391,7 +427,7 @@ module Bovem
         directories = directories.ensure_array.compact {|d| File.expand_path(d.ensure_string) }
 
         if !run then # Just print
-          show_directory_creation(directories)
+          dry_run_directory_creation(directories)
         else
           directories.each do |directory|
             rv = rv && try_create_directory(directory, mode, fatal, directories, show_errors)
@@ -422,7 +458,7 @@ module Bovem
 
         # Show which directory are going to be created.
         # @param directories [Array] The list of directories to create.
-        def show_directory_creation(directories)
+        def dry_run_directory_creation(directories)
           @console.warn(self.i18n.shell.mkdir_dry)
           @console.with_indentation(11) do
             directories.each do |directory| @console.write(directory) end
