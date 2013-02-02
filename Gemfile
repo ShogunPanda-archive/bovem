@@ -7,4 +7,3 @@
 source "http://rubygems.org"
 
 gemspec
-gem "lazier", :path => "../lazier"
