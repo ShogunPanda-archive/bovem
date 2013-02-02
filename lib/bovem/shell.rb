@@ -187,23 +187,9 @@ module Bovem
           dry_run_copy_or_move(single, operation_s, src, dst)
         else
           rv = catch(:rv) do
-            dst_dir = prepare_destination(single, src, dst, operation_s, show_errors, fatal )
-
+            dst_dir = prepare_destination(single, src, dst, operation_s, show_errors, fatal)
             check_sources(src, operation_s, fatal)
-
-            # Do operation
-            begin
-              FileUtils.send(operation == :move ? :mv : :cp_r, src, dst, {noop: false, verbose: false})
-            rescue Errno::EACCES => e
-              single_msg = locale.copy_move_dst_not_writable_single(operation_s, src, dst_dir)
-              multi_msg = locale.copy_move_dst_not_writable_single(operation_s, dst)
-              handle_copy_move_failure(single, src, fatal, single_msg, multi_msg, nil)
-            rescue Exception => e
-              single_msg = locale.copy_move_error_single(operation_s, src, dst_dir, e.class.to_s, e)
-              multi_msg = locale.copy_move_error_multi(operation_s, dst)
-              handle_copy_move_failure(single, src, fatal, single_msg, multi_msg, locale.error(e.class.to_s, e))
-            end
-
+            execute_copy_or_move(src, dst, dst_dir, single, operation, operation_s, show_errors, fatal)
             true
           end
         end
@@ -288,15 +274,42 @@ module Bovem
           end
         end
 
+        # Executes the copy or move operation.
+        #
+        # @param src [String|Array] The entries to copy or move. If is an Array, `dst` is assumed to be a directory.
+        # @param dst [String] The destination. **Any existing entries will be overwritten.** Any required directory will be created.
+        # @param dst_dir [String] The destination directory.
+        # @param single [Boolean] Whether `src` is a single file or directory.
+        # @param operation [Symbol] The operation to perform. Valid values are `:copy` or `:move`.
+        # @param operation_s [String] The string representation of the operation to perform.
+        # @param show_errors [Boolean] If show errors.
+        # @param fatal [Boolean] If quit in case of fatal errors.
+        def execute_copy_or_move(src, dst, dst_dir, single, operation, operation_s, show_errors, fatal)
+          locale = self.i18n.shell
+
+          begin
+            FileUtils.send(operation == :move ? :mv : :cp_r, src, dst, {noop: false, verbose: false})
+          rescue Errno::EACCES => e
+            single_msg = locale.copy_move_dst_not_writable_single(operation_s, src, dst_dir)
+            multi_msg = locale.copy_move_dst_not_writable_single(operation_s, dst)
+            handle_copy_move_failure(single, src, show_errors, fatal, single_msg, multi_msg, nil)
+          rescue Exception => e
+            single_msg = locale.copy_move_error_single(operation_s, src, dst_dir, e.class.to_s, e)
+            multi_msg = locale.copy_move_error_multi(operation_s, dst)
+            handle_copy_move_failure(single, src, show_errors, fatal, single_msg, multi_msg, locale.error(e.class.to_s, e))
+          end
+        end
+
         # Handles a failure on copy or move.
         #
         # @param single [Boolean] Whether `src` is a single file or directory.
         # @param src [String|Array] The entries to copy or move. If is an Array, `dst` is assumed to be a directory.
+        # @param show_errors [Boolean] If show errors.
         # @param fatal [Boolean] If quit in case of fatal errors.
         # @param single_msg [String] The message to show in case of a single source.
         # @param multi_msg [String] The starting message to show in case of multiple sources.
         # @param error [String|nil] The ending message to show in case of multiple sources.
-        def handle_copy_move_failure(single, src, fatal, single_msg, multi_msg, error)
+        def handle_copy_move_failure(single, src, show_errors, fatal, single_msg, multi_msg, error)
           if single then
             @console.send(fatal ? :fatal : :error, single_msg, "\n", 5)
           else
