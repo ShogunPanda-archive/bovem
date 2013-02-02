@@ -321,28 +321,12 @@ module Bovem
       # @return [Boolean] `true` if the directory was valid and the code executed, `false` otherwise.
       def within_directory(directory, restore = true, show_messages = false)
         rv = false
-        original = Dir.pwd
         directory = File.expand_path(directory.ensure_string)
+        original = Dir.pwd
 
-        if self.check(directory, [:directory, :executable]) then
-          begin
-            self.console.info(self.i18n.shell.move_in(directory)) if show_messages
-            Dir.chdir(directory)
-            rv = true
-          rescue Exception => e
-          end
-        end
-
+        rv = enter_directory(directory, show_messages, self.i18n.shell.move_in(directory))
         yield if rv && block_given?
-
-        if rv && original then
-          begin
-            self.console.info(self.i18n.shell.move_out(original)) if show_messages
-            Dir.chdir(original) if restore
-          rescue Exception => e
-            rv = false
-          end
-        end
+        rv = enter_directory(original, show_messages, self.i18n.shell.move_out(directory)) if rv && restore
 
         rv
       end
@@ -375,21 +359,7 @@ module Bovem
               elsif self.check(directory, :exist) then
                 self.console.send(fatal ? :fatal : :error, self.i18n.shell.mkdir_file(directory))
               else
-                begin # Create directory
-                  FileUtils.mkdir_p(directory, {mode: mode, noop: false, verbose: false})
-                  throw(:rv, true)
-                rescue Errno::EACCES => e
-                  self.console.send(fatal ? :fatal : :error, self.i18n.shell.mkdir_denied(e.message.gsub(/.+ - (.+)/, "\\1")))
-                rescue Exception => e
-                  if show_errors then
-                    self.console.error(self.i18n.shell.mkdir_error)
-                    self.console.with_indentation(11) do
-                      directories.each do |directory| self.console.write(directory) end
-                    end
-                    self.console.write(self.i18n.shell.error(e.class.to_s, e), "\n", 5)
-                    Kernel.exit(-1) if fatal
-                  end
-                end
+                create_directory(directory, mode, fatal, directories, show_errors)
               end
 
               false
@@ -401,6 +371,49 @@ module Bovem
 
         rv
       end
+
+      private
+        # Change current working directory.
+        #
+        # @param directory [String] The directory which move into.
+        # @param show_message [Boolean] Whether to show or not message.
+        # @param message [String] The message to show.
+        # @return [Boolean] `true` if operation succeeded, `false` otherwise.
+        def enter_directory(directory, show_message, message)
+          begin
+            raise ArgumentError if !self.check(directory, [:directory, :executable])
+            self.console.info(message) if show_message
+            Dir.chdir(directory)
+            true
+          rescue Exception => e
+            false
+          end
+        end
+
+        # Creates a directory.
+        #
+        # @param directory [String] The directory to create.
+        # @param mode [Fixnum] Initial permissions for the new directories.
+        # @param fatal [Boolean] If quit in case of fatal errors.
+        # @param directories [Array] The list of directories to create.
+        # @param show_errors [Boolean] If show errors.
+        def create_directory(directory, mode, fatal, directories, show_errors)
+          begin # Create directory
+            FileUtils.mkdir_p(directory, {mode: mode, noop: false, verbose: false})
+            throw(:rv, true)
+          rescue Errno::EACCES => e
+            self.console.send(fatal ? :fatal : :error, self.i18n.shell.mkdir_denied(e.message.gsub(/.+ - (.+)/, "\\1")))
+          rescue Exception => e
+            if show_errors then
+              self.console.error(self.i18n.shell.mkdir_error)
+              self.console.with_indentation(11) do
+                directories.each do |directory| self.console.write(directory) end
+              end
+              self.console.write(self.i18n.shell.error(e.class.to_s, e), "\n", 5)
+              Kernel.exit(-1) if fatal
+            end
+          end
+        end
     end
   end
 

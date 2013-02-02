@@ -7,4 +7,4 @@
 source "http://rubygems.org"
 
 gemspec
-gem "bovem", :path => "../lazier"
+gem "lazier", :path => "../lazier"
