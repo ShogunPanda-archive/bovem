@@ -11,7 +11,7 @@ Gem::Specification.new do |gem|
   gem.version = Bovem::Version::STRING
   gem.authors = ["Shogun"]
   gem.email = ["shogun_panda@me.com"]
-  gem.homepage = "http://github.com/ShogunPanda/bovem"
+  gem.homepage = "http://sw.cow.tc/bovem"
   gem.summary = %q{A collection of utilities for developers.}
   gem.description = %q{A collection of utilities for developers.}
 
@@ -23,7 +23,7 @@ Gem::Specification.new do |gem|
 
   gem.required_ruby_version = ">= 1.9.2"
 
-  gem.add_dependency("lazier", "~> 2.4.0")
+  gem.add_dependency("lazier", "~> 2.5.0")
   gem.add_dependency("open4", "~> 1.3.0")
 
   gem.add_development_dependency("rspec", "~> 2.12.0")

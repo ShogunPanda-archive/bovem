@@ -13,7 +13,6 @@ module Bovem
       #
       # Valid tests are every method available in http://www.ruby-doc.org/core-1.9.3/FileTest.html (plus `read`, `write`, `execute`, `exec`, `dir`). Trailing question mark can be omitted.
       #
-      #
       # @param path [String] The path to test.
       # @param tests [Array] The list of tests to perform.
       def check(path, tests)
@@ -47,31 +46,17 @@ module Bovem
       # @param patterns [Array] A list of regexps or patterns to match files. If empty, every file is returned. Ignored if a block is provided.
       # @param by_extension [Boolean] If to only search in extensions. Ignored if a block is provided.
       # @param case_sensitive [Boolean] If the search is case sensitive. Only meaningful for string patterns.
-      def find(directories, patterns = [], by_extension = false, case_sensitive = false)
+      # @param block [Proc] An optional block to perform matching instead of pattern matching.
+      def find(directories, patterns = [], by_extension = false, case_sensitive = false, &block)
         rv = []
 
-        # Adjust directory
         directories = directories.ensure_array.compact {|d| File.expand_path(d.ensure_string) }
-
-        # Adjust patterns
-        patterns = patterns.ensure_array.compact.collect {|p| p.is_a?(::Regexp) ? p : Regexp.new(Regexp.quote(p.ensure_string)) }
-        patterns = patterns.collect {|p| /(#{p.source})$/ } if by_extension
-        patterns = patterns.collect {|p| /#{p.source}/i } if !case_sensitive
+        patterns = normalize_patterns(patterns, by_extension, case_sensitive)
 
         directories.each do |directory|
           if self.check(directory, [:directory, :readable, :executable]) then
             Find.find(directory) do |entry|
-              found = patterns.blank? ? true : catch(:found) do
-                if block_given? then
-                  throw(:found, true) if yield(entry)
-                else
-                  patterns.each do |pattern|
-                    throw(:found, true) if pattern.match(entry) && (!by_extension || !File.directory?(entry))
-                  end
-                end
-
-                false
-              end
+              found = patterns.blank? ? true : match_pattern(entry, patterns, by_extension, &block)
 
               rv << entry if found
             end
@@ -80,6 +65,42 @@ module Bovem
 
         rv
       end
+
+      private
+        # Normalizes a set of patterns to find.
+        #
+        # @param patterns [Array] A list of regexps or patterns to match files. If empty, every file is returned. Ignored if a block is provided.
+        # @param by_extension [Boolean] If to only search in extensions. Ignored if a block is provided.
+        # @param case_sensitive [Boolean] If the search is case sensitive. Only meaningful for string patterns.
+        # @return [Array] The normalized patterns.
+        def normalize_patterns(patterns, by_extension, case_sensitive)
+          # Adjust patterns
+          patterns = patterns.ensure_array.compact.collect {|p| p.is_a?(::Regexp) ? p : Regexp.new(Regexp.quote(p.ensure_string)) }
+          patterns = patterns.collect {|p| /(#{p.source})$/ } if by_extension
+          patterns = patterns.collect {|p| /#{p.source}/i } if !case_sensitive
+          patterns
+        end
+
+        # Matches an entry against a set of patterns or a procedure.
+        #
+        # @param entry [String] The entry to search.
+        # @param patterns [Array] A list of regexps or patterns to match files. If empty, every file is returned. Ignored if a block is provided.
+        # @param by_extension [Boolean] If to only search in extensions. Ignored if a block is provided.
+        # @param block [Proc|nil] An optional block to run instead of pattern matching.
+        # @return [Boolean] `true` if entry matched, `false` otherwise.
+        def match_pattern(entry, patterns, by_extension, &block)
+          catch(:found) do
+            if block then
+              throw(:found, true) if block.call(entry)
+            else
+              patterns.each do |pattern|
+                throw(:found, true) if pattern.match(entry) && (!by_extension || !File.directory?(entry))
+              end
+            end
+
+            false
+          end
+        end
     end
 
     # Methods to copy or move entries.
