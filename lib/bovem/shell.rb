@@ -346,10 +346,7 @@ module Bovem
         directories = directories.ensure_array.compact {|d| File.expand_path(d.ensure_string) }
 
         if !run then # Just print
-          self.console.warn(self.i18n.shell.mkdir_dry)
-          self.console.with_indentation(11) do
-            directories.each do |directory| self.console.write(directory) end
-          end
+          show_directory_creation(directories)
         else
           directories.each do |directory|
             rv = rv && try_create_directory(directory, mode, fatal, directories, show_errors)
@@ -375,6 +372,15 @@ module Bovem
             true
           rescue Exception => e
             false
+          end
+        end
+
+        # Show which directory are going to be created.
+        # @param directories [Array] The list of directories to create.
+        def show_directory_creation(directories)
+          self.console.warn(self.i18n.shell.mkdir_dry)
+          self.console.with_indentation(11) do
+            directories.each do |directory| self.console.write(directory) end
           end
         end
 
