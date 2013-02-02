@@ -19,12 +19,13 @@ module Bovem
       # @param fatal [Boolean] If quit in case of fatal errors.
       # @param show_errors [Boolean] Whether to show errors.
       def handle_failure(e, access_error, not_found_error, general_error, entries, fatal, show_errors)
-        if e.is_a?(Errno::EACCES)
-          self.console.send(fatal ? :fatal : :error, self.i18n.shell.send(access_error, e.message.gsub(/.+ - (.+)/, "\\1")))
-        elsif e.is_a?(Errno::ENOENT)
-          self.console.send(fatal ? :fatal : :error, self.i18n.shell.send(not_found_error, e.message.gsub(/.+ - (.+)/, "\\1")))
-        else
-          show_general_failure(e, general_error, entries, fatal) if show_errors
+        error_type = fatal ? :fatal : :error
+        message = e.message.gsub(/.+ - (.+)/, "\\1")
+
+        case e.class.to_s
+          when "Errno::EACCES" then self.console.send(error_type, self.i18n.shell.send(access_error, message))
+          when "Errno::ENOENT" then self.console.send(error_type, self.i18n.shell.send(not_found_error, message))
+          else show_general_failure(e, general_error, entries, fatal) if show_errors
         end
       end
 
