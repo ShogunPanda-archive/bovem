@@ -21,10 +21,11 @@ module Bovem
       def handle_failure(e, access_error, not_found_error, general_error, entries, fatal, show_errors)
         error_type = fatal ? :fatal : :error
         message = e.message.gsub(/.+ - (.+)/, "\\1")
+        locale = self.i18n.shell
 
         case e.class.to_s
-          when "Errno::EACCES" then self.console.send(error_type, self.i18n.shell.send(access_error, message))
-          when "Errno::ENOENT" then self.console.send(error_type, self.i18n.shell.send(not_found_error, message))
+          when "Errno::EACCES" then self.console.send(error_type, locale.send(access_error, message))
+          when "Errno::ENOENT" then self.console.send(error_type, locale.send(not_found_error, message))
           else show_general_failure(e, general_error, entries, fatal) if show_errors
         end
       end
@@ -35,11 +36,12 @@ module Bovem
       # @param entries [Array] The list of entries which failed.
       # @param fatal [Boolean] If quit in case of fatal errors.
       def show_general_failure(e, general_error, entries, fatal)
-        self.console.error(self.i18n.shell.send(general_error))
+        locale = self.i18n.shell
+        self.console.error(locale.send(general_error))
         self.console.with_indentation(11) do
           entries.each do |entry| self.console.write(entry) end
         end
-        self.console.write(self.i18n.shell.error(e.class.to_s, e), "\n", 5)
+        self.console.write(locale.error(e.class.to_s, e), "\n", 5)
         Kernel.exit(-1) if fatal
       end
     end
