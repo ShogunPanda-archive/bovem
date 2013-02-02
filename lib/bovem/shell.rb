@@ -24,8 +24,8 @@ module Bovem
         locale = self.i18n.shell
 
         case e.class.to_s
-          when "Errno::EACCES" then self.console.send(error_type, locale.send(access_error, message))
-          when "Errno::ENOENT" then self.console.send(error_type, locale.send(not_found_error, message))
+          when "Errno::EACCES" then @console.send(error_type, locale.send(access_error, message))
+          when "Errno::ENOENT" then @console.send(error_type, locale.send(not_found_error, message))
           else show_general_failure(e, general_error, entries, fatal) if show_errors
         end
       end
@@ -37,11 +37,12 @@ module Bovem
       # @param fatal [Boolean] If quit in case of fatal errors.
       def show_general_failure(e, general_error, entries, fatal)
         locale = self.i18n.shell
-        self.console.error(locale.send(general_error))
-        self.console.with_indentation(11) do
-          entries.each do |entry| self.console.write(entry) end
+
+        @console.error(locale.send(general_error))
+        @console.with_indentation(11) do
+          entries.each do |entry| @console.write(entry) end
         end
-        self.console.write(locale.error(e.class.to_s, e), "\n", 5)
+        @console.write(locale.error(e.class.to_s, e), "\n", 5)
         Kernel.exit(-1) if fatal
       end
     end
@@ -169,15 +170,15 @@ module Bovem
 
         if !run then
           if single then
-            self.console.warn(self.i18n.shell.copy_move_single_dry(operation_s))
-            self.console.write(self.i18n.shell.copy_move_from(File.expand_path(src.ensure_string)), "\n", 11)
-            self.console.write(self.i18n.shell.copy_move_to(dst), "\n", 11)
+            @console.warn(self.i18n.shell.copy_move_single_dry(operation_s))
+            @console.write(self.i18n.shell.copy_move_from(File.expand_path(src.ensure_string)), "\n", 11)
+            @console.write(self.i18n.shell.copy_move_to(dst), "\n", 11)
           else
-            self.console.warn(self.i18n.shell.copy_move_multi_dry(operation_s))
-            self.console.with_indentation(11) do
-              src.each do |s| self.console.write(s) end
+            @console.warn(self.i18n.shell.copy_move_multi_dry(operation_s))
+            @console.with_indentation(11) do
+              src.each do |s| @console.write(s) end
             end
-            self.console.write(self.i18n.shell.copy_move_to_multi(dst), "\n", 5)
+            @console.write(self.i18n.shell.copy_move_to_multi(dst), "\n", 5)
           end
         else
           rv = catch(:rv) do
@@ -208,9 +209,9 @@ module Bovem
               if single then
                 @console.send(fatal ? :fatal : :error, self.i18n.shell.copy_move_dst_not_writable_single(operation_s, src, dst_dir))
               else
-                self.console.error(self.i18n.shell.copy_move_dst_not_writable_single(operation_s, dst))
-                self.console.with_indentation(11) do
-                  src.each do |s| self.console.write(s) end
+                @console.error(self.i18n.shell.copy_move_dst_not_writable_single(operation_s, dst))
+                @console.with_indentation(11) do
+                  src.each do |s| @console.write(s) end
                 end
                 Kernel.exit(-1) if fatal
               end
@@ -220,11 +221,11 @@ module Bovem
               if single then
                 @console.send(fatal ? :fatal : :error, self.i18n.shell.copy_move_error_single(operation_s, src, dst_dir, e.class.to_s, e), "\n", 5)
               else
-                self.console.error(self.i18n.shell.copy_move_error_multi(operation_s, dst))
-                self.console.with_indentation(11) do
-                  src.each do |s| self.console.write(s) end
+                @console.error(self.i18n.shell.copy_move_error_multi(operation_s, dst))
+                @console.with_indentation(11) do
+                  src.each do |s| @console.write(s) end
                 end
-                self.console.write(self.i18n.shell.error(e.class.to_s, e), "\n", 5)
+                @console.write(self.i18n.shell.error(e.class.to_s, e), "\n", 5)
                 Kernel.exit(-1) if fatal
               end
 
@@ -280,16 +281,16 @@ module Bovem
         command = command.ensure_string
 
         # Show the command
-        self.console.begin(message) if message.present?
+        @console.begin(message) if message.present?
 
 
         if !run then # Print a message
-          self.console.warn(self.i18n.shell.run_dry(command))
-          self.console.status(:ok) if show_exit
+          @console.warn(self.i18n.shell.run_dry(command))
+          @console.status(:ok) if show_exit
         else # Run
           output = ""
 
-          self.console.info(self.i18n.shell.run(command)) if show_command
+          @console.info(self.i18n.shell.run(command)) if show_command
           rv[:status] = ::Open4::popen4(command + " 2>&1") { |pid, stdin, stdout, stderr|
             stdout.each_line do |line|
               output << line
@@ -301,7 +302,7 @@ module Bovem
         end
 
         # Return
-        self.console.status(rv[:status] == 0 ? :ok : :fail) if show_exit
+        @console.status(rv[:status] == 0 ? :ok : :fail) if show_exit
         exit(rv[:status]) if fatal && rv[:status] != 0
         rv
       end
@@ -318,9 +319,9 @@ module Bovem
         files = files.ensure_array.compact.collect {|f| File.expand_path(f.ensure_string) }
 
         if !run then
-          self.console.warn(self.i18n.shell.remove_dry)
-          self.console.with_indentation(11) do
-            files.each do |file| self.console.write(file) end
+          @console.warn(self.i18n.shell.remove_dry)
+          @console.with_indentation(11) do
+            files.each do |file| @console.write(file) end
           end
         else
           rv = catch(:rv) do
@@ -395,7 +396,7 @@ module Bovem
         def enter_directory(directory, show_message, message)
           begin
             raise ArgumentError if !self.check(directory, [:directory, :executable])
-            self.console.info(message) if show_message
+            @console.info(message) if show_message
             Dir.chdir(directory)
             true
           rescue Exception => e
@@ -406,9 +407,9 @@ module Bovem
         # Show which directory are going to be created.
         # @param directories [Array] The list of directories to create.
         def show_directory_creation(directories)
-          self.console.warn(self.i18n.shell.mkdir_dry)
-          self.console.with_indentation(11) do
-            directories.each do |directory| self.console.write(directory) end
+          @console.warn(self.i18n.shell.mkdir_dry)
+          @console.with_indentation(11) do
+            directories.each do |directory| @console.write(directory) end
           end
         end
 
@@ -425,9 +426,9 @@ module Bovem
 
           # Perform tests
           if self.check(directory, :directory) then
-            self.console.send(fatal ? :fatal : :error, self.i18n.shell.mkdir_existing(directory))
+            @console.send(fatal ? :fatal : :error, self.i18n.shell.mkdir_existing(directory))
           elsif self.check(directory, :exist) then
-            self.console.send(fatal ? :fatal : :error, self.i18n.shell.mkdir_file(directory))
+            @console.send(fatal ? :fatal : :error, self.i18n.shell.mkdir_file(directory))
           else
             rv = create_directory(directory, mode, fatal, directories, show_errors)
           end
