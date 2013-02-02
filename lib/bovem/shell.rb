@@ -201,30 +201,13 @@ module Bovem
             begin
               FileUtils.send(operation == :move ? :mv : :cp_r, src, dst, {noop: false, verbose: false})
             rescue Errno::EACCES => e
-              if single then
-                @console.send(fatal ? :fatal : :error, locale.copy_move_dst_not_writable_single(operation_s, src, dst_dir))
-              else
-                @console.error(locale.copy_move_dst_not_writable_single(operation_s, dst))
-                @console.with_indentation(11) do
-                  src.each do |s| @console.write(s) end
-                end
-                Kernel.exit(-1) if fatal
-              end
-
-              throw(:rv, false)
+              single_msg = locale.copy_move_dst_not_writable_single(operation_s, src, dst_dir)
+              multi_msg = locale.copy_move_dst_not_writable_single(operation_s, dst)
+              handle_copy_move_failure(single, src, fatal, single_msg, multi_msg, nil)
             rescue Exception => e
-              if single then
-                @console.send(fatal ? :fatal : :error, locale.copy_move_error_single(operation_s, src, dst_dir, e.class.to_s, e), "\n", 5)
-              else
-                @console.error(locale.copy_move_error_multi(operation_s, dst))
-                @console.with_indentation(11) do
-                  src.each do |s| @console.write(s) end
-                end
-                @console.write(locale.error(e.class.to_s, e), "\n", 5)
-                Kernel.exit(-1) if fatal
-              end
-
-              throw(:rv, false)
+              single_msg = locale.copy_move_error_single(operation_s, src, dst_dir, e.class.to_s, e)
+              multi_msg = locale.copy_move_error_multi(operation_s, dst)
+              handle_copy_move_failure(single, src, fatal, single, multi_msg, locale.error(e.class.to_s, e))
             end
 
             true
@@ -297,8 +280,27 @@ module Bovem
           end
         end
 
-        def handle_operation_failure
+        # Handles a failure on copy or move.
+        #
+        # @param single [Boolean] Whether `src` is a single file or directory.
+        # @param src [String|Array] The entries to copy or move. If is an Array, `dst` is assumed to be a directory.
+        # @param fatal [Boolean] If quit in case of fatal errors.
+        # @param single_msg [String] The message to show in case of a single source.
+        # @param multi_msg [String] The starting message to show in case of multiple sources.
+        # @param error [String|nil] The ending message to show in case of multiple sources.
+        def handle_copy_move_failure(single, src, fatal, single_msg, multi_msg, error)
+          if single then
+            @console.send(fatal ? :fatal : :error, single_msg, "\n", 5)
+          else
+            @console.error(multi_msg)
+            @console.with_indentation(11) do
+              src.each do |s| @console.write(s) end
+            end
+            @console.write(error, "\n", 5) if error
+            Kernel.exit(-1) if fatal
+          end
 
+          throw(:rv, false)
         end
     end
 
