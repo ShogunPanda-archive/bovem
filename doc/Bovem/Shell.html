@@ -273,7 +273,7 @@
   
   
   <h3 class="inherited">Methods included from <span class='object_link'><a href="ShellMethods/General.html" title="Bovem::ShellMethods::General (module)">Bovem::ShellMethods::General</a></span></h3>
-  <p class="inherited"><span class='object_link'><a href="ShellMethods/General.html#handle_failure-instance_method" title="Bovem::ShellMethods::General#handle_failure (method)">#handle_failure</a></span>, <span class='object_link'><a href="ShellMethods/General.html#show_general_failure-instance_method" title="Bovem::ShellMethods::General#show_general_failure (method)">#show_general_failure</a></span></p>
+  <p class="inherited"><span class='object_link'><a href="ShellMethods/General.html#handle_failure-instance_method" title="Bovem::ShellMethods::General#handle_failure (method)">#handle_failure</a></span>, <span class='object_link'><a href="ShellMethods/General.html#setup_error_handling-instance_method" title="Bovem::ShellMethods::General#setup_error_handling (method)">#setup_error_handling</a></span>, <span class='object_link'><a href="ShellMethods/General.html#show_general_failure-instance_method" title="Bovem::ShellMethods::General#show_general_failure (method)">#show_general_failure</a></span></p>
 
   <div id="constructor_details" class="method_details_list">
   <h2>Constructor Details</h2>
@@ -303,13 +303,13 @@
       <pre class="lines">
 
 
-559
-560
-561
-562</pre>
+567
+568
+569
+570</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/bovem/shell.rb', line 559</span>
+      <pre class="code"><span class="info file"># File 'lib/bovem/shell.rb', line 567</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_initialize'>initialize</span>
   <span class='ivar'>@console</span> <span class='op'>=</span> <span class='op'>::</span><span class='const'>Bovem</span><span class='op'>::</span><span class='const'>Console</span><span class='period'>.</span><span class='id identifier rubyid_instance'>instance</span>
@@ -369,14 +369,6 @@
       <pre class="lines">
 
 
-541
-542
-543
-544
-545
-546
-547
-548
 549
 550
 551
@@ -391,10 +383,18 @@
 560
 561
 562
-563</pre>
+563
+564
+565
+566
+567
+568
+569
+570
+571</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/bovem/shell.rb', line 541</span>
+      <pre class="code"><span class="info file"># File 'lib/bovem/shell.rb', line 549</span>
 
 <span class='kw'>class</span> <span class='const'>Shell</span>
   <span class='id identifier rubyid_include'>include</span> <span class='const'>Lazier</span><span class='op'>::</span><span class='const'>I18n</span>
@@ -473,12 +473,12 @@
       <pre class="lines">
 
 
-554
-555
-556</pre>
+562
+563
+564</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/bovem/shell.rb', line 554</span>
+      <pre class="code"><span class="info file"># File 'lib/bovem/shell.rb', line 562</span>
 
 <span class='kw'>def</span> <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_instance'>instance</span>
   <span class='ivar'>@instance</span> <span class='op'>||=</span> <span class='op'>::</span><span class='const'>Bovem</span><span class='op'>::</span><span class='const'>Shell</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span>
@@ -493,7 +493,7 @@
 </div>
 
     <div id="footer">
-  Generated on Tue Feb  5 09:25:50 2013 by
+  Generated on Tue Feb  5 13:31:47 2013 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.8.4 (ruby-1.9.3).
 </div>
