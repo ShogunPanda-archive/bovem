@@ -19,15 +19,22 @@ module Bovem
       # @param fatal [Boolean] If quit in case of fatal errors.
       # @param show_errors [Boolean] Whether to show errors.
       def handle_failure(e, access_error, not_found_error, general_error, entries, fatal, show_errors)
-        error_type = fatal ? :fatal : :error
-        locale = self.i18n.shell
-        final_entries = entries.length == 1 ? entries[0] : entries
+        error_type, locale, final_entries = setup_error_handling(entries, fatal)
 
         case e.class.to_s
           when "Errno::EACCES" then @console.send(error_type, locale.send(access_error, final_entries))
           when "Errno::ENOENT" then @console.send(error_type, locale.send(not_found_error, final_entries))
           else show_general_failure(e, general_error, entries, fatal) if show_errors
         end
+      end
+
+      # Setups error handling.
+      #
+      # @param entries [Array] The list of entries which failed.
+      # @param fatal [Boolean] If quit in case of fatal errors.
+      # @return [Array] Variables for error handling
+      def setup_error_handling(entries, fatal)
+        [fatal ? :fatal : :error, self.i18n.shell, entries.length == 1 ? entries[0] : entries]
       end
 
       # Shows errors when a directory creation failed.
