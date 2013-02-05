@@ -94,11 +94,18 @@ module Bovem
           # Open the file
           path = file =~ /^#{File::SEPARATOR}/ ? file : ::Pathname.new(file).realpath.to_s
           logger.info(self.i18n.using(path)) if logger
-          self.tap do |config|
-            eval(::File.read(path))
-          end
+          eval_file(path)
         rescue ::Exception => e
           raise Bovem::Errors::InvalidConfiguration.new(self.i18n.configuration.invalid(file))
+        end
+      end
+
+      # Eval a configuration file.
+      #
+      # @param path [String] The file to read.
+      def eval_file(path)
+        self.tap do |config|
+          eval(::File.read(path))
         end
       end
   end
