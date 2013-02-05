@@ -36,6 +36,10 @@ describe Bovem::Shell do
   end
 
   describe "#run" do
+    before(:each) do
+      ::Open4::stub(:popen4) do |_a, _b, _c, _d| OpenStruct.new(exitstatus: 0) end
+    end
+
     it "should show a message" do
       shell.console.should_receive("begin").with("MESSAGE")
       shell.run("echo OK", "MESSAGE", true, false)
@@ -56,11 +60,16 @@ describe Bovem::Shell do
 
     it "should only execute a command" do
       shell.console.should_not_receive("warn").with("Will run command: {mark=bright}\"echo OK\"{/mark}...")
-      ::Open4.should_receive("popen4").and_return(::OpenStruct.new(exitstatus: 0))
       shell.run("echo OK", nil, true, false)
     end
 
     it "should show a exit message" do
+      i = -1
+      ::Open4::stub(:popen4) do |_a, _b, _c, _d|
+        i += 1
+        OpenStruct.new(exitstatus: i)
+      end
+
       shell.console.should_receive(:status).with(:ok)
       shell.run("echo OK", nil, true, true)
       shell.console.should_receive(:status).with(:fail)
@@ -69,10 +78,17 @@ describe Bovem::Shell do
 
     it "should print output" do
       Kernel.should_receive("print").with("OK\n")
+
+      ::Open4::stub(:popen4) do |_a, _b, _c, _d|
+        Kernel.print("OK\n")
+        OpenStruct.new(exitstatus: 0)
+      end
+
       shell.run("echo OK", nil, true, false, true)
     end
 
     it "should raise a exception for failures" do
+      ::Open4::stub(:popen4) {|_a, _b, _c, _d| OpenStruct.new(exitstatus: 1) }
       expect { shell.run("echo1 OK", nil, true, false, false, false, false) }.to_not raise_error(SystemExit)
       expect { shell.run("echo1 OK", nil, true, false, false) }.to raise_error(SystemExit)
     end
