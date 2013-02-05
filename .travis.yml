@@ -7,3 +7,4 @@ rvm:
 script: bundle exec rake spec:coverage
 notifications:
   email: false
+gemfile: .travis-gemfile
