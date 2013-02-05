@@ -5,10 +5,11 @@
 #
 
 require "logger"
-require "lazier"
 require "open4"
 require "find"
 require "fileutils"
+require "io/console"
+require "lazier"
 
 Lazier.load!(:object)
 

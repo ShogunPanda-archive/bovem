@@ -112,13 +112,6 @@ module Bovem
 
     # Methods for formatting output messages.
     module Output
-      # Gets the current screen width.
-      #
-      # @return [Fixnum] The screen width.
-      def get_screen_width
-        ::Bovem::Console.execute("tput cols").to_integer(80)
-      end
-
       # Sets the new indentation width.
       #
       # @param width [Fixnum] The new width.
@@ -205,7 +198,7 @@ module Bovem
 
         # Compute the real width available for the screen, if we both indent and wrap
         if wrap == true then
-          wrap = @line_width
+          wrap = self.line_width
 
           if indent == true then
             wrap -= @indentation
@@ -234,8 +227,7 @@ module Bovem
 
         rv = go_up ? "\e[A" : ""
 
-        @screen_width ||= self.get_screen_width
-        width = (width == true || width.to_integer < 1 ? @screen_width : width.to_integer)
+        width = (width == true || width.to_integer < 1 ? self.line_width : width.to_integer)
 
         # Get padding
         padding = width - message.to_s.gsub(/(\e\[[0-9]*[a-z]?)|(\\n)/i, "").length
@@ -468,21 +460,17 @@ module Bovem
       # @param echo [Boolean] If to show submitted text to the user.
       def read(prompt = true, default_value = nil, validator = nil, echo = true)
         prompt = sanitize_prompt(prompt)
-
-        # Adjust validator
         validator = sanitize_validator(validator)
 
-        with_echo_handling(echo) do
-          begin
-            catch(:reply) do
-              while true do
-                reply = validate_input_value(read_input_value(prompt, default_value), validator)
-                handle_reply(reply)
-              end
+        begin
+          catch(:reply) do
+            while true do
+              reply = validate_input_value(read_input_value(prompt, echo, default_value), validator)
+              handle_reply(reply)
             end
-          rescue Interrupt => e
-            default_value
           end
+        rescue Interrupt => e
+          default_value
         end
       end
 
@@ -547,32 +535,19 @@ module Bovem
           validator.present? && !validator.is_a?(::Regexp) ? validator.ensure_array.collect {|v| v.ensure_string} : validator
         end
 
-        # Handle terminal echoing.
-        #
-        # @param echo [Boolean] If disabled echoing
-        def with_echo_handling(echo = true)
-          rv = nil
-
-          disable_echo = !echo && @stty.present? && /-echo\b/mix.match(::Bovem::Console.execute(@stty)).nil?
-          ::Bovem::Console.execute("#{@stty} -echo") if disable_echo
-          rv = yield
-          ::Bovem::Console.execute("#{@stty} echo") if disable_echo
-
-          rv
-        end
-
         # Read an input from the terminal.
         #
         # @param prompt [String] A message to show to the user.
+        # @param echo [Boolean] If disable echoing.
         # @param default_value [Object] A default value to enter if the user just pressed the enter key.
         # @return [Object] The read value.
-        def read_input_value(prompt, default_value = nil)
+        def read_input_value(prompt, echo, default_value = nil)
           if prompt then
             Kernel.print self.format(prompt, false, false)
             $stdout.flush
           end
 
-          reply = $stdin.gets.chop
+          reply = (echo ? $stdin.gets : $stdin.noecho(&:gets)).ensure_string.chop
           reply.present? ? reply : default_value
         end
 
@@ -609,17 +584,11 @@ module Bovem
 
   # This is a text utility wrapper console I/O.
   #
-  # @attribute line_width
-  #   @return [Fixnum] The line width. Default to `80`.
-  # @attribute screen_width
-  #   @return [Fixnum] The current screen width.
   # @attribute indentation
   #   @return [Fixnum] Current indentation width.
   # @attribute indentation_string
   #   @return [String] The string used for indentation.
   class Console
-    attr_accessor :line_width
-    attr_accessor :screen_width
     attr_accessor :indentation
     attr_accessor :indentation_string
 
@@ -638,11 +607,13 @@ module Bovem
 
     # Initializes a new Console.
     def initialize
-      @line_width = self.get_screen_width
       @indentation = 0
       @indentation_string = " "
-      @stty = ::Bovem::Console.execute("which stty").strip
       self.i18n_setup(:bovem, ::File.absolute_path(::Pathname.new(::File.dirname(__FILE__)).to_s + "/../../locales/"))
+    end
+
+    def line_width
+      $stdin.winsize[1]
     end
   end
 end

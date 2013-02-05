@@ -15,6 +15,7 @@ describe Bovem::Console do
 
   before(:each) do
     ENV["TERM"] = "xterm-256color"
+    $stdin.stub(:winsize).and_return([80, 80])
     Kernel.stub(:puts).and_return(nil)
   end
 
@@ -66,20 +67,16 @@ describe Bovem::Console do
   describe "#initialize" do
     it "should correctly set defaults" do
       expect(console.indentation).to eq(0)
-      expect(console.line_width).to eq(`tput cols`.to_integer)
       expect(console.indentation_string).to eq(" ")
     end
   end
 
-  describe "#get_screen_width" do
-    it "should execute \"tput cols\" and \"which stty\"" do
-      ::Bovem::Console.should_receive(:execute).with("tput cols").at_least(1).and_call_original
-      ::Bovem::Console.should_receive(:execute).with("which stty").at_least(1).and_call_original
-      console.get_screen_width
-    end
-
-    it "should return a number >= 0" do
-      expect(console.get_screen_width).to be >= 0
+  describe "#line_width" do
+    it "should use io/console" do
+      a = [0, 0]
+      $stdin.should_receive(:winsize).and_return(a)
+      a.should_receive("[]").with(1)
+      console.line_width
     end
   end
 
@@ -181,13 +178,13 @@ describe Bovem::Console do
     it "should correctly align messages" do
       message = "ABCDE"
       extended_message = "ABC\e[AD\e[3mE"
-      console.screen_width = 80
+      $stdin.stub(:winsize).and_return([0, 80])
 
       expect(console.format_right(message)).to eq("\e[A\e[0G\e[#{75}CABCDE")
       expect(console.format_right(message, 10)).to eq("\e[A\e[0G\e[#{5}CABCDE")
       expect(console.format_right(extended_message)).to eq("\e[A\e[0G\e[#{75}CABC\e[AD\e[3mE")
       expect(console.format_right(message, nil, false)).to eq("\e[0G\e[#{75}CABCDE")
-      console.screen_width = 10
+      $stdin.stub(:winsize).and_return([0, 10])
       expect(console.format_right(message)).to eq("\e[A\e[0G\e[#{5}CABCDE")
     end
   end
@@ -302,7 +299,7 @@ describe Bovem::Console do
     end
   end
 
-  describe "status" do
+  describe "#status" do
     it "should get the right status" do
       expect(console.status(:ok, false, true, false)).to eq({label: " OK ", color: "bright green"})
       expect(console.status(:pass, false, true, false)).to eq({label: "PASS", color: "bright cyan"})
@@ -390,25 +387,7 @@ describe Bovem::Console do
     end
 
     it "should hide echo to the user when the terminal shows echo" do
-      $stdin.stub(:gets).and_return("VALUE\n")
-      stty = %x{which stty}.strip
-
-      ::Bovem::Console.should_receive(:execute).with("tput cols").and_return(80)
-      ::Bovem::Console.should_receive(:execute).with("which stty").and_return(stty)
-      ::Bovem::Console.should_receive(:execute).with(stty).and_return("speed 9600 baud;\nlflags: echoe echoke echoctl pendin\niflags: iutf8\noflags: -oxtabs\ncflags: cs8 -parenb")
-      ::Bovem::Console.should_receive(:execute).with("#{stty} -echo")
-      ::Bovem::Console.should_receive(:execute).with("#{stty} echo")
-      console.read(nil, nil, nil, false)
-    end
-
-    it "shouldn't hide echo again when the terminal already hides it" do
-      $stdin.stub(:gets).and_return("VALUE\n")
-      stty = %x{which stty}.strip
-
-      ::Bovem::Console.should_receive(:execute).with("which stty").and_return(stty)
-      ::Bovem::Console.should_receive(:execute).with(stty).and_return("speed 9600 baud;\nlflags: -echo echoe echoke echoctl pendin\niflags: iutf8\noflags: -oxtabs\ncflags: cs8 -parenb")
-      ::Bovem::Console.should_not_receive("execute").with("#{stty} -echo")
-      ::Bovem::Console.should_not_receive("execute").with("#{stty} echo")
+      $stdin.should_receive(:noecho).and_return("VALUE")
       console.read(nil, nil, nil, false)
     end
   end

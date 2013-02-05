@@ -30,6 +30,7 @@ module Bovem
     # @param logger [Logger] The logger to use for notifications.
     # @see #parse
     def initialize(file = nil, overrides = {}, logger = nil)
+      self.i18n_setup(:bovem, ::File.absolute_path(::Pathname.new(::File.dirname(__FILE__)).to_s + "/../../locales/"))
       self.parse(file, overrides, logger)
     end
 
