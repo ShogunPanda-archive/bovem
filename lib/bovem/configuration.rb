@@ -92,7 +92,7 @@ module Bovem
       def read_configuration_file(file, logger)
         begin
           # Open the file
-          path = ::Pathname.new(file).realpath
+          path = file =~ /^#{File::SEPARATOR}/ ? file : ::Pathname.new(file).realpath.to_s
           logger.info(self.i18n.using(path)) if logger
           self.tap do |config|
             eval(::File.read(path))

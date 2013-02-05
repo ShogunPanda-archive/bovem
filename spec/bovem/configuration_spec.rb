@@ -11,12 +11,12 @@ describe Bovem::Configuration do
     property :property
   end
 
-  let(:log_file) { "/tmp/bovem-test-log-#{Time.now.strftime("%Y%m%d-%H:%M:%S")}" }
-  let(:test_prefix) { "/tmp/bovem-test-#{Time.now.strftime("%Y%m%d-%H:%M:%S")}" }
+  let(:log_file) { "/tmp/bovem-test-log-#{Time.now.strftime("%Y%m%d-%H%M%S")}" }
+  let(:test_prefix) { "/tmp/bovem-test-#{Time.now.strftime("%Y%m%d-%H%M%S")}" }
 
   describe "#parse" do
     it "reads a valid configuration file" do
-      file = ::File.open("#{test_prefix}", "w") {|f| f.write("config.property = 1234") }
+      file = ::File.open(test_prefix, "w") {|f| f.write("config.property = 1234") }
 
       config = BaseConfiguration.new(test_prefix)
       expect(config.property).to eq(1234)

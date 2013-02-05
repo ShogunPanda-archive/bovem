@@ -457,7 +457,7 @@ module Bovem
       # @param prompt [String|Boolean] A prompt to show. If `true`, `Please insert a value:` will be used, if `nil` or `false` no prompt will be shown.
       # @param default_value [String] Default value if user simply pressed the enter key.
       # @param validator [Array|Regexp] An array of values or a Regexp to match the submitted value against.
-      # @param echo [Boolean] If to show submitted text to the user.
+      # @param echo [Boolean] If to show submitted text to the user. **Not supported and thus ignored on Rubinius.**
       def read(prompt = true, default_value = nil, validator = nil, echo = true)
         prompt = sanitize_prompt(prompt)
         validator = sanitize_validator(validator)
@@ -538,7 +538,7 @@ module Bovem
         # Read an input from the terminal.
         #
         # @param prompt [String] A message to show to the user.
-        # @param echo [Boolean] If disable echoing.
+        # @param echo [Boolean] If disable echoing. **Not supported and thus ignored on Rubinius.**
         # @param default_value [Object] A default value to enter if the user just pressed the enter key.
         # @return [Object] The read value.
         def read_input_value(prompt, echo, default_value = nil)
@@ -547,7 +547,7 @@ module Bovem
             $stdout.flush
           end
 
-          reply = (echo ? $stdin.gets : $stdin.noecho(&:gets)).ensure_string.chop
+          reply = (echo || !$stdin.respond_to?(:noecho) ? $stdin.gets : $stdin.noecho(&:gets)).ensure_string.chop
           reply.present? ? reply : default_value
         end
 
@@ -612,8 +612,16 @@ module Bovem
       self.i18n_setup(:bovem, ::File.absolute_path(::Pathname.new(::File.dirname(__FILE__)).to_s + "/../../locales/"))
     end
 
+    # Get the width of the terminal.
+    #
+    # @return [Fixnum] The current width of the terminal. If not possible to retrieve the width, it returns `80.
     def line_width
-      $stdin.winsize[1]
+      begin
+        require "io/console" if !defined?($stdin.winsize)
+        $stdin.winsize[1]
+      rescue Exception => e
+        80
+      end
     end
   end
 end

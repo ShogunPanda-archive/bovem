@@ -15,7 +15,6 @@ describe Bovem::Console do
 
   before(:each) do
     ENV["TERM"] = "xterm-256color"
-    $stdin.stub(:winsize).and_return([80, 80])
     Kernel.stub(:puts).and_return(nil)
   end
 
@@ -72,10 +71,14 @@ describe Bovem::Console do
   end
 
   describe "#line_width" do
-    it "should use io/console" do
-      a = [0, 0]
-      $stdin.should_receive(:winsize).and_return(a)
-      a.should_receive("[]").with(1)
+    it "should return a Fixnum greater than 0" do
+      w = console.line_width
+      expect(w).to be_a(Fixnum)
+      expect(w >= 0).to be_true
+    end
+
+    it "should use $stdin.winsize if available" do
+      $stdin.should_receive(:winsize)
       console.line_width
     end
   end
@@ -178,13 +181,13 @@ describe Bovem::Console do
     it "should correctly align messages" do
       message = "ABCDE"
       extended_message = "ABC\e[AD\e[3mE"
-      $stdin.stub(:winsize).and_return([0, 80])
+      console.stub(:line_width).and_return(80)
 
       expect(console.format_right(message)).to eq("\e[A\e[0G\e[#{75}CABCDE")
       expect(console.format_right(message, 10)).to eq("\e[A\e[0G\e[#{5}CABCDE")
       expect(console.format_right(extended_message)).to eq("\e[A\e[0G\e[#{75}CABC\e[AD\e[3mE")
       expect(console.format_right(message, nil, false)).to eq("\e[0G\e[#{75}CABCDE")
-      $stdin.stub(:winsize).and_return([0, 10])
+      console.stub(:line_width).and_return(10)
       expect(console.format_right(message)).to eq("\e[A\e[0G\e[#{5}CABCDE")
     end
   end

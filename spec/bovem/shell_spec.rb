@@ -54,7 +54,7 @@ describe Bovem::Shell do
 
     it "should only print the command if requested to" do
       shell.console.should_receive("warn").with("Will run command: {mark=bright}\"echo OK\"{/mark}...")
-      ::Open4.should_not_receive("open4")
+      ::Open4.should_not_receive("popen4")
       shell.run("echo OK", nil, false, false)
     end
 
@@ -79,10 +79,9 @@ describe Bovem::Shell do
     it "should print output" do
       Kernel.should_receive("print").with("OK\n")
 
-      ::Open4::stub(:popen4) do |_a, _b, _c, _d|
-        Kernel.print("OK\n")
-        OpenStruct.new(exitstatus: 0)
-      end
+      stdout = Object.new
+      stdout.stub(:each_line).and_yield("OK\n")
+      ::Open4::stub(:popen4).and_yield(nil, nil, stdout, nil).and_return(OpenStruct.new(exitstatus: 0))
 
       shell.run("echo OK", nil, true, false, true)
     end

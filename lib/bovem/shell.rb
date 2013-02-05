@@ -20,12 +20,11 @@ module Bovem
       # @param show_errors [Boolean] Whether to show errors.
       def handle_failure(e, access_error, not_found_error, general_error, entries, fatal, show_errors)
         error_type = fatal ? :fatal : :error
-        message = e.message.gsub(/.+ - (.+)/, "\\1")
         locale = self.i18n.shell
 
         case e.class.to_s
-          when "Errno::EACCES" then @console.send(error_type, locale.send(access_error, message))
-          when "Errno::ENOENT" then @console.send(error_type, locale.send(not_found_error, message))
+          when "Errno::EACCES" then @console.send(error_type, locale.send(access_error, entries.length == 1 ? entries[0] : entries))
+          when "Errno::ENOENT" then @console.send(error_type, locale.send(not_found_error, entries.length == 1 ? entries[0] : entries))
           else show_general_failure(e, general_error, entries, fatal) if show_errors
         end
       end
