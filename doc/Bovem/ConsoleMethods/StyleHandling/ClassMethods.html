@@ -404,9 +404,10 @@ Supported styles and colors are those in <span class='object_link'><a href="../.
 
 <p>Example:</p>
 
-<pre class="code ruby"><code class="ruby"><span class='const'>Bovem</span><span class='op'>::</span><span class='const'>Console</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='period'>.</span><span class='id identifier rubyid_replace_markers'>replace_markers</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>{mark=bright bg_red}{mark=green}Hello world!{/mark}{/mark}</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span>
-<span class='comment'># =&gt; &quot;\e[1m\e[41m\e[32mHello world!\e[1m\e[41m\e[0m&quot;
-</span></code></pre>
+<p><code>ruby
+Bovem::Console.new.replace_markers("{mark=bright bg_red}{mark=green}Hello world!{/mark}{/mark}")
+# =&gt; "\e[1m\e[41m\e[32mHello world!\e[1m\e[41m\e[0m"
+</code></p>
 
 
   </div>
@@ -644,7 +645,7 @@ Supported styles and colors are those in <span class='object_link'><a href="../.
 </div>
 
     <div id="footer">
-  Generated on Tue Feb  5 13:31:46 2013 by
+  Generated on Fri Feb  8 07:47:40 2013 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.8.4 (ruby-1.9.3).
 </div>
