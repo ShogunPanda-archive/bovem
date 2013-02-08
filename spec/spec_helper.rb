@@ -6,7 +6,6 @@
 
 require "rubygems"
 require "bundler/setup"
-require "coverage_helper"
 require "bovem"
 
 RSpec.configure do |config|
