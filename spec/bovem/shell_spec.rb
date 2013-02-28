@@ -262,10 +262,10 @@ describe Bovem::Shell do
       File.open(temp_file_1, "w") {|f| f.write("OK") }
 
       shell.console.should_receive(:error).with("Cannot copy file {mark=bright}#{temp_file_1}{/mark} to non writable directory {mark=bright}/dev{/mark}.", "\n", 5)
-      expect(shell.copy_or_move(temp_file_1, "/dev/bovem", :copy, true, false, false)).to be_false
+      expect(shell.copy_or_move(temp_file_1, "/dev/bovem", :copy, true, true, false)).to be_false
 
       shell.console.should_receive(:error).with("Cannot move file {mark=bright}#{temp_file_1}{/mark} to non writable directory {mark=bright}/dev{/mark}.", "\n", 5)
-      expect(shell.copy_or_move(temp_file_1, "/dev/bovem", :move, true, false, false)).to be_false
+      expect(shell.copy_or_move(temp_file_1, "/dev/bovem", :move, true, true, false)).to be_false
     end
 
     it "should complain about other exceptions" do
@@ -274,10 +274,10 @@ describe Bovem::Shell do
       File.open(temp_file_1, "w") {|f| f.write("OK") }
 
       shell.console.should_receive(:error).with("Cannot copy file {mark=bright}#{temp_file_1}{/mark} to directory {mark=bright}#{File.dirname(temp_file_2)}{/mark} due to this error: [ArgumentError] ERROR.", "\n", 5)
-      expect(shell.copy_or_move(temp_file_1, temp_file_2, :copy, true, false, false)).to be_false
+      expect(shell.copy_or_move(temp_file_1, temp_file_2, :copy, true, true, false)).to be_false
 
       shell.console.should_receive(:error).with("Cannot move file {mark=bright}#{temp_file_1}{/mark} to directory {mark=bright}#{File.dirname(temp_file_2)}{/mark} due to this error: [ArgumentError] ERROR.", "\n", 5)
-      expect(shell.copy_or_move(temp_file_1, temp_file_2, :move, true, false, false)).to be_false
+      expect(shell.copy_or_move(temp_file_1, temp_file_2, :move, true, true, false)).to be_false
     end
 
     describe "should exit when requested to" do
@@ -289,17 +289,17 @@ describe Bovem::Shell do
         File.open(temp_file_2, "w") {|f| f.write("OK") }
 
         shell.console.should_receive(:fatal).with("Cannot copy file {mark=bright}#{temp_file_1}{/mark} to directory {mark=bright}/dev{/mark} due to this error: [ArgumentError] ERROR.", "\n", 5)
-        expect(shell.copy_or_move(temp_file_1, "/dev/bovem", :copy, true, false, true)).to be_false
+        expect(shell.copy_or_move(temp_file_1, "/dev/bovem", :copy, true, true, true)).to be_false
 
         shell.console.should_receive(:fatal).with("Cannot move file {mark=bright}#{temp_file_1}{/mark} to directory {mark=bright}/dev{/mark} due to this error: [ArgumentError] ERROR.", "\n", 5)
-        expect(shell.copy_or_move(temp_file_1, "/dev/bovem", :move, true, false, true)).to be_false
+        expect(shell.copy_or_move(temp_file_1, "/dev/bovem", :move, true, true, true)).to be_false
 
         Kernel.stub(:exit).and_return(true)
         shell.console.should_receive(:error).with("Cannot copy following entries to {mark=bright}/dev{/mark}:")
-        expect(shell.copy_or_move([temp_file_1, temp_file_2], "/dev", :copy, true, false, true)).to be_false
+        expect(shell.copy_or_move([temp_file_1, temp_file_2], "/dev", :copy, true, true, true)).to be_false
 
         shell.console.should_receive(:error).with("Cannot move following entries to {mark=bright}/dev{/mark}:")
-        expect(shell.copy_or_move([temp_file_1, temp_file_2], "/dev", :move, true, false, true)).to be_false
+        expect(shell.copy_or_move([temp_file_1, temp_file_2], "/dev", :move, true, true, true)).to be_false
       end
 
       it "by calling Kernel#exit" do

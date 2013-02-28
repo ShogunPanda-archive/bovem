@@ -284,9 +284,7 @@
 36
 37
 38
-39
-40
-41</pre>
+39</pre>
     </td>
     <td>
       <pre class="code"><span class="info file"># File 'lib/bovem/console.rb', line 28</span>
@@ -295,8 +293,6 @@
   <span class='id identifier rubyid_style'>style</span> <span class='op'>=</span> <span class='id identifier rubyid_style'>style</span><span class='period'>.</span><span class='id identifier rubyid_ensure_string'>ensure_string</span><span class='period'>.</span><span class='id identifier rubyid_strip'>strip</span><span class='period'>.</span><span class='id identifier rubyid_parameterize'>parameterize</span>
 
   <span class='kw'>if</span> <span class='id identifier rubyid_style'>style</span><span class='period'>.</span><span class='id identifier rubyid_present?'>present?</span> <span class='kw'>then</span>
-    <span class='id identifier rubyid_sym'>sym</span> <span class='op'>=</span> <span class='id identifier rubyid_style'>style</span><span class='period'>.</span><span class='id identifier rubyid_to_sym'>to_sym</span>
-
     <span class='op'>::</span><span class='const'>Bovem</span><span class='op'>::</span><span class='const'>Console</span><span class='period'>.</span><span class='id identifier rubyid_replace_term_code'>replace_term_code</span><span class='lparen'>(</span><span class='const'>Bovem</span><span class='op'>::</span><span class='const'>TERM_EFFECTS</span><span class='comma'>,</span> <span class='id identifier rubyid_style'>style</span><span class='comma'>,</span> <span class='int'>0</span><span class='rparen'>)</span> <span class='op'>||</span>
       <span class='op'>::</span><span class='const'>Bovem</span><span class='op'>::</span><span class='const'>Console</span><span class='period'>.</span><span class='id identifier rubyid_replace_term_code'>replace_term_code</span><span class='lparen'>(</span><span class='const'>Bovem</span><span class='op'>::</span><span class='const'>TERM_COLORS</span><span class='comma'>,</span> <span class='id identifier rubyid_style'>style</span><span class='comma'>,</span> <span class='int'>30</span><span class='rparen'>)</span> <span class='op'>||</span>
       <span class='op'>::</span><span class='const'>Bovem</span><span class='op'>::</span><span class='const'>Console</span><span class='period'>.</span><span class='id identifier rubyid_replace_term_code'>replace_term_code</span><span class='lparen'>(</span><span class='const'>Bovem</span><span class='op'>::</span><span class='const'>TERM_COLORS</span><span class='comma'>,</span> <span class='id identifier rubyid_style'>style</span><span class='period'>.</span><span class='id identifier rubyid_gsub'>gsub</span><span class='lparen'>(</span><span class='tstring'><span class='regexp_beg'>/</span><span class='tstring_content'>^bg_</span><span class='regexp_end'>/</span></span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span><span class='comma'>,</span> <span class='int'>40</span><span class='rparen'>)</span> <span class='op'>||</span>
@@ -372,12 +368,12 @@ Supported styles and colors are those in <span class='object_link'><a href="../.
       <pre class="lines">
 
 
-48
-49
-50</pre>
+46
+47
+48</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/bovem/console.rb', line 48</span>
+      <pre class="code"><span class="info file"># File 'lib/bovem/console.rb', line 46</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_parse_styles'>parse_styles</span><span class='lparen'>(</span><span class='id identifier rubyid_styles'>styles</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_styles'>styles</span><span class='period'>.</span><span class='id identifier rubyid_split'>split</span><span class='lparen'>(</span><span class='tstring'><span class='regexp_beg'>/</span><span class='tstring_content'>\s*[\s,-]\s*</span><span class='regexp_end'>/</span></span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_collect'>collect</span> <span class='lbrace'>{</span> <span class='op'>|</span><span class='id identifier rubyid_s'>s</span><span class='op'>|</span> <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_parse_style'>parse_style</span><span class='lparen'>(</span><span class='id identifier rubyid_s'>s</span><span class='rparen'>)</span> <span class='rbrace'>}</span><span class='period'>.</span><span class='id identifier rubyid_join'>join</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span>
@@ -481,6 +477,8 @@ Bovem::Console.new.replace_markers("{mark=bright bg_red}{mark=green}Hello world!
       <pre class="lines">
 
 
+77
+78
 79
 80
 81
@@ -498,12 +496,10 @@ Bovem::Console.new.replace_markers("{mark=bright bg_red}{mark=green}Hello world!
 93
 94
 95
-96
-97
-98</pre>
+96</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/bovem/console.rb', line 79</span>
+      <pre class="code"><span class="info file"># File 'lib/bovem/console.rb', line 77</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_replace_markers'>replace_markers</span><span class='lparen'>(</span><span class='id identifier rubyid_message'>message</span><span class='comma'>,</span> <span class='id identifier rubyid_plain'>plain</span> <span class='op'>=</span> <span class='kw'>false</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_stack'>stack</span> <span class='op'>=</span> <span class='lbracket'>[</span><span class='rbracket'>]</span>
@@ -623,13 +619,13 @@ Bovem::Console.new.replace_markers("{mark=bright bg_red}{mark=green}Hello world!
       <pre class="lines">
 
 
+57
+58
 59
-60
-61
-62</pre>
+60</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/bovem/console.rb', line 59</span>
+      <pre class="code"><span class="info file"># File 'lib/bovem/console.rb', line 57</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_replace_term_code'>replace_term_code</span><span class='lparen'>(</span><span class='id identifier rubyid_codes'>codes</span><span class='comma'>,</span> <span class='id identifier rubyid_code'>code</span><span class='comma'>,</span> <span class='id identifier rubyid_modifier'>modifier</span> <span class='op'>=</span> <span class='int'>0</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_sym'>sym</span> <span class='op'>=</span> <span class='id identifier rubyid_code'>code</span><span class='period'>.</span><span class='id identifier rubyid_to_sym'>to_sym</span>
@@ -645,7 +641,7 @@ Bovem::Console.new.replace_markers("{mark=bright bg_red}{mark=green}Hello world!
 </div>
 
     <div id="footer">
-  Generated on Wed Feb 27 09:11:30 2013 by
+  Generated on Thu Feb 28 09:57:56 2013 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.8.5.2 (ruby-1.9.3).
 </div>

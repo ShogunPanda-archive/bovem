@@ -344,14 +344,14 @@
       <pre class="lines">
 
 
+606
+607
+608
 609
-610
-611
-612
-613</pre>
+610</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/bovem/console.rb', line 609</span>
+      <pre class="code"><span class="info file"># File 'lib/bovem/console.rb', line 606</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_initialize'>initialize</span>
   <span class='ivar'>@indentation</span> <span class='op'>=</span> <span class='int'>0</span>
@@ -412,6 +412,9 @@
       <pre class="lines">
 
 
+588
+589
+590
 591
 592
 593
@@ -444,13 +447,10 @@
 620
 621
 622
-623
-624
-625
-626</pre>
+623</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/bovem/console.rb', line 591</span>
+      <pre class="code"><span class="info file"># File 'lib/bovem/console.rb', line 588</span>
 
 <span class='kw'>class</span> <span class='const'>Console</span>
   <span class='id identifier rubyid_attr_accessor'>attr_accessor</span> <span class='symbol'>:indentation</span>
@@ -483,7 +483,7 @@
     <span class='kw'>begin</span>
       <span class='id identifier rubyid_require'>require</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>io/console</span><span class='tstring_end'>&quot;</span></span> <span class='kw'>if</span> <span class='op'>!</span><span class='kw'>defined?</span><span class='lparen'>(</span><span class='gvar'>$stdin</span><span class='period'>.</span><span class='id identifier rubyid_winsize'>winsize</span><span class='rparen'>)</span>
       <span class='gvar'>$stdin</span><span class='period'>.</span><span class='id identifier rubyid_winsize'>winsize</span><span class='lbracket'>[</span><span class='int'>1</span><span class='rbracket'>]</span>
-    <span class='kw'>rescue</span> <span class='const'>Exception</span> <span class='op'>=&gt;</span> <span class='id identifier rubyid_e'>e</span>
+    <span class='kw'>rescue</span> <span class='const'>Exception</span> <span class='op'>=&gt;</span> <span class='id identifier rubyid__'>_</span>
       <span class='int'>80</span>
     <span class='kw'>end</span>
   <span class='kw'>end</span>
@@ -537,6 +537,9 @@
       <pre class="lines">
 
 
+588
+589
+590
 591
 592
 593
@@ -569,13 +572,10 @@
 620
 621
 622
-623
-624
-625
-626</pre>
+623</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/bovem/console.rb', line 591</span>
+      <pre class="code"><span class="info file"># File 'lib/bovem/console.rb', line 588</span>
 
 <span class='kw'>class</span> <span class='const'>Console</span>
   <span class='id identifier rubyid_attr_accessor'>attr_accessor</span> <span class='symbol'>:indentation</span>
@@ -608,7 +608,7 @@
     <span class='kw'>begin</span>
       <span class='id identifier rubyid_require'>require</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>io/console</span><span class='tstring_end'>&quot;</span></span> <span class='kw'>if</span> <span class='op'>!</span><span class='kw'>defined?</span><span class='lparen'>(</span><span class='gvar'>$stdin</span><span class='period'>.</span><span class='id identifier rubyid_winsize'>winsize</span><span class='rparen'>)</span>
       <span class='gvar'>$stdin</span><span class='period'>.</span><span class='id identifier rubyid_winsize'>winsize</span><span class='lbracket'>[</span><span class='int'>1</span><span class='rbracket'>]</span>
-    <span class='kw'>rescue</span> <span class='const'>Exception</span> <span class='op'>=&gt;</span> <span class='id identifier rubyid_e'>e</span>
+    <span class='kw'>rescue</span> <span class='const'>Exception</span> <span class='op'>=&gt;</span> <span class='id identifier rubyid__'>_</span>
       <span class='int'>80</span>
     <span class='kw'>end</span>
   <span class='kw'>end</span>
@@ -667,12 +667,12 @@
       <pre class="lines">
 
 
-604
-605
-606</pre>
+601
+602
+603</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/bovem/console.rb', line 604</span>
+      <pre class="code"><span class="info file"># File 'lib/bovem/console.rb', line 601</span>
 
 <span class='kw'>def</span> <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_instance'>instance</span>
   <span class='ivar'>@instance</span> <span class='op'>||=</span> <span class='op'>::</span><span class='const'>Bovem</span><span class='op'>::</span><span class='const'>Console</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span>
@@ -730,23 +730,23 @@
       <pre class="lines">
 
 
+615
+616
+617
 618
 619
 620
 621
-622
-623
-624
-625</pre>
+622</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/bovem/console.rb', line 618</span>
+      <pre class="code"><span class="info file"># File 'lib/bovem/console.rb', line 615</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_line_width'>line_width</span>
   <span class='kw'>begin</span>
     <span class='id identifier rubyid_require'>require</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>io/console</span><span class='tstring_end'>&quot;</span></span> <span class='kw'>if</span> <span class='op'>!</span><span class='kw'>defined?</span><span class='lparen'>(</span><span class='gvar'>$stdin</span><span class='period'>.</span><span class='id identifier rubyid_winsize'>winsize</span><span class='rparen'>)</span>
     <span class='gvar'>$stdin</span><span class='period'>.</span><span class='id identifier rubyid_winsize'>winsize</span><span class='lbracket'>[</span><span class='int'>1</span><span class='rbracket'>]</span>
-  <span class='kw'>rescue</span> <span class='const'>Exception</span> <span class='op'>=&gt;</span> <span class='id identifier rubyid_e'>e</span>
+  <span class='kw'>rescue</span> <span class='const'>Exception</span> <span class='op'>=&gt;</span> <span class='id identifier rubyid__'>_</span>
     <span class='int'>80</span>
   <span class='kw'>end</span>
 <span class='kw'>end</span></pre>
@@ -760,7 +760,7 @@
 </div>
 
     <div id="footer">
-  Generated on Wed Feb 27 09:11:31 2013 by
+  Generated on Thu Feb 28 09:57:57 2013 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.8.5.2 (ruby-1.9.3).
 </div>

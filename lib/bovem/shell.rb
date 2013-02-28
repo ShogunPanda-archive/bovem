@@ -185,10 +185,9 @@ module Bovem
       # @param show_errors [Boolean] If show errors.
       # @param fatal [Boolean] If quit in case of fatal errors.
       # @return [Boolean] `true` if operation succeeded, `false` otherwise.
-      def copy_or_move(src, dst, operation, run = true, show_errors = false, fatal = true)        
+      def copy_or_move(src, dst, operation, run = true, show_errors = true, fatal = true)
         rv = true
-        locale = self.i18n.shell
-        operation, operation_s, single, src, dst = sanitize_copy_or_move_arguments(operation, src, dst)
+        operation, operation_s, single, src, dst = sanitize_copy_or_move(operation, src, dst)
 
         if !run then
           dry_run_copy_or_move(single, operation_s, src, dst)
@@ -211,7 +210,7 @@ module Bovem
         # @param src [String|Array] The entries to copy or move. If is an Array, `dst` is assumed to be a directory.
         # @param dst [String] The destination. **Any existing entries will be overwritten.** Any required directory will be created.
         # @return [Array] A list of sanitized arguments.
-        def sanitize_copy_or_move_arguments(operation, src, dst)
+        def sanitize_copy_or_move(operation, src, dst)
           operation = :copy if operation != :move
           single = !src.is_a?(Array)
           src = single ? File.expand_path(src) : src.collect {|s| File.expand_path(s) }
@@ -296,7 +295,7 @@ module Bovem
 
           begin
             FileUtils.send(operation == :move ? :mv : :cp_r, src, dst, {noop: false, verbose: false})
-          rescue Errno::EACCES => e
+          rescue Errno::EACCES => _
             single_msg = locale.copy_move_dst_not_writable_single(operation_s, src, dst_dir)
             multi_msg = locale.copy_move_dst_not_writable_single(operation_s, dst)
             handle_copy_move_failure(single, src, show_errors, fatal, single_msg, multi_msg, nil)
@@ -318,13 +317,16 @@ module Bovem
         # @param error [String|nil] The ending message to show in case of multiple sources.
         def handle_copy_move_failure(single, src, show_errors, fatal, single_msg, multi_msg, error)
           if single then
-            @console.send(fatal ? :fatal : :error, single_msg, "\n", 5)
+            @console.send(fatal ? :fatal : :error, single_msg, "\n", 5) if fatal || show_errors
           else
-            @console.error(multi_msg)
-            @console.with_indentation(11) do
-              src.each do |s| @console.write(s) end
+            if show_errors then
+              @console.error(multi_msg)
+              @console.with_indentation(11) do
+                src.each do |s| @console.write(s) end
+              end
+              @console.write(error, "\n", 5) if error
             end
-            @console.write(error, "\n", 5) if error
+
             Kernel.exit(-1) if fatal
           end
 
@@ -409,7 +411,7 @@ module Bovem
           output = ""
 
           @console.info(self.i18n.shell.run(command)) if show_command
-          status = ::Open4::popen4(command + " 2>&1") { |pid, stdin, stdout, stderr|
+          status = ::Open4::popen4(command + " 2>&1") { |_, _, stdout, _|
             stdout.each_line do |line|
               output << line
               Kernel.print line if show_output
@@ -481,7 +483,7 @@ module Bovem
             @console.info(message) if show_message
             Dir.chdir(directory)
             true
-          rescue Exception => e
+          rescue Exception => _
             false
           end
         end

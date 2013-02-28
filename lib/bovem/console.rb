@@ -29,8 +29,6 @@ module Bovem
           style = style.ensure_string.strip.parameterize
 
           if style.present? then
-            sym = style.to_sym
-
             ::Bovem::Console.replace_term_code(Bovem::TERM_EFFECTS, style, 0) ||
               ::Bovem::Console.replace_term_code(Bovem::TERM_COLORS, style, 30) ||
               ::Bovem::Console.replace_term_code(Bovem::TERM_COLORS, style.gsub(/^bg_/, ""), 40) ||
@@ -119,7 +117,6 @@ module Bovem
       # @return [Fixnum] The new indentation width.
       def set_indentation(width, is_absolute = false)
         @indentation = [(!is_absolute ? @indentation : 0) + width, 0].max.to_i
-        @indentation
       end
 
       # Resets indentation width to `0`.
@@ -152,7 +149,7 @@ module Bovem
         if width.to_integer <= 0 then
           message
         else
-          width = (width == true || width.to_integer < 0 ? self.get_screen_width : width.to_integer)
+          width = (width == true || width.to_integer < 0 ? self.line_width : width.to_integer)
 
           message.split("\n").collect { |line|
             line.length > width ? line.gsub(/(.{1,#{width}})(\s+|$)/, "\\1\n").strip : line
@@ -165,10 +162,10 @@ module Bovem
       # @param message [String] The message to indent.
       # @param width [Fixnum] The indentation width. `true` means to use the current indentation, a negative value of `-x` will indent of `x` absolute spaces. `nil` or `false` will skip indentation.
       # @param newline_separator [String] The character used for newlines.
-      # @return [String] The indentend message.
+      # @return [String] The indented message.
       def indent(message, width = true, newline_separator = "\n")
         if width.to_integer != 0 then
-          width = (width == true ? 0 : width.to_integer)
+          width = (width.is_a?(TrueClass) ? 0 : width.to_integer)
           width = width < 0 ? -width : @indentation + width
 
           message = message.split(newline_separator).collect {|line|
@@ -197,10 +194,10 @@ module Bovem
         rv = self.replace_markers(rv, plain) # Replace markers
 
         # Compute the real width available for the screen, if we both indent and wrap
-        if wrap == true then
+        if wrap.is_a?(TrueClass) then
           wrap = self.line_width
 
-          if indent == true then
+          if indent.is_a?(TrueClass) then
             wrap -= @indentation
           else
             indent_i = indent.to_integer
@@ -343,7 +340,7 @@ module Bovem
       #
       # @see #format
       def begin(message, suffix = "\n", indent = true, wrap = false, plain = false, indented_banner = false, full_colored = false, print = true)
-        banner = self.get_banner("*", "bright green")
+        banner = self.get_banner("*", "bright green", full_colored)
         message = self.indent(message, indented_banner ? 0 : indent)
         self.write(banner + " " + message, suffix, indented_banner ? indent : 0, wrap, plain, print)
       end
@@ -469,7 +466,7 @@ module Bovem
               handle_reply(reply)
             end
           end
-        rescue Interrupt => e
+        rescue Interrupt => _
           default_value
         end
       end
@@ -521,7 +518,7 @@ module Bovem
         # @return [String|nil] The prompt to use or `nil`, if no message must be prompted.
         def sanitize_prompt(prompt)
           if prompt.present?
-            (prompt == true ? self.i18n.console.prompt : prompt).gsub(/:?\s*$/, "") + ": "
+            (prompt.is_a?(TrueClass) ? self.i18n.console.prompt : prompt).gsub(/:?\s*$/, "") + ": "
           else
             nil
           end
@@ -538,7 +535,7 @@ module Bovem
         # Read an input from the terminal.
         #
         # @param prompt [String] A message to show to the user.
-        # @param echo [Boolean] If disable echoing. **Not supported and thus ignored on Rubinius.**
+        # @param echo [Boolean] If disable echoing. **Not supported and therefore ignored on Rubinius.**
         # @param default_value [Object] A default value to enter if the user just pressed the enter key.
         # @return [Object] The read value.
         def read_input_value(prompt, echo, default_value = nil)
@@ -619,7 +616,7 @@ module Bovem
       begin
         require "io/console" if !defined?($stdin.winsize)
         $stdin.winsize[1]
-      rescue Exception => e
+      rescue Exception => _
         80
       end
     end

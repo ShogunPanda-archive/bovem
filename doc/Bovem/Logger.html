@@ -276,7 +276,7 @@
   
 
   
-    <span class="summary_desc"><div class='inline'><p>Translates a file to standard input or standard ouput in some special cases.</p>
+    <span class="summary_desc"><div class='inline'><p>Translates a file to standard input or standard output in some special cases.</p>
 </div></span>
   
 </li>
@@ -666,7 +666,7 @@
     <span class='id identifier rubyid_rv'>rv</span>
   <span class='kw'>end</span>
 
-  <span class='comment'># Translates a file to standard input or standard ouput in some special cases.
+  <span class='comment'># Translates a file to standard input or standard output in some special cases.
 </span>  <span class='comment'>#
 </span>  <span class='comment'># @param file [String] The string to translate.
 </span>  <span class='comment'># @return [String|IO] The translated file name.
@@ -687,7 +687,7 @@
   <span class='comment'># The default formatter for logging.
 </span>  <span class='comment'># @return [Proc] The default formatter for logging.
 </span>  <span class='kw'>def</span> <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_default_formatter'>default_formatter</span>
-    <span class='ivar'>@default_formatter</span> <span class='op'>||=</span> <span class='op'>::</span><span class='const'>Proc</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span> <span class='lbrace'>{</span><span class='op'>|</span><span class='id identifier rubyid_severity'>severity</span><span class='comma'>,</span> <span class='id identifier rubyid_datetime'>datetime</span><span class='comma'>,</span> <span class='id identifier rubyid_progname'>progname</span><span class='comma'>,</span> <span class='id identifier rubyid_msg'>msg</span><span class='op'>|</span>
+    <span class='ivar'>@default_formatter</span> <span class='op'>||=</span> <span class='op'>::</span><span class='const'>Proc</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span> <span class='lbrace'>{</span><span class='op'>|</span><span class='id identifier rubyid_severity'>severity</span><span class='comma'>,</span> <span class='id identifier rubyid_datetime'>datetime</span><span class='comma'>,</span> <span class='id identifier rubyid__'>_</span><span class='comma'>,</span> <span class='id identifier rubyid_msg'>msg</span><span class='op'>|</span>
       <span class='id identifier rubyid_color'>color</span> <span class='op'>=</span> <span class='kw'>case</span> <span class='id identifier rubyid_severity'>severity</span>
         <span class='kw'>when</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>DEBUG</span><span class='tstring_end'>&quot;</span></span> <span class='kw'>then</span> <span class='symbol'>:cyan</span>
         <span class='kw'>when</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>INFO</span><span class='tstring_end'>&quot;</span></span> <span class='kw'>then</span> <span class='symbol'>:green</span>
@@ -971,7 +971,7 @@
       <pre class="code"><span class="info file"># File 'lib/bovem/logger.rb', line 73</span>
 
 <span class='kw'>def</span> <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_default_formatter'>default_formatter</span>
-  <span class='ivar'>@default_formatter</span> <span class='op'>||=</span> <span class='op'>::</span><span class='const'>Proc</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span> <span class='lbrace'>{</span><span class='op'>|</span><span class='id identifier rubyid_severity'>severity</span><span class='comma'>,</span> <span class='id identifier rubyid_datetime'>datetime</span><span class='comma'>,</span> <span class='id identifier rubyid_progname'>progname</span><span class='comma'>,</span> <span class='id identifier rubyid_msg'>msg</span><span class='op'>|</span>
+  <span class='ivar'>@default_formatter</span> <span class='op'>||=</span> <span class='op'>::</span><span class='const'>Proc</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span> <span class='lbrace'>{</span><span class='op'>|</span><span class='id identifier rubyid_severity'>severity</span><span class='comma'>,</span> <span class='id identifier rubyid_datetime'>datetime</span><span class='comma'>,</span> <span class='id identifier rubyid__'>_</span><span class='comma'>,</span> <span class='id identifier rubyid_msg'>msg</span><span class='op'>|</span>
     <span class='id identifier rubyid_color'>color</span> <span class='op'>=</span> <span class='kw'>case</span> <span class='id identifier rubyid_severity'>severity</span>
       <span class='kw'>when</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>DEBUG</span><span class='tstring_end'>&quot;</span></span> <span class='kw'>then</span> <span class='symbol'>:cyan</span>
       <span class='kw'>when</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>INFO</span><span class='tstring_end'>&quot;</span></span> <span class='kw'>then</span> <span class='symbol'>:green</span>
@@ -1001,7 +1001,7 @@
   
 </h3><div class="docstring">
   <div class="discussion">
-    <p>Translates a file to standard input or standard ouput in some special cases.</p>
+    <p>Translates a file to standard input or standard output in some special cases.</p>
 
 
   </div>
@@ -1079,7 +1079,7 @@
 </div>
 
     <div id="footer">
-  Generated on Wed Feb 27 09:11:31 2013 by
+  Generated on Thu Feb 28 09:57:57 2013 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.8.5.2 (ruby-1.9.3).
 </div>

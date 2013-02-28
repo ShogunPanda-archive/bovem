@@ -50,7 +50,7 @@ module Bovem
       rv
     end
 
-    # Translates a file to standard input or standard ouput in some special cases.
+    # Translates a file to standard input or standard output in some special cases.
     #
     # @param file [String] The string to translate.
     # @return [String|IO] The translated file name.
@@ -71,7 +71,7 @@ module Bovem
     # The default formatter for logging.
     # @return [Proc] The default formatter for logging.
     def self.default_formatter
-      @default_formatter ||= ::Proc.new {|severity, datetime, progname, msg|
+      @default_formatter ||= ::Proc.new {|severity, datetime, _, msg|
         color = case severity
           when "DEBUG" then :cyan
           when "INFO" then :green

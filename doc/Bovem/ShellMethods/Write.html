@@ -139,7 +139,7 @@
         <li class="public ">
   <span class="summary_signature">
     
-      <a href="#copy_or_move-instance_method" title="#copy_or_move (instance method)">- (Boolean) <strong>copy_or_move</strong>(src, dst, operation, run = true, show_errors = false, fatal = true) </a>
+      <a href="#copy_or_move-instance_method" title="#copy_or_move (instance method)">- (Boolean) <strong>copy_or_move</strong>(src, dst, operation, run = true, show_errors = true, fatal = true) </a>
     
 
     
@@ -336,7 +336,7 @@
       <div class="method_details ">
   <h3 class="signature " id="copy_or_move-instance_method">
   
-    - (<tt>Boolean</tt>) <strong>copy_or_move</strong>(src, dst, operation, run = true, show_errors = false, fatal = true) 
+    - (<tt>Boolean</tt>) <strong>copy_or_move</strong>(src, dst, operation, run = true, show_errors = true, fatal = true) 
   
 
   
@@ -423,7 +423,7 @@
         <span class='type'>(<tt>Boolean</tt>)</span>
       
       
-        <em class="default">(defaults to: <tt>false</tt>)</em>
+        <em class="default">(defaults to: <tt>true</tt>)</em>
       
       
         &mdash;
@@ -491,16 +491,14 @@
 201
 202
 203
-204
-205</pre>
+204</pre>
     </td>
     <td>
       <pre class="code"><span class="info file"># File 'lib/bovem/shell.rb', line 188</span>
 
-<span class='kw'>def</span> <span class='id identifier rubyid_copy_or_move'>copy_or_move</span><span class='lparen'>(</span><span class='id identifier rubyid_src'>src</span><span class='comma'>,</span> <span class='id identifier rubyid_dst'>dst</span><span class='comma'>,</span> <span class='id identifier rubyid_operation'>operation</span><span class='comma'>,</span> <span class='id identifier rubyid_run'>run</span> <span class='op'>=</span> <span class='kw'>true</span><span class='comma'>,</span> <span class='id identifier rubyid_show_errors'>show_errors</span> <span class='op'>=</span> <span class='kw'>false</span><span class='comma'>,</span> <span class='id identifier rubyid_fatal'>fatal</span> <span class='op'>=</span> <span class='kw'>true</span><span class='rparen'>)</span>        
+<span class='kw'>def</span> <span class='id identifier rubyid_copy_or_move'>copy_or_move</span><span class='lparen'>(</span><span class='id identifier rubyid_src'>src</span><span class='comma'>,</span> <span class='id identifier rubyid_dst'>dst</span><span class='comma'>,</span> <span class='id identifier rubyid_operation'>operation</span><span class='comma'>,</span> <span class='id identifier rubyid_run'>run</span> <span class='op'>=</span> <span class='kw'>true</span><span class='comma'>,</span> <span class='id identifier rubyid_show_errors'>show_errors</span> <span class='op'>=</span> <span class='kw'>true</span><span class='comma'>,</span> <span class='id identifier rubyid_fatal'>fatal</span> <span class='op'>=</span> <span class='kw'>true</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_rv'>rv</span> <span class='op'>=</span> <span class='kw'>true</span>
-  <span class='id identifier rubyid_locale'>locale</span> <span class='op'>=</span> <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_i18n'>i18n</span><span class='period'>.</span><span class='id identifier rubyid_shell'>shell</span>
-  <span class='id identifier rubyid_operation'>operation</span><span class='comma'>,</span> <span class='id identifier rubyid_operation_s'>operation_s</span><span class='comma'>,</span> <span class='id identifier rubyid_single'>single</span><span class='comma'>,</span> <span class='id identifier rubyid_src'>src</span><span class='comma'>,</span> <span class='id identifier rubyid_dst'>dst</span> <span class='op'>=</span> <span class='id identifier rubyid_sanitize_copy_or_move_arguments'>sanitize_copy_or_move_arguments</span><span class='lparen'>(</span><span class='id identifier rubyid_operation'>operation</span><span class='comma'>,</span> <span class='id identifier rubyid_src'>src</span><span class='comma'>,</span> <span class='id identifier rubyid_dst'>dst</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_operation'>operation</span><span class='comma'>,</span> <span class='id identifier rubyid_operation_s'>operation_s</span><span class='comma'>,</span> <span class='id identifier rubyid_single'>single</span><span class='comma'>,</span> <span class='id identifier rubyid_src'>src</span><span class='comma'>,</span> <span class='id identifier rubyid_dst'>dst</span> <span class='op'>=</span> <span class='id identifier rubyid_sanitize_copy_or_move'>sanitize_copy_or_move</span><span class='lparen'>(</span><span class='id identifier rubyid_operation'>operation</span><span class='comma'>,</span> <span class='id identifier rubyid_src'>src</span><span class='comma'>,</span> <span class='id identifier rubyid_dst'>dst</span><span class='rparen'>)</span>
 
   <span class='kw'>if</span> <span class='op'>!</span><span class='id identifier rubyid_run'>run</span> <span class='kw'>then</span>
     <span class='id identifier rubyid_dry_run_copy_or_move'>dry_run_copy_or_move</span><span class='lparen'>(</span><span class='id identifier rubyid_single'>single</span><span class='comma'>,</span> <span class='id identifier rubyid_operation_s'>operation_s</span><span class='comma'>,</span> <span class='id identifier rubyid_src'>src</span><span class='comma'>,</span> <span class='id identifier rubyid_dst'>dst</span><span class='rparen'>)</span>
@@ -667,7 +665,7 @@
 </div>
 
     <div id="footer">
-  Generated on Wed Feb 27 09:11:30 2013 by
+  Generated on Thu Feb 28 09:57:55 2013 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.8.5.2 (ruby-1.9.3).
 </div>

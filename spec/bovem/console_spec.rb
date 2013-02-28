@@ -234,7 +234,7 @@ describe Bovem::Console do
 
   describe "#begin" do
     it "should forward everything to #get_banner" do
-      console.should_receive(:get_banner).with("*", "bright green").at_least(1).and_return("")
+      console.should_receive(:get_banner).with("*", "bright green", false).at_least(1).and_return("")
       console.begin("OK", "\n", true, false, false, false, false, false)
     end
 

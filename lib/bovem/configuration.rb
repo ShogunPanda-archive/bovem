@@ -5,7 +5,7 @@
 #
 
 module Bovem
-  # This class holds the configuration of an applicaton.
+  # This class holds the configuration of an application.
   #
   # Extend this class and add valid properties via {property property} method.
   # Example:
@@ -95,7 +95,7 @@ module Bovem
           path = file =~ /^#{File::SEPARATOR}/ ? file : ::Pathname.new(file).realpath.to_s
           logger.info(self.i18n.configuration.using(path)) if logger
           eval_file(path)
-        rescue ::Exception => e
+        rescue ::Exception => _
           raise Bovem::Errors::InvalidConfiguration.new(self.i18n.configuration.invalid(file))
         end
       end
