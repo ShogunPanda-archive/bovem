@@ -299,7 +299,7 @@ module Bovem
             single_msg = locale.copy_move_dst_not_writable_single(operation_s, src, dst_dir)
             multi_msg = locale.copy_move_dst_not_writable_single(operation_s, dst)
             handle_copy_move_failure(single, src, show_errors, fatal, single_msg, multi_msg, nil)
-          rescue Exception => e
+          rescue => e
             single_msg = locale.copy_move_error_single(operation_s, src, dst_dir, e.class.to_s, e)
             multi_msg = locale.copy_move_error_multi(operation_s, dst)
             handle_copy_move_failure(single, src, show_errors, fatal, single_msg, multi_msg, locale.error(e.class.to_s, e))
@@ -483,7 +483,7 @@ module Bovem
             @console.info(message) if show_message
             Dir.chdir(directory)
             true
-          rescue Exception => _
+          rescue
             false
           end
         end
@@ -535,7 +535,7 @@ module Bovem
           begin # Create directory
             FileUtils.mkdir_p(directory, {mode: mode, noop: false, verbose: false})
             rv = true
-          rescue Exception => e
+          rescue
             handle_failure(e, :mkdir_denied, nil, :mkdir_error, directories, fatal, show_errors)
           end
 

@@ -95,7 +95,7 @@ module Bovem
           path = file =~ /^#{File::SEPARATOR}/ ? file : ::Pathname.new(file).realpath.to_s
           logger.info(self.i18n.configuration.using(path)) if logger
           eval_file(path)
-        rescue ::Exception => _
+        rescue
           raise Bovem::Errors::InvalidConfiguration.new(self.i18n.configuration.invalid(file))
         end
       end

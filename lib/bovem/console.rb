@@ -616,7 +616,7 @@ module Bovem
       begin
         require "io/console" if !defined?($stdin.winsize)
         $stdin.winsize[1]
-      rescue Exception => _
+      rescue
         80
       end
     end
