@@ -535,7 +535,7 @@ module Bovem
           begin # Create directory
             FileUtils.mkdir_p(directory, {mode: mode, noop: false, verbose: false})
             rv = true
-          rescue
+          rescue => e
             handle_failure(e, :mkdir_denied, nil, :mkdir_error, directories, fatal, show_errors)
           end
 

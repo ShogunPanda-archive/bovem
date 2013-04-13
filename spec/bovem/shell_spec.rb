@@ -365,7 +365,7 @@ describe Bovem::Shell do
     end
 
     it "should show messages" do
-      shell.console.should_receive(:info).with(/Moving into directory \{mark=bright\}(.+)\{\/mark\}/)
+      shell.console.should_receive(:info).with(/Moving (.*)into directory \{mark=bright\}(.+)\{\/mark\}/).exactly(2)
       shell.within_directory(target, true, true) { "OK" }
     end
 
