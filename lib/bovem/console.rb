@@ -220,15 +220,13 @@ module Bovem
       def format_right(message, width = true, go_up = true, plain = false)
         message = replace_markers(message, plain)
 
-        rv = go_up ? "\e[A" : ""
-
         width = (width == true || width.to_integer < 1 ? line_width : to_integer)
 
         # Get padding
         padding = width - message.to_s.gsub(/(\e\[[0-9]*[a-z]?)|(\\n)/i, "").length
 
         # Return
-        rv + "\e[0G\e[#{padding}C" + message
+        "#{go_up ? "\e[A" : ""}\e[0G\e[#{padding}C#{message}"
       end
     end
 
@@ -411,8 +409,7 @@ module Bovem
       #
       # @see #format
       def warn(message, suffix = "\n", indent = true, wrap = false, plain = false, indented_banner = false, full_colored = false, print = true)
-        warn_banner = ["W", "bright yellow"]
-        info(message, suffix, indent, wrap, plain, indented_banner, full_colored, print, warn_banner)
+        info(message, suffix, indent, wrap, plain, indented_banner, full_colored, print, ["W", "bright yellow"])
       end
 
       # Writes a message prepending a red banner.
@@ -428,7 +425,7 @@ module Bovem
       #
       # @see #format
       def error(message, suffix = "\n", indent = true, wrap = false, plain = false, indented_banner = false, full_colored = false, print = true)
-        info(message, suffix, indent, wrap, plain, indented_banner, full_colored, print, "E", "bright red")
+        info(message, suffix, indent, wrap, plain, indented_banner, full_colored, print, ["E", "bright red"])
       end
     end
 
