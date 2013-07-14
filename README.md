@@ -4,6 +4,7 @@
 [![Dependency Status](https://gemnasium.com/ShogunPanda/bovem.png?travis)](https://gemnasium.com/ShogunPanda/bovem)
 [![Build Status](https://secure.travis-ci.org/ShogunPanda/bovem.png?branch=master)](http://travis-ci.org/ShogunPanda/bovem)
 [![Code Climate](https://codeclimate.com/github/ShogunPanda/bovem.png)](https://codeclimate.com/github/ShogunPanda/bovem)
+[![Coverage Status](https://coveralls.io/repos/ShogunPanda/bovem/badge.png)](https://coveralls.io/r/ShogunPanda/bovem)
 
 A collection of utilities for developers.
 

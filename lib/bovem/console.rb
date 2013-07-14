@@ -44,7 +44,7 @@ module Bovem
         # @param styles [String] The styles to parse.
         # @return [String] A string with ANSI color codes.
         def parse_styles(styles)
-          styles.split(/\s*[\s,-]\s*/).collect { |s| self.parse_style(s) }.join("")
+          styles.split(/\s*[\s,-]\s*/).collect { |s| parse_style(s) }.join("")
         end
 
         #
@@ -133,9 +133,9 @@ module Bovem
       # @return [Fixnum] The new indentation width.
       def with_indentation(width = 3, is_absolute = false)
         old = @indentation
-        self.set_indentation(width, is_absolute)
+        set_indentation(width, is_absolute)
         yield
-        self.set_indentation(old, true)
+        set_indentation(old, true)
 
         @indentation
       end
@@ -149,7 +149,7 @@ module Bovem
         if width.to_integer <= 0 then
           message
         else
-          width = (width == true || width.to_integer < 0 ? self.line_width : width.to_integer)
+          width = (width == true || width.to_integer < 0 ? line_width : width.to_integer)
 
           message.split("\n").collect { |line|
             line.length > width ? line.gsub(/(.{1,#{width}})(\s+|$)/, "\\1\n").strip : line
@@ -191,11 +191,11 @@ module Bovem
       def format(message, suffix = "\n", indent = true, wrap = true, plain = false)
         rv = message
 
-        rv = self.replace_markers(rv, plain) # Replace markers
+        rv = replace_markers(rv, plain) # Replace markers
 
         # Compute the real width available for the screen, if we both indent and wrap
         if wrap.is_a?(TrueClass) then
-          wrap = self.line_width
+          wrap = line_width
 
           if indent.is_a?(TrueClass) then
             wrap -= @indentation
@@ -205,9 +205,7 @@ module Bovem
           end
         end
 
-        rv = self.wrap(rv, wrap) # Wrap
-        rv = self.indent(rv, indent) # Indent
-
+        rv = indent(wrap(rv, wrap), indent) # Wrap & Indent
         rv += suffix.ensure_string if suffix # Add the suffix
         rv
       end
@@ -220,11 +218,11 @@ module Bovem
       # @param plain [Boolean] If ignore color markers into the message.
       # @return [String] The formatted message.
       def format_right(message, width = true, go_up = true, plain = false)
-        message = self.replace_markers(message, plain)
+        message = replace_markers(message, plain)
 
         rv = go_up ? "\e[A" : ""
 
-        width = (width == true || width.to_integer < 1 ? self.line_width : width.to_integer)
+        width = (width == true || width.to_integer < 1 ? line_width : to_integer)
 
         # Get padding
         padding = width - message.to_s.gsub(/(\e\[[0-9]*[a-z]?)|(\\n)/i, "").length
@@ -259,7 +257,7 @@ module Bovem
       #
       # @see #format
       def write(message, suffix = "\n", indent = true, wrap = false, plain = false, print = true)
-        rv = self.format(message, suffix, indent, wrap, plain)
+        rv = format(message, suffix, indent, wrap, plain)
         Kernel.puts(rv) if print
         rv
       end
@@ -276,7 +274,7 @@ module Bovem
       #
       # @see #format
       def write_banner_aligned(message, suffix = "\n", indent = true, wrap = false, plain = false, print = true)
-        self.write((" " * (::Bovem::Console.min_banner_length + 3)) + message.ensure_string, suffix, indent, wrap, plain, print)
+        write((" " * (::Bovem::Console.min_banner_length + 3)) + message.ensure_string, suffix, indent, wrap, plain, print)
       end
 
       # Writes a status to the output. Valid values are `:ok`, `:pass`, `:fail`, `:warn`.
@@ -299,12 +297,12 @@ module Bovem
         rv = statuses[status]
 
         if print then
-          banner = self.get_banner(rv[:label], rv[:color])
+          banner = get_banner(rv[:label], rv[:color])
 
           if right then
-            Kernel.puts self.format_right(banner + " ", true, go_up, plain)
+            Kernel.puts(format_right(banner + " ", true, go_up, plain))
           else
-            Kernel.puts self.format(banner + " ", "\n", true, true, plain)
+            Kernel.puts(format(banner + " ", "\n", true, true, plain))
           end
         end
 
@@ -340,9 +338,9 @@ module Bovem
       #
       # @see #format
       def begin(message, suffix = "\n", indent = true, wrap = false, plain = false, indented_banner = false, full_colored = false, print = true)
-        banner = self.get_banner("*", "bright green", full_colored)
-        message = self.indent(message, indented_banner ? 0 : indent)
-        self.write(banner + " " + message, suffix, indented_banner ? indent : 0, wrap, plain, print)
+        banner = get_banner("*", "bright green", full_colored)
+        message = indent(message, indented_banner ? 0 : indent)
+        write(banner + " " + message, suffix, indented_banner ? indent : 0, wrap, plain, print)
       end
 
       # Writes a message prepending a red banner and then quits the application.
@@ -359,7 +357,7 @@ module Bovem
       #
       # @see #format
       def fatal(message, suffix = "\n", indent = true, wrap = false, plain = false, indented_banner = false, full_colored = false, return_code = -1, print = true)
-        self.error(message, suffix, indent, wrap, plain, indented_banner, full_colored, print)
+        error(message, suffix, indent, wrap, plain, indented_banner, full_colored, print)
         Kernel.exit(return_code.to_integer(-1))
       end
 
@@ -379,9 +377,9 @@ module Bovem
       def info(message, suffix = "\n", indent = true, wrap = false, plain = false, indented_banner = false, full_colored = false, print = true, *banner)
         banner = banner.ensure_array.flatten
         banner = ["I", "bright cyan"] if banner.blank?
-        banner = self.get_banner(banner[0], banner[1], full_colored)
-        message = self.indent(message, indented_banner ? 0 : indent)
-        self.write(banner + " " + message, suffix, indented_banner ? indent : 0, wrap, plain, print)
+        banner = get_banner(banner[0], banner[1], full_colored)
+        message = indent(message, indented_banner ? 0 : indent)
+        write(banner + " " + message, suffix, indented_banner ? indent : 0, wrap, plain, print)
       end
 
       # Writes a message prepending a magenta banner.
@@ -397,7 +395,7 @@ module Bovem
       #
       # @see #format
       def debug(message, suffix = "\n", indent = true, wrap = false, plain = false, indented_banner = false, full_colored = false, print = true)
-        self.info(message, suffix, indent, wrap, plain, indented_banner, full_colored, print, ["D", "bright magenta"])
+        info(message, suffix, indent, wrap, plain, indented_banner, full_colored, print, ["D", "bright magenta"])
       end
 
       # Writes a message prepending a yellow banner.
@@ -414,7 +412,7 @@ module Bovem
       # @see #format
       def warn(message, suffix = "\n", indent = true, wrap = false, plain = false, indented_banner = false, full_colored = false, print = true)
         warn_banner = ["W", "bright yellow"]
-        self.info(message, suffix, indent, wrap, plain, indented_banner, full_colored, print, warn_banner)
+        info(message, suffix, indent, wrap, plain, indented_banner, full_colored, print, warn_banner)
       end
 
       # Writes a message prepending a red banner.
@@ -430,7 +428,7 @@ module Bovem
       #
       # @see #format
       def error(message, suffix = "\n", indent = true, wrap = false, plain = false, indented_banner = false, full_colored = false, print = true)
-        self.info(message, suffix, indent, wrap, plain, indented_banner, full_colored, print, "E", "bright red")
+        info(message, suffix, indent, wrap, plain, indented_banner, full_colored, print, "E", "bright red")
       end
     end
 
@@ -466,7 +464,7 @@ module Bovem
               handle_reply(reply)
             end
           end
-        rescue Interrupt => _
+        rescue Interrupt
           default_value
         end
       end
@@ -487,7 +485,7 @@ module Bovem
         status = nil
 
         self.begin(message, suffix, indent, wrap, plain, indented_banner, full_colored) if message.present?
-        self.with_indentation(block_indentation, block_indentation_absolute) do
+        with_indentation(block_indentation, block_indentation_absolute) do
           rv = block_given? ? yield.ensure_array : [:ok] # Execute block
           exit_task(message, rv, plain) # Handle task exit
           status = rv[0] # Return value
@@ -505,10 +503,10 @@ module Bovem
         # @param plain [Boolean] If ignore color markers into the message.
         def exit_task(message, rv, plain)
           if rv[0] == :fatal then
-            self.status(:fail, plain)
+            status(:fail, plain)
             exit(rv.length > 1 ? rv[1].to_integer : -1)
           else
-            self.status(rv[0], plain) if message.present?
+            status(rv[0], plain) if message.present?
           end
         end
 
@@ -518,7 +516,7 @@ module Bovem
         # @return [String|nil] The prompt to use or `nil`, if no message must be prompted.
         def sanitize_prompt(prompt)
           if prompt.present?
-            (prompt.is_a?(TrueClass) ? self.i18n.console.prompt : prompt).gsub(/:?\s*$/, "") + ": "
+            (prompt.is_a?(TrueClass) ? i18n.console.prompt : prompt).gsub(/:?\s*$/, "") + ": "
           else
             nil
           end
@@ -540,7 +538,7 @@ module Bovem
         # @return [Object] The read value.
         def read_input_value(prompt, echo, default_value = nil)
           if prompt then
-            Kernel.print self.format(prompt, false, false)
+            Kernel.print(format(prompt, false, false))
             $stdout.flush
           end
 
@@ -573,7 +571,7 @@ module Bovem
           if reply then
             throw(:reply, reply)
           else
-            self.write(self.i18n.console.unknown_reply, false, false)
+            write(i18n.console.unknown_reply, false, false)
           end
         end
     end
@@ -606,7 +604,7 @@ module Bovem
     def initialize
       @indentation = 0
       @indentation_string = " "
-      self.i18n_setup(:bovem, ::File.absolute_path(::Pathname.new(::File.dirname(__FILE__)).to_s + "/../../locales/"))
+      i18n_setup(:bovem, ::File.absolute_path(::Pathname.new(::File.dirname(__FILE__)).to_s + "/../../locales/"))
     end
 
     # Get the width of the terminal.

@@ -34,7 +34,7 @@ module Bovem
       # @param fatal [Boolean] If quit in case of fatal errors.
       # @return [Array] Variables for error handling
       def setup_error_handling(entries, fatal)
-        [fatal ? :fatal : :error, self.i18n.shell, entries.length == 1 ? entries[0] : entries]
+        [fatal ? :fatal : :error, i18n.shell, entries.length == 1 ? entries[0] : entries]
       end
 
       # Shows errors when a directory creation failed.
@@ -43,7 +43,7 @@ module Bovem
       # @param entries [Array] The list of entries which failed.
       # @param fatal [Boolean] If quit in case of fatal errors.
       def show_general_failure(e, general_error, entries, fatal)
-        locale = self.i18n.shell
+        locale = i18n.shell
 
         @console.error(locale.send(general_error))
         @console.with_indentation(11) do
@@ -65,7 +65,7 @@ module Bovem
       def check(path, tests)
         path = path.ensure_string
 
-        tests.ensure_array.all? {|test|
+        tests.ensure_array.all? { |test|
           # Adjust test name
           test = test.ensure_string.strip
 
@@ -101,7 +101,7 @@ module Bovem
         patterns = normalize_patterns(patterns, by_extension, case_sensitive)
 
         directories.each do |directory|
-          if self.check(directory, [:directory, :readable, :executable]) then
+          if check(directory, [:directory, :readable, :executable]) then
             Find.find(directory) do |entry|
               found = patterns.blank? ? true : match_pattern(entry, patterns, by_extension, &block)
 
@@ -161,7 +161,7 @@ module Bovem
       # @param fatal [Boolean] If quit in case of fatal errors.
       # @return [Boolean] `true` if operation succeeded, `false` otherwise.
       def copy(src, dst, run = true, show_errors = false, fatal = true)
-        self.copy_or_move(src, dst, :copy, run, show_errors, fatal)
+        copy_or_move(src, dst, :copy, run, show_errors, fatal)
       end
 
       # Moves a set of files or directory to another location.
@@ -173,7 +173,7 @@ module Bovem
       # @param fatal [Boolean] If quit in case of fatal errors.
       # @return [Boolean] `true` if operation succeeded, `false` otherwise.
       def move(src, dst, run = true, show_errors = false, fatal = true)
-        self.copy_or_move(src, dst, :move, run, show_errors, fatal)
+        copy_or_move(src, dst, :move, run, show_errors, fatal)
       end
 
       # Copies or moves a set of files or directory to another location.
@@ -215,7 +215,7 @@ module Bovem
           single = !src.is_a?(Array)
           src = single ? File.expand_path(src) : src.collect {|s| File.expand_path(s) }
 
-          [operation, self.i18n.shell.send(operation), single, src, File.expand_path(dst.ensure_string)]
+          [operation, i18n.shell.send(operation), single, src, File.expand_path(dst.ensure_string)]
         end
 
         # Shows which copy or move operation are going to executed.
@@ -225,7 +225,7 @@ module Bovem
         # @param src [String|Array] The entries to copy or move. If is an Array, `dst` is assumed to be a directory.
         # @param dst [String] The destination. **Any existing entries will be overwritten.** Any required directory will be created.
         def dry_run_copy_or_move(single, operation, src, dst)
-          locale = self.i18n.shell
+          locale = i18n.shell
 
           if single then
             @console.warn(locale.copy_move_single_dry(operation))
@@ -251,14 +251,14 @@ module Bovem
         # @return [String] The prepared destination.
         def prepare_destination(single, src, dst, operation, show_errors, fatal)
           dst_dir = single ? File.dirname(dst) : dst
-          has_dir = self.check(dst_dir, :dir)
+          has_dir = check(dst_dir, :dir)
 
           # Create directory
-          has_dir = self.create_directories(dst_dir, 0755, true, show_errors, fatal) if !has_dir
+          has_dir = create_directories(dst_dir, 0755, true, show_errors, fatal) if !has_dir
           throw(:rv, false) if !has_dir
 
-          if single && self.check(dst, :dir) then
-            @console.send(fatal ? :fatal : :error, self.i18n.shell.copy_move_single_to_directory(operation, src, dst))
+          if single && check(dst, :dir) then
+            @console.send(fatal ? :fatal : :error, i18n.shell.copy_move_single_to_directory(operation, src, dst))
             throw(:rv, false)
           end
 
@@ -273,8 +273,8 @@ module Bovem
         def check_sources(src, operation, fatal)
           # Check that every file is existing
           src.ensure_array.each do |s|
-            if !self.check(s, :exists) then
-              @console.send(fatal ? :fatal : :error, self.i18n.shell.copy_move_src_not_found(operation, s))
+            if !check(s, :exists) then
+              @console.send(fatal ? :fatal : :error, i18n.shell.copy_move_src_not_found(operation, s))
               throw(:rv, false)
             end
           end
@@ -291,7 +291,7 @@ module Bovem
         # @param show_errors [Boolean] If show errors.
         # @param fatal [Boolean] If quit in case of fatal errors.
         def execute_copy_or_move(src, dst, dst_dir, single, operation, operation_s, show_errors, fatal)
-          locale = self.i18n.shell
+          locale = i18n.shell
 
           begin
             FileUtils.send(operation == :move ? :mv : :cp_r, src, dst, {noop: false, verbose: false})
@@ -349,7 +349,7 @@ module Bovem
       def run(command, message = nil, run = true, show_exit = true, show_output = false, show_command = false, fatal = true)
         rv = {status: 0, output: ""}
         command = command.ensure_string
-        locale = self.i18n.shell
+        locale = i18n.shell
 
         # Show the command
         @console.begin(message) if message.present?
@@ -376,7 +376,7 @@ module Bovem
       # @return [Boolean] `true` if operation succeeded, `false` otherwise.
       def delete(files, run = true, show_errors = false, fatal = true)
         rv = true
-        locale = self.i18n.shell
+        locale = i18n.shell
         files = files.ensure_array.compact.collect {|f| File.expand_path(f.ensure_string) }
 
         if !run then
@@ -410,7 +410,7 @@ module Bovem
         def execute_command(command, show_command, show_output)
           output = ""
 
-          @console.info(self.i18n.shell.run(command)) if show_command
+          @console.info(i18n.shell.run(command)) if show_command
           status = ::Open4::popen4(command + " 2>&1") { |_, _, stdout, _|
             stdout.each_line do |line|
               output << line
@@ -431,8 +431,7 @@ module Bovem
       # @param show_messages [Boolean] Show informative messages about working directory changes.
       # @return [Boolean] `true` if the directory was valid and the code executed, `false` otherwise.
       def within_directory(directory, restore = true, show_messages = false)
-        rv = false
-        locale = self.i18n.shell
+        locale = i18n.shell
 
         directory = File.expand_path(directory.ensure_string)
         original = Dir.pwd
@@ -479,7 +478,7 @@ module Bovem
         # @return [Boolean] `true` if operation succeeded, `false` otherwise.
         def enter_directory(directory, show_message, message)
           begin
-            raise ArgumentError if !self.check(directory, [:directory, :executable])
+            raise ArgumentError if !check(directory, [:directory, :executable])
             @console.info(message) if show_message
             Dir.chdir(directory)
             true
@@ -491,7 +490,7 @@ module Bovem
         # Show which directory are going to be created.
         # @param directories [Array] The list of directories to create.
         def dry_run_directory_creation(directories)
-          @console.warn(self.i18n.shell.mkdir_dry)
+          @console.warn(i18n.shell.mkdir_dry)
           @console.with_indentation(11) do
             directories.each do |directory| @console.write(directory) end
           end
@@ -507,12 +506,12 @@ module Bovem
         # @return [Boolean] `true` if operation succeeded, `false` otherwise.
         def try_create_directory(directory, mode, fatal, directories, show_errors)
           rv = false
-          locale = self.i18n.shell
+          locale = i18n.shell
 
           # Perform tests
-          if self.check(directory, :directory) then
+          if check(directory, :directory) then
             @console.send(fatal ? :fatal : :error, locale.mkdir_existing(directory))
-          elsif self.check(directory, :exist) then
+          elsif check(directory, :exist) then
             @console.send(fatal ? :fatal : :error, locale.mkdir_file(directory))
           else
             rv = create_directory(directory, mode, fatal, directories, show_errors)
@@ -568,7 +567,7 @@ module Bovem
     # Initializes a new Shell.
     def initialize
       @console = ::Bovem::Console.instance
-      self.i18n_setup(:bovem, ::File.absolute_path(::Pathname.new(::File.dirname(__FILE__)).to_s + "/../../locales/"))
+      i18n_setup(:bovem, ::File.absolute_path(::Pathname.new(::File.dirname(__FILE__)).to_s + "/../../locales/"))
     end
   end
 end

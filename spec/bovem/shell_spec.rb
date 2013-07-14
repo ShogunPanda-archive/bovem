@@ -37,7 +37,7 @@ describe Bovem::Shell do
 
   describe "#run" do
     before(:each) do
-      ::Open4::stub(:popen4) do |_a, _b, _c, _d| OpenStruct.new(exitstatus: 0) end
+      ::Open4::stub(:popen4) do |_, _, _, _| OpenStruct.new(exitstatus: 0) end
     end
 
     it "should show a message" do
@@ -65,7 +65,7 @@ describe Bovem::Shell do
 
     it "should show a exit message" do
       i = -1
-      ::Open4::stub(:popen4) do |_a, _b, _c, _d|
+      ::Open4::stub(:popen4) do |_, _, _, _|
         i += 1
         OpenStruct.new(exitstatus: i)
       end
@@ -87,7 +87,7 @@ describe Bovem::Shell do
     end
 
     it "should raise a exception for failures" do
-      ::Open4::stub(:popen4) {|_a, _b, _c, _d| OpenStruct.new(exitstatus: 1) }
+      ::Open4::stub(:popen4) {|_, _, _, _| OpenStruct.new(exitstatus: 1) }
       expect { shell.run("echo1 OK", nil, true, false, false, false, false) }.to_not raise_error(SystemExit)
       expect { shell.run("echo1 OK", nil, true, false, false) }.to raise_error(SystemExit)
     end
@@ -333,7 +333,6 @@ describe Bovem::Shell do
     let(:target){ File.expand_path("~") }
 
     it "should execute block in other directory and return true" do
-      owd = Dir.pwd
       dir = ""
 
       shell.within_directory(target) do
@@ -341,7 +340,7 @@ describe Bovem::Shell do
         dir = "OK"
       end
 
-      expect(shell.within_directory(target) { dir = "OK" }).to be_true
+      expect(dir).to eq("OK")
     end
 
     it "should change and restore directory" do
@@ -357,11 +356,11 @@ describe Bovem::Shell do
     it "should change but not restore directory" do
       owd = Dir.pwd
 
-      shell.within_directory(target) do
+      shell.within_directory(target, false) do
         expect(Dir.pwd).to eq(target)
       end
 
-      expect(Dir.pwd).not_to eq(target)
+      expect(Dir.pwd).not_to eq(owd)
     end
 
     it "should show messages" do
@@ -376,11 +375,11 @@ describe Bovem::Shell do
       expect(dir).to eq("")
 
       Dir.stub(:chdir).and_raise(ArgumentError)
-      expect(shell.within_directory("/") { dir = "OK" }).to be_false
+      expect(shell.within_directory("/") { true }).to be_false
 
       Dir.unstub(:chdir)
       Dir.stub(:pwd).and_return("/invalid")
-      expect(shell.within_directory("/") { dir = "OK" }).to be_false
+      expect(shell.within_directory("/") { true }).to be_false
     end
   end
 

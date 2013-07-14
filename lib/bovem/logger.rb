@@ -37,17 +37,14 @@ module Bovem
     # @param formatter [Proc] The formatter to use for logging.
     # @return [Logger] The new logger.
     def self.create(file = nil, level = Logger::INFO, formatter = nil)
-      file ||= self.default_file
-
       begin
-        rv = self.new(self.get_real_file(file))
+        rv = new(get_real_file(file || default_file))
+        rv.level = level.to_integer
+        rv.formatter = formatter || default_formatter
+        rv
       rescue
         raise Bovem::Errors::InvalidLogger
       end
-
-      rv.level = level.to_i
-      rv.formatter = formatter || self.default_formatter
-      rv
     end
 
     # Translates a file to standard input or standard output in some special cases.
@@ -81,14 +78,14 @@ module Bovem
           else :white
         end
 
-        header = ::Bovem::Console.replace_markers("{mark=bright-#{color}}[%s T+%0.5f] %s:{/mark}" %[datetime.strftime("%Y/%b/%d %H:%M:%S"), [datetime.to_f - self.start_time.to_f, 0].max, severity.rjust(5)])
+        header = ::Bovem::Console.replace_markers("{mark=bright-#{color}}[%s T+%0.5f] %s:{/mark}" %[datetime.strftime("%Y/%b/%d %H:%M:%S"), [datetime.to_f - start_time.to_f, 0].max, severity.rjust(5)])
         "%s %s\n" % [header, msg]
       }
     end
 
     # The log time of the first logger. This allows to show a `T+0.1234` information into the log.
     # @return [Time] The log time of the first logger.
-    def self.start_time
+    def start_time
       @start_time ||= ::Time.now
     end
   end
