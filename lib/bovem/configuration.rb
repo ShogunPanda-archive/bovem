@@ -18,9 +18,7 @@ module Bovem
   # # Configuration file
   # config.property = "VALUE"
   # ```
-  class Configuration
-    include Lazier::I18n
-
+  class Configuration < Lazier::Configuration
     # Creates a new configuration.
     #
     # A configuration file is a plain Ruby file with a top-level {Configuration config} object.
@@ -30,6 +28,8 @@ module Bovem
     # @param logger [Logger] The logger to use for notifications.
     # @see #parse
     def initialize(file = nil, overrides = {}, logger = nil)
+      super()
+
       i18n_setup(:bovem, ::File.absolute_path(::Pathname.new(::File.dirname(__FILE__)).to_s + "/../../locales/"))
       parse(file, overrides, logger)
     end
@@ -62,17 +62,6 @@ module Bovem
       overrides.each_pair { |k, v| send("#{k}=", v) if self.respond_to?("#{k}=") } if overrides.is_a?(::Hash)
 
       self
-    end
-
-    # Defines a new property for the configuration.
-    #
-    # @param name [Symbol] The name of the property.
-    # @param options [Hash] A set of options for the property. Currently, only `:default` (which holds the default value) is supported.
-    def self.property(name, options = {})
-      options = {} if !options.is_a?(::Hash)
-
-      define_method(name.to_s) { instance_variable_get("@#{name}") || options[:default] }
-      define_method("#{name}=") { |value| instance_variable_set("@#{name}", value) }
     end
 
     private
