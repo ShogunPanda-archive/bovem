@@ -17,7 +17,7 @@ module Bovem
     MINOR = 3
 
     # The patch version.
-    PATCH = 5
+    PATCH = 6
 
     # The current version number of Bovem.
     STRING = [MAJOR, MINOR, PATCH].compact.join(".")

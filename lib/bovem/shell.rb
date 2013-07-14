@@ -295,7 +295,7 @@ module Bovem
 
           begin
             FileUtils.send(operation == :move ? :mv : :cp_r, src, dst, {noop: false, verbose: false})
-          rescue Errno::EACCES => _
+          rescue Errno::EACCES
             single_msg = locale.copy_move_dst_not_writable_single(operation_s, src, dst_dir)
             multi_msg = locale.copy_move_dst_not_writable_single(operation_s, dst)
             handle_copy_move_failure(single, src, show_errors, fatal, single_msg, multi_msg, nil)

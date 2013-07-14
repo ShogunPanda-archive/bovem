@@ -12,7 +12,7 @@ module Bovem
   #
   # ```ruby
   # class MyConfiguration << Bovem::Configuration
-  #   property :property, :default => "VALUE"
+  #   property :property, default: "VALUE"
   # end
   #
   # # Configuration file
