@@ -6,13 +6,13 @@
 <title>
   Module: Bovem::ShellMethods::General
   
-    &mdash; Documentation by YARD 0.8.5.2
+    &mdash; Documentation by YARD 0.8.6.2
   
 </title>
 
-  <link rel="stylesheet" href="../../css/style.css" type="text/css" media="screen" charset="utf-8" />
+  <link rel="stylesheet" href="../../css/style.css" type="text/css" charset="utf-8" />
 
-  <link rel="stylesheet" href="../../css/common.css" type="text/css" media="screen" charset="utf-8" />
+  <link rel="stylesheet" href="../../css/common.css" type="text/css" charset="utf-8" />
 
 <script type="text/javascript" charset="utf-8">
   hasFrames = window.top.frames.main ? true : false;
@@ -436,7 +436,7 @@
       <pre class="code"><span class="info file"># File 'lib/bovem/shell.rb', line 36</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_setup_error_handling'>setup_error_handling</span><span class='lparen'>(</span><span class='id identifier rubyid_entries'>entries</span><span class='comma'>,</span> <span class='id identifier rubyid_fatal'>fatal</span><span class='rparen'>)</span>
-  <span class='lbracket'>[</span><span class='id identifier rubyid_fatal'>fatal</span> <span class='op'>?</span> <span class='symbol'>:fatal</span> <span class='op'>:</span> <span class='symbol'>:error</span><span class='comma'>,</span> <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_i18n'>i18n</span><span class='period'>.</span><span class='id identifier rubyid_shell'>shell</span><span class='comma'>,</span> <span class='id identifier rubyid_entries'>entries</span><span class='period'>.</span><span class='id identifier rubyid_length'>length</span> <span class='op'>==</span> <span class='int'>1</span> <span class='op'>?</span> <span class='id identifier rubyid_entries'>entries</span><span class='lbracket'>[</span><span class='int'>0</span><span class='rbracket'>]</span> <span class='op'>:</span> <span class='id identifier rubyid_entries'>entries</span><span class='rbracket'>]</span>
+  <span class='lbracket'>[</span><span class='id identifier rubyid_fatal'>fatal</span> <span class='op'>?</span> <span class='symbol'>:fatal</span> <span class='op'>:</span> <span class='symbol'>:error</span><span class='comma'>,</span> <span class='id identifier rubyid_i18n'>i18n</span><span class='period'>.</span><span class='id identifier rubyid_shell'>shell</span><span class='comma'>,</span> <span class='id identifier rubyid_entries'>entries</span><span class='period'>.</span><span class='id identifier rubyid_length'>length</span> <span class='op'>==</span> <span class='int'>1</span> <span class='op'>?</span> <span class='id identifier rubyid_entries'>entries</span><span class='lbracket'>[</span><span class='int'>0</span><span class='rbracket'>]</span> <span class='op'>:</span> <span class='id identifier rubyid_entries'>entries</span><span class='rbracket'>]</span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -532,7 +532,7 @@
       <pre class="code"><span class="info file"># File 'lib/bovem/shell.rb', line 45</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_show_general_failure'>show_general_failure</span><span class='lparen'>(</span><span class='id identifier rubyid_e'>e</span><span class='comma'>,</span> <span class='id identifier rubyid_general_error'>general_error</span><span class='comma'>,</span> <span class='id identifier rubyid_entries'>entries</span><span class='comma'>,</span> <span class='id identifier rubyid_fatal'>fatal</span><span class='rparen'>)</span>
-  <span class='id identifier rubyid_locale'>locale</span> <span class='op'>=</span> <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_i18n'>i18n</span><span class='period'>.</span><span class='id identifier rubyid_shell'>shell</span>
+  <span class='id identifier rubyid_locale'>locale</span> <span class='op'>=</span> <span class='id identifier rubyid_i18n'>i18n</span><span class='period'>.</span><span class='id identifier rubyid_shell'>shell</span>
 
   <span class='ivar'>@console</span><span class='period'>.</span><span class='id identifier rubyid_error'>error</span><span class='lparen'>(</span><span class='id identifier rubyid_locale'>locale</span><span class='period'>.</span><span class='id identifier rubyid_send'>send</span><span class='lparen'>(</span><span class='id identifier rubyid_general_error'>general_error</span><span class='rparen'>)</span><span class='rparen'>)</span>
   <span class='ivar'>@console</span><span class='period'>.</span><span class='id identifier rubyid_with_indentation'>with_indentation</span><span class='lparen'>(</span><span class='int'>11</span><span class='rparen'>)</span> <span class='kw'>do</span>
@@ -551,9 +551,9 @@
 </div>
 
     <div id="footer">
-  Generated on Sat Apr 13 12:04:07 2013 by
+  Generated on Sun Jul 14 14:51:50 2013 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
-  0.8.5.2 (ruby-1.9.3).
+  0.8.6.2 (ruby-1.9.3).
 </div>
 
   </body>
