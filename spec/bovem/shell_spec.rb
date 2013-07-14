@@ -88,7 +88,7 @@ describe Bovem::Shell do
 
     it "should raise a exception for failures" do
       ::Open4::stub(:popen4) {|_, _, _, _| OpenStruct.new(exitstatus: 1) }
-      expect { shell.run("echo1 OK", nil, true, false, false, false, false) }.to_not raise_error(SystemExit)
+      expect { shell.run("echo1 OK", nil, true, false, false, false, false) }.not_to raise_error
       expect { shell.run("echo1 OK", nil, true, false, false) }.to raise_error(SystemExit)
     end
   end

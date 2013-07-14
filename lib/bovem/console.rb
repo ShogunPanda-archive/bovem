@@ -82,7 +82,7 @@ module Bovem
               stack.pop
               plain || stack.blank? ? "" : ::Bovem::Console.parse_styles(stack.last)
             else
-              styles = $3
+              styles = $3.ensure_string
               replacement = plain ? "" : ::Bovem::Console.parse_styles(styles)
 
               if replacement.length > 0 then

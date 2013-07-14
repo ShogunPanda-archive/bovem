@@ -10,7 +10,7 @@ require "find"
 require "fileutils"
 require "lazier"
 
-Lazier.load!(:object)
+Lazier.load!(:object, :boolean, :math)
 
 require "bovem/version" if !defined?(Bovem::Version)
 require "bovem/errors"

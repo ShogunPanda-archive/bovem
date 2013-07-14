@@ -184,7 +184,7 @@ describe Bovem::Console do
       console.stub(:line_width).and_return(80)
 
       expect(console.format_right(message)).to eq("\e[A\e[0G\e[#{75}CABCDE")
-      expect(console.format_right(message, 10)).to eq("\e[A\e[0G\e[#{5}CABCDE")
+      expect(console.format_right(message, 10)).to eq("\e[A\e[0G\e[#{-5}CABCDE")
       expect(console.format_right(extended_message)).to eq("\e[A\e[0G\e[#{75}CABC\e[AD\e[3mE")
       expect(console.format_right(message, nil, false)).to eq("\e[0G\e[#{75}CABCDE")
       console.stub(:line_width).and_return(10)

@@ -30,8 +30,8 @@ module Bovem
     # @param logger [Logger] The logger to use for notifications.
     # @see #parse
     def initialize(file = nil, overrides = {}, logger = nil)
-      self.i18n_setup(:bovem, ::File.absolute_path(::Pathname.new(::File.dirname(__FILE__)).to_s + "/../../locales/"))
-      self.parse(file, overrides, logger)
+      i18n_setup(:bovem, ::File.absolute_path(::Pathname.new(::File.dirname(__FILE__)).to_s + "/../../locales/"))
+      parse(file, overrides, logger)
     end
 
     # Parses a configuration file.
@@ -54,16 +54,12 @@ module Bovem
         if File.readable?(file) then
           read_configuration_file(file, logger)
         else
-          raise Bovem::Errors::InvalidConfiguration.new(self.i18n.configuration.not_found(file))
+          raise Bovem::Errors::InvalidConfiguration.new(i18n.configuration.not_found(file))
         end
       end
 
       # Apply overrides
-      if overrides.is_a?(::Hash) then
-        overrides.each_pair do |k, v|
-          self.send("#{k}=", v) if self.respond_to?("#{k}=")
-        end
-      end
+      overrides.each_pair { |k, v| send("#{k}=", v) if self.respond_to?("#{k}=") } if overrides.is_a?(::Hash)
 
       self
     end
@@ -75,13 +71,8 @@ module Bovem
     def self.property(name, options = {})
       options = {} if !options.is_a?(::Hash)
 
-      define_method(name.to_s) do
-        self.instance_variable_get("@#{name}") || options[:default]
-      end
-
-      define_method("#{name}=") do |value|
-        self.instance_variable_set("@#{name}", value)
-      end
+      define_method(name.to_s) { instance_variable_get("@#{name}") || options[:default] }
+      define_method("#{name}=") { |value| instance_variable_set("@#{name}", value) }
     end
 
     private
@@ -92,11 +83,11 @@ module Bovem
       def read_configuration_file(file, logger)
         begin
           # Open the file
-          path = file =~ /^#{File::SEPARATOR}/ ? file : ::Pathname.new(file).realpath.to_s
-          logger.info(self.i18n.configuration.using(path)) if logger
+          path = file =~ /^#{File::SEPARATOR}/ ? file : ::Pathname.new(file).realpath
+          logger.info(i18n.configuration.using(path)) if logger
           eval_file(path)
         rescue Exception
-          raise Bovem::Errors::InvalidConfiguration.new(self.i18n.configuration.invalid(file))
+          raise Bovem::Errors::InvalidConfiguration.new(i18n.configuration.invalid(file))
         end
       end
 
@@ -104,9 +95,7 @@ module Bovem
       #
       # @param path [String] The file to read.
       def eval_file(path)
-        self.tap do |config|
-          eval(::File.read(path))
-        end
+        tap { |config| eval(::File.read(path)) }
       end
   end
 end
