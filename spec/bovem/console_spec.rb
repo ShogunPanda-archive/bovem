@@ -15,7 +15,7 @@ describe Bovem::Console do
 
   before(:each) do
     ENV["TERM"] = "xterm-256color"
-    Kernel.stub(:puts).and_return(nil)
+    allow(Kernel).to receive(:puts).and_return(nil)
   end
 
   describe ".instance" do
@@ -78,7 +78,7 @@ describe Bovem::Console do
     end
 
     it "should use $stdin.winsize if available" do
-      $stdin.should_receive(:winsize)
+      expect($stdin).to receive(:winsize)
       console.line_width
     end
   end
@@ -172,7 +172,7 @@ describe Bovem::Console do
 
   describe "#replace_markers" do
     it "should just forwards to .replace_markers" do
-      ::Bovem::Console.should_receive(:replace_markers).with("A", "B")
+      expect(::Bovem::Console).to receive(:replace_markers).with("A", "B")
       console.replace_markers("A", "B")
     end
   end
@@ -181,28 +181,28 @@ describe Bovem::Console do
     it "should correctly align messages" do
       message = "ABCDE"
       extended_message = "ABC\e[AD\e[3mE"
-      console.stub(:line_width).and_return(80)
+      allow(console).to receive(:line_width).and_return(80)
 
       expect(console.format_right(message)).to eq("\e[A\e[0G\e[#{75}CABCDE")
       expect(console.format_right(message, 10)).to eq("\e[A\e[0G\e[#{-5}CABCDE")
       expect(console.format_right(extended_message)).to eq("\e[A\e[0G\e[#{75}CABC\e[AD\e[3mE")
       expect(console.format_right(message, nil, false)).to eq("\e[0G\e[#{75}CABCDE")
-      console.stub(:line_width).and_return(10)
+      allow(console).to receive(:line_width).and_return(10)
       expect(console.format_right(message)).to eq("\e[A\e[0G\e[#{5}CABCDE")
     end
   end
 
   describe "#write" do
     it "should call #format" do
-      console.should_receive(:format).with("A", "B", "C", "D", "E")
+      expect(console).to receive(:format).with("A", "B", "C", "D", "E")
       console.write("A", "B", "C", "D", "E")
     end
   end
 
   describe "#write_banner_aligned" do
     it "should call #min_banner_length and #format" do
-      ::Bovem::Console.should_receive(:min_banner_length).and_return(1)
-      console.should_receive(:format).with("    A", "B", "C", "D", "E")
+      expect(::Bovem::Console).to receive(:min_banner_length).and_return(1)
+      expect(console).to receive(:format).with("    A", "B", "C", "D", "E")
       console.write_banner_aligned("A", "B", "C", "D", "E")
     end
   end
@@ -220,69 +220,69 @@ describe Bovem::Console do
 
   describe "#info" do
     it "should forward everything to #get_banner" do
-      console.should_receive(:get_banner).with("I", "bright cyan", false).at_least(1).and_return("")
+      expect(console).to receive(:get_banner).with("I", "bright cyan", false).at_least(1).and_return("")
       console.info("OK", "\n", true, false, false, false, false, false)
-      console.should_receive(:get_banner).with("I", "bright cyan", true).at_least(1).and_return("")
+      expect(console).to receive(:get_banner).with("I", "bright cyan", true).at_least(1).and_return("")
       console.info("OK", "\n", true, false, false, false, true, false)
     end
 
     it "should forward everything to #write" do
-      console.should_receive(:write).with(/.+/, "B", "C", "D", "E", false)
+      expect(console).to receive(:write).with(/.+/, "B", "C", "D", "E", false)
       console.info("A", "B", "C", "D", "E", "F", "G", false)
     end
   end
 
   describe "#begin" do
     it "should forward everything to #get_banner" do
-      console.should_receive(:get_banner).with("*", "bright green", false).at_least(1).and_return("")
+      expect(console).to receive(:get_banner).with("*", "bright green", false).at_least(1).and_return("")
       console.begin("OK", "\n", true, false, false, false, false, false)
     end
 
     it "should forward everything to #write" do
-      console.should_receive(:write).with(/.+/, "B", "C", "D", "E", false)
+      expect(console).to receive(:write).with(/.+/, "B", "C", "D", "E", false)
       console.begin("A", "B", "C", "D", "E", "F", "G", false)
     end
   end
 
   describe "#warn" do
     it "should forward everything to #get_banner" do
-      console.should_receive(:get_banner).with("W", "bright yellow", false).at_least(1).and_return("")
+      expect(console).to receive(:get_banner).with("W", "bright yellow", false).at_least(1).and_return("")
       console.warn("OK", "\n", true, false, false, false, false, false)
-      console.should_receive(:get_banner).with("W", "bright yellow", true).at_least(1).and_return("")
+      expect(console).to receive(:get_banner).with("W", "bright yellow", true).at_least(1).and_return("")
       console.warn("OK", "\n", true, false, false, false, true, false)
     end
 
     it "should forward everything to #write" do
-      console.should_receive(:write).with(/.+/, "B", "C", "D", "E", false)
+      expect(console).to receive(:write).with(/.+/, "B", "C", "D", "E", false)
       console.warn("A", "B", "C", "D", "E", "F", "G", false)
     end
   end
 
   describe "#error" do
     it "should forward everything to #get_banner" do
-      console.should_receive(:get_banner).with("E", "bright red", false).at_least(1).and_return("")
+      expect(console).to receive(:get_banner).with("E", "bright red", false).at_least(1).and_return("")
       console.error("OK", "\n", true, false, false, false, false, false)
-      console.should_receive(:get_banner).with("E", "bright red", true).at_least(1).and_return("")
+      expect(console).to receive(:get_banner).with("E", "bright red", true).at_least(1).and_return("")
       console.error("OK", "\n", true, false, false, false, true, false)
     end
 
     it "should forward everything to #write" do
-      console.should_receive(:write).with(/.+/, "B", "C", "D", "E", false)
+      expect(console).to receive(:write).with(/.+/, "B", "C", "D", "E", false)
       console.error("A", "B", "C", "D", "E", "F", "G", false)
     end
   end
 
   describe "#fatal" do
     it "should forward anything to #error" do
-      Kernel.stub(:exit).and_return(true)
-      console.should_receive(:error).with("A", "B", "C", "D", "E", "F", "G", false)
+      allow(Kernel).to receive(:exit).and_return(true)
+      expect(console).to receive(:error).with("A", "B", "C", "D", "E", "F", "G", false)
       console.fatal("A", "B", "C", "D", "E", "F", "G", "H", false)
     end
 
     it "should call abort with the right error code" do
-      Kernel.stub(:exit).and_return(true)
+      allow(Kernel).to receive(:exit).and_return(true)
 
-      Kernel.should_receive(:exit).with(-1).exactly(2)
+      expect(Kernel).to receive(:exit).with(-1).exactly(2)
       console.fatal("A", "B", "C", "D", "E", "F", "G", -1, false)
       console.fatal("A", "B", "C", "D", "E", "F", "G", "H", false)
     end
@@ -290,14 +290,14 @@ describe Bovem::Console do
 
   describe "#debug" do
     it "should forward everything to #get_banner" do
-      console.should_receive(:get_banner).with("D", "bright magenta", false).at_least(1).and_return("")
+      expect(console).to receive(:get_banner).with("D", "bright magenta", false).at_least(1).and_return("")
       console.debug("OK", "\n", true, false, false, false, false, false)
-      console.should_receive(:get_banner).with("D", "bright magenta", true).at_least(1).and_return("")
+      expect(console).to receive(:get_banner).with("D", "bright magenta", true).at_least(1).and_return("")
       console.debug("OK", "\n", true, false, false, false, true, false)
     end
 
     it "should forward everything to #write" do
-      console.should_receive(:write).with(/.+/, "B", "C", "D", "E", false)
+      expect(console).to receive(:write).with(/.+/, "B", "C", "D", "E", false)
       console.debug("A", "B", "C", "D", "E", "F", "G", false)
     end
   end
@@ -313,47 +313,47 @@ describe Bovem::Console do
     end
 
     it "should create the banner" do
-      console.should_receive(:get_banner).with(" OK ", "bright green").and_return("")
+      expect(console).to receive(:get_banner).with(" OK ", "bright green").and_return("")
       console.status(:ok)
     end
 
     it "should format correctly" do
-      console.should_receive(:format_right).with(/.+/, true, true, false)
+      expect(console).to receive(:format_right).with(/.+/, true, true, false)
       console.status(:ok, false, true)
-      console.should_receive(:format).with(/.+/, "\n", true, true, false)
+      expect(console).to receive(:format).with(/.+/, "\n", true, true, false)
       console.status(:ok, false, true, false)
     end
   end
 
   describe "#read" do
     it "should show a prompt" do
-      $stdin.stub(:gets).and_return("VALUE\n")
+      allow($stdin).to receive(:gets).and_return("VALUE\n")
 
       prompt = "PROMPT"
-      Kernel.should_receive(:print).with("Please insert a value: ")
+      expect(Kernel).to receive(:print).with("Please insert a value: ")
       console.read(true)
-      Kernel.should_receive(:print).with(prompt + ": ")
+      expect(Kernel).to receive(:print).with(prompt + ": ")
       console.read(prompt)
-      Kernel.should_not_receive("print")
+      expect(Kernel).not_to receive("print")
       console.read(nil)
     end
 
     it "should read a value or a default" do
-      $stdin.stub(:gets).and_return("VALUE\n")
+      allow($stdin).to receive(:gets).and_return("VALUE\n")
       expect(console.read(nil, "DEFAULT")).to eq("VALUE")
-      $stdin.stub(:gets).and_return("\n")
+      allow($stdin).to receive(:gets).and_return("\n")
       expect(console.read(nil, "DEFAULT")).to eq("DEFAULT")
     end
 
     it "should return the default value if the user quits" do
-      $stdin.stub(:gets).and_raise(Interrupt)
+      allow($stdin).to receive(:gets).and_raise(Interrupt)
       expect(console.read(nil, "DEFAULT")).to eq("DEFAULT")
     end
 
     it "should validate against an object or array validator" do
       count = 0
 
-      $stdin.stub(:gets) do
+      allow($stdin).to receive(:gets) do
         if count == 0 then
           count += 1
           "2\n"
@@ -362,7 +362,7 @@ describe Bovem::Console do
         end
       end
 
-      console.should_receive(:write).with("Sorry, your reply was not understood. Please try again.", false, false).exactly(4)
+      expect(console).to receive(:write).with("Sorry, your reply was not understood. Please try again.", false, false).exactly(4)
       count = 0
       console.read(nil, nil, "A")
       count = 0
@@ -376,7 +376,7 @@ describe Bovem::Console do
     it "should validate against an regexp validator" do
       count = 0
 
-      $stdin.stub(:gets) do
+      allow($stdin).to receive(:gets) do
         if count == 0 then
           count += 1
           "2\n"
@@ -385,38 +385,38 @@ describe Bovem::Console do
         end
       end
 
-      console.should_receive(:write).with("Sorry, your reply was not understood. Please try again.", false, false)
+      expect(console).to receive(:write).with("Sorry, your reply was not understood. Please try again.", false, false)
       console.read(nil, nil, /[abc]/)
     end
 
     it "should hide echo to the user when the terminal shows echo" do
-      $stdin.should_receive(:noecho).and_return("VALUE")
+      expect($stdin).to receive(:noecho).and_return("VALUE")
       console.read(nil, nil, nil, false)
     end
   end
 
   describe "#task" do
     it "should not print the message by default" do
-      console.should_not_receive("begin")
+      expect(console).not_to receive("begin")
       console.task { :ok }
     end
 
     it "should print the message and indentate correctly" do
-      console.should_receive(:begin).with("A", "B", "C", "D", "E", "F", "G")
-      console.should_receive(:with_indentation).with("H", "I")
+      expect(console).to receive(:begin).with("A", "B", "C", "D", "E", "F", "G")
+      expect(console).to receive(:with_indentation).with("H", "I")
       console.task("A", "B", "C", "D", "E", "F", "G", "H", "I") { :ok }
     end
 
     it "should execute the given block" do
-      ::Bovem::Console.should_receive(:foo)
+      expect(::Bovem::Console).to receive(:foo)
       console.task { ::Bovem::Console.foo }
     end
 
     it "should write the correct status" do
-      console.stub(:begin)
-      console.should_receive(:status).with(:ok, false)
+      allow(console).to receive(:begin)
+      expect(console).to receive(:status).with(:ok, false)
       console.task("OK") { :ok }
-      console.should_receive(:status).with(:fail, false)
+      expect(console).to receive(:status).with(:fail, false)
       expect { console.task("") { :fatal }}.to raise_error(SystemExit)
     end
 

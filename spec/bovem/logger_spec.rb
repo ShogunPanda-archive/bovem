@@ -45,7 +45,7 @@ describe Bovem::Logger do
 
     before(:each) do
       now = Time.now
-      Time.stub(:now).and_return(now)
+      allow(Time).to receive(:now).and_return(now)
       @time = now.strftime("%Y/%b/%d %H:%M:%S")
     end
 
@@ -81,21 +81,21 @@ describe Bovem::Logger do
   end
 
   describe ".get_real_file" do
-    it("should return the standard ouput") do 
+    it "should return the standard ouput" do
       expect(::Bovem::Logger.get_real_file("STDOUT")).to eq($stdout )
     end
     
-    it("should return the standard error") do 
+    it "should return the standard error" do
       expect(::Bovem::Logger.get_real_file("STDERR")).to eq($stderr )
     end
     
-    it("should return the file") do 
+    it "should return the file" do
       expect(::Bovem::Logger.get_real_file("/dev/null")).to eq("/dev/null" )
     end
   end
 
   describe ".default_file" do
-    it("should return the standard output") do
+    it "should return the standard output" do
       expect(::Bovem::Logger.default_file).to eq($stdout)
     end
   end
