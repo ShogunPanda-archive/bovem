@@ -40,7 +40,7 @@ describe Bovem::Logger do
     let(:logger) { ::Bovem::Logger.create(output, Logger::DEBUG) }
 
     def get_last_line(buffer)
-      buffer.string.split "\n").last.strip.gsub(/ T\+\d+\.\d+/, ""
+      buffer.string.split("\n").last.strip.gsub(/ T\+\d+\.\d+/, "")
     end
 
     before(:each) do
