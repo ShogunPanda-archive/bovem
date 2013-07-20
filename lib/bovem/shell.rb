@@ -97,7 +97,7 @@ module Bovem
       def find(directories, patterns = [], by_extension = false, case_sensitive = false, &block)
         rv = []
 
-        directories = directories.ensure_array.compact {|d| File.expand_path(d.ensure_string) }
+        directories = directories.ensure_array(nil, true, true) {|d| File.expand_path(d.ensure_string) }
         patterns = normalize_patterns(patterns, by_extension, case_sensitive)
 
         directories.each do |directory|
@@ -122,7 +122,7 @@ module Bovem
         # @return [Array] The normalized patterns.
         def normalize_patterns(patterns, by_extension, case_sensitive)
           # Adjust patterns
-          patterns = patterns.ensure_array.compact.collect {|p| p.is_a?(::Regexp) ? p : Regexp.new(Regexp.quote(p.ensure_string)) }
+          patterns = patterns.ensure_array(nil, true, true) {|p| p.is_a?(::Regexp) ? p : Regexp.new(Regexp.quote(p.ensure_string)) }
           patterns = patterns.collect {|p| /(#{p.source})$/ } if by_extension
           patterns = patterns.collect {|p| /#{p.source}/i } if !case_sensitive
           patterns
@@ -377,7 +377,7 @@ module Bovem
       def delete(files, run = true, show_errors = false, fatal = true)
         rv = true
         locale = i18n.shell
-        files = files.ensure_array.compact.collect {|f| File.expand_path(f.ensure_string) }
+        files = files.ensure_array(nil, true, true) {|f| File.expand_path(f.ensure_string) }
 
         if !run then
           @console.warn(locale.remove_dry)
@@ -455,7 +455,7 @@ module Bovem
         rv = true
 
         # Adjust directory
-        directories = directories.ensure_array.compact {|d| File.expand_path(d.ensure_string) }
+        directories = directories.ensure_array(nil, true, true) {|d| File.expand_path(d.ensure_string) }
 
         if !run then # Just print
           dry_run_directory_creation(directories)

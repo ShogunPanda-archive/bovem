@@ -373,7 +373,7 @@ module Bovem
       #
       # @see #format
       def info(message, suffix = "\n", indent = true, wrap = false, plain = false, indented_banner = false, full_colored = false, print = true, *banner)
-        banner = banner.ensure_array.flatten
+        banner = banner.ensure_array(nil, true, true, true)
         banner = ["I", "bright cyan"] if banner.blank?
         banner = get_banner(banner[0], banner[1], full_colored)
         message = indent(message, indented_banner ? 0 : indent)
@@ -525,7 +525,7 @@ module Bovem
         # @param validator [String|Regexp] The validator to sanitize.
         # @return [Object] A list of strings, a Regexp or nil.
         def sanitize_validator(validator)
-          validator.present? && !validator.is_a?(::Regexp) ? validator.ensure_array.collect {|v| v.ensure_string} : validator
+          validator.present? && !validator.is_a?(::Regexp) ? validator.ensure_array(nil, true, true, true, :ensure_string) : validator
         end
 
         # Read an input from the terminal.
