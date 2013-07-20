@@ -8,21 +8,21 @@ require "spec_helper"
 
 describe Bovem::Logger do
   describe ".create" do
-    it("should create a new default logger") do
+    it "should create a new default logger" do
       logger = ::Bovem::Logger.create
       expect(logger.device).to eq(::Bovem::Logger.default_file)
       expect(logger.level).to eq(::Logger::INFO)
       expect(logger.formatter).to eq(::Bovem::Logger.default_formatter)
     end
 
-    it("should create a logger with a custom file and level") do
+    it "should create a logger with a custom file and level" do
       logger = ::Bovem::Logger.create("/dev/null", ::Logger::WARN)
       expect(logger.device).to eq("/dev/null")
       expect(logger.level).to eq(::Logger::WARN)
       expect(logger.formatter).to eq(::Bovem::Logger.default_formatter)
     end
 
-    it("should create a logger with a custom formatter") do
+    it "should create a logger with a custom formatter" do
       formatter = Proc.new {|severity, datetime, progname, msg| msg }
       logger = ::Bovem::Logger.create("/dev/null", ::Logger::WARN, formatter)
       expect(logger.device).to eq("/dev/null")
@@ -30,7 +30,7 @@ describe Bovem::Logger do
       expect(logger.formatter).to eq(formatter)
     end
 
-    it("should raise exceptions for invalid files") do
+    it "should raise exceptions for invalid files" do
       expect { ::Bovem::Logger.create("/invalid/file") }.to raise_error(::Bovem::Errors::InvalidLogger)
     end
   end
@@ -40,7 +40,7 @@ describe Bovem::Logger do
     let(:logger) { ::Bovem::Logger.create(output, Logger::DEBUG) }
 
     def get_last_line(buffer)
-      buffer.string.split("\n").last.strip.gsub(/ T\+\d+\.\d+/, "")
+      buffer.string.split "\n").last.strip.gsub(/ T\+\d+\.\d+/, ""
     end
 
     before(:each) do
