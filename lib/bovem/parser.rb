@@ -44,7 +44,7 @@ module Bovem
             if matching.length == 1 # Found a command
               {name: matching[0], args: args}
             elsif matching.length > 1 # Ambiguous match
-              raise Bovem::Errors::Error.new(command, :ambiguous_command, command.i18n.ambigous_command(arg, Bovem::Parser.smart_join(matching)))
+              raise Bovem::Errors::Error.new(command, :ambiguous_command, command.i18n.ambigous_command(arg, Bovem::Parser.smart_join(matching).html_safe))
             end
           else
             nil
@@ -171,7 +171,7 @@ module Bovem
       def setup_option(command, opts, option)
         case option.type.to_s
           when "String" then parse_string(command, opts, option)
-          when "Integer" then parse_number(command, opts, option, :is_integer?, :to_integer, command.i18n.invalid_integer(option.label))
+          when "Integer", "Fixnum", "Bignum" then parse_number(command, opts, option, :is_integer?, :to_integer, command.i18n.invalid_integer(option.label))
           when "Float" then parse_number(command, opts, option, :is_float?, :to_float, command.i18n.invalid_float(option.label))
           when "Array" then parse_array(command, opts, option)
           else option.action.present? ? parse_action(opts, option) : parse_boolean(opts, option)

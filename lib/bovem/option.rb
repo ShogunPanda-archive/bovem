@@ -10,7 +10,7 @@ module Bovem
   # Values are the default values for that type.
   #
   # For any unknown type, the default value is `false`, it means that any unknown type is managed as a Boolean value with no argument.
-  OPTION_TYPES = {String => "", Integer => 0, Float => 0.0, Array => []}
+  OPTION_TYPES = {String => "", Integer => 0, Fixnum => 0, Bignum => 0, Float => 0.0, Array => []}
   OPTION_TYPES.default = false
 
   # This class represents an option for a command.
@@ -228,7 +228,7 @@ module Bovem
       # @param vs [Symbol] The type of validator.
       def handle_set_failure(vs)
         if vs == "include?" then
-          raise Bovem::Errors::Error.new(self, :validation_failed, @parent.i18n.invalid_value(label, Bovem::Parser.smart_join(@validator)))
+          raise Bovem::Errors::Error.new(self, :validation_failed, @parent.i18n.invalid_value(label, Bovem::Parser.smart_join(@validator).html_safe))
         else
           raise Bovem::Errors::Error.new(self, :validation_failed, @parent.i18n.invalid_for_regexp(label, @validator.is_a?(::Proc) ? "[FUNCTION]" : @validator.inspect))
         end

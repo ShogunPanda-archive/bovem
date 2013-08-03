@@ -18,7 +18,7 @@ Bovem is a command line manager and small set of utilities for Ruby developers.
 
 See the documentation for more informations.
 
-## Basic usage.
+## Basic usage
 
 As ever, talking by example is always better.
 This application:
