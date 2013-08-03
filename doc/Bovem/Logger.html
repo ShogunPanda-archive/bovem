@@ -6,7 +6,7 @@
 <title>
   Class: Bovem::Logger
   
-    &mdash; Documentation by YARD 0.8.6.2
+    &mdash; Documentation by YARD 0.8.7
   
 </title>
 
@@ -114,37 +114,6 @@
 </div>
 
 
-
-  <h2>Class Attribute Summary <small>(<a href="#" class="summary_toggle">collapse</a>)</small></h2>
-  <ul class="summary">
-    
-      <li class="public ">
-  <span class="summary_signature">
-    
-      <a href="#start_time-class_method" title="start_time (class method)">+ (Object) <strong>start_time</strong> </a>
-    
-
-    
-  </span>
-  
-  
-  
-    
-    
-  
-  
-  
-  
-  
-
-  
-    <span class="summary_desc"><div class='inline'><p>Returns the value of attribute start_time.</p>
-</div></span>
-  
-</li>
-
-    
-  </ul>
 
   <h2>Instance Attribute Summary <small>(<a href="#" class="summary_toggle">collapse</a>)</small></h2>
   <ul class="summary">
@@ -282,6 +251,29 @@
 </li>
 
       
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#start_time-class_method" title="start_time (class method)">+ (Time) <strong>start_time</strong> </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'><p>The log time of the first logger.</p>
+</div></span>
+  
+</li>
+
+      
     </ul>
   
     <h2>
@@ -311,29 +303,6 @@
 
   
     <span class="summary_desc"><div class='inline'><p>Creates a new logger.</p>
-</div></span>
-  
-</li>
-
-      
-        <li class="public ">
-  <span class="summary_signature">
-    
-      <a href="#start_time-instance_method" title="#start_time (instance method)">- (Time) <strong>start_time</strong> </a>
-    
-
-    
-  </span>
-  
-  
-  
-  
-  
-  
-  
-
-  
-    <span class="summary_desc"><div class='inline'><p>The log time of the first logger.</p>
 </div></span>
   
 </li>
@@ -431,13 +400,13 @@
       <pre class="lines">
 
 
-28
-29
-30
-31</pre>
+22
+23
+24
+25</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/bovem/logger.rb', line 28</span>
+      <pre class="code"><span class="info file"># File 'lib/bovem/logger.rb', line 22</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_initialize'>initialize</span><span class='lparen'>(</span><span class='id identifier rubyid_logdev'>logdev</span><span class='comma'>,</span> <span class='id identifier rubyid_shift_age'>shift_age</span> <span class='op'>=</span> <span class='int'>0</span><span class='comma'>,</span> <span class='id identifier rubyid_shift_size'>shift_size</span> <span class='op'>=</span> <span class='int'>1048576</span><span class='rparen'>)</span>
   <span class='ivar'>@device</span> <span class='op'>=</span> <span class='id identifier rubyid_logdev'>logdev</span>
@@ -449,53 +418,6 @@
 </div>
   
 </div>
-
-  <div id="class_attr_details" class="attr_details">
-    <h2>Class Attribute Details</h2>
-    
-      
-      <span id="start_time=-class_method"></span>
-      <div class="method_details first">
-  <h3 class="signature first" id="start_time-class_method">
-  
-    + (<tt>Object</tt>) <strong>start_time</strong> 
-  
-
-  
-
-  
-</h3><div class="docstring">
-  <div class="discussion">
-    <p>Returns the value of attribute start_time</p>
-
-
-  </div>
-</div>
-<div class="tags">
-  
-
-</div><table class="source_code">
-  <tr>
-    <td>
-      <pre class="lines">
-
-
-16
-17
-18</pre>
-    </td>
-    <td>
-      <pre class="code"><span class="info file"># File 'lib/bovem/logger.rb', line 16</span>
-
-<span class='kw'>def</span> <span class='id identifier rubyid_start_time'>start_time</span>
-  <span class='ivar'>@start_time</span>
-<span class='kw'>end</span></pre>
-    </td>
-  </tr>
-</table>
-</div>
-    
-  </div>
 
   <div id="instance_attr_details" class="attr_details">
     <h2>Instance Attribute Details</h2>
@@ -513,7 +435,7 @@
   
 </h3><div class="docstring">
   <div class="discussion">
-    <p>The file or device to log messages to.</p>
+    <p>Returns The file or device to log messages to.</p>
 
 
   </div>
@@ -617,24 +539,12 @@
 82
 83
 84
-85
-86
-87
-88
-89
-90
-91</pre>
+85</pre>
     </td>
     <td>
       <pre class="code"><span class="info file"># File 'lib/bovem/logger.rb', line 12</span>
 
 <span class='kw'>class</span> <span class='const'>Logger</span> <span class='op'>&lt;</span> <span class='op'>::</span><span class='const'>Logger</span>
-  <span class='comment'># @attribute start_time
-</span>  <span class='comment'>#   @return [Time] The start time of first line. This allows to show a `T+0.1234` information into the log.
-</span>  <span class='kw'>class</span> <span class='op'>&lt;&lt;</span> <span class='kw'>self</span>
-    <span class='id identifier rubyid_attr_accessor'>attr_accessor</span> <span class='symbol'>:start_time</span>
-  <span class='kw'>end</span>
-
   <span class='id identifier rubyid_attr_reader'>attr_reader</span> <span class='symbol'>:device</span>
 
   <span class='comment'># Creates a new logger.
@@ -704,7 +614,7 @@
 
   <span class='comment'># The log time of the first logger. This allows to show a `T+0.1234` information into the log.
 </span>  <span class='comment'># @return [Time] The log time of the first logger.
-</span>  <span class='kw'>def</span> <span class='id identifier rubyid_start_time'>start_time</span>
+</span>  <span class='kw'>def</span> <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_start_time'>start_time</span>
     <span class='ivar'>@start_time</span> <span class='op'>||=</span> <span class='op'>::</span><span class='const'>Time</span><span class='period'>.</span><span class='id identifier rubyid_now'>now</span>
   <span class='kw'>end</span>
 <span class='kw'>end</span></pre>
@@ -817,19 +727,19 @@
       <pre class="lines">
 
 
+33
+34
+35
+36
+37
+38
 39
 40
 41
-42
-43
-44
-45
-46
-47
-48</pre>
+42</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/bovem/logger.rb', line 39</span>
+      <pre class="code"><span class="info file"># File 'lib/bovem/logger.rb', line 33</span>
 
 <span class='kw'>def</span> <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_create'>create</span><span class='lparen'>(</span><span class='id identifier rubyid_file'>file</span> <span class='op'>=</span> <span class='kw'>nil</span><span class='comma'>,</span> <span class='id identifier rubyid_level'>level</span> <span class='op'>=</span> <span class='const'>Logger</span><span class='op'>::</span><span class='const'>INFO</span><span class='comma'>,</span> <span class='id identifier rubyid_formatter'>formatter</span> <span class='op'>=</span> <span class='kw'>nil</span><span class='rparen'>)</span>
   <span class='kw'>begin</span>
@@ -888,12 +798,12 @@
       <pre class="lines">
 
 
-64
-65
-66</pre>
+58
+59
+60</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/bovem/logger.rb', line 64</span>
+      <pre class="code"><span class="info file"># File 'lib/bovem/logger.rb', line 58</span>
 
 <span class='kw'>def</span> <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_default_file'>default_file</span>
   <span class='ivar'>@default_file</span> <span class='op'>||=</span> <span class='gvar'>$stdout</span>
@@ -945,6 +855,12 @@
       <pre class="lines">
 
 
+64
+65
+66
+67
+68
+69
 70
 71
 72
@@ -953,16 +869,10 @@
 75
 76
 77
-78
-79
-80
-81
-82
-83
-84</pre>
+78</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/bovem/logger.rb', line 70</span>
+      <pre class="code"><span class="info file"># File 'lib/bovem/logger.rb', line 64</span>
 
 <span class='kw'>def</span> <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_default_formatter'>default_formatter</span>
   <span class='ivar'>@default_formatter</span> <span class='op'>||=</span> <span class='op'>::</span><span class='const'>Proc</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span> <span class='lbrace'>{</span><span class='op'>|</span><span class='id identifier rubyid_severity'>severity</span><span class='comma'>,</span> <span class='id identifier rubyid_datetime'>datetime</span><span class='comma'>,</span> <span class='id identifier rubyid__'>_</span><span class='comma'>,</span> <span class='id identifier rubyid_msg'>msg</span><span class='op'>|</span>
@@ -1045,16 +955,16 @@
       <pre class="lines">
 
 
-54
-55
-56
-57
-58
-59
-60</pre>
+48
+49
+50
+51
+52
+53
+54</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/bovem/logger.rb', line 54</span>
+      <pre class="code"><span class="info file"># File 'lib/bovem/logger.rb', line 48</span>
 
 <span class='kw'>def</span> <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_get_real_file'>get_real_file</span><span class='lparen'>(</span><span class='id identifier rubyid_file'>file</span><span class='rparen'>)</span>
   <span class='kw'>case</span> <span class='id identifier rubyid_file'>file</span>
@@ -1068,16 +978,10 @@
 </table>
 </div>
     
-  </div>
-
-  <div id="instance_method_details" class="method_details_list">
-    <h2>Instance Method Details</h2>
-
-    
-      <div class="method_details first">
-  <h3 class="signature first" id="start_time-instance_method">
+      <div class="method_details ">
+  <h3 class="signature " id="start_time-class_method">
   
-    - (<tt>Time</tt>) <strong>start_time</strong> 
+    + (<tt>Time</tt>) <strong>start_time</strong> 
   
 
   
@@ -1116,14 +1020,14 @@
       <pre class="lines">
 
 
-88
-89
-90</pre>
+82
+83
+84</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/bovem/logger.rb', line 88</span>
+      <pre class="code"><span class="info file"># File 'lib/bovem/logger.rb', line 82</span>
 
-<span class='kw'>def</span> <span class='id identifier rubyid_start_time'>start_time</span>
+<span class='kw'>def</span> <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_start_time'>start_time</span>
   <span class='ivar'>@start_time</span> <span class='op'>||=</span> <span class='op'>::</span><span class='const'>Time</span><span class='period'>.</span><span class='id identifier rubyid_now'>now</span>
 <span class='kw'>end</span></pre>
     </td>
@@ -1136,9 +1040,9 @@
 </div>
 
     <div id="footer">
-  Generated on Sat Aug  3 12:59:33 2013 by
+  Generated on Sat Aug  3 13:50:16 2013 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
-  0.8.6.2 (ruby-2.0.0).
+  0.8.7 (ruby-2.0.0).
 </div>
 
   </body>
