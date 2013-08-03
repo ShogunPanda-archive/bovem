@@ -206,7 +206,7 @@ module Bovem
         end
 
         rv = indent(wrap(rv, wrap), indent) # Wrap & Indent
-        rv += suffix.ensure_string if suffix # Add the suffix
+        rv += (suffix.is_a?(TrueClass) ? "\n" : suffix.ensure_string) if suffix # Add the suffix
         rv
       end
 
@@ -227,6 +227,15 @@ module Bovem
 
         # Return
         "#{go_up ? "\e[A" : ""}\e[0G\e[#{padding}C#{message}"
+      end
+
+      # Embeds a message in a style.
+      #
+      # @param message [String] The message to emphasize.
+      # @param style [String] The style to use.
+      # @return [String] The emphasized message.
+      def emphasize(message, style = "bright")
+        "{mark=#{style}}#{message}{/mark}"
       end
     end
 

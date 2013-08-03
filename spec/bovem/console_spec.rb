@@ -192,6 +192,13 @@ describe Bovem::Console do
     end
   end
 
+  describe "#emphasize" do
+    it "should correctly emphasize messages" do
+      expect(console.emphasize("MSG")).to eq("{mark=bright}MSG{/mark}")
+      expect(console.emphasize("MSG", "bright red")).to eq("{mark=bright red}MSG{/mark}")
+    end
+  end
+
   describe "#write" do
     it "should call #format" do
       expect(console).to receive(:format).with("A", "B", "C", "D", "E")
