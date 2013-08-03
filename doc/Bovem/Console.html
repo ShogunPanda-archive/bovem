@@ -302,7 +302,7 @@
   
   
   <h3 class="inherited">Methods included from <span class='object_link'><a href="ConsoleMethods/Output.html" title="Bovem::ConsoleMethods::Output (module)">Bovem::ConsoleMethods::Output</a></span></h3>
-  <p class="inherited"><span class='object_link'><a href="ConsoleMethods/Output.html#format-instance_method" title="Bovem::ConsoleMethods::Output#format (method)">#format</a></span>, <span class='object_link'><a href="ConsoleMethods/Output.html#format_right-instance_method" title="Bovem::ConsoleMethods::Output#format_right (method)">#format_right</a></span>, <span class='object_link'><a href="ConsoleMethods/Output.html#indent-instance_method" title="Bovem::ConsoleMethods::Output#indent (method)">#indent</a></span>, <span class='object_link'><a href="ConsoleMethods/Output.html#reset_indentation-instance_method" title="Bovem::ConsoleMethods::Output#reset_indentation (method)">#reset_indentation</a></span>, <span class='object_link'><a href="ConsoleMethods/Output.html#set_indentation-instance_method" title="Bovem::ConsoleMethods::Output#set_indentation (method)">#set_indentation</a></span>, <span class='object_link'><a href="ConsoleMethods/Output.html#with_indentation-instance_method" title="Bovem::ConsoleMethods::Output#with_indentation (method)">#with_indentation</a></span>, <span class='object_link'><a href="ConsoleMethods/Output.html#wrap-instance_method" title="Bovem::ConsoleMethods::Output#wrap (method)">#wrap</a></span></p>
+  <p class="inherited"><span class='object_link'><a href="ConsoleMethods/Output.html#emphasize-instance_method" title="Bovem::ConsoleMethods::Output#emphasize (method)">#emphasize</a></span>, <span class='object_link'><a href="ConsoleMethods/Output.html#format-instance_method" title="Bovem::ConsoleMethods::Output#format (method)">#format</a></span>, <span class='object_link'><a href="ConsoleMethods/Output.html#format_right-instance_method" title="Bovem::ConsoleMethods::Output#format_right (method)">#format_right</a></span>, <span class='object_link'><a href="ConsoleMethods/Output.html#indent-instance_method" title="Bovem::ConsoleMethods::Output#indent (method)">#indent</a></span>, <span class='object_link'><a href="ConsoleMethods/Output.html#reset_indentation-instance_method" title="Bovem::ConsoleMethods::Output#reset_indentation (method)">#reset_indentation</a></span>, <span class='object_link'><a href="ConsoleMethods/Output.html#set_indentation-instance_method" title="Bovem::ConsoleMethods::Output#set_indentation (method)">#set_indentation</a></span>, <span class='object_link'><a href="ConsoleMethods/Output.html#with_indentation-instance_method" title="Bovem::ConsoleMethods::Output#with_indentation (method)">#with_indentation</a></span>, <span class='object_link'><a href="ConsoleMethods/Output.html#wrap-instance_method" title="Bovem::ConsoleMethods::Output#wrap (method)">#wrap</a></span></p>
 
   
   
@@ -344,14 +344,14 @@
       <pre class="lines">
 
 
-602
-603
-604
-605
-606</pre>
+611
+612
+613
+614
+615</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/bovem/console.rb', line 602</span>
+      <pre class="code"><span class="info file"># File 'lib/bovem/console.rb', line 611</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_initialize'>initialize</span>
   <span class='ivar'>@indentation</span> <span class='op'>=</span> <span class='int'>0</span>
@@ -412,15 +412,6 @@
       <pre class="lines">
 
 
-584
-585
-586
-587
-588
-589
-590
-591
-592
 593
 594
 595
@@ -447,10 +438,19 @@
 616
 617
 618
-619</pre>
+619
+620
+621
+622
+623
+624
+625
+626
+627
+628</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/bovem/console.rb', line 584</span>
+      <pre class="code"><span class="info file"># File 'lib/bovem/console.rb', line 593</span>
 
 <span class='kw'>class</span> <span class='const'>Console</span>
   <span class='id identifier rubyid_attr_accessor'>attr_accessor</span> <span class='symbol'>:indentation</span>
@@ -537,15 +537,6 @@
       <pre class="lines">
 
 
-584
-585
-586
-587
-588
-589
-590
-591
-592
 593
 594
 595
@@ -572,10 +563,19 @@
 616
 617
 618
-619</pre>
+619
+620
+621
+622
+623
+624
+625
+626
+627
+628</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/bovem/console.rb', line 584</span>
+      <pre class="code"><span class="info file"># File 'lib/bovem/console.rb', line 593</span>
 
 <span class='kw'>class</span> <span class='const'>Console</span>
   <span class='id identifier rubyid_attr_accessor'>attr_accessor</span> <span class='symbol'>:indentation</span>
@@ -667,12 +667,12 @@
       <pre class="lines">
 
 
-597
-598
-599</pre>
+606
+607
+608</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/bovem/console.rb', line 597</span>
+      <pre class="code"><span class="info file"># File 'lib/bovem/console.rb', line 606</span>
 
 <span class='kw'>def</span> <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_instance'>instance</span>
   <span class='ivar'>@instance</span> <span class='op'>||=</span> <span class='op'>::</span><span class='const'>Bovem</span><span class='op'>::</span><span class='const'>Console</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span>
@@ -730,17 +730,17 @@
       <pre class="lines">
 
 
-611
-612
-613
-614
-615
-616
-617
-618</pre>
+620
+621
+622
+623
+624
+625
+626
+627</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/bovem/console.rb', line 611</span>
+      <pre class="code"><span class="info file"># File 'lib/bovem/console.rb', line 620</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_line_width'>line_width</span>
   <span class='kw'>begin</span>
@@ -760,9 +760,9 @@
 </div>
 
     <div id="footer">
-  Generated on Sat Jul 20 13:39:36 2013 by
+  Generated on Sat Aug  3 12:38:43 2013 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
-  0.8.6.2 (ruby-1.9.3).
+  0.8.6.2 (ruby-2.0.0).
 </div>
 
   </body>
