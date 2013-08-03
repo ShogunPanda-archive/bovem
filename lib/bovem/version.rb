@@ -11,13 +11,13 @@ module Bovem
   # @see http://semver.org
   module Version
     # The major version.
-    MAJOR = 2
+    MAJOR = 3
 
     # The minor version.
-    MINOR = 4
+    MINOR = 0
 
     # The patch version.
-    PATCH = 1
+    PATCH = 0
 
     # The current version number of Bovem.
     STRING = [MAJOR, MINOR, PATCH].compact.join(".")

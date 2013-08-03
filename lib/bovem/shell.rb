@@ -561,12 +561,12 @@ module Bovem
     #
     # @return [Shell] A new instance.
     def self.instance
-      @instance ||= ::Bovem::Shell.new
+      @instance ||= Bovem::Shell.new
     end
 
     # Initializes a new Shell.
     def initialize
-      @console = ::Bovem::Console.instance
+      @console = Bovem::Console.instance
       i18n_setup(:bovem, ::File.absolute_path(::Pathname.new(::File.dirname(__FILE__)).to_s + "/../../locales/"))
     end
   end

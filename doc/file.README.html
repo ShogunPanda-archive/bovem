@@ -69,7 +69,7 @@
 <a href="https://codeclimate.com/github/ShogunPanda/bovem"><img src="https://codeclimate.com/github/ShogunPanda/bovem.png" alt="Code Climate" /></a>
 <a href="https://coveralls.io/r/ShogunPanda/bovem"><img src="https://coveralls.io/repos/ShogunPanda/bovem/badge.png" alt="Coverage Status" /></a></p>
 
-<p>A collection of utilities for developers.</p>
+<p>A command line manager and a collection of utilities for developers.</p>
 
 <p>http://sw.cow.tc/bovem</p>
 
@@ -77,9 +77,102 @@
 
 <h2 id="description">Description</h2>
 
-<p>Bovem is a small set of utilities for Ruby developers.</p>
+<p>Bovem is a command line manager and small set of utilities for Ruby developers.</p>
 
 <p>See the documentation for more informations.</p>
+
+<h2 id="basic-usage">Basic usage.</h2>
+
+<p>As ever, talking by example is always better.
+This application:</p>
+
+<p>```ruby
+require “bovem”</p>
+
+<p>Bovem::Application.create(name: “Bovem Usage Test”, version: “1.0.0”, description: “An example modelled like a TODO application”, banner: “Do you like Bovem?”) do
+  option(:storage, [“f”, “file”], String, help: “The file where store TODOs to.”, meta: “FILE”)</p>
+
+<p>command :list do
+    description “List all TODOs.”
+    action do |command|
+      # You should implement this.
+    end
+  end</p>
+
+<p>command :manage, “Manage existing TODO.” do
+    option(:verbose, [], “Be verbose.”)</p>
+
+<pre class="code ruby"><code class="ruby">action do |command|
+  puts &quot;Please use \&quot;add\&quot; or \&quot;remove\&quot; subcommands.&quot;
+end
+
+command :add, {description: &quot;Add a TODO.&quot;} do
+  action do |command|
+    # You should implement this.
+  end
+end
+
+command :remove, {description: &quot;Removes a TODO.&quot;} do
+  action do |command|
+    # You should implement this.
+  end
+end   end end ```
+</code></pre>
+
+<p>Will create a complete (at least at the interface model) TODO application which support commands <code>list</code> and <code>manage</code>.</p>
+
+<p>The <code>manage</code> command supports subcommands <code>add</code> and <code>remove</code>. You can invoke it via syntax <code>manage add</code> or <code>manage:add</code>. <strong>If there is no conflict, just <code>m:r</code> is sufficient!</strong></p>
+
+<p>To provide (sub)commands, both hash-style or block-style method style are supported (except for the <code>action</code> option), as you can see in the example.</p>
+
+<p>You can use the <code>--help</code> switch or the <code>help command</code> syntax to navigate through commands details.</p>
+
+<p>After setting up the skeleton, you will just need to write the action bodies and you’re done. <strong>Happy coding!</strong></p>
+
+<h3 id="wrapping-up-the-example">Wrapping up the example</h3>
+<p>Here’s the help screen of the application above for the global application and for the <code>manage</code> command.</p>
+
+<h4 id="general-help">General help</h4>
+
+<p>```
+$ ./test -h
+[NAME]
+    Bovem Usage Test 1.0.0 - An example modelled like a TODO application</p>
+
+<p>[SYNOPSIS]
+    test [options] [command [subcommand …]][command-options] [arguments]</p>
+
+<p>[DESCRIPTION]
+    Do you like Bovem?</p>
+
+<p>[GLOBAL OPTIONS]
+    -f FILE, –file FILE - The file where store TODOs to.
+    -h, –help           - Shows this message.</p>
+
+<p>[COMMANDS]
+    help   - Shows a help about a command.
+    list   - List all TODOs.
+    manage - Manage existing TODO.
+```</p>
+
+<h4 id="the-manage-command-help">The <code>manage</code> command help</h4>
+
+<p>```
+$ ./test help manage
+[SYNOPSIS]
+    test [options] manage [subcommand …]] [command-options] [arguments]</p>
+
+<p>[OPTIONS]
+    -v, –verbose - Be verbose.</p>
+
+<p>[SUBCOMMANDS]
+    add    - Add a TODO.
+    remove - Removes a TODO.
+```</p>
+
+<h2 id="advanced-usage">Advanced usage</h2>
+
+<p>See documentation for more information.</p>
 
 <h2 id="contributing-to-bovem">Contributing to bovem</h2>
 
@@ -101,7 +194,7 @@
 </div></div>
 
     <div id="footer">
-  Generated on Sat Aug  3 12:38:42 2013 by
+  Generated on Sat Aug  3 12:59:31 2013 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.8.6.2 (ruby-2.0.0).
 </div>

@@ -8,7 +8,7 @@ require "spec_helper"
 
 describe Bovem::Shell do
   let(:shell) {
-    s = ::Bovem::Shell.new
+    s = Bovem::Shell.new
     s.i18n = :en
     s
   }
@@ -24,14 +24,14 @@ describe Bovem::Shell do
 
   describe ".instance" do
     it "should always return the same instance" do
-      instance = ::Bovem::Shell.instance
-      expect(::Bovem::Shell.instance).to be(instance)
+      instance = Bovem::Shell.instance
+      expect(Bovem::Shell.instance).to be(instance)
     end
   end
 
   describe "#initialize" do
     it "should correctly set defaults" do
-      expect(shell.console).to eq(::Bovem::Console.instance)
+      expect(shell.console).to eq(Bovem::Console.instance)
     end
   end
 

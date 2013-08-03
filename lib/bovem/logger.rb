@@ -10,12 +10,6 @@ module Bovem
   # @attribute [r] device
   #   @return [IO|String] The file or device to log messages to.
   class Logger < ::Logger
-    # @attribute start_time
-    #   @return [Time] The start time of first line. This allows to show a `T+0.1234` information into the log.
-    class << self
-      attr_accessor :start_time
-    end
-
     attr_reader :device
 
     # Creates a new logger.
@@ -78,14 +72,14 @@ module Bovem
           else :white
         end
 
-        header = ::Bovem::Console.replace_markers("{mark=bright-#{color}}[%s T+%0.5f] %s:{/mark}" %[datetime.strftime("%Y/%b/%d %H:%M:%S"), [datetime.to_f - start_time.to_f, 0].max, severity.rjust(5)])
+        header = Bovem::Console.replace_markers("{mark=bright-#{color}}[%s T+%0.5f] %s:{/mark}" %[datetime.strftime("%Y/%b/%d %H:%M:%S"), [datetime.to_f - start_time.to_f, 0].max, severity.rjust(5)])
         "%s %s\n" % [header, msg]
       }
     end
 
     # The log time of the first logger. This allows to show a `T+0.1234` information into the log.
     # @return [Time] The log time of the first logger.
-    def start_time
+    def self.start_time
       @start_time ||= ::Time.now
     end
   end

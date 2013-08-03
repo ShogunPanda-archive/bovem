@@ -7,37 +7,41 @@
 require "spec_helper"
 
 describe Bovem::Logger do
+  before(:each) do
+    allow(::Time).to receive(:now).and_return(Time.at(10))
+  end
+
   describe ".create" do
     it "should create a new default logger" do
-      logger = ::Bovem::Logger.create
-      expect(logger.device).to eq(::Bovem::Logger.default_file)
+      logger = Bovem::Logger.create
+      expect(logger.device).to eq(Bovem::Logger.default_file)
       expect(logger.level).to eq(::Logger::INFO)
-      expect(logger.formatter).to eq(::Bovem::Logger.default_formatter)
+      expect(logger.formatter).to eq(Bovem::Logger.default_formatter)
     end
 
     it "should create a logger with a custom file and level" do
-      logger = ::Bovem::Logger.create("/dev/null", ::Logger::WARN)
+      logger = Bovem::Logger.create("/dev/null", ::Logger::WARN)
       expect(logger.device).to eq("/dev/null")
       expect(logger.level).to eq(::Logger::WARN)
-      expect(logger.formatter).to eq(::Bovem::Logger.default_formatter)
+      expect(logger.formatter).to eq(Bovem::Logger.default_formatter)
     end
 
     it "should create a logger with a custom formatter" do
       formatter = Proc.new {|severity, datetime, progname, msg| msg }
-      logger = ::Bovem::Logger.create("/dev/null", ::Logger::WARN, formatter)
+      logger = Bovem::Logger.create("/dev/null", ::Logger::WARN, formatter)
       expect(logger.device).to eq("/dev/null")
       expect(logger.level).to eq(::Logger::WARN)
       expect(logger.formatter).to eq(formatter)
     end
 
     it "should raise exceptions for invalid files" do
-      expect { ::Bovem::Logger.create("/invalid/file") }.to raise_error(::Bovem::Errors::InvalidLogger)
+      expect { Bovem::Logger.create("/invalid/file") }.to raise_error(Bovem::Errors::InvalidLogger)
     end
   end
 
   describe ".default_formatter" do
     let(:output) { ::StringIO.new }
-    let(:logger) { ::Bovem::Logger.create(output, Logger::DEBUG) }
+    let(:logger) { Bovem::Logger.create(output, Logger::DEBUG) }
 
     def get_last_line(buffer)
       buffer.string.split("\n").last.strip.gsub(/ T\+\d+\.\d+/, "")
@@ -82,21 +86,27 @@ describe Bovem::Logger do
 
   describe ".get_real_file" do
     it "should return the standard ouput" do
-      expect(::Bovem::Logger.get_real_file("STDOUT")).to eq($stdout )
+      expect(Bovem::Logger.get_real_file("STDOUT")).to eq($stdout )
     end
     
     it "should return the standard error" do
-      expect(::Bovem::Logger.get_real_file("STDERR")).to eq($stderr )
+      expect(Bovem::Logger.get_real_file("STDERR")).to eq($stderr )
     end
     
     it "should return the file" do
-      expect(::Bovem::Logger.get_real_file("/dev/null")).to eq("/dev/null" )
+      expect(Bovem::Logger.get_real_file("/dev/null")).to eq("/dev/null" )
     end
   end
 
   describe ".default_file" do
     it "should return the standard output" do
-      expect(::Bovem::Logger.default_file).to eq($stdout)
+      expect(Bovem::Logger.default_file).to eq($stdout)
+    end
+  end
+
+  describe ".start_time" do
+    it "should store the start time" do
+      expect(Bovem::Logger.start_time).to eq(Time.at(10))
     end
   end
 end

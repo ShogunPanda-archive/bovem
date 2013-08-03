@@ -6,7 +6,7 @@
 [![Code Climate](https://codeclimate.com/github/ShogunPanda/bovem.png)](https://codeclimate.com/github/ShogunPanda/bovem)
 [![Coverage Status](https://coveralls.io/repos/ShogunPanda/bovem/badge.png)](https://coveralls.io/r/ShogunPanda/bovem)
 
-A collection of utilities for developers.
+A command line manager and a collection of utilities for developers.
 
 http://sw.cow.tc/bovem
 
@@ -14,9 +14,105 @@ http://rdoc.info/gems/bovem
 
 ## Description
 
-Bovem is a small set of utilities for Ruby developers.
+Bovem is a command line manager and small set of utilities for Ruby developers.
 
 See the documentation for more informations.
+
+## Basic usage.
+
+As ever, talking by example is always better.
+This application:
+
+```ruby
+require "bovem"
+
+Bovem::Application.create(name: "Bovem Usage Test", version: "1.0.0", description: "An example modelled like a TODO application", banner: "Do you like Bovem?") do
+  option(:storage, ["f", "file"], {type: String, help: "The file where store TODOs to.", meta: "FILE"})
+
+  command :list do
+    description "List all TODOs."
+    action do |command|
+      # You should implement this.
+    end
+  end
+
+  command :manage, {description: "Manage existing TODO."} do
+    option(:verbose, [], {help: "Be verbose."})
+
+    action do |command|
+      puts "Please use \"add\" or \"remove\" subcommands."
+    end
+
+    command :add, {description: "Add a TODO."} do
+      action do |command|
+        # You should implement this.
+      end
+    end
+
+    command :remove, {description: "Removes a TODO."} do
+      action do |command|
+        # You should implement this.
+      end
+    end
+  end
+end
+```
+
+Will create a complete (at least at the interface model) TODO application which support commands `list` and `manage`.
+
+The `manage` command supports subcommands `add` and `remove`. You can invoke it via syntax `manage add` or `manage:add`. **If there is no conflict, just `m:r` is sufficient!**
+
+To provide (sub)commands, both hash-style or block-style method style are supported (except for the `action` option), as you can see in the example.
+
+You can use the `--help` switch or the `help command` syntax to navigate through commands details.
+
+After setting up the skeleton, you will just need to write the action bodies and you're done. **Happy coding!**
+
+### Wrapping up the example
+Here's the help screen of the application above for the global application and for the `manage` command.
+
+#### General help
+
+```
+$ ./test -h
+[NAME]
+    Bovem Usage Test 1.0.0 - An example modelled like a TODO application
+
+[SYNOPSIS]
+    test [options] [command [subcommand ...]][command-options] [arguments]
+
+[DESCRIPTION]
+    Do you like Bovem?
+
+[GLOBAL OPTIONS]
+    -f FILE, --file FILE - The file where store TODOs to.
+    -h, --help           - Shows this message.
+
+[COMMANDS]
+    help   - Shows a help about a command.
+    list   - List all TODOs.
+    manage - Manage existing TODO.
+```
+
+#### The `manage` command help
+
+```
+$ ./test help manage
+[SYNOPSIS]
+    test [options] manage [subcommand ...]] [command-options] [arguments]
+
+[OPTIONS]
+    -v, --verbose - Be verbose.
+
+[SUBCOMMANDS]
+    add    - Add a TODO.
+    remove - Removes a TODO.
+```
+
+
+## Advanced usage
+
+See documentation for more information.
 
 ## Contributing to bovem
 

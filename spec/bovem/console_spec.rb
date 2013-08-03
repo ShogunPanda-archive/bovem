@@ -8,7 +8,7 @@ require "spec_helper"
 
 describe Bovem::Console do
   let(:console) {
-    c = ::Bovem::Console.new
+    c = Bovem::Console.new
     c.i18n = :en
     c
   }
@@ -20,46 +20,46 @@ describe Bovem::Console do
 
   describe ".instance" do
     it "should always return the same instance" do
-      instance = ::Bovem::Console.instance
-      expect(::Bovem::Console.instance).to be(instance)
+      instance = Bovem::Console.instance
+      expect(Bovem::Console.instance).to be(instance)
     end
   end
 
   describe ".parse_style" do
     it "should correctly parse styles" do
-      expect(::Bovem::Console.parse_style("red")).to eq("\e[31m")
-      expect(::Bovem::Console.parse_style("bg_green")).to eq("\e[42m")
-      expect(::Bovem::Console.parse_style("bright")).to eq("\e[1m")
-      expect(::Bovem::Console.parse_style("FOO")).to eq("")
-      expect(::Bovem::Console.parse_style(nil)).to eq("")
-      expect(::Bovem::Console.parse_style(["A"])).to eq("")
-      expect(::Bovem::Console.parse_style("-")).to eq("")
+      expect(Bovem::Console.parse_style("red")).to eq("\e[31m")
+      expect(Bovem::Console.parse_style("bg_green")).to eq("\e[42m")
+      expect(Bovem::Console.parse_style("bright")).to eq("\e[1m")
+      expect(Bovem::Console.parse_style("FOO")).to eq("")
+      expect(Bovem::Console.parse_style(nil)).to eq("")
+      expect(Bovem::Console.parse_style(["A"])).to eq("")
+      expect(Bovem::Console.parse_style("-")).to eq("")
     end
   end
 
   describe ".replace_markers" do
     it "should correct replace markers" do
-      expect(::Bovem::Console.replace_markers("{mark=red}RED{/mark}")).to eq("\e[31mRED\e[0m")
-      expect(::Bovem::Console.replace_markers("{mark=red}RED {mark=green}GREEN{/mark}{/mark}")).to eq("\e[31mRED \e[32mGREEN\e[31m\e[0m")
-      expect(::Bovem::Console.replace_markers("{mark=red}RED {mark=bright-green}GREEN {mark=blue}BLUE{mark=NONE}RED{/mark}{/mark}{/mark}{/mark}")).to eq("\e[31mRED \e[1m\e[32mGREEN \e[34mBLUERED\e[1m\e[32m\e[31m\e[0m")
-      expect(::Bovem::Console.replace_markers("{mark=bg_red}RED{mark=reset}NORMAL{/mark}{/mark}")).to eq("\e[41mRED\e[0mNORMAL\e[41m\e[0m")
-      expect(::Bovem::Console.replace_markers("{mark=NONE}RED{/mark}")).to eq("RED")
+      expect(Bovem::Console.replace_markers("{mark=red}RED{/mark}")).to eq("\e[31mRED\e[0m")
+      expect(Bovem::Console.replace_markers("{mark=red}RED {mark=green}GREEN{/mark}{/mark}")).to eq("\e[31mRED \e[32mGREEN\e[31m\e[0m")
+      expect(Bovem::Console.replace_markers("{mark=red}RED {mark=bright-green}GREEN {mark=blue}BLUE{mark=NONE}RED{/mark}{/mark}{/mark}{/mark}")).to eq("\e[31mRED \e[1m\e[32mGREEN \e[34mBLUERED\e[1m\e[32m\e[31m\e[0m")
+      expect(Bovem::Console.replace_markers("{mark=bg_red}RED{mark=reset}NORMAL{/mark}{/mark}")).to eq("\e[41mRED\e[0mNORMAL\e[41m\e[0m")
+      expect(Bovem::Console.replace_markers("{mark=NONE}RED{/mark}")).to eq("RED")
     end
 
     it "should clean up markers if requested" do
-      expect(::Bovem::Console.replace_markers("{mark=red}RED{/mark}", true)).to eq("RED")
+      expect(Bovem::Console.replace_markers("{mark=red}RED{/mark}", true)).to eq("RED")
     end
   end
 
   describe ".execute_command" do
     it "should execute a command" do
-      expect(::Bovem::Console.execute("echo OK")).to eq("OK\n")
+      expect(Bovem::Console.execute("echo OK")).to eq("OK\n")
     end
   end
 
   describe ".min_banner_length" do
     it "should return a number" do
-      expect(::Bovem::Console.min_banner_length).to be_a(Fixnum)
+      expect(Bovem::Console.min_banner_length).to be_a(Fixnum)
     end
   end
 
@@ -172,7 +172,7 @@ describe Bovem::Console do
 
   describe "#replace_markers" do
     it "should just forwards to .replace_markers" do
-      expect(::Bovem::Console).to receive(:replace_markers).with("A", "B")
+      expect(Bovem::Console).to receive(:replace_markers).with("A", "B")
       console.replace_markers("A", "B")
     end
   end
@@ -208,7 +208,7 @@ describe Bovem::Console do
 
   describe "#write_banner_aligned" do
     it "should call #min_banner_length and #format" do
-      expect(::Bovem::Console).to receive(:min_banner_length).and_return(1)
+      expect(Bovem::Console).to receive(:min_banner_length).and_return(1)
       expect(console).to receive(:format).with("    A", "B", "C", "D", "E")
       console.write_banner_aligned("A", "B", "C", "D", "E")
     end
@@ -415,8 +415,8 @@ describe Bovem::Console do
     end
 
     it "should execute the given block" do
-      expect(::Bovem::Console).to receive(:foo)
-      console.task { ::Bovem::Console.foo }
+      expect(Bovem::Console).to receive(:foo)
+      console.task { Bovem::Console.foo }
     end
 
     it "should write the correct status" do

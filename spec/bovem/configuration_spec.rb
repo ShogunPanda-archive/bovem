@@ -7,7 +7,7 @@
 require "spec_helper"
 
 describe Bovem::Configuration do
-  class BaseConfiguration < ::Bovem::Configuration
+  class BaseConfiguration < Bovem::Configuration
     property :property
   end
 
@@ -24,15 +24,15 @@ describe Bovem::Configuration do
     end
 
     it "reject a missing or unreadable file" do
-      expect { BaseConfiguration.new("/non-existing")}.to raise_error(::Bovem::Errors::InvalidConfiguration)
+      expect { BaseConfiguration.new("/non-existing")}.to raise_error(Bovem::Errors::InvalidConfiguration)
     end
 
     it "reject an invalid configuration" do
       ::File.open("#{test_prefix}-1", "w") {|f| f.write("config.property = ") }
       ::File.open("#{test_prefix}-2", "w") {|f| f.write("config.non_property = 1234") }
 
-      expect { BaseConfiguration.new("#{test_prefix}-1")}.to raise_error(::Bovem::Errors::InvalidConfiguration)
-      expect { BaseConfiguration.new("#{test_prefix}-2")}.to raise_error(::Bovem::Errors::InvalidConfiguration)
+      expect { BaseConfiguration.new("#{test_prefix}-1")}.to raise_error(Bovem::Errors::InvalidConfiguration)
+      expect { BaseConfiguration.new("#{test_prefix}-2")}.to raise_error(Bovem::Errors::InvalidConfiguration)
 
       File.unlink("#{test_prefix}-1")
       File.unlink("#{test_prefix}-2")

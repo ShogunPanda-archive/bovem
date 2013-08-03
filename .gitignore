@@ -1,5 +1,6 @@
 Gemfile.lock
-tester.rb
+utils_tester.rb
+cli_tester.rb
 coverage/
 pkg/
 .idea/

@@ -29,9 +29,9 @@ module Bovem
           style = style.ensure_string.strip.parameterize
 
           if style.present? then
-            ::Bovem::Console.replace_term_code(Bovem::TERM_EFFECTS, style, 0) ||
-              ::Bovem::Console.replace_term_code(Bovem::TERM_COLORS, style, 30) ||
-              ::Bovem::Console.replace_term_code(Bovem::TERM_COLORS, style.gsub(/^bg_/, ""), 40) ||
+            Bovem::Console.replace_term_code(Bovem::TERM_EFFECTS, style, 0) ||
+              Bovem::Console.replace_term_code(Bovem::TERM_COLORS, style, 30) ||
+              Bovem::Console.replace_term_code(Bovem::TERM_COLORS, style.gsub(/^bg_/, ""), 40) ||
               ""
           else
             ""
@@ -80,10 +80,10 @@ module Bovem
           message.ensure_string.gsub(/((\{mark=([a-z\-_\s,]+)\})|(\{\/mark\}))/mi) do
             if $1 == "{/mark}" then # If it is a tag, pop from the latest opened.
               stack.pop
-              plain || stack.blank? ? "" : ::Bovem::Console.parse_styles(stack.last)
+              plain || stack.blank? ? "" : Bovem::Console.parse_styles(stack.last)
             else
               styles = $3.ensure_string
-              replacement = plain ? "" : ::Bovem::Console.parse_styles(styles)
+              replacement = plain ? "" : Bovem::Console.parse_styles(styles)
 
               if replacement.length > 0 then
                 stack << "reset" if stack.blank?
@@ -104,7 +104,7 @@ module Bovem
       # @param plain [Boolean] If ignore (cleanify) color markers into the message.
       # @return [String] The replaced message.
       def replace_markers(message, plain = false)
-        ::Bovem::Console.replace_markers(message, plain)
+        Bovem::Console.replace_markers(message, plain)
       end
     end
 
@@ -281,7 +281,7 @@ module Bovem
       #
       # @see #format
       def write_banner_aligned(message, suffix = "\n", indent = true, wrap = false, plain = false, print = true)
-        write((" " * (::Bovem::Console.min_banner_length + 3)) + message.ensure_string, suffix, indent, wrap, plain, print)
+        write((" " * (Bovem::Console.min_banner_length + 3)) + message.ensure_string, suffix, indent, wrap, plain, print)
       end
 
       # Writes a status to the output. Valid values are `:ok`, `:pass`, `:fail`, `:warn`.
@@ -604,7 +604,7 @@ module Bovem
     #
     # @return [Console] A new instance.
     def self.instance
-      @instance ||= ::Bovem::Console.new
+      @instance ||= Bovem::Console.new
     end
 
     # Initializes a new Console.

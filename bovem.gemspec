@@ -12,8 +12,8 @@ Gem::Specification.new do |gem|
   gem.authors = ["Shogun"]
   gem.email = ["shogun_panda@me.com"]
   gem.homepage = "http://sw.cow.tc/bovem"
-  gem.summary = %q{A collection of utilities for developers.}
-  gem.description = %q{A collection of utilities for developers.}
+  gem.summary = %q{A command line manager and a collection of utilities for developers.}
+  gem.description = %q{A command line manager and a collection of utilities for developers.}
 
   gem.rubyforge_project = "bovem"
   gem.files = `git ls-files`.split("\n")
@@ -23,6 +23,6 @@ Gem::Specification.new do |gem|
 
   gem.required_ruby_version = ">= 1.9.3"
 
-  gem.add_dependency("lazier", "~> 3.3.1")
+  gem.add_dependency("lazier", "~> 3.3.5")
   gem.add_dependency("open4", "~> 1.3.0")
 end
