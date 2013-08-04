@@ -332,6 +332,25 @@ module Bovem
         "{mark=%s}%s{mark=%s}%s{/mark}%s{/mark}" % [bracket_color.parameterize, brackets[0], base_color.parameterize, label, brackets[1]]
       end
 
+      # Formats a progress for pretty printing.
+      #
+      # @param current [Fixnum] The current progress index (e.g. the number of the current operation).
+      # @param total [Fixnum] The total progress index (e.g. the total number of operations).
+      # @param type [Symbol] The progress type. Can be `:list` (e.g. 01/15) or `:percentage` (e.g. 99.56%).
+      # @param precision [Fixnum] The precision of the percentage to return. *Ignored for list progress.*
+      # @return [String] The formatted progress.
+      def progress(current, total, type = :list, precision = 0)
+        if type == :list then
+          @progress_list_widths ||= {}
+          @progress_list_widths[total] ||= total.to_s.length
+          "%0#{@progress_list_widths[total]}d/%d" % [current, total]
+        else
+          precision = [0, precision].max
+          result = total == 0 ? 100 : (100 * (current.to_f / total))
+          ("%0.#{precision}f %%" % result.round(precision)).rjust(5 + (precision > 0 ? precision + 1 : 0))
+        end
+      end
+
       # Writes a message prepending a green banner.
       #
       # @param message [String] The message to format.

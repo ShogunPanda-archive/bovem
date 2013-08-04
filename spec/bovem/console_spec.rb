@@ -239,6 +239,25 @@ describe Bovem::Console do
     end
   end
 
+  describe "#progress" do
+    it "should format good list progresses" do
+      expect(console.progress(1, 14)).to eq("01/14")
+      expect(console.progress(135, 14)).to eq("135/14")
+    end
+
+    it "should format good percentage progresses" do
+      expect(console.progress(1, 100, :percentage)).to eq("  1 %")
+      expect(console.progress(33, 100, :percentage)).to eq(" 33 %")
+      expect(console.progress(1400, 100, :percentage)).to eq("1400 %")
+      expect(console.progress(50, 70, :percentage)).to eq(" 71 %")
+      expect(console.progress(50, 70, :percentage, 2)).to eq(" 71.43 %")
+      expect(console.progress(50, 70, :percentage, 3)).to eq(" 71.429 %")
+      expect(console.progress(0, 0, :percentage)).to eq("100 %")
+      expect(console.progress(1, 0, :percentage)).to eq("100 %")
+      expect(console.progress(0, 100, :percentage)).to eq("  0 %")
+    end
+  end
+
   describe "#begin" do
     it "should forward everything to #get_banner" do
       expect(console).to receive(:get_banner).with("*", "bright green", false).at_least(1).and_return("")
