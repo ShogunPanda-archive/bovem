@@ -35,8 +35,6 @@ module Bovem
         # @param separator [String] The separator for joined syntax commands.
         # @return [Hash|NilClass] An hash with `name` and `args` keys if a valid subcommand is found, `nil` otherwise.
         def find_command(arg, command, args, separator = ":")
-          args = args.ensure_array.dup
-
           if command.commands.present? then
             arg, args = adjust_command(arg, args, separator)
 
@@ -44,7 +42,7 @@ module Bovem
             if matching.length == 1 # Found a command
               {name: matching[0], args: args}
             elsif matching.length > 1 # Ambiguous match
-              raise Bovem::Errors::Error.new(command, :ambiguous_command, command.i18n.ambigous_command(arg, Bovem::Parser.smart_join(matching, ", ", command.i18n.join_separator).html_safe))
+              raise Bovem::Errors::Error.new(command, :ambiguous_command, command.i18n.ambigous_command(arg, format_alternatives(matching, command)))
             end
           else
             nil
@@ -68,6 +66,8 @@ module Bovem
           # @param separator [String] The separator for joined syntax commands.
           # @return [Array] Adjust command and arguments.
           def adjust_command(arg, args, separator)
+            args = args.ensure_array.dup
+
             if arg.index(separator) then
               tokens = arg.split(separator, 2)
               arg = tokens[0]
@@ -84,6 +84,15 @@ module Bovem
           # @return [Array] The matching subcommands.
           def match_subcommands(arg, command)
             command.commands.keys.select {|c| c =~ /^(#{Regexp.quote(arg)})/ }.compact
+          end
+
+          # Formats alternatives for printing.
+          #
+          # @param matching [Array] The alternatives to format.
+          # @param command [Command] The command which alternatives refers to.
+          # @return [String] The formatted alternatives.
+          def format_alternatives(matching, command)
+            Bovem::Parser.smart_join(matching, ", ", command.i18n.join_separator).html_safe
           end
       end
     end
