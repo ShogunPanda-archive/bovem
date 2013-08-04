@@ -1,6 +1,6 @@
 # encoding: utf-8
 #
-# This file is part of the bovem gem. Copyright (C) 2013 and above Shogun <shogun_panda@me.com>.
+# This file is part of the bovem gem. Copyright (C) 2013 and above Shogun <shogun@cowtech.it>.
 # Licensed under the MIT license, which can be found at http://www.opensource.org/licenses/mit-license.php.
 #
 
@@ -10,7 +10,7 @@ Gem::Specification.new do |gem|
   gem.name = "bovem"
   gem.version = Bovem::Version::STRING
   gem.authors = ["Shogun"]
-  gem.email = ["shogun_panda@me.com"]
+  gem.email = ["shogun@cowtech.it"]
   gem.homepage = "http://sw.cow.tc/bovem"
   gem.summary = %q{A command line manager and a collection of utilities for developers.}
   gem.description = %q{A command line manager and a collection of utilities for developers.}

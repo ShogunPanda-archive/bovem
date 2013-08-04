@@ -308,16 +308,12 @@
 47
 48
 49
-50
-51
-52</pre>
+50</pre>
     </td>
     <td>
       <pre class="code"><span class="info file"># File 'lib/bovem/parser.rb', line 37</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_find_command'>find_command</span><span class='lparen'>(</span><span class='id identifier rubyid_arg'>arg</span><span class='comma'>,</span> <span class='id identifier rubyid_command'>command</span><span class='comma'>,</span> <span class='id identifier rubyid_args'>args</span><span class='comma'>,</span> <span class='id identifier rubyid_separator'>separator</span> <span class='op'>=</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>:</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span>
-  <span class='id identifier rubyid_args'>args</span> <span class='op'>=</span> <span class='id identifier rubyid_args'>args</span><span class='period'>.</span><span class='id identifier rubyid_ensure_array'>ensure_array</span><span class='period'>.</span><span class='id identifier rubyid_dup'>dup</span>
-
   <span class='kw'>if</span> <span class='id identifier rubyid_command'>command</span><span class='period'>.</span><span class='id identifier rubyid_commands'>commands</span><span class='period'>.</span><span class='id identifier rubyid_present?'>present?</span> <span class='kw'>then</span>
     <span class='id identifier rubyid_arg'>arg</span><span class='comma'>,</span> <span class='id identifier rubyid_args'>args</span> <span class='op'>=</span> <span class='id identifier rubyid_adjust_command'>adjust_command</span><span class='lparen'>(</span><span class='id identifier rubyid_arg'>arg</span><span class='comma'>,</span> <span class='id identifier rubyid_args'>args</span><span class='comma'>,</span> <span class='id identifier rubyid_separator'>separator</span><span class='rparen'>)</span>
 
@@ -325,7 +321,7 @@
     <span class='kw'>if</span> <span class='id identifier rubyid_matching'>matching</span><span class='period'>.</span><span class='id identifier rubyid_length'>length</span> <span class='op'>==</span> <span class='int'>1</span> <span class='comment'># Found a command
 </span>      <span class='lbrace'>{</span><span class='label'>name:</span> <span class='id identifier rubyid_matching'>matching</span><span class='lbracket'>[</span><span class='int'>0</span><span class='rbracket'>]</span><span class='comma'>,</span> <span class='label'>args:</span> <span class='id identifier rubyid_args'>args</span><span class='rbrace'>}</span>
     <span class='kw'>elsif</span> <span class='id identifier rubyid_matching'>matching</span><span class='period'>.</span><span class='id identifier rubyid_length'>length</span> <span class='op'>&gt;</span> <span class='int'>1</span> <span class='comment'># Ambiguous match
-</span>      <span class='id identifier rubyid_raise'>raise</span> <span class='const'>Bovem</span><span class='op'>::</span><span class='const'>Errors</span><span class='op'>::</span><span class='const'>Error</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='id identifier rubyid_command'>command</span><span class='comma'>,</span> <span class='symbol'>:ambiguous_command</span><span class='comma'>,</span> <span class='id identifier rubyid_command'>command</span><span class='period'>.</span><span class='id identifier rubyid_i18n'>i18n</span><span class='period'>.</span><span class='id identifier rubyid_ambigous_command'>ambigous_command</span><span class='lparen'>(</span><span class='id identifier rubyid_arg'>arg</span><span class='comma'>,</span> <span class='const'>Bovem</span><span class='op'>::</span><span class='const'>Parser</span><span class='period'>.</span><span class='id identifier rubyid_smart_join'>smart_join</span><span class='lparen'>(</span><span class='id identifier rubyid_matching'>matching</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_html_safe'>html_safe</span><span class='rparen'>)</span><span class='rparen'>)</span>
+</span>      <span class='id identifier rubyid_raise'>raise</span> <span class='const'>Bovem</span><span class='op'>::</span><span class='const'>Errors</span><span class='op'>::</span><span class='const'>Error</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='id identifier rubyid_command'>command</span><span class='comma'>,</span> <span class='symbol'>:ambiguous_command</span><span class='comma'>,</span> <span class='id identifier rubyid_command'>command</span><span class='period'>.</span><span class='id identifier rubyid_i18n'>i18n</span><span class='period'>.</span><span class='id identifier rubyid_ambigous_command'>ambigous_command</span><span class='lparen'>(</span><span class='id identifier rubyid_arg'>arg</span><span class='comma'>,</span> <span class='id identifier rubyid_format_alternatives'>format_alternatives</span><span class='lparen'>(</span><span class='id identifier rubyid_matching'>matching</span><span class='comma'>,</span> <span class='id identifier rubyid_command'>command</span><span class='rparen'>)</span><span class='rparen'>)</span><span class='rparen'>)</span>
     <span class='kw'>end</span>
   <span class='kw'>else</span>
     <span class='kw'>nil</span>
@@ -412,12 +408,12 @@
       <pre class="lines">
 
 
-59
-60
-61</pre>
+57
+58
+59</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/bovem/parser.rb', line 59</span>
+      <pre class="code"><span class="info file"># File 'lib/bovem/parser.rb', line 57</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_parse'>parse</span><span class='lparen'>(</span><span class='id identifier rubyid_command'>command</span><span class='comma'>,</span> <span class='id identifier rubyid_args'>args</span><span class='rparen'>)</span>
   <span class='const'>Bovem</span><span class='op'>::</span><span class='const'>Parser</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='period'>.</span><span class='id identifier rubyid_parse'>parse</span><span class='lparen'>(</span><span class='id identifier rubyid_command'>command</span><span class='comma'>,</span> <span class='id identifier rubyid_args'>args</span><span class='rparen'>)</span>
@@ -565,7 +561,7 @@
 </div>
 
     <div id="footer">
-  Generated on Sat Aug  3 14:16:57 2013 by
+  Generated on Sun Aug  4 15:19:16 2013 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.8.7 (ruby-2.0.0).
 </div>
