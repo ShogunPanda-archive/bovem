@@ -74,3 +74,4 @@
       existing_option_global: "The global option \"%1\" already exists."
       existing_option: "The option \"%1\" already exists for the command \"%2\"."
       missing_app_block: "You have to provide a block to the Bovem::Application constructor!"
+      join_separator: " and "

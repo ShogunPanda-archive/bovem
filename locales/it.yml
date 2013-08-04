@@ -74,3 +74,4 @@
       existing_option_global: "L'opzione globale \"%1\" è già esistente."
       existing_option: "L'opzione \"%1\" è già esistente per il comando \"%2\"."
       missing_app_block: "Devi fornire un blocco per il costruttore di Bovem::Application!"
+      join_separator: " e "

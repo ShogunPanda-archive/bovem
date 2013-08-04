@@ -44,7 +44,7 @@ module Bovem
             if matching.length == 1 # Found a command
               {name: matching[0], args: args}
             elsif matching.length > 1 # Ambiguous match
-              raise Bovem::Errors::Error.new(command, :ambiguous_command, command.i18n.ambigous_command(arg, Bovem::Parser.smart_join(matching).html_safe))
+              raise Bovem::Errors::Error.new(command, :ambiguous_command, command.i18n.ambigous_command(arg, Bovem::Parser.smart_join(matching, ", ", command.i18n.join_separator).html_safe))
             end
           else
             nil

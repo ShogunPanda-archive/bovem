@@ -227,10 +227,12 @@ module Bovem
       #
       # @param vs [Symbol] The type of validator.
       def handle_set_failure(vs)
+        locale = @parent.i18n
+
         if vs == "include?" then
-          raise Bovem::Errors::Error.new(self, :validation_failed, @parent.i18n.invalid_value(label, Bovem::Parser.smart_join(@validator).html_safe))
+          raise Bovem::Errors::Error.new(self, :validation_failed, locale.invalid_value(label, Bovem::Parser.smart_join(@validator, ", ", locale.join_separator).html_safe))
         else
-          raise Bovem::Errors::Error.new(self, :validation_failed, @parent.i18n.invalid_for_regexp(label, @validator.is_a?(::Proc) ? "[FUNCTION]" : @validator.inspect))
+          raise Bovem::Errors::Error.new(self, :validation_failed, locale.invalid_for_regexp(label, @validator.is_a?(::Proc) ? "[FUNCTION]" : @validator.inspect))
         end
       end
 
