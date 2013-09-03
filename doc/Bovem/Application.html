@@ -1,0 +1,3057 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>
+  Class: Bovem::Application
+  
+    &mdash; Documentation by YARD 0.8.7
+  
+</title>
+
+  <link rel="stylesheet" href="../css/style.css" type="text/css" charset="utf-8" />
+
+  <link rel="stylesheet" href="../css/common.css" type="text/css" charset="utf-8" />
+
+<script type="text/javascript" charset="utf-8">
+  hasFrames = window.top.frames.main ? true : false;
+  relpath = '../';
+  framesUrl = "../frames.html#!" + escape(window.location.href);
+</script>
+
+
+  <script type="text/javascript" charset="utf-8" src="../js/jquery.js"></script>
+
+  <script type="text/javascript" charset="utf-8" src="../js/app.js"></script>
+
+
+  </head>
+  <body>
+    <div id="header">
+      <div id="menu">
+  
+    <a href="../_index.html">Index (A)</a> &raquo;
+    <span class='title'><span class='object_link'><a href="../Bovem.html" title="Bovem (module)">Bovem</a></span></span>
+     &raquo; 
+    <span class="title">Application</span>
+  
+
+  <div class="noframes"><span class="title">(</span><a href="." target="_top">no frames</a><span class="title">)</span></div>
+</div>
+
+      <div id="search">
+  
+    <a class="full_list_link" id="class_list_link"
+        href="../class_list.html">
+      Class List
+    </a>
+  
+    <a class="full_list_link" id="method_list_link"
+        href="../method_list.html">
+      Method List
+    </a>
+  
+    <a class="full_list_link" id="file_list_link"
+        href="../file_list.html">
+      File List
+    </a>
+  
+</div>
+      <div class="clear"></div>
+    </div>
+
+    <iframe id="search_frame"></iframe>
+
+    <div id="content"><h1>Class: Bovem::Application
+  
+  
+  
+</h1>
+
+<dl class="box">
+  
+    <dt class="r1">Inherits:</dt>
+    <dd class="r1">
+      <span class="inheritName"><span class='object_link'><a href="Command.html" title="Bovem::Command (class)">Command</a></span></span>
+      
+        <ul class="fullTree">
+          <li>Object</li>
+          
+            <li class="next"><span class='object_link'><a href="Command.html" title="Bovem::Command (class)">Command</a></span></li>
+          
+            <li class="next">Bovem::Application</li>
+          
+        </ul>
+        <a href="#" class="inheritanceTree">show all</a>
+      
+      </dd>
+    
+  
+  
+    
+  
+    
+  
+  
+  
+    <dt class="r2 last">Defined in:</dt>
+    <dd class="r2 last">lib/bovem/application.rb</dd>
+  
+</dl>
+<div class="clear"></div>
+
+<h2>Overview</h2><div class="docstring">
+  <div class="discussion">
+    <p>This is the main class for a Bovem application.</p>
+
+<p>Basically is the same of a command, but it adds support for application version.</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+
+</div>
+
+
+
+  <h2>Instance Attribute Summary <small>(<a href="#" class="summary_toggle">collapse</a>)</small></h2>
+  <ul class="summary">
+    
+      <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#console-instance_method" title="#console (instance method)">- (Bovem::Console) <strong>console</strong> </a>
+    
+
+    
+  </span>
+  
+  
+  
+    
+    
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'><p>A console helper.</p>
+</div></span>
+  
+</li>
+
+    
+      <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#output_commands-instance_method" title="#output_commands (instance method)">- (Boolean) <strong>output_commands</strong> </a>
+    
+
+    
+  </span>
+  
+  
+  
+    
+    
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'><p>If to show the output of the commands run via <span class='object_link'><a href="#run-instance_method" title="Bovem::Application#run (method)">#run</a></span>.</p>
+</div></span>
+  
+</li>
+
+    
+      <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#shell-instance_method" title="#shell (instance method)">- (Bovem::Shell) <strong>shell</strong> </a>
+    
+
+    
+  </span>
+  
+  
+  
+    
+    
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'><p>A shell helper.</p>
+</div></span>
+  
+</li>
+
+    
+      <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#show_commands-instance_method" title="#show_commands (instance method)">- (Boolean) <strong>show_commands</strong> </a>
+    
+
+    
+  </span>
+  
+  
+  
+    
+    
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'><p>If to show command lines run via <span class='object_link'><a href="#run-instance_method" title="Bovem::Application#run (method)">#run</a></span>.</p>
+</div></span>
+  
+</li>
+
+    
+      <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#skip_commands-instance_method" title="#skip_commands (instance method)">- (Boolean) <strong>skip_commands</strong> </a>
+    
+
+    
+  </span>
+  
+  
+  
+    
+    
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'><p>If to skip commands run via <span class='object_link'><a href="#run-instance_method" title="Bovem::Application#run (method)">#run</a></span>.</p>
+</div></span>
+  
+</li>
+
+    
+      <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#version-instance_method" title="#version (instance method)">- (String|nil) <strong>version</strong>(value = nil) </a>
+    
+
+    
+  </span>
+  
+  
+  
+    
+    
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'><p>Reads and optionally sets the version of this application.</p>
+</div></span>
+  
+</li>
+
+    
+  </ul>
+
+
+
+  
+  
+  <h3 class="inherited">Attributes inherited from <span class='object_link'><a href="Command.html" title="Bovem::Command (class)">Command</a></span></h3>
+  <p class="inherited"><span class='object_link'><a href="Command.html#action-instance_method" title="Bovem::Command#action (method)">#action</a></span>, <span class='object_link'><a href="Command.html#after-instance_method" title="Bovem::Command#after (method)">#after</a></span>, <span class='object_link'><a href="Command.html#application-instance_method" title="Bovem::Command#application (method)">#application</a></span>, <span class='object_link'><a href="Command.html#arguments-instance_method" title="Bovem::Command#arguments (method)">#arguments</a></span>, <span class='object_link'><a href="Command.html#banner-instance_method" title="Bovem::Command#banner (method)">#banner</a></span>, <span class='object_link'><a href="Command.html#before-instance_method" title="Bovem::Command#before (method)">#before</a></span>, <span class='object_link'><a href="Command.html#commands-instance_method" title="Bovem::Command#commands (method)">#commands</a></span>, <span class='object_link'><a href="Command.html#description-instance_method" title="Bovem::Command#description (method)">#description</a></span>, <span class='object_link'><a href="Command.html#name-instance_method" title="Bovem::Command#name (method)">#name</a></span>, <span class='object_link'><a href="Command.html#options-instance_method" title="Bovem::Command#options (method)">#options</a></span>, <span class='object_link'><a href="Command.html#parent-instance_method" title="Bovem::Command#parent (method)">#parent</a></span>, <span class='object_link'><a href="Command.html#synopsis-instance_method" title="Bovem::Command#synopsis (method)">#synopsis</a></span></p>
+
+  
+  
+  <h3 class="inherited">Attributes included from <span class='object_link'><a href="CommandMethods/Children.html" title="Bovem::CommandMethods::Children (module)">CommandMethods::Children</a></span></h3>
+  <p class="inherited"><span class='object_link'><a href="CommandMethods/Children.html#commands-instance_method" title="Bovem::CommandMethods::Children#commands (method)">#commands</a></span>, <span class='object_link'><a href="CommandMethods/Children.html#options-instance_method" title="Bovem::CommandMethods::Children#options (method)">#options</a></span></p>
+
+
+  
+    <h2>
+      Class Method Summary
+      <small>(<a href="#" class="summary_toggle">collapse</a>)</small>
+    </h2>
+
+    <ul class="summary">
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#create-class_method" title="create (class method)">+ (Application) <strong>create</strong>(options = {}, &amp;block) </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'><p>Initializes a new Bovem application.</p>
+</div></span>
+  
+</li>
+
+      
+    </ul>
+  
+    <h2>
+      Instance Method Summary
+      <small>(<a href="#" class="summary_toggle">collapse</a>)</small>
+    </h2>
+
+    <ul class="summary">
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#command_help-instance_method" title="#command_help (instance method)">- (Object) <strong>command_help</strong>(command) </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'><p>Shows a help about a command.</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#executable_name-instance_method" title="#executable_name (instance method)">- (String) <strong>executable_name</strong> </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'><p>The name of the current executable.</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#execute-instance_method" title="#execute (instance method)">- (Object) <strong>execute</strong>(args = nil) </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'><p>Executes this application.</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#help_option-instance_method" title="#help_option (instance method)">- (Object) <strong>help_option</strong> </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'><p>Adds a help command and a help option to this application.</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#initialize-instance_method" title="#initialize (instance method)">- (Application) <strong>initialize</strong>(options = {}, &amp;block) </a>
+    
+
+    
+  </span>
+  
+  
+    <span class="note title constructor">constructor</span>
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'><p>Creates a new application.</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#run-instance_method" title="#run (instance method)">- (Hash) <strong>run</strong>(command, message = nil, show_exit = true, fatal = true) </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'><p>Runs a command into the shell.</p>
+</div></span>
+  
+</li>
+
+      
+    </ul>
+  
+
+
+  
+  
+  
+  
+  
+  
+  
+  
+  <h3 class="inherited">Methods inherited from <span class='object_link'><a href="Command.html" title="Bovem::Command (class)">Command</a></span></h3>
+  <p class="inherited"><span class='object_link'><a href="Command.html#full_name-instance_method" title="Bovem::Command#full_name (method)">#full_name</a></span>, <span class='object_link'><a href="Command.html#has_banner%3F-instance_method" title="Bovem::Command#has_banner? (method)">#has_banner?</a></span>, <span class='object_link'><a href="Command.html#has_description%3F-instance_method" title="Bovem::Command#has_description? (method)">#has_description?</a></span>, <span class='object_link'><a href="Command.html#is_application%3F-instance_method" title="Bovem::Command#is_application? (method)">#is_application?</a></span>, <span class='object_link'><a href="Command.html#setup_with-instance_method" title="Bovem::Command#setup_with (method)">#setup_with</a></span></p>
+
+  
+  
+  
+  
+  
+  
+  
+  
+  <h3 class="inherited">Methods included from <span class='object_link'><a href="CommandMethods/Children.html" title="Bovem::CommandMethods::Children (module)">CommandMethods::Children</a></span></h3>
+  <p class="inherited"><span class='object_link'><a href="CommandMethods/Children.html#argument-instance_method" title="Bovem::CommandMethods::Children#argument (method)">#argument</a></span>, <span class='object_link'><a href="CommandMethods/Children.html#arguments-instance_method" title="Bovem::CommandMethods::Children#arguments (method)">#arguments</a></span>, <span class='object_link'><a href="CommandMethods/Children.html#clear_commands-instance_method" title="Bovem::CommandMethods::Children#clear_commands (method)">#clear_commands</a></span>, <span class='object_link'><a href="CommandMethods/Children.html#clear_options-instance_method" title="Bovem::CommandMethods::Children#clear_options (method)">#clear_options</a></span>, <span class='object_link'><a href="CommandMethods/Children.html#command-instance_method" title="Bovem::CommandMethods::Children#command (method)">#command</a></span>, <span class='object_link'><a href="CommandMethods/Children.html#get_options-instance_method" title="Bovem::CommandMethods::Children#get_options (method)">#get_options</a></span>, <span class='object_link'><a href="CommandMethods/Children.html#has_commands%3F-instance_method" title="Bovem::CommandMethods::Children#has_commands? (method)">#has_commands?</a></span>, <span class='object_link'><a href="CommandMethods/Children.html#has_options%3F-instance_method" title="Bovem::CommandMethods::Children#has_options? (method)">#has_options?</a></span>, <span class='object_link'><a href="CommandMethods/Children.html#option-instance_method" title="Bovem::CommandMethods::Children#option (method)">#option</a></span></p>
+
+  
+  
+  
+  
+  
+  
+  
+  
+  <h3 class="inherited">Methods included from <span class='object_link'><a href="CommandMethods/Help.html" title="Bovem::CommandMethods::Help (module)">CommandMethods::Help</a></span></h3>
+  <p class="inherited"><span class='object_link'><a href="CommandMethods/Help.html#show_help-instance_method" title="Bovem::CommandMethods::Help#show_help (method)">#show_help</a></span></p>
+
+  <div id="constructor_details" class="method_details_list">
+  <h2>Constructor Details</h2>
+  
+    <div class="method_details first">
+  <h3 class="signature first" id="initialize-instance_method">
+  
+    - (<tt><span class='object_link'><a href="" title="Bovem::Application (class)">Application</a></span></tt>) <strong>initialize</strong>(options = {}, &amp;block) 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    <p>Creates a new application.</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  <p class="tag_title">Parameters:</p>
+<ul class="param">
+  
+    <li>
+      
+        <span class='name'>options</span>
+      
+      
+        <span class='type'>(<tt>Hash</tt>)</span>
+      
+      
+        <em class="default">(defaults to: <tt>{}</tt>)</em>
+      
+      
+        &mdash;
+        <div class='inline'><p>The settings to initialize the application with.</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+55
+56
+57
+58
+59
+60
+61
+62
+63
+64
+65</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/bovem/application.rb', line 55</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_initialize'>initialize</span><span class='lparen'>(</span><span class='id identifier rubyid_options'>options</span> <span class='op'>=</span> <span class='lbrace'>{</span><span class='rbrace'>}</span><span class='comma'>,</span> <span class='op'>&amp;</span><span class='id identifier rubyid_block'>block</span><span class='rparen'>)</span>
+  <span class='kw'>super</span><span class='lparen'>(</span><span class='id identifier rubyid_options'>options</span><span class='comma'>,</span> <span class='op'>&amp;</span><span class='id identifier rubyid_block'>block</span><span class='rparen'>)</span>
+
+  <span class='ivar'>@shell</span> <span class='op'>=</span> <span class='const'>Bovem</span><span class='op'>::</span><span class='const'>Shell</span><span class='period'>.</span><span class='id identifier rubyid_instance'>instance</span>
+  <span class='ivar'>@console</span> <span class='op'>=</span> <span class='ivar'>@shell</span><span class='period'>.</span><span class='id identifier rubyid_console'>console</span>
+  <span class='ivar'>@skip_commands</span> <span class='op'>=</span> <span class='kw'>false</span>
+  <span class='ivar'>@show_commands</span> <span class='op'>=</span> <span class='kw'>false</span>
+  <span class='ivar'>@output_commands</span> <span class='op'>=</span> <span class='kw'>false</span>
+
+  <span class='id identifier rubyid_help_option'>help_option</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+  
+</div>
+
+  <div id="instance_attr_details" class="attr_details">
+    <h2>Instance Attribute Details</h2>
+    
+      
+      <span id="console=-instance_method"></span>
+      <div class="method_details first">
+  <h3 class="signature first" id="console-instance_method">
+  
+    - (<tt><span class='object_link'><a href="Console.html" title="Bovem::Console (class)">Bovem::Console</a></span></tt>) <strong>console</strong> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    <p>Returns A console helper.</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt><span class='object_link'><a href="Console.html" title="Bovem::Console (class)">Bovem::Console</a></span></tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'><p>A console helper.</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48
+49
+50
+51
+52
+53
+54
+55
+56
+57
+58
+59
+60
+61
+62
+63
+64
+65
+66
+67
+68
+69
+70
+71
+72
+73
+74
+75
+76
+77
+78
+79
+80
+81
+82
+83
+84
+85
+86
+87
+88
+89
+90
+91
+92
+93
+94
+95
+96
+97
+98
+99
+100
+101
+102
+103
+104
+105
+106
+107
+108
+109
+110
+111
+112
+113
+114
+115
+116
+117
+118
+119
+120
+121
+122
+123
+124
+125
+126
+127
+128
+129
+130
+131
+132
+133
+134
+135
+136
+137
+138
+139
+140
+141
+142
+143
+144
+145
+146
+147
+148
+149
+150
+151
+152
+153
+154
+155
+156
+157</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/bovem/application.rb', line 24</span>
+
+<span class='kw'>class</span> <span class='const'>Application</span> <span class='op'>&lt;</span> <span class='const'>Bovem</span><span class='op'>::</span><span class='const'>Command</span>
+  <span class='id identifier rubyid_attr_accessor'>attr_accessor</span> <span class='symbol'>:version</span>
+  <span class='id identifier rubyid_attr_accessor'>attr_accessor</span> <span class='symbol'>:shell</span>
+  <span class='id identifier rubyid_attr_accessor'>attr_accessor</span> <span class='symbol'>:console</span>
+  <span class='id identifier rubyid_attr_accessor'>attr_accessor</span> <span class='symbol'>:skip_commands</span>
+  <span class='id identifier rubyid_attr_accessor'>attr_accessor</span> <span class='symbol'>:show_commands</span>
+  <span class='id identifier rubyid_attr_accessor'>attr_accessor</span> <span class='symbol'>:output_commands</span>
+
+  <span class='comment'># Initializes a new Bovem application.
+</span>  <span class='comment'>#
+</span>  <span class='comment'># In options, you can override the command line arguments with `:__args__`, and you can skip execution by specifying `run: false`.
+</span>  <span class='comment'>#
+</span>  <span class='comment'># @see Command#setup_with
+</span>  <span class='comment'>#
+</span>  <span class='comment'># @param options [Hash] The settings to initialize the application with.
+</span>  <span class='comment'># @return [Application] The created application.
+</span>  <span class='kw'>def</span> <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_create'>create</span><span class='lparen'>(</span><span class='id identifier rubyid_options'>options</span> <span class='op'>=</span> <span class='lbrace'>{</span><span class='rbrace'>}</span><span class='comma'>,</span> <span class='op'>&amp;</span><span class='id identifier rubyid_block'>block</span><span class='rparen'>)</span>
+    <span class='id identifier rubyid_raise'>raise</span> <span class='const'>Bovem</span><span class='op'>::</span><span class='const'>Errors</span><span class='op'>::</span><span class='const'>Error</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='const'>Bovem</span><span class='op'>::</span><span class='const'>Application</span><span class='comma'>,</span> <span class='symbol'>:missing_block</span><span class='comma'>,</span> <span class='const'>Bovem</span><span class='op'>::</span><span class='const'>Localizer</span><span class='period'>.</span><span class='id identifier rubyid_localize_on_locale'>localize_on_locale</span><span class='lparen'>(</span><span class='id identifier rubyid_options'>options</span><span class='lbracket'>[</span><span class='symbol'>:locale</span><span class='rbracket'>]</span><span class='comma'>,</span> <span class='symbol'>:missing_app_block</span><span class='rparen'>)</span><span class='rparen'>)</span> <span class='kw'>if</span> <span class='op'>!</span><span class='id identifier rubyid_block_given?'>block_given?</span>
+    <span class='id identifier rubyid_run'>run</span><span class='comma'>,</span> <span class='id identifier rubyid_args'>args</span><span class='comma'>,</span> <span class='id identifier rubyid_options'>options</span> <span class='op'>=</span> <span class='id identifier rubyid_setup_application_option'>setup_application_option</span><span class='lparen'>(</span><span class='id identifier rubyid_options'>options</span><span class='rparen'>)</span>
+
+    <span class='kw'>begin</span>
+      <span class='id identifier rubyid_create_application'>create_application</span><span class='lparen'>(</span><span class='id identifier rubyid_run'>run</span><span class='comma'>,</span> <span class='id identifier rubyid_args'>args</span><span class='comma'>,</span> <span class='id identifier rubyid_options'>options</span><span class='comma'>,</span> <span class='op'>&amp;</span><span class='id identifier rubyid_block'>block</span><span class='rparen'>)</span>
+    <span class='kw'>rescue</span> <span class='op'>=&gt;</span> <span class='id identifier rubyid_e'>e</span>
+      <span class='const'>Kernel</span><span class='period'>.</span><span class='id identifier rubyid_puts'>puts</span><span class='lparen'>(</span><span class='id identifier rubyid_e'>e</span><span class='period'>.</span><span class='id identifier rubyid_to_s'>to_s</span><span class='rparen'>)</span>
+      <span class='const'>Kernel</span><span class='period'>.</span><span class='id identifier rubyid_exit'>exit</span><span class='lparen'>(</span><span class='int'>1</span><span class='rparen'>)</span>
+    <span class='kw'>end</span>
+  <span class='kw'>end</span>
+
+  <span class='comment'># Creates a new application.
+</span>  <span class='comment'>#
+</span>  <span class='comment'># @param options [Hash] The settings to initialize the application with.
+</span>  <span class='kw'>def</span> <span class='id identifier rubyid_initialize'>initialize</span><span class='lparen'>(</span><span class='id identifier rubyid_options'>options</span> <span class='op'>=</span> <span class='lbrace'>{</span><span class='rbrace'>}</span><span class='comma'>,</span> <span class='op'>&amp;</span><span class='id identifier rubyid_block'>block</span><span class='rparen'>)</span>
+    <span class='kw'>super</span><span class='lparen'>(</span><span class='id identifier rubyid_options'>options</span><span class='comma'>,</span> <span class='op'>&amp;</span><span class='id identifier rubyid_block'>block</span><span class='rparen'>)</span>
+
+    <span class='ivar'>@shell</span> <span class='op'>=</span> <span class='const'>Bovem</span><span class='op'>::</span><span class='const'>Shell</span><span class='period'>.</span><span class='id identifier rubyid_instance'>instance</span>
+    <span class='ivar'>@console</span> <span class='op'>=</span> <span class='ivar'>@shell</span><span class='period'>.</span><span class='id identifier rubyid_console'>console</span>
+    <span class='ivar'>@skip_commands</span> <span class='op'>=</span> <span class='kw'>false</span>
+    <span class='ivar'>@show_commands</span> <span class='op'>=</span> <span class='kw'>false</span>
+    <span class='ivar'>@output_commands</span> <span class='op'>=</span> <span class='kw'>false</span>
+
+    <span class='id identifier rubyid_help_option'>help_option</span>
+  <span class='kw'>end</span>
+
+  <span class='comment'># Reads and optionally sets the version of this application.
+</span>  <span class='comment'>#
+</span>  <span class='comment'># @param value [String|nil] The new version of this application.
+</span>  <span class='comment'># @return [String|nil] The version of this application.
+</span>  <span class='kw'>def</span> <span class='id identifier rubyid_version'>version</span><span class='lparen'>(</span><span class='id identifier rubyid_value'>value</span> <span class='op'>=</span> <span class='kw'>nil</span><span class='rparen'>)</span>
+    <span class='ivar'>@version</span> <span class='op'>=</span> <span class='id identifier rubyid_value'>value</span><span class='period'>.</span><span class='id identifier rubyid_ensure_string'>ensure_string</span> <span class='kw'>if</span> <span class='op'>!</span><span class='id identifier rubyid_value'>value</span><span class='period'>.</span><span class='id identifier rubyid_nil?'>nil?</span>
+    <span class='ivar'>@version</span>
+  <span class='kw'>end</span>
+
+  <span class='comment'># Executes this application.
+</span>  <span class='comment'>#
+</span>  <span class='comment'># @param args [Array] The command line to pass to this application. Defaults to `ARGV`.
+</span>  <span class='kw'>def</span> <span class='id identifier rubyid_execute'>execute</span><span class='lparen'>(</span><span class='id identifier rubyid_args'>args</span> <span class='op'>=</span> <span class='kw'>nil</span><span class='rparen'>)</span>
+    <span class='kw'>super</span><span class='lparen'>(</span><span class='id identifier rubyid_args'>args</span> <span class='op'>||</span> <span class='const'>ARGV</span><span class='rparen'>)</span>
+  <span class='kw'>end</span>
+
+  <span class='comment'># Adds a help command and a help option to this application.
+</span>  <span class='kw'>def</span> <span class='id identifier rubyid_help_option'>help_option</span>
+    <span class='id identifier rubyid_command'>command</span><span class='lparen'>(</span><span class='symbol'>:help</span><span class='comma'>,</span> <span class='label'>description:</span> <span class='id identifier rubyid_i18n'>i18n</span><span class='period'>.</span><span class='id identifier rubyid_help_command_description'>help_command_description</span><span class='rparen'>)</span> <span class='kw'>do</span>
+      <span class='id identifier rubyid_action'>action</span> <span class='lbrace'>{</span> <span class='op'>|</span><span class='id identifier rubyid_command'>command</span><span class='op'>|</span> <span class='id identifier rubyid_application'>application</span><span class='period'>.</span><span class='id identifier rubyid_command_help'>command_help</span><span class='lparen'>(</span><span class='id identifier rubyid_command'>command</span><span class='rparen'>)</span> <span class='rbrace'>}</span>
+    <span class='kw'>end</span>
+
+    <span class='id identifier rubyid_option'>option</span><span class='lparen'>(</span><span class='symbol'>:help</span><span class='comma'>,</span> <span class='lbracket'>[</span><span class='id identifier rubyid_i18n'>i18n</span><span class='period'>.</span><span class='id identifier rubyid_help_option_short_form'>help_option_short_form</span><span class='comma'>,</span> <span class='id identifier rubyid_i18n'>i18n</span><span class='period'>.</span><span class='id identifier rubyid_help_option_long_form'>help_option_long_form</span><span class='rbracket'>]</span><span class='comma'>,</span> <span class='label'>help:</span> <span class='id identifier rubyid_i18n'>i18n</span><span class='period'>.</span><span class='id identifier rubyid_help_message'>help_message</span><span class='rparen'>)</span><span class='lbrace'>{</span> <span class='op'>|</span><span class='id identifier rubyid_application'>application</span><span class='comma'>,</span> <span class='id identifier rubyid__'>_</span><span class='op'>|</span> <span class='id identifier rubyid_application'>application</span><span class='period'>.</span><span class='id identifier rubyid_show_help'>show_help</span> <span class='rbrace'>}</span>
+  <span class='kw'>end</span>
+
+  <span class='comment'># The name of the current executable.
+</span>  <span class='comment'>#
+</span>  <span class='comment'># @return [String] The name of the current executable.
+</span>  <span class='kw'>def</span> <span class='id identifier rubyid_executable_name'>executable_name</span>
+    <span class='gvar'>$0</span>
+  <span class='kw'>end</span>
+
+  <span class='comment'># Shows a help about a command.
+</span>  <span class='comment'>#
+</span>  <span class='comment'># @param command [Command] The command to show help for.
+</span>  <span class='kw'>def</span> <span class='id identifier rubyid_command_help'>command_help</span><span class='lparen'>(</span><span class='id identifier rubyid_command'>command</span><span class='rparen'>)</span>
+    <span class='id identifier rubyid_fetch_commands_for_help'>fetch_commands_for_help</span><span class='lparen'>(</span><span class='id identifier rubyid_command'>command</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_each'>each</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_arg'>arg</span><span class='op'>|</span>
+      <span class='comment'># Find the command across
+</span>      <span class='id identifier rubyid_next_command'>next_command</span> <span class='op'>=</span> <span class='const'>Bovem</span><span class='op'>::</span><span class='const'>Parser</span><span class='period'>.</span><span class='id identifier rubyid_find_command'>find_command</span><span class='lparen'>(</span><span class='id identifier rubyid_arg'>arg</span><span class='comma'>,</span> <span class='id identifier rubyid_command'>command</span><span class='comma'>,</span> <span class='lbracket'>[</span><span class='rbracket'>]</span><span class='rparen'>)</span>
+
+      <span class='kw'>if</span> <span class='id identifier rubyid_next_command'>next_command</span> <span class='kw'>then</span>
+        <span class='id identifier rubyid_command'>command</span> <span class='op'>=</span> <span class='id identifier rubyid_command'>command</span><span class='period'>.</span><span class='id identifier rubyid_commands'>commands</span><span class='lbracket'>[</span><span class='id identifier rubyid_next_command'>next_command</span><span class='lbracket'>[</span><span class='symbol'>:name</span><span class='rbracket'>]</span><span class='rbracket'>]</span>
+      <span class='kw'>else</span>
+        <span class='kw'>break</span>
+      <span class='kw'>end</span>
+    <span class='kw'>end</span>
+
+    <span class='id identifier rubyid_command'>command</span><span class='period'>.</span><span class='id identifier rubyid_show_help'>show_help</span>
+  <span class='kw'>end</span>
+
+  <span class='comment'># Runs a command into the shell.
+</span>  <span class='comment'>#
+</span>  <span class='comment'># @param command [String] The string to run.
+</span>  <span class='comment'># @param message [String] A message to show before running.
+</span>  <span class='comment'># @param show_exit [Boolean] If show the exit status.
+</span>  <span class='comment'># @param fatal [Boolean] If quit in case of fatal errors.
+</span>  <span class='comment'># @return [Hash] An hash with `status` and `output` keys.
+</span>  <span class='kw'>def</span> <span class='id identifier rubyid_run'>run</span><span class='lparen'>(</span><span class='id identifier rubyid_command'>command</span><span class='comma'>,</span> <span class='id identifier rubyid_message'>message</span> <span class='op'>=</span> <span class='kw'>nil</span><span class='comma'>,</span> <span class='id identifier rubyid_show_exit'>show_exit</span> <span class='op'>=</span> <span class='kw'>true</span><span class='comma'>,</span> <span class='id identifier rubyid_fatal'>fatal</span> <span class='op'>=</span> <span class='kw'>true</span><span class='rparen'>)</span>
+    <span class='ivar'>@shell</span><span class='period'>.</span><span class='id identifier rubyid_run'>run</span><span class='lparen'>(</span><span class='id identifier rubyid_command'>command</span><span class='comma'>,</span> <span class='id identifier rubyid_message'>message</span><span class='comma'>,</span> <span class='op'>!</span><span class='ivar'>@skip_commands</span><span class='comma'>,</span> <span class='id identifier rubyid_show_exit'>show_exit</span><span class='comma'>,</span> <span class='ivar'>@output_commands</span><span class='comma'>,</span> <span class='ivar'>@show_commands</span><span class='comma'>,</span> <span class='id identifier rubyid_fatal'>fatal</span><span class='rparen'>)</span>
+  <span class='kw'>end</span>
+
+  <span class='id identifier rubyid_private'>private</span>
+    <span class='comment'># Setup options for application creation.
+</span>    <span class='comment'>#
+</span>    <span class='comment'># @param options [Hash] The options to setups.
+</span>    <span class='comment'># @return [Array] If to run the application, the arguments and the specified options.
+</span>    <span class='kw'>def</span> <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_setup_application_option'>setup_application_option</span><span class='lparen'>(</span><span class='id identifier rubyid_options'>options</span><span class='rparen'>)</span>
+      <span class='id identifier rubyid_options'>options</span> <span class='op'>=</span> <span class='lbrace'>{</span><span class='label'>name:</span> <span class='const'>Bovem</span><span class='op'>::</span><span class='const'>Localizer</span><span class='period'>.</span><span class='id identifier rubyid_localize_on_locale'>localize_on_locale</span><span class='lparen'>(</span><span class='id identifier rubyid_options'>options</span><span class='lbracket'>[</span><span class='symbol'>:locale</span><span class='rbracket'>]</span><span class='comma'>,</span> <span class='symbol'>:default_application_name</span><span class='rparen'>)</span><span class='comma'>,</span> <span class='label'>parent:</span> <span class='kw'>nil</span><span class='comma'>,</span> <span class='label'>application:</span> <span class='kw'>nil</span><span class='rbrace'>}</span><span class='period'>.</span><span class='id identifier rubyid_merge'>merge</span><span class='lparen'>(</span><span class='id identifier rubyid_options'>options</span><span class='period'>.</span><span class='id identifier rubyid_ensure_hash'>ensure_hash</span><span class='rparen'>)</span>
+      <span class='id identifier rubyid_run'>run</span> <span class='op'>=</span> <span class='id identifier rubyid_options'>options</span><span class='period'>.</span><span class='id identifier rubyid_delete'>delete</span><span class='lparen'>(</span><span class='symbol'>:run</span><span class='rparen'>)</span>
+      <span class='lbracket'>[</span><span class='lparen'>(</span><span class='op'>!</span><span class='id identifier rubyid_run'>run</span><span class='period'>.</span><span class='id identifier rubyid_nil?'>nil?</span> <span class='op'>?</span> <span class='id identifier rubyid_run'>run</span> <span class='op'>:</span> <span class='kw'>true</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_to_boolean'>to_boolean</span><span class='comma'>,</span> <span class='id identifier rubyid_options'>options</span><span class='period'>.</span><span class='id identifier rubyid_delete'>delete</span><span class='lparen'>(</span><span class='symbol'>:__args__</span><span class='rparen'>)</span><span class='comma'>,</span> <span class='id identifier rubyid_options'>options</span><span class='rbracket'>]</span>
+    <span class='kw'>end</span>
+
+    <span class='comment'># Create the application.
+</span>    <span class='comment'>#
+</span>    <span class='comment'># @param run [Boolean ]If to run the application.
+</span>    <span class='comment'># @param args [Hash] The arguments to use for running.
+</span>    <span class='comment'># @param options [Hash] The options of the application.
+</span>    <span class='comment'># @return [Application] The new application.
+</span>    <span class='kw'>def</span> <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_create_application'>create_application</span><span class='lparen'>(</span><span class='id identifier rubyid_run'>run</span><span class='comma'>,</span> <span class='id identifier rubyid_args'>args</span><span class='comma'>,</span> <span class='id identifier rubyid_options'>options</span><span class='comma'>,</span> <span class='op'>&amp;</span><span class='id identifier rubyid_block'>block</span><span class='rparen'>)</span>
+      <span class='id identifier rubyid_application'>application</span> <span class='op'>=</span> <span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='id identifier rubyid_options'>options</span><span class='comma'>,</span> <span class='op'>&amp;</span><span class='id identifier rubyid_block'>block</span><span class='rparen'>)</span>
+      <span class='id identifier rubyid_application'>application</span><span class='period'>.</span><span class='id identifier rubyid_execute'>execute</span><span class='lparen'>(</span><span class='id identifier rubyid_args'>args</span><span class='rparen'>)</span> <span class='kw'>if</span> <span class='id identifier rubyid_application'>application</span> <span class='op'>&amp;&amp;</span> <span class='id identifier rubyid_run'>run</span>
+      <span class='id identifier rubyid_application'>application</span>
+    <span class='kw'>end</span>
+
+    <span class='comment'># Fetch a command list for showing help.
+</span>    <span class='comment'>#
+</span>    <span class='comment'># @param command [Command] The command to show help for.
+</span>    <span class='kw'>def</span> <span class='id identifier rubyid_fetch_commands_for_help'>fetch_commands_for_help</span><span class='lparen'>(</span><span class='id identifier rubyid_command'>command</span><span class='rparen'>)</span>
+      <span class='id identifier rubyid_command'>command</span><span class='period'>.</span><span class='id identifier rubyid_arguments'>arguments</span><span class='period'>.</span><span class='id identifier rubyid_map'>map</span> <span class='lbrace'>{</span><span class='op'>|</span><span class='id identifier rubyid_c'>c</span><span class='op'>|</span> <span class='id identifier rubyid_c'>c</span><span class='period'>.</span><span class='id identifier rubyid_split'>split</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>:</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span> <span class='rbrace'>}</span><span class='period'>.</span><span class='id identifier rubyid_flatten'>flatten</span><span class='period'>.</span><span class='id identifier rubyid_map'>map</span><span class='lparen'>(</span><span class='op'>&amp;</span><span class='symbol'>:strip</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_select'>select</span><span class='lparen'>(</span><span class='op'>&amp;</span><span class='symbol'>:present?</span><span class='rparen'>)</span>
+    <span class='kw'>end</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      
+      <span id="output_commands=-instance_method"></span>
+      <div class="method_details ">
+  <h3 class="signature " id="output_commands-instance_method">
+  
+    - (<tt>Boolean</tt>) <strong>output_commands</strong> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    <p>Returns If to show the output of the commands run via <span class='object_link'><a href="#run-instance_method" title="Bovem::Application#run (method)">#run</a></span>.</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>Boolean</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'><p>If to show the output of the commands run via <span class='object_link'><a href="#run-instance_method" title="Bovem::Application#run (method)">#run</a></span>.</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48
+49
+50
+51
+52
+53
+54
+55
+56
+57
+58
+59
+60
+61
+62
+63
+64
+65
+66
+67
+68
+69
+70
+71
+72
+73
+74
+75
+76
+77
+78
+79
+80
+81
+82
+83
+84
+85
+86
+87
+88
+89
+90
+91
+92
+93
+94
+95
+96
+97
+98
+99
+100
+101
+102
+103
+104
+105
+106
+107
+108
+109
+110
+111
+112
+113
+114
+115
+116
+117
+118
+119
+120
+121
+122
+123
+124
+125
+126
+127
+128
+129
+130
+131
+132
+133
+134
+135
+136
+137
+138
+139
+140
+141
+142
+143
+144
+145
+146
+147
+148
+149
+150
+151
+152
+153
+154
+155
+156
+157</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/bovem/application.rb', line 24</span>
+
+<span class='kw'>class</span> <span class='const'>Application</span> <span class='op'>&lt;</span> <span class='const'>Bovem</span><span class='op'>::</span><span class='const'>Command</span>
+  <span class='id identifier rubyid_attr_accessor'>attr_accessor</span> <span class='symbol'>:version</span>
+  <span class='id identifier rubyid_attr_accessor'>attr_accessor</span> <span class='symbol'>:shell</span>
+  <span class='id identifier rubyid_attr_accessor'>attr_accessor</span> <span class='symbol'>:console</span>
+  <span class='id identifier rubyid_attr_accessor'>attr_accessor</span> <span class='symbol'>:skip_commands</span>
+  <span class='id identifier rubyid_attr_accessor'>attr_accessor</span> <span class='symbol'>:show_commands</span>
+  <span class='id identifier rubyid_attr_accessor'>attr_accessor</span> <span class='symbol'>:output_commands</span>
+
+  <span class='comment'># Initializes a new Bovem application.
+</span>  <span class='comment'>#
+</span>  <span class='comment'># In options, you can override the command line arguments with `:__args__`, and you can skip execution by specifying `run: false`.
+</span>  <span class='comment'>#
+</span>  <span class='comment'># @see Command#setup_with
+</span>  <span class='comment'>#
+</span>  <span class='comment'># @param options [Hash] The settings to initialize the application with.
+</span>  <span class='comment'># @return [Application] The created application.
+</span>  <span class='kw'>def</span> <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_create'>create</span><span class='lparen'>(</span><span class='id identifier rubyid_options'>options</span> <span class='op'>=</span> <span class='lbrace'>{</span><span class='rbrace'>}</span><span class='comma'>,</span> <span class='op'>&amp;</span><span class='id identifier rubyid_block'>block</span><span class='rparen'>)</span>
+    <span class='id identifier rubyid_raise'>raise</span> <span class='const'>Bovem</span><span class='op'>::</span><span class='const'>Errors</span><span class='op'>::</span><span class='const'>Error</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='const'>Bovem</span><span class='op'>::</span><span class='const'>Application</span><span class='comma'>,</span> <span class='symbol'>:missing_block</span><span class='comma'>,</span> <span class='const'>Bovem</span><span class='op'>::</span><span class='const'>Localizer</span><span class='period'>.</span><span class='id identifier rubyid_localize_on_locale'>localize_on_locale</span><span class='lparen'>(</span><span class='id identifier rubyid_options'>options</span><span class='lbracket'>[</span><span class='symbol'>:locale</span><span class='rbracket'>]</span><span class='comma'>,</span> <span class='symbol'>:missing_app_block</span><span class='rparen'>)</span><span class='rparen'>)</span> <span class='kw'>if</span> <span class='op'>!</span><span class='id identifier rubyid_block_given?'>block_given?</span>
+    <span class='id identifier rubyid_run'>run</span><span class='comma'>,</span> <span class='id identifier rubyid_args'>args</span><span class='comma'>,</span> <span class='id identifier rubyid_options'>options</span> <span class='op'>=</span> <span class='id identifier rubyid_setup_application_option'>setup_application_option</span><span class='lparen'>(</span><span class='id identifier rubyid_options'>options</span><span class='rparen'>)</span>
+
+    <span class='kw'>begin</span>
+      <span class='id identifier rubyid_create_application'>create_application</span><span class='lparen'>(</span><span class='id identifier rubyid_run'>run</span><span class='comma'>,</span> <span class='id identifier rubyid_args'>args</span><span class='comma'>,</span> <span class='id identifier rubyid_options'>options</span><span class='comma'>,</span> <span class='op'>&amp;</span><span class='id identifier rubyid_block'>block</span><span class='rparen'>)</span>
+    <span class='kw'>rescue</span> <span class='op'>=&gt;</span> <span class='id identifier rubyid_e'>e</span>
+      <span class='const'>Kernel</span><span class='period'>.</span><span class='id identifier rubyid_puts'>puts</span><span class='lparen'>(</span><span class='id identifier rubyid_e'>e</span><span class='period'>.</span><span class='id identifier rubyid_to_s'>to_s</span><span class='rparen'>)</span>
+      <span class='const'>Kernel</span><span class='period'>.</span><span class='id identifier rubyid_exit'>exit</span><span class='lparen'>(</span><span class='int'>1</span><span class='rparen'>)</span>
+    <span class='kw'>end</span>
+  <span class='kw'>end</span>
+
+  <span class='comment'># Creates a new application.
+</span>  <span class='comment'>#
+</span>  <span class='comment'># @param options [Hash] The settings to initialize the application with.
+</span>  <span class='kw'>def</span> <span class='id identifier rubyid_initialize'>initialize</span><span class='lparen'>(</span><span class='id identifier rubyid_options'>options</span> <span class='op'>=</span> <span class='lbrace'>{</span><span class='rbrace'>}</span><span class='comma'>,</span> <span class='op'>&amp;</span><span class='id identifier rubyid_block'>block</span><span class='rparen'>)</span>
+    <span class='kw'>super</span><span class='lparen'>(</span><span class='id identifier rubyid_options'>options</span><span class='comma'>,</span> <span class='op'>&amp;</span><span class='id identifier rubyid_block'>block</span><span class='rparen'>)</span>
+
+    <span class='ivar'>@shell</span> <span class='op'>=</span> <span class='const'>Bovem</span><span class='op'>::</span><span class='const'>Shell</span><span class='period'>.</span><span class='id identifier rubyid_instance'>instance</span>
+    <span class='ivar'>@console</span> <span class='op'>=</span> <span class='ivar'>@shell</span><span class='period'>.</span><span class='id identifier rubyid_console'>console</span>
+    <span class='ivar'>@skip_commands</span> <span class='op'>=</span> <span class='kw'>false</span>
+    <span class='ivar'>@show_commands</span> <span class='op'>=</span> <span class='kw'>false</span>
+    <span class='ivar'>@output_commands</span> <span class='op'>=</span> <span class='kw'>false</span>
+
+    <span class='id identifier rubyid_help_option'>help_option</span>
+  <span class='kw'>end</span>
+
+  <span class='comment'># Reads and optionally sets the version of this application.
+</span>  <span class='comment'>#
+</span>  <span class='comment'># @param value [String|nil] The new version of this application.
+</span>  <span class='comment'># @return [String|nil] The version of this application.
+</span>  <span class='kw'>def</span> <span class='id identifier rubyid_version'>version</span><span class='lparen'>(</span><span class='id identifier rubyid_value'>value</span> <span class='op'>=</span> <span class='kw'>nil</span><span class='rparen'>)</span>
+    <span class='ivar'>@version</span> <span class='op'>=</span> <span class='id identifier rubyid_value'>value</span><span class='period'>.</span><span class='id identifier rubyid_ensure_string'>ensure_string</span> <span class='kw'>if</span> <span class='op'>!</span><span class='id identifier rubyid_value'>value</span><span class='period'>.</span><span class='id identifier rubyid_nil?'>nil?</span>
+    <span class='ivar'>@version</span>
+  <span class='kw'>end</span>
+
+  <span class='comment'># Executes this application.
+</span>  <span class='comment'>#
+</span>  <span class='comment'># @param args [Array] The command line to pass to this application. Defaults to `ARGV`.
+</span>  <span class='kw'>def</span> <span class='id identifier rubyid_execute'>execute</span><span class='lparen'>(</span><span class='id identifier rubyid_args'>args</span> <span class='op'>=</span> <span class='kw'>nil</span><span class='rparen'>)</span>
+    <span class='kw'>super</span><span class='lparen'>(</span><span class='id identifier rubyid_args'>args</span> <span class='op'>||</span> <span class='const'>ARGV</span><span class='rparen'>)</span>
+  <span class='kw'>end</span>
+
+  <span class='comment'># Adds a help command and a help option to this application.
+</span>  <span class='kw'>def</span> <span class='id identifier rubyid_help_option'>help_option</span>
+    <span class='id identifier rubyid_command'>command</span><span class='lparen'>(</span><span class='symbol'>:help</span><span class='comma'>,</span> <span class='label'>description:</span> <span class='id identifier rubyid_i18n'>i18n</span><span class='period'>.</span><span class='id identifier rubyid_help_command_description'>help_command_description</span><span class='rparen'>)</span> <span class='kw'>do</span>
+      <span class='id identifier rubyid_action'>action</span> <span class='lbrace'>{</span> <span class='op'>|</span><span class='id identifier rubyid_command'>command</span><span class='op'>|</span> <span class='id identifier rubyid_application'>application</span><span class='period'>.</span><span class='id identifier rubyid_command_help'>command_help</span><span class='lparen'>(</span><span class='id identifier rubyid_command'>command</span><span class='rparen'>)</span> <span class='rbrace'>}</span>
+    <span class='kw'>end</span>
+
+    <span class='id identifier rubyid_option'>option</span><span class='lparen'>(</span><span class='symbol'>:help</span><span class='comma'>,</span> <span class='lbracket'>[</span><span class='id identifier rubyid_i18n'>i18n</span><span class='period'>.</span><span class='id identifier rubyid_help_option_short_form'>help_option_short_form</span><span class='comma'>,</span> <span class='id identifier rubyid_i18n'>i18n</span><span class='period'>.</span><span class='id identifier rubyid_help_option_long_form'>help_option_long_form</span><span class='rbracket'>]</span><span class='comma'>,</span> <span class='label'>help:</span> <span class='id identifier rubyid_i18n'>i18n</span><span class='period'>.</span><span class='id identifier rubyid_help_message'>help_message</span><span class='rparen'>)</span><span class='lbrace'>{</span> <span class='op'>|</span><span class='id identifier rubyid_application'>application</span><span class='comma'>,</span> <span class='id identifier rubyid__'>_</span><span class='op'>|</span> <span class='id identifier rubyid_application'>application</span><span class='period'>.</span><span class='id identifier rubyid_show_help'>show_help</span> <span class='rbrace'>}</span>
+  <span class='kw'>end</span>
+
+  <span class='comment'># The name of the current executable.
+</span>  <span class='comment'>#
+</span>  <span class='comment'># @return [String] The name of the current executable.
+</span>  <span class='kw'>def</span> <span class='id identifier rubyid_executable_name'>executable_name</span>
+    <span class='gvar'>$0</span>
+  <span class='kw'>end</span>
+
+  <span class='comment'># Shows a help about a command.
+</span>  <span class='comment'>#
+</span>  <span class='comment'># @param command [Command] The command to show help for.
+</span>  <span class='kw'>def</span> <span class='id identifier rubyid_command_help'>command_help</span><span class='lparen'>(</span><span class='id identifier rubyid_command'>command</span><span class='rparen'>)</span>
+    <span class='id identifier rubyid_fetch_commands_for_help'>fetch_commands_for_help</span><span class='lparen'>(</span><span class='id identifier rubyid_command'>command</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_each'>each</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_arg'>arg</span><span class='op'>|</span>
+      <span class='comment'># Find the command across
+</span>      <span class='id identifier rubyid_next_command'>next_command</span> <span class='op'>=</span> <span class='const'>Bovem</span><span class='op'>::</span><span class='const'>Parser</span><span class='period'>.</span><span class='id identifier rubyid_find_command'>find_command</span><span class='lparen'>(</span><span class='id identifier rubyid_arg'>arg</span><span class='comma'>,</span> <span class='id identifier rubyid_command'>command</span><span class='comma'>,</span> <span class='lbracket'>[</span><span class='rbracket'>]</span><span class='rparen'>)</span>
+
+      <span class='kw'>if</span> <span class='id identifier rubyid_next_command'>next_command</span> <span class='kw'>then</span>
+        <span class='id identifier rubyid_command'>command</span> <span class='op'>=</span> <span class='id identifier rubyid_command'>command</span><span class='period'>.</span><span class='id identifier rubyid_commands'>commands</span><span class='lbracket'>[</span><span class='id identifier rubyid_next_command'>next_command</span><span class='lbracket'>[</span><span class='symbol'>:name</span><span class='rbracket'>]</span><span class='rbracket'>]</span>
+      <span class='kw'>else</span>
+        <span class='kw'>break</span>
+      <span class='kw'>end</span>
+    <span class='kw'>end</span>
+
+    <span class='id identifier rubyid_command'>command</span><span class='period'>.</span><span class='id identifier rubyid_show_help'>show_help</span>
+  <span class='kw'>end</span>
+
+  <span class='comment'># Runs a command into the shell.
+</span>  <span class='comment'>#
+</span>  <span class='comment'># @param command [String] The string to run.
+</span>  <span class='comment'># @param message [String] A message to show before running.
+</span>  <span class='comment'># @param show_exit [Boolean] If show the exit status.
+</span>  <span class='comment'># @param fatal [Boolean] If quit in case of fatal errors.
+</span>  <span class='comment'># @return [Hash] An hash with `status` and `output` keys.
+</span>  <span class='kw'>def</span> <span class='id identifier rubyid_run'>run</span><span class='lparen'>(</span><span class='id identifier rubyid_command'>command</span><span class='comma'>,</span> <span class='id identifier rubyid_message'>message</span> <span class='op'>=</span> <span class='kw'>nil</span><span class='comma'>,</span> <span class='id identifier rubyid_show_exit'>show_exit</span> <span class='op'>=</span> <span class='kw'>true</span><span class='comma'>,</span> <span class='id identifier rubyid_fatal'>fatal</span> <span class='op'>=</span> <span class='kw'>true</span><span class='rparen'>)</span>
+    <span class='ivar'>@shell</span><span class='period'>.</span><span class='id identifier rubyid_run'>run</span><span class='lparen'>(</span><span class='id identifier rubyid_command'>command</span><span class='comma'>,</span> <span class='id identifier rubyid_message'>message</span><span class='comma'>,</span> <span class='op'>!</span><span class='ivar'>@skip_commands</span><span class='comma'>,</span> <span class='id identifier rubyid_show_exit'>show_exit</span><span class='comma'>,</span> <span class='ivar'>@output_commands</span><span class='comma'>,</span> <span class='ivar'>@show_commands</span><span class='comma'>,</span> <span class='id identifier rubyid_fatal'>fatal</span><span class='rparen'>)</span>
+  <span class='kw'>end</span>
+
+  <span class='id identifier rubyid_private'>private</span>
+    <span class='comment'># Setup options for application creation.
+</span>    <span class='comment'>#
+</span>    <span class='comment'># @param options [Hash] The options to setups.
+</span>    <span class='comment'># @return [Array] If to run the application, the arguments and the specified options.
+</span>    <span class='kw'>def</span> <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_setup_application_option'>setup_application_option</span><span class='lparen'>(</span><span class='id identifier rubyid_options'>options</span><span class='rparen'>)</span>
+      <span class='id identifier rubyid_options'>options</span> <span class='op'>=</span> <span class='lbrace'>{</span><span class='label'>name:</span> <span class='const'>Bovem</span><span class='op'>::</span><span class='const'>Localizer</span><span class='period'>.</span><span class='id identifier rubyid_localize_on_locale'>localize_on_locale</span><span class='lparen'>(</span><span class='id identifier rubyid_options'>options</span><span class='lbracket'>[</span><span class='symbol'>:locale</span><span class='rbracket'>]</span><span class='comma'>,</span> <span class='symbol'>:default_application_name</span><span class='rparen'>)</span><span class='comma'>,</span> <span class='label'>parent:</span> <span class='kw'>nil</span><span class='comma'>,</span> <span class='label'>application:</span> <span class='kw'>nil</span><span class='rbrace'>}</span><span class='period'>.</span><span class='id identifier rubyid_merge'>merge</span><span class='lparen'>(</span><span class='id identifier rubyid_options'>options</span><span class='period'>.</span><span class='id identifier rubyid_ensure_hash'>ensure_hash</span><span class='rparen'>)</span>
+      <span class='id identifier rubyid_run'>run</span> <span class='op'>=</span> <span class='id identifier rubyid_options'>options</span><span class='period'>.</span><span class='id identifier rubyid_delete'>delete</span><span class='lparen'>(</span><span class='symbol'>:run</span><span class='rparen'>)</span>
+      <span class='lbracket'>[</span><span class='lparen'>(</span><span class='op'>!</span><span class='id identifier rubyid_run'>run</span><span class='period'>.</span><span class='id identifier rubyid_nil?'>nil?</span> <span class='op'>?</span> <span class='id identifier rubyid_run'>run</span> <span class='op'>:</span> <span class='kw'>true</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_to_boolean'>to_boolean</span><span class='comma'>,</span> <span class='id identifier rubyid_options'>options</span><span class='period'>.</span><span class='id identifier rubyid_delete'>delete</span><span class='lparen'>(</span><span class='symbol'>:__args__</span><span class='rparen'>)</span><span class='comma'>,</span> <span class='id identifier rubyid_options'>options</span><span class='rbracket'>]</span>
+    <span class='kw'>end</span>
+
+    <span class='comment'># Create the application.
+</span>    <span class='comment'>#
+</span>    <span class='comment'># @param run [Boolean ]If to run the application.
+</span>    <span class='comment'># @param args [Hash] The arguments to use for running.
+</span>    <span class='comment'># @param options [Hash] The options of the application.
+</span>    <span class='comment'># @return [Application] The new application.
+</span>    <span class='kw'>def</span> <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_create_application'>create_application</span><span class='lparen'>(</span><span class='id identifier rubyid_run'>run</span><span class='comma'>,</span> <span class='id identifier rubyid_args'>args</span><span class='comma'>,</span> <span class='id identifier rubyid_options'>options</span><span class='comma'>,</span> <span class='op'>&amp;</span><span class='id identifier rubyid_block'>block</span><span class='rparen'>)</span>
+      <span class='id identifier rubyid_application'>application</span> <span class='op'>=</span> <span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='id identifier rubyid_options'>options</span><span class='comma'>,</span> <span class='op'>&amp;</span><span class='id identifier rubyid_block'>block</span><span class='rparen'>)</span>
+      <span class='id identifier rubyid_application'>application</span><span class='period'>.</span><span class='id identifier rubyid_execute'>execute</span><span class='lparen'>(</span><span class='id identifier rubyid_args'>args</span><span class='rparen'>)</span> <span class='kw'>if</span> <span class='id identifier rubyid_application'>application</span> <span class='op'>&amp;&amp;</span> <span class='id identifier rubyid_run'>run</span>
+      <span class='id identifier rubyid_application'>application</span>
+    <span class='kw'>end</span>
+
+    <span class='comment'># Fetch a command list for showing help.
+</span>    <span class='comment'>#
+</span>    <span class='comment'># @param command [Command] The command to show help for.
+</span>    <span class='kw'>def</span> <span class='id identifier rubyid_fetch_commands_for_help'>fetch_commands_for_help</span><span class='lparen'>(</span><span class='id identifier rubyid_command'>command</span><span class='rparen'>)</span>
+      <span class='id identifier rubyid_command'>command</span><span class='period'>.</span><span class='id identifier rubyid_arguments'>arguments</span><span class='period'>.</span><span class='id identifier rubyid_map'>map</span> <span class='lbrace'>{</span><span class='op'>|</span><span class='id identifier rubyid_c'>c</span><span class='op'>|</span> <span class='id identifier rubyid_c'>c</span><span class='period'>.</span><span class='id identifier rubyid_split'>split</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>:</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span> <span class='rbrace'>}</span><span class='period'>.</span><span class='id identifier rubyid_flatten'>flatten</span><span class='period'>.</span><span class='id identifier rubyid_map'>map</span><span class='lparen'>(</span><span class='op'>&amp;</span><span class='symbol'>:strip</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_select'>select</span><span class='lparen'>(</span><span class='op'>&amp;</span><span class='symbol'>:present?</span><span class='rparen'>)</span>
+    <span class='kw'>end</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      
+      <span id="shell=-instance_method"></span>
+      <div class="method_details ">
+  <h3 class="signature " id="shell-instance_method">
+  
+    - (<tt><span class='object_link'><a href="Shell.html" title="Bovem::Shell (class)">Bovem::Shell</a></span></tt>) <strong>shell</strong> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    <p>Returns A shell helper.</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt><span class='object_link'><a href="Shell.html" title="Bovem::Shell (class)">Bovem::Shell</a></span></tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'><p>A shell helper.</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48
+49
+50
+51
+52
+53
+54
+55
+56
+57
+58
+59
+60
+61
+62
+63
+64
+65
+66
+67
+68
+69
+70
+71
+72
+73
+74
+75
+76
+77
+78
+79
+80
+81
+82
+83
+84
+85
+86
+87
+88
+89
+90
+91
+92
+93
+94
+95
+96
+97
+98
+99
+100
+101
+102
+103
+104
+105
+106
+107
+108
+109
+110
+111
+112
+113
+114
+115
+116
+117
+118
+119
+120
+121
+122
+123
+124
+125
+126
+127
+128
+129
+130
+131
+132
+133
+134
+135
+136
+137
+138
+139
+140
+141
+142
+143
+144
+145
+146
+147
+148
+149
+150
+151
+152
+153
+154
+155
+156
+157</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/bovem/application.rb', line 24</span>
+
+<span class='kw'>class</span> <span class='const'>Application</span> <span class='op'>&lt;</span> <span class='const'>Bovem</span><span class='op'>::</span><span class='const'>Command</span>
+  <span class='id identifier rubyid_attr_accessor'>attr_accessor</span> <span class='symbol'>:version</span>
+  <span class='id identifier rubyid_attr_accessor'>attr_accessor</span> <span class='symbol'>:shell</span>
+  <span class='id identifier rubyid_attr_accessor'>attr_accessor</span> <span class='symbol'>:console</span>
+  <span class='id identifier rubyid_attr_accessor'>attr_accessor</span> <span class='symbol'>:skip_commands</span>
+  <span class='id identifier rubyid_attr_accessor'>attr_accessor</span> <span class='symbol'>:show_commands</span>
+  <span class='id identifier rubyid_attr_accessor'>attr_accessor</span> <span class='symbol'>:output_commands</span>
+
+  <span class='comment'># Initializes a new Bovem application.
+</span>  <span class='comment'>#
+</span>  <span class='comment'># In options, you can override the command line arguments with `:__args__`, and you can skip execution by specifying `run: false`.
+</span>  <span class='comment'>#
+</span>  <span class='comment'># @see Command#setup_with
+</span>  <span class='comment'>#
+</span>  <span class='comment'># @param options [Hash] The settings to initialize the application with.
+</span>  <span class='comment'># @return [Application] The created application.
+</span>  <span class='kw'>def</span> <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_create'>create</span><span class='lparen'>(</span><span class='id identifier rubyid_options'>options</span> <span class='op'>=</span> <span class='lbrace'>{</span><span class='rbrace'>}</span><span class='comma'>,</span> <span class='op'>&amp;</span><span class='id identifier rubyid_block'>block</span><span class='rparen'>)</span>
+    <span class='id identifier rubyid_raise'>raise</span> <span class='const'>Bovem</span><span class='op'>::</span><span class='const'>Errors</span><span class='op'>::</span><span class='const'>Error</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='const'>Bovem</span><span class='op'>::</span><span class='const'>Application</span><span class='comma'>,</span> <span class='symbol'>:missing_block</span><span class='comma'>,</span> <span class='const'>Bovem</span><span class='op'>::</span><span class='const'>Localizer</span><span class='period'>.</span><span class='id identifier rubyid_localize_on_locale'>localize_on_locale</span><span class='lparen'>(</span><span class='id identifier rubyid_options'>options</span><span class='lbracket'>[</span><span class='symbol'>:locale</span><span class='rbracket'>]</span><span class='comma'>,</span> <span class='symbol'>:missing_app_block</span><span class='rparen'>)</span><span class='rparen'>)</span> <span class='kw'>if</span> <span class='op'>!</span><span class='id identifier rubyid_block_given?'>block_given?</span>
+    <span class='id identifier rubyid_run'>run</span><span class='comma'>,</span> <span class='id identifier rubyid_args'>args</span><span class='comma'>,</span> <span class='id identifier rubyid_options'>options</span> <span class='op'>=</span> <span class='id identifier rubyid_setup_application_option'>setup_application_option</span><span class='lparen'>(</span><span class='id identifier rubyid_options'>options</span><span class='rparen'>)</span>
+
+    <span class='kw'>begin</span>
+      <span class='id identifier rubyid_create_application'>create_application</span><span class='lparen'>(</span><span class='id identifier rubyid_run'>run</span><span class='comma'>,</span> <span class='id identifier rubyid_args'>args</span><span class='comma'>,</span> <span class='id identifier rubyid_options'>options</span><span class='comma'>,</span> <span class='op'>&amp;</span><span class='id identifier rubyid_block'>block</span><span class='rparen'>)</span>
+    <span class='kw'>rescue</span> <span class='op'>=&gt;</span> <span class='id identifier rubyid_e'>e</span>
+      <span class='const'>Kernel</span><span class='period'>.</span><span class='id identifier rubyid_puts'>puts</span><span class='lparen'>(</span><span class='id identifier rubyid_e'>e</span><span class='period'>.</span><span class='id identifier rubyid_to_s'>to_s</span><span class='rparen'>)</span>
+      <span class='const'>Kernel</span><span class='period'>.</span><span class='id identifier rubyid_exit'>exit</span><span class='lparen'>(</span><span class='int'>1</span><span class='rparen'>)</span>
+    <span class='kw'>end</span>
+  <span class='kw'>end</span>
+
+  <span class='comment'># Creates a new application.
+</span>  <span class='comment'>#
+</span>  <span class='comment'># @param options [Hash] The settings to initialize the application with.
+</span>  <span class='kw'>def</span> <span class='id identifier rubyid_initialize'>initialize</span><span class='lparen'>(</span><span class='id identifier rubyid_options'>options</span> <span class='op'>=</span> <span class='lbrace'>{</span><span class='rbrace'>}</span><span class='comma'>,</span> <span class='op'>&amp;</span><span class='id identifier rubyid_block'>block</span><span class='rparen'>)</span>
+    <span class='kw'>super</span><span class='lparen'>(</span><span class='id identifier rubyid_options'>options</span><span class='comma'>,</span> <span class='op'>&amp;</span><span class='id identifier rubyid_block'>block</span><span class='rparen'>)</span>
+
+    <span class='ivar'>@shell</span> <span class='op'>=</span> <span class='const'>Bovem</span><span class='op'>::</span><span class='const'>Shell</span><span class='period'>.</span><span class='id identifier rubyid_instance'>instance</span>
+    <span class='ivar'>@console</span> <span class='op'>=</span> <span class='ivar'>@shell</span><span class='period'>.</span><span class='id identifier rubyid_console'>console</span>
+    <span class='ivar'>@skip_commands</span> <span class='op'>=</span> <span class='kw'>false</span>
+    <span class='ivar'>@show_commands</span> <span class='op'>=</span> <span class='kw'>false</span>
+    <span class='ivar'>@output_commands</span> <span class='op'>=</span> <span class='kw'>false</span>
+
+    <span class='id identifier rubyid_help_option'>help_option</span>
+  <span class='kw'>end</span>
+
+  <span class='comment'># Reads and optionally sets the version of this application.
+</span>  <span class='comment'>#
+</span>  <span class='comment'># @param value [String|nil] The new version of this application.
+</span>  <span class='comment'># @return [String|nil] The version of this application.
+</span>  <span class='kw'>def</span> <span class='id identifier rubyid_version'>version</span><span class='lparen'>(</span><span class='id identifier rubyid_value'>value</span> <span class='op'>=</span> <span class='kw'>nil</span><span class='rparen'>)</span>
+    <span class='ivar'>@version</span> <span class='op'>=</span> <span class='id identifier rubyid_value'>value</span><span class='period'>.</span><span class='id identifier rubyid_ensure_string'>ensure_string</span> <span class='kw'>if</span> <span class='op'>!</span><span class='id identifier rubyid_value'>value</span><span class='period'>.</span><span class='id identifier rubyid_nil?'>nil?</span>
+    <span class='ivar'>@version</span>
+  <span class='kw'>end</span>
+
+  <span class='comment'># Executes this application.
+</span>  <span class='comment'>#
+</span>  <span class='comment'># @param args [Array] The command line to pass to this application. Defaults to `ARGV`.
+</span>  <span class='kw'>def</span> <span class='id identifier rubyid_execute'>execute</span><span class='lparen'>(</span><span class='id identifier rubyid_args'>args</span> <span class='op'>=</span> <span class='kw'>nil</span><span class='rparen'>)</span>
+    <span class='kw'>super</span><span class='lparen'>(</span><span class='id identifier rubyid_args'>args</span> <span class='op'>||</span> <span class='const'>ARGV</span><span class='rparen'>)</span>
+  <span class='kw'>end</span>
+
+  <span class='comment'># Adds a help command and a help option to this application.
+</span>  <span class='kw'>def</span> <span class='id identifier rubyid_help_option'>help_option</span>
+    <span class='id identifier rubyid_command'>command</span><span class='lparen'>(</span><span class='symbol'>:help</span><span class='comma'>,</span> <span class='label'>description:</span> <span class='id identifier rubyid_i18n'>i18n</span><span class='period'>.</span><span class='id identifier rubyid_help_command_description'>help_command_description</span><span class='rparen'>)</span> <span class='kw'>do</span>
+      <span class='id identifier rubyid_action'>action</span> <span class='lbrace'>{</span> <span class='op'>|</span><span class='id identifier rubyid_command'>command</span><span class='op'>|</span> <span class='id identifier rubyid_application'>application</span><span class='period'>.</span><span class='id identifier rubyid_command_help'>command_help</span><span class='lparen'>(</span><span class='id identifier rubyid_command'>command</span><span class='rparen'>)</span> <span class='rbrace'>}</span>
+    <span class='kw'>end</span>
+
+    <span class='id identifier rubyid_option'>option</span><span class='lparen'>(</span><span class='symbol'>:help</span><span class='comma'>,</span> <span class='lbracket'>[</span><span class='id identifier rubyid_i18n'>i18n</span><span class='period'>.</span><span class='id identifier rubyid_help_option_short_form'>help_option_short_form</span><span class='comma'>,</span> <span class='id identifier rubyid_i18n'>i18n</span><span class='period'>.</span><span class='id identifier rubyid_help_option_long_form'>help_option_long_form</span><span class='rbracket'>]</span><span class='comma'>,</span> <span class='label'>help:</span> <span class='id identifier rubyid_i18n'>i18n</span><span class='period'>.</span><span class='id identifier rubyid_help_message'>help_message</span><span class='rparen'>)</span><span class='lbrace'>{</span> <span class='op'>|</span><span class='id identifier rubyid_application'>application</span><span class='comma'>,</span> <span class='id identifier rubyid__'>_</span><span class='op'>|</span> <span class='id identifier rubyid_application'>application</span><span class='period'>.</span><span class='id identifier rubyid_show_help'>show_help</span> <span class='rbrace'>}</span>
+  <span class='kw'>end</span>
+
+  <span class='comment'># The name of the current executable.
+</span>  <span class='comment'>#
+</span>  <span class='comment'># @return [String] The name of the current executable.
+</span>  <span class='kw'>def</span> <span class='id identifier rubyid_executable_name'>executable_name</span>
+    <span class='gvar'>$0</span>
+  <span class='kw'>end</span>
+
+  <span class='comment'># Shows a help about a command.
+</span>  <span class='comment'>#
+</span>  <span class='comment'># @param command [Command] The command to show help for.
+</span>  <span class='kw'>def</span> <span class='id identifier rubyid_command_help'>command_help</span><span class='lparen'>(</span><span class='id identifier rubyid_command'>command</span><span class='rparen'>)</span>
+    <span class='id identifier rubyid_fetch_commands_for_help'>fetch_commands_for_help</span><span class='lparen'>(</span><span class='id identifier rubyid_command'>command</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_each'>each</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_arg'>arg</span><span class='op'>|</span>
+      <span class='comment'># Find the command across
+</span>      <span class='id identifier rubyid_next_command'>next_command</span> <span class='op'>=</span> <span class='const'>Bovem</span><span class='op'>::</span><span class='const'>Parser</span><span class='period'>.</span><span class='id identifier rubyid_find_command'>find_command</span><span class='lparen'>(</span><span class='id identifier rubyid_arg'>arg</span><span class='comma'>,</span> <span class='id identifier rubyid_command'>command</span><span class='comma'>,</span> <span class='lbracket'>[</span><span class='rbracket'>]</span><span class='rparen'>)</span>
+
+      <span class='kw'>if</span> <span class='id identifier rubyid_next_command'>next_command</span> <span class='kw'>then</span>
+        <span class='id identifier rubyid_command'>command</span> <span class='op'>=</span> <span class='id identifier rubyid_command'>command</span><span class='period'>.</span><span class='id identifier rubyid_commands'>commands</span><span class='lbracket'>[</span><span class='id identifier rubyid_next_command'>next_command</span><span class='lbracket'>[</span><span class='symbol'>:name</span><span class='rbracket'>]</span><span class='rbracket'>]</span>
+      <span class='kw'>else</span>
+        <span class='kw'>break</span>
+      <span class='kw'>end</span>
+    <span class='kw'>end</span>
+
+    <span class='id identifier rubyid_command'>command</span><span class='period'>.</span><span class='id identifier rubyid_show_help'>show_help</span>
+  <span class='kw'>end</span>
+
+  <span class='comment'># Runs a command into the shell.
+</span>  <span class='comment'>#
+</span>  <span class='comment'># @param command [String] The string to run.
+</span>  <span class='comment'># @param message [String] A message to show before running.
+</span>  <span class='comment'># @param show_exit [Boolean] If show the exit status.
+</span>  <span class='comment'># @param fatal [Boolean] If quit in case of fatal errors.
+</span>  <span class='comment'># @return [Hash] An hash with `status` and `output` keys.
+</span>  <span class='kw'>def</span> <span class='id identifier rubyid_run'>run</span><span class='lparen'>(</span><span class='id identifier rubyid_command'>command</span><span class='comma'>,</span> <span class='id identifier rubyid_message'>message</span> <span class='op'>=</span> <span class='kw'>nil</span><span class='comma'>,</span> <span class='id identifier rubyid_show_exit'>show_exit</span> <span class='op'>=</span> <span class='kw'>true</span><span class='comma'>,</span> <span class='id identifier rubyid_fatal'>fatal</span> <span class='op'>=</span> <span class='kw'>true</span><span class='rparen'>)</span>
+    <span class='ivar'>@shell</span><span class='period'>.</span><span class='id identifier rubyid_run'>run</span><span class='lparen'>(</span><span class='id identifier rubyid_command'>command</span><span class='comma'>,</span> <span class='id identifier rubyid_message'>message</span><span class='comma'>,</span> <span class='op'>!</span><span class='ivar'>@skip_commands</span><span class='comma'>,</span> <span class='id identifier rubyid_show_exit'>show_exit</span><span class='comma'>,</span> <span class='ivar'>@output_commands</span><span class='comma'>,</span> <span class='ivar'>@show_commands</span><span class='comma'>,</span> <span class='id identifier rubyid_fatal'>fatal</span><span class='rparen'>)</span>
+  <span class='kw'>end</span>
+
+  <span class='id identifier rubyid_private'>private</span>
+    <span class='comment'># Setup options for application creation.
+</span>    <span class='comment'>#
+</span>    <span class='comment'># @param options [Hash] The options to setups.
+</span>    <span class='comment'># @return [Array] If to run the application, the arguments and the specified options.
+</span>    <span class='kw'>def</span> <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_setup_application_option'>setup_application_option</span><span class='lparen'>(</span><span class='id identifier rubyid_options'>options</span><span class='rparen'>)</span>
+      <span class='id identifier rubyid_options'>options</span> <span class='op'>=</span> <span class='lbrace'>{</span><span class='label'>name:</span> <span class='const'>Bovem</span><span class='op'>::</span><span class='const'>Localizer</span><span class='period'>.</span><span class='id identifier rubyid_localize_on_locale'>localize_on_locale</span><span class='lparen'>(</span><span class='id identifier rubyid_options'>options</span><span class='lbracket'>[</span><span class='symbol'>:locale</span><span class='rbracket'>]</span><span class='comma'>,</span> <span class='symbol'>:default_application_name</span><span class='rparen'>)</span><span class='comma'>,</span> <span class='label'>parent:</span> <span class='kw'>nil</span><span class='comma'>,</span> <span class='label'>application:</span> <span class='kw'>nil</span><span class='rbrace'>}</span><span class='period'>.</span><span class='id identifier rubyid_merge'>merge</span><span class='lparen'>(</span><span class='id identifier rubyid_options'>options</span><span class='period'>.</span><span class='id identifier rubyid_ensure_hash'>ensure_hash</span><span class='rparen'>)</span>
+      <span class='id identifier rubyid_run'>run</span> <span class='op'>=</span> <span class='id identifier rubyid_options'>options</span><span class='period'>.</span><span class='id identifier rubyid_delete'>delete</span><span class='lparen'>(</span><span class='symbol'>:run</span><span class='rparen'>)</span>
+      <span class='lbracket'>[</span><span class='lparen'>(</span><span class='op'>!</span><span class='id identifier rubyid_run'>run</span><span class='period'>.</span><span class='id identifier rubyid_nil?'>nil?</span> <span class='op'>?</span> <span class='id identifier rubyid_run'>run</span> <span class='op'>:</span> <span class='kw'>true</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_to_boolean'>to_boolean</span><span class='comma'>,</span> <span class='id identifier rubyid_options'>options</span><span class='period'>.</span><span class='id identifier rubyid_delete'>delete</span><span class='lparen'>(</span><span class='symbol'>:__args__</span><span class='rparen'>)</span><span class='comma'>,</span> <span class='id identifier rubyid_options'>options</span><span class='rbracket'>]</span>
+    <span class='kw'>end</span>
+
+    <span class='comment'># Create the application.
+</span>    <span class='comment'>#
+</span>    <span class='comment'># @param run [Boolean ]If to run the application.
+</span>    <span class='comment'># @param args [Hash] The arguments to use for running.
+</span>    <span class='comment'># @param options [Hash] The options of the application.
+</span>    <span class='comment'># @return [Application] The new application.
+</span>    <span class='kw'>def</span> <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_create_application'>create_application</span><span class='lparen'>(</span><span class='id identifier rubyid_run'>run</span><span class='comma'>,</span> <span class='id identifier rubyid_args'>args</span><span class='comma'>,</span> <span class='id identifier rubyid_options'>options</span><span class='comma'>,</span> <span class='op'>&amp;</span><span class='id identifier rubyid_block'>block</span><span class='rparen'>)</span>
+      <span class='id identifier rubyid_application'>application</span> <span class='op'>=</span> <span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='id identifier rubyid_options'>options</span><span class='comma'>,</span> <span class='op'>&amp;</span><span class='id identifier rubyid_block'>block</span><span class='rparen'>)</span>
+      <span class='id identifier rubyid_application'>application</span><span class='period'>.</span><span class='id identifier rubyid_execute'>execute</span><span class='lparen'>(</span><span class='id identifier rubyid_args'>args</span><span class='rparen'>)</span> <span class='kw'>if</span> <span class='id identifier rubyid_application'>application</span> <span class='op'>&amp;&amp;</span> <span class='id identifier rubyid_run'>run</span>
+      <span class='id identifier rubyid_application'>application</span>
+    <span class='kw'>end</span>
+
+    <span class='comment'># Fetch a command list for showing help.
+</span>    <span class='comment'>#
+</span>    <span class='comment'># @param command [Command] The command to show help for.
+</span>    <span class='kw'>def</span> <span class='id identifier rubyid_fetch_commands_for_help'>fetch_commands_for_help</span><span class='lparen'>(</span><span class='id identifier rubyid_command'>command</span><span class='rparen'>)</span>
+      <span class='id identifier rubyid_command'>command</span><span class='period'>.</span><span class='id identifier rubyid_arguments'>arguments</span><span class='period'>.</span><span class='id identifier rubyid_map'>map</span> <span class='lbrace'>{</span><span class='op'>|</span><span class='id identifier rubyid_c'>c</span><span class='op'>|</span> <span class='id identifier rubyid_c'>c</span><span class='period'>.</span><span class='id identifier rubyid_split'>split</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>:</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span> <span class='rbrace'>}</span><span class='period'>.</span><span class='id identifier rubyid_flatten'>flatten</span><span class='period'>.</span><span class='id identifier rubyid_map'>map</span><span class='lparen'>(</span><span class='op'>&amp;</span><span class='symbol'>:strip</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_select'>select</span><span class='lparen'>(</span><span class='op'>&amp;</span><span class='symbol'>:present?</span><span class='rparen'>)</span>
+    <span class='kw'>end</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      
+      <span id="show_commands=-instance_method"></span>
+      <div class="method_details ">
+  <h3 class="signature " id="show_commands-instance_method">
+  
+    - (<tt>Boolean</tt>) <strong>show_commands</strong> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    <p>Returns If to show command lines run via <span class='object_link'><a href="#run-instance_method" title="Bovem::Application#run (method)">#run</a></span>.</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>Boolean</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'><p>If to show command lines run via <span class='object_link'><a href="#run-instance_method" title="Bovem::Application#run (method)">#run</a></span>.</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48
+49
+50
+51
+52
+53
+54
+55
+56
+57
+58
+59
+60
+61
+62
+63
+64
+65
+66
+67
+68
+69
+70
+71
+72
+73
+74
+75
+76
+77
+78
+79
+80
+81
+82
+83
+84
+85
+86
+87
+88
+89
+90
+91
+92
+93
+94
+95
+96
+97
+98
+99
+100
+101
+102
+103
+104
+105
+106
+107
+108
+109
+110
+111
+112
+113
+114
+115
+116
+117
+118
+119
+120
+121
+122
+123
+124
+125
+126
+127
+128
+129
+130
+131
+132
+133
+134
+135
+136
+137
+138
+139
+140
+141
+142
+143
+144
+145
+146
+147
+148
+149
+150
+151
+152
+153
+154
+155
+156
+157</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/bovem/application.rb', line 24</span>
+
+<span class='kw'>class</span> <span class='const'>Application</span> <span class='op'>&lt;</span> <span class='const'>Bovem</span><span class='op'>::</span><span class='const'>Command</span>
+  <span class='id identifier rubyid_attr_accessor'>attr_accessor</span> <span class='symbol'>:version</span>
+  <span class='id identifier rubyid_attr_accessor'>attr_accessor</span> <span class='symbol'>:shell</span>
+  <span class='id identifier rubyid_attr_accessor'>attr_accessor</span> <span class='symbol'>:console</span>
+  <span class='id identifier rubyid_attr_accessor'>attr_accessor</span> <span class='symbol'>:skip_commands</span>
+  <span class='id identifier rubyid_attr_accessor'>attr_accessor</span> <span class='symbol'>:show_commands</span>
+  <span class='id identifier rubyid_attr_accessor'>attr_accessor</span> <span class='symbol'>:output_commands</span>
+
+  <span class='comment'># Initializes a new Bovem application.
+</span>  <span class='comment'>#
+</span>  <span class='comment'># In options, you can override the command line arguments with `:__args__`, and you can skip execution by specifying `run: false`.
+</span>  <span class='comment'>#
+</span>  <span class='comment'># @see Command#setup_with
+</span>  <span class='comment'>#
+</span>  <span class='comment'># @param options [Hash] The settings to initialize the application with.
+</span>  <span class='comment'># @return [Application] The created application.
+</span>  <span class='kw'>def</span> <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_create'>create</span><span class='lparen'>(</span><span class='id identifier rubyid_options'>options</span> <span class='op'>=</span> <span class='lbrace'>{</span><span class='rbrace'>}</span><span class='comma'>,</span> <span class='op'>&amp;</span><span class='id identifier rubyid_block'>block</span><span class='rparen'>)</span>
+    <span class='id identifier rubyid_raise'>raise</span> <span class='const'>Bovem</span><span class='op'>::</span><span class='const'>Errors</span><span class='op'>::</span><span class='const'>Error</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='const'>Bovem</span><span class='op'>::</span><span class='const'>Application</span><span class='comma'>,</span> <span class='symbol'>:missing_block</span><span class='comma'>,</span> <span class='const'>Bovem</span><span class='op'>::</span><span class='const'>Localizer</span><span class='period'>.</span><span class='id identifier rubyid_localize_on_locale'>localize_on_locale</span><span class='lparen'>(</span><span class='id identifier rubyid_options'>options</span><span class='lbracket'>[</span><span class='symbol'>:locale</span><span class='rbracket'>]</span><span class='comma'>,</span> <span class='symbol'>:missing_app_block</span><span class='rparen'>)</span><span class='rparen'>)</span> <span class='kw'>if</span> <span class='op'>!</span><span class='id identifier rubyid_block_given?'>block_given?</span>
+    <span class='id identifier rubyid_run'>run</span><span class='comma'>,</span> <span class='id identifier rubyid_args'>args</span><span class='comma'>,</span> <span class='id identifier rubyid_options'>options</span> <span class='op'>=</span> <span class='id identifier rubyid_setup_application_option'>setup_application_option</span><span class='lparen'>(</span><span class='id identifier rubyid_options'>options</span><span class='rparen'>)</span>
+
+    <span class='kw'>begin</span>
+      <span class='id identifier rubyid_create_application'>create_application</span><span class='lparen'>(</span><span class='id identifier rubyid_run'>run</span><span class='comma'>,</span> <span class='id identifier rubyid_args'>args</span><span class='comma'>,</span> <span class='id identifier rubyid_options'>options</span><span class='comma'>,</span> <span class='op'>&amp;</span><span class='id identifier rubyid_block'>block</span><span class='rparen'>)</span>
+    <span class='kw'>rescue</span> <span class='op'>=&gt;</span> <span class='id identifier rubyid_e'>e</span>
+      <span class='const'>Kernel</span><span class='period'>.</span><span class='id identifier rubyid_puts'>puts</span><span class='lparen'>(</span><span class='id identifier rubyid_e'>e</span><span class='period'>.</span><span class='id identifier rubyid_to_s'>to_s</span><span class='rparen'>)</span>
+      <span class='const'>Kernel</span><span class='period'>.</span><span class='id identifier rubyid_exit'>exit</span><span class='lparen'>(</span><span class='int'>1</span><span class='rparen'>)</span>
+    <span class='kw'>end</span>
+  <span class='kw'>end</span>
+
+  <span class='comment'># Creates a new application.
+</span>  <span class='comment'>#
+</span>  <span class='comment'># @param options [Hash] The settings to initialize the application with.
+</span>  <span class='kw'>def</span> <span class='id identifier rubyid_initialize'>initialize</span><span class='lparen'>(</span><span class='id identifier rubyid_options'>options</span> <span class='op'>=</span> <span class='lbrace'>{</span><span class='rbrace'>}</span><span class='comma'>,</span> <span class='op'>&amp;</span><span class='id identifier rubyid_block'>block</span><span class='rparen'>)</span>
+    <span class='kw'>super</span><span class='lparen'>(</span><span class='id identifier rubyid_options'>options</span><span class='comma'>,</span> <span class='op'>&amp;</span><span class='id identifier rubyid_block'>block</span><span class='rparen'>)</span>
+
+    <span class='ivar'>@shell</span> <span class='op'>=</span> <span class='const'>Bovem</span><span class='op'>::</span><span class='const'>Shell</span><span class='period'>.</span><span class='id identifier rubyid_instance'>instance</span>
+    <span class='ivar'>@console</span> <span class='op'>=</span> <span class='ivar'>@shell</span><span class='period'>.</span><span class='id identifier rubyid_console'>console</span>
+    <span class='ivar'>@skip_commands</span> <span class='op'>=</span> <span class='kw'>false</span>
+    <span class='ivar'>@show_commands</span> <span class='op'>=</span> <span class='kw'>false</span>
+    <span class='ivar'>@output_commands</span> <span class='op'>=</span> <span class='kw'>false</span>
+
+    <span class='id identifier rubyid_help_option'>help_option</span>
+  <span class='kw'>end</span>
+
+  <span class='comment'># Reads and optionally sets the version of this application.
+</span>  <span class='comment'>#
+</span>  <span class='comment'># @param value [String|nil] The new version of this application.
+</span>  <span class='comment'># @return [String|nil] The version of this application.
+</span>  <span class='kw'>def</span> <span class='id identifier rubyid_version'>version</span><span class='lparen'>(</span><span class='id identifier rubyid_value'>value</span> <span class='op'>=</span> <span class='kw'>nil</span><span class='rparen'>)</span>
+    <span class='ivar'>@version</span> <span class='op'>=</span> <span class='id identifier rubyid_value'>value</span><span class='period'>.</span><span class='id identifier rubyid_ensure_string'>ensure_string</span> <span class='kw'>if</span> <span class='op'>!</span><span class='id identifier rubyid_value'>value</span><span class='period'>.</span><span class='id identifier rubyid_nil?'>nil?</span>
+    <span class='ivar'>@version</span>
+  <span class='kw'>end</span>
+
+  <span class='comment'># Executes this application.
+</span>  <span class='comment'>#
+</span>  <span class='comment'># @param args [Array] The command line to pass to this application. Defaults to `ARGV`.
+</span>  <span class='kw'>def</span> <span class='id identifier rubyid_execute'>execute</span><span class='lparen'>(</span><span class='id identifier rubyid_args'>args</span> <span class='op'>=</span> <span class='kw'>nil</span><span class='rparen'>)</span>
+    <span class='kw'>super</span><span class='lparen'>(</span><span class='id identifier rubyid_args'>args</span> <span class='op'>||</span> <span class='const'>ARGV</span><span class='rparen'>)</span>
+  <span class='kw'>end</span>
+
+  <span class='comment'># Adds a help command and a help option to this application.
+</span>  <span class='kw'>def</span> <span class='id identifier rubyid_help_option'>help_option</span>
+    <span class='id identifier rubyid_command'>command</span><span class='lparen'>(</span><span class='symbol'>:help</span><span class='comma'>,</span> <span class='label'>description:</span> <span class='id identifier rubyid_i18n'>i18n</span><span class='period'>.</span><span class='id identifier rubyid_help_command_description'>help_command_description</span><span class='rparen'>)</span> <span class='kw'>do</span>
+      <span class='id identifier rubyid_action'>action</span> <span class='lbrace'>{</span> <span class='op'>|</span><span class='id identifier rubyid_command'>command</span><span class='op'>|</span> <span class='id identifier rubyid_application'>application</span><span class='period'>.</span><span class='id identifier rubyid_command_help'>command_help</span><span class='lparen'>(</span><span class='id identifier rubyid_command'>command</span><span class='rparen'>)</span> <span class='rbrace'>}</span>
+    <span class='kw'>end</span>
+
+    <span class='id identifier rubyid_option'>option</span><span class='lparen'>(</span><span class='symbol'>:help</span><span class='comma'>,</span> <span class='lbracket'>[</span><span class='id identifier rubyid_i18n'>i18n</span><span class='period'>.</span><span class='id identifier rubyid_help_option_short_form'>help_option_short_form</span><span class='comma'>,</span> <span class='id identifier rubyid_i18n'>i18n</span><span class='period'>.</span><span class='id identifier rubyid_help_option_long_form'>help_option_long_form</span><span class='rbracket'>]</span><span class='comma'>,</span> <span class='label'>help:</span> <span class='id identifier rubyid_i18n'>i18n</span><span class='period'>.</span><span class='id identifier rubyid_help_message'>help_message</span><span class='rparen'>)</span><span class='lbrace'>{</span> <span class='op'>|</span><span class='id identifier rubyid_application'>application</span><span class='comma'>,</span> <span class='id identifier rubyid__'>_</span><span class='op'>|</span> <span class='id identifier rubyid_application'>application</span><span class='period'>.</span><span class='id identifier rubyid_show_help'>show_help</span> <span class='rbrace'>}</span>
+  <span class='kw'>end</span>
+
+  <span class='comment'># The name of the current executable.
+</span>  <span class='comment'>#
+</span>  <span class='comment'># @return [String] The name of the current executable.
+</span>  <span class='kw'>def</span> <span class='id identifier rubyid_executable_name'>executable_name</span>
+    <span class='gvar'>$0</span>
+  <span class='kw'>end</span>
+
+  <span class='comment'># Shows a help about a command.
+</span>  <span class='comment'>#
+</span>  <span class='comment'># @param command [Command] The command to show help for.
+</span>  <span class='kw'>def</span> <span class='id identifier rubyid_command_help'>command_help</span><span class='lparen'>(</span><span class='id identifier rubyid_command'>command</span><span class='rparen'>)</span>
+    <span class='id identifier rubyid_fetch_commands_for_help'>fetch_commands_for_help</span><span class='lparen'>(</span><span class='id identifier rubyid_command'>command</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_each'>each</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_arg'>arg</span><span class='op'>|</span>
+      <span class='comment'># Find the command across
+</span>      <span class='id identifier rubyid_next_command'>next_command</span> <span class='op'>=</span> <span class='const'>Bovem</span><span class='op'>::</span><span class='const'>Parser</span><span class='period'>.</span><span class='id identifier rubyid_find_command'>find_command</span><span class='lparen'>(</span><span class='id identifier rubyid_arg'>arg</span><span class='comma'>,</span> <span class='id identifier rubyid_command'>command</span><span class='comma'>,</span> <span class='lbracket'>[</span><span class='rbracket'>]</span><span class='rparen'>)</span>
+
+      <span class='kw'>if</span> <span class='id identifier rubyid_next_command'>next_command</span> <span class='kw'>then</span>
+        <span class='id identifier rubyid_command'>command</span> <span class='op'>=</span> <span class='id identifier rubyid_command'>command</span><span class='period'>.</span><span class='id identifier rubyid_commands'>commands</span><span class='lbracket'>[</span><span class='id identifier rubyid_next_command'>next_command</span><span class='lbracket'>[</span><span class='symbol'>:name</span><span class='rbracket'>]</span><span class='rbracket'>]</span>
+      <span class='kw'>else</span>
+        <span class='kw'>break</span>
+      <span class='kw'>end</span>
+    <span class='kw'>end</span>
+
+    <span class='id identifier rubyid_command'>command</span><span class='period'>.</span><span class='id identifier rubyid_show_help'>show_help</span>
+  <span class='kw'>end</span>
+
+  <span class='comment'># Runs a command into the shell.
+</span>  <span class='comment'>#
+</span>  <span class='comment'># @param command [String] The string to run.
+</span>  <span class='comment'># @param message [String] A message to show before running.
+</span>  <span class='comment'># @param show_exit [Boolean] If show the exit status.
+</span>  <span class='comment'># @param fatal [Boolean] If quit in case of fatal errors.
+</span>  <span class='comment'># @return [Hash] An hash with `status` and `output` keys.
+</span>  <span class='kw'>def</span> <span class='id identifier rubyid_run'>run</span><span class='lparen'>(</span><span class='id identifier rubyid_command'>command</span><span class='comma'>,</span> <span class='id identifier rubyid_message'>message</span> <span class='op'>=</span> <span class='kw'>nil</span><span class='comma'>,</span> <span class='id identifier rubyid_show_exit'>show_exit</span> <span class='op'>=</span> <span class='kw'>true</span><span class='comma'>,</span> <span class='id identifier rubyid_fatal'>fatal</span> <span class='op'>=</span> <span class='kw'>true</span><span class='rparen'>)</span>
+    <span class='ivar'>@shell</span><span class='period'>.</span><span class='id identifier rubyid_run'>run</span><span class='lparen'>(</span><span class='id identifier rubyid_command'>command</span><span class='comma'>,</span> <span class='id identifier rubyid_message'>message</span><span class='comma'>,</span> <span class='op'>!</span><span class='ivar'>@skip_commands</span><span class='comma'>,</span> <span class='id identifier rubyid_show_exit'>show_exit</span><span class='comma'>,</span> <span class='ivar'>@output_commands</span><span class='comma'>,</span> <span class='ivar'>@show_commands</span><span class='comma'>,</span> <span class='id identifier rubyid_fatal'>fatal</span><span class='rparen'>)</span>
+  <span class='kw'>end</span>
+
+  <span class='id identifier rubyid_private'>private</span>
+    <span class='comment'># Setup options for application creation.
+</span>    <span class='comment'>#
+</span>    <span class='comment'># @param options [Hash] The options to setups.
+</span>    <span class='comment'># @return [Array] If to run the application, the arguments and the specified options.
+</span>    <span class='kw'>def</span> <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_setup_application_option'>setup_application_option</span><span class='lparen'>(</span><span class='id identifier rubyid_options'>options</span><span class='rparen'>)</span>
+      <span class='id identifier rubyid_options'>options</span> <span class='op'>=</span> <span class='lbrace'>{</span><span class='label'>name:</span> <span class='const'>Bovem</span><span class='op'>::</span><span class='const'>Localizer</span><span class='period'>.</span><span class='id identifier rubyid_localize_on_locale'>localize_on_locale</span><span class='lparen'>(</span><span class='id identifier rubyid_options'>options</span><span class='lbracket'>[</span><span class='symbol'>:locale</span><span class='rbracket'>]</span><span class='comma'>,</span> <span class='symbol'>:default_application_name</span><span class='rparen'>)</span><span class='comma'>,</span> <span class='label'>parent:</span> <span class='kw'>nil</span><span class='comma'>,</span> <span class='label'>application:</span> <span class='kw'>nil</span><span class='rbrace'>}</span><span class='period'>.</span><span class='id identifier rubyid_merge'>merge</span><span class='lparen'>(</span><span class='id identifier rubyid_options'>options</span><span class='period'>.</span><span class='id identifier rubyid_ensure_hash'>ensure_hash</span><span class='rparen'>)</span>
+      <span class='id identifier rubyid_run'>run</span> <span class='op'>=</span> <span class='id identifier rubyid_options'>options</span><span class='period'>.</span><span class='id identifier rubyid_delete'>delete</span><span class='lparen'>(</span><span class='symbol'>:run</span><span class='rparen'>)</span>
+      <span class='lbracket'>[</span><span class='lparen'>(</span><span class='op'>!</span><span class='id identifier rubyid_run'>run</span><span class='period'>.</span><span class='id identifier rubyid_nil?'>nil?</span> <span class='op'>?</span> <span class='id identifier rubyid_run'>run</span> <span class='op'>:</span> <span class='kw'>true</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_to_boolean'>to_boolean</span><span class='comma'>,</span> <span class='id identifier rubyid_options'>options</span><span class='period'>.</span><span class='id identifier rubyid_delete'>delete</span><span class='lparen'>(</span><span class='symbol'>:__args__</span><span class='rparen'>)</span><span class='comma'>,</span> <span class='id identifier rubyid_options'>options</span><span class='rbracket'>]</span>
+    <span class='kw'>end</span>
+
+    <span class='comment'># Create the application.
+</span>    <span class='comment'>#
+</span>    <span class='comment'># @param run [Boolean ]If to run the application.
+</span>    <span class='comment'># @param args [Hash] The arguments to use for running.
+</span>    <span class='comment'># @param options [Hash] The options of the application.
+</span>    <span class='comment'># @return [Application] The new application.
+</span>    <span class='kw'>def</span> <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_create_application'>create_application</span><span class='lparen'>(</span><span class='id identifier rubyid_run'>run</span><span class='comma'>,</span> <span class='id identifier rubyid_args'>args</span><span class='comma'>,</span> <span class='id identifier rubyid_options'>options</span><span class='comma'>,</span> <span class='op'>&amp;</span><span class='id identifier rubyid_block'>block</span><span class='rparen'>)</span>
+      <span class='id identifier rubyid_application'>application</span> <span class='op'>=</span> <span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='id identifier rubyid_options'>options</span><span class='comma'>,</span> <span class='op'>&amp;</span><span class='id identifier rubyid_block'>block</span><span class='rparen'>)</span>
+      <span class='id identifier rubyid_application'>application</span><span class='period'>.</span><span class='id identifier rubyid_execute'>execute</span><span class='lparen'>(</span><span class='id identifier rubyid_args'>args</span><span class='rparen'>)</span> <span class='kw'>if</span> <span class='id identifier rubyid_application'>application</span> <span class='op'>&amp;&amp;</span> <span class='id identifier rubyid_run'>run</span>
+      <span class='id identifier rubyid_application'>application</span>
+    <span class='kw'>end</span>
+
+    <span class='comment'># Fetch a command list for showing help.
+</span>    <span class='comment'>#
+</span>    <span class='comment'># @param command [Command] The command to show help for.
+</span>    <span class='kw'>def</span> <span class='id identifier rubyid_fetch_commands_for_help'>fetch_commands_for_help</span><span class='lparen'>(</span><span class='id identifier rubyid_command'>command</span><span class='rparen'>)</span>
+      <span class='id identifier rubyid_command'>command</span><span class='period'>.</span><span class='id identifier rubyid_arguments'>arguments</span><span class='period'>.</span><span class='id identifier rubyid_map'>map</span> <span class='lbrace'>{</span><span class='op'>|</span><span class='id identifier rubyid_c'>c</span><span class='op'>|</span> <span class='id identifier rubyid_c'>c</span><span class='period'>.</span><span class='id identifier rubyid_split'>split</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>:</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span> <span class='rbrace'>}</span><span class='period'>.</span><span class='id identifier rubyid_flatten'>flatten</span><span class='period'>.</span><span class='id identifier rubyid_map'>map</span><span class='lparen'>(</span><span class='op'>&amp;</span><span class='symbol'>:strip</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_select'>select</span><span class='lparen'>(</span><span class='op'>&amp;</span><span class='symbol'>:present?</span><span class='rparen'>)</span>
+    <span class='kw'>end</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      
+      <span id="skip_commands=-instance_method"></span>
+      <div class="method_details ">
+  <h3 class="signature " id="skip_commands-instance_method">
+  
+    - (<tt>Boolean</tt>) <strong>skip_commands</strong> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    <p>Returns If to skip commands run via <span class='object_link'><a href="#run-instance_method" title="Bovem::Application#run (method)">#run</a></span>.</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>Boolean</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'><p>If to skip commands run via <span class='object_link'><a href="#run-instance_method" title="Bovem::Application#run (method)">#run</a></span>.</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48
+49
+50
+51
+52
+53
+54
+55
+56
+57
+58
+59
+60
+61
+62
+63
+64
+65
+66
+67
+68
+69
+70
+71
+72
+73
+74
+75
+76
+77
+78
+79
+80
+81
+82
+83
+84
+85
+86
+87
+88
+89
+90
+91
+92
+93
+94
+95
+96
+97
+98
+99
+100
+101
+102
+103
+104
+105
+106
+107
+108
+109
+110
+111
+112
+113
+114
+115
+116
+117
+118
+119
+120
+121
+122
+123
+124
+125
+126
+127
+128
+129
+130
+131
+132
+133
+134
+135
+136
+137
+138
+139
+140
+141
+142
+143
+144
+145
+146
+147
+148
+149
+150
+151
+152
+153
+154
+155
+156
+157</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/bovem/application.rb', line 24</span>
+
+<span class='kw'>class</span> <span class='const'>Application</span> <span class='op'>&lt;</span> <span class='const'>Bovem</span><span class='op'>::</span><span class='const'>Command</span>
+  <span class='id identifier rubyid_attr_accessor'>attr_accessor</span> <span class='symbol'>:version</span>
+  <span class='id identifier rubyid_attr_accessor'>attr_accessor</span> <span class='symbol'>:shell</span>
+  <span class='id identifier rubyid_attr_accessor'>attr_accessor</span> <span class='symbol'>:console</span>
+  <span class='id identifier rubyid_attr_accessor'>attr_accessor</span> <span class='symbol'>:skip_commands</span>
+  <span class='id identifier rubyid_attr_accessor'>attr_accessor</span> <span class='symbol'>:show_commands</span>
+  <span class='id identifier rubyid_attr_accessor'>attr_accessor</span> <span class='symbol'>:output_commands</span>
+
+  <span class='comment'># Initializes a new Bovem application.
+</span>  <span class='comment'>#
+</span>  <span class='comment'># In options, you can override the command line arguments with `:__args__`, and you can skip execution by specifying `run: false`.
+</span>  <span class='comment'>#
+</span>  <span class='comment'># @see Command#setup_with
+</span>  <span class='comment'>#
+</span>  <span class='comment'># @param options [Hash] The settings to initialize the application with.
+</span>  <span class='comment'># @return [Application] The created application.
+</span>  <span class='kw'>def</span> <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_create'>create</span><span class='lparen'>(</span><span class='id identifier rubyid_options'>options</span> <span class='op'>=</span> <span class='lbrace'>{</span><span class='rbrace'>}</span><span class='comma'>,</span> <span class='op'>&amp;</span><span class='id identifier rubyid_block'>block</span><span class='rparen'>)</span>
+    <span class='id identifier rubyid_raise'>raise</span> <span class='const'>Bovem</span><span class='op'>::</span><span class='const'>Errors</span><span class='op'>::</span><span class='const'>Error</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='const'>Bovem</span><span class='op'>::</span><span class='const'>Application</span><span class='comma'>,</span> <span class='symbol'>:missing_block</span><span class='comma'>,</span> <span class='const'>Bovem</span><span class='op'>::</span><span class='const'>Localizer</span><span class='period'>.</span><span class='id identifier rubyid_localize_on_locale'>localize_on_locale</span><span class='lparen'>(</span><span class='id identifier rubyid_options'>options</span><span class='lbracket'>[</span><span class='symbol'>:locale</span><span class='rbracket'>]</span><span class='comma'>,</span> <span class='symbol'>:missing_app_block</span><span class='rparen'>)</span><span class='rparen'>)</span> <span class='kw'>if</span> <span class='op'>!</span><span class='id identifier rubyid_block_given?'>block_given?</span>
+    <span class='id identifier rubyid_run'>run</span><span class='comma'>,</span> <span class='id identifier rubyid_args'>args</span><span class='comma'>,</span> <span class='id identifier rubyid_options'>options</span> <span class='op'>=</span> <span class='id identifier rubyid_setup_application_option'>setup_application_option</span><span class='lparen'>(</span><span class='id identifier rubyid_options'>options</span><span class='rparen'>)</span>
+
+    <span class='kw'>begin</span>
+      <span class='id identifier rubyid_create_application'>create_application</span><span class='lparen'>(</span><span class='id identifier rubyid_run'>run</span><span class='comma'>,</span> <span class='id identifier rubyid_args'>args</span><span class='comma'>,</span> <span class='id identifier rubyid_options'>options</span><span class='comma'>,</span> <span class='op'>&amp;</span><span class='id identifier rubyid_block'>block</span><span class='rparen'>)</span>
+    <span class='kw'>rescue</span> <span class='op'>=&gt;</span> <span class='id identifier rubyid_e'>e</span>
+      <span class='const'>Kernel</span><span class='period'>.</span><span class='id identifier rubyid_puts'>puts</span><span class='lparen'>(</span><span class='id identifier rubyid_e'>e</span><span class='period'>.</span><span class='id identifier rubyid_to_s'>to_s</span><span class='rparen'>)</span>
+      <span class='const'>Kernel</span><span class='period'>.</span><span class='id identifier rubyid_exit'>exit</span><span class='lparen'>(</span><span class='int'>1</span><span class='rparen'>)</span>
+    <span class='kw'>end</span>
+  <span class='kw'>end</span>
+
+  <span class='comment'># Creates a new application.
+</span>  <span class='comment'>#
+</span>  <span class='comment'># @param options [Hash] The settings to initialize the application with.
+</span>  <span class='kw'>def</span> <span class='id identifier rubyid_initialize'>initialize</span><span class='lparen'>(</span><span class='id identifier rubyid_options'>options</span> <span class='op'>=</span> <span class='lbrace'>{</span><span class='rbrace'>}</span><span class='comma'>,</span> <span class='op'>&amp;</span><span class='id identifier rubyid_block'>block</span><span class='rparen'>)</span>
+    <span class='kw'>super</span><span class='lparen'>(</span><span class='id identifier rubyid_options'>options</span><span class='comma'>,</span> <span class='op'>&amp;</span><span class='id identifier rubyid_block'>block</span><span class='rparen'>)</span>
+
+    <span class='ivar'>@shell</span> <span class='op'>=</span> <span class='const'>Bovem</span><span class='op'>::</span><span class='const'>Shell</span><span class='period'>.</span><span class='id identifier rubyid_instance'>instance</span>
+    <span class='ivar'>@console</span> <span class='op'>=</span> <span class='ivar'>@shell</span><span class='period'>.</span><span class='id identifier rubyid_console'>console</span>
+    <span class='ivar'>@skip_commands</span> <span class='op'>=</span> <span class='kw'>false</span>
+    <span class='ivar'>@show_commands</span> <span class='op'>=</span> <span class='kw'>false</span>
+    <span class='ivar'>@output_commands</span> <span class='op'>=</span> <span class='kw'>false</span>
+
+    <span class='id identifier rubyid_help_option'>help_option</span>
+  <span class='kw'>end</span>
+
+  <span class='comment'># Reads and optionally sets the version of this application.
+</span>  <span class='comment'>#
+</span>  <span class='comment'># @param value [String|nil] The new version of this application.
+</span>  <span class='comment'># @return [String|nil] The version of this application.
+</span>  <span class='kw'>def</span> <span class='id identifier rubyid_version'>version</span><span class='lparen'>(</span><span class='id identifier rubyid_value'>value</span> <span class='op'>=</span> <span class='kw'>nil</span><span class='rparen'>)</span>
+    <span class='ivar'>@version</span> <span class='op'>=</span> <span class='id identifier rubyid_value'>value</span><span class='period'>.</span><span class='id identifier rubyid_ensure_string'>ensure_string</span> <span class='kw'>if</span> <span class='op'>!</span><span class='id identifier rubyid_value'>value</span><span class='period'>.</span><span class='id identifier rubyid_nil?'>nil?</span>
+    <span class='ivar'>@version</span>
+  <span class='kw'>end</span>
+
+  <span class='comment'># Executes this application.
+</span>  <span class='comment'>#
+</span>  <span class='comment'># @param args [Array] The command line to pass to this application. Defaults to `ARGV`.
+</span>  <span class='kw'>def</span> <span class='id identifier rubyid_execute'>execute</span><span class='lparen'>(</span><span class='id identifier rubyid_args'>args</span> <span class='op'>=</span> <span class='kw'>nil</span><span class='rparen'>)</span>
+    <span class='kw'>super</span><span class='lparen'>(</span><span class='id identifier rubyid_args'>args</span> <span class='op'>||</span> <span class='const'>ARGV</span><span class='rparen'>)</span>
+  <span class='kw'>end</span>
+
+  <span class='comment'># Adds a help command and a help option to this application.
+</span>  <span class='kw'>def</span> <span class='id identifier rubyid_help_option'>help_option</span>
+    <span class='id identifier rubyid_command'>command</span><span class='lparen'>(</span><span class='symbol'>:help</span><span class='comma'>,</span> <span class='label'>description:</span> <span class='id identifier rubyid_i18n'>i18n</span><span class='period'>.</span><span class='id identifier rubyid_help_command_description'>help_command_description</span><span class='rparen'>)</span> <span class='kw'>do</span>
+      <span class='id identifier rubyid_action'>action</span> <span class='lbrace'>{</span> <span class='op'>|</span><span class='id identifier rubyid_command'>command</span><span class='op'>|</span> <span class='id identifier rubyid_application'>application</span><span class='period'>.</span><span class='id identifier rubyid_command_help'>command_help</span><span class='lparen'>(</span><span class='id identifier rubyid_command'>command</span><span class='rparen'>)</span> <span class='rbrace'>}</span>
+    <span class='kw'>end</span>
+
+    <span class='id identifier rubyid_option'>option</span><span class='lparen'>(</span><span class='symbol'>:help</span><span class='comma'>,</span> <span class='lbracket'>[</span><span class='id identifier rubyid_i18n'>i18n</span><span class='period'>.</span><span class='id identifier rubyid_help_option_short_form'>help_option_short_form</span><span class='comma'>,</span> <span class='id identifier rubyid_i18n'>i18n</span><span class='period'>.</span><span class='id identifier rubyid_help_option_long_form'>help_option_long_form</span><span class='rbracket'>]</span><span class='comma'>,</span> <span class='label'>help:</span> <span class='id identifier rubyid_i18n'>i18n</span><span class='period'>.</span><span class='id identifier rubyid_help_message'>help_message</span><span class='rparen'>)</span><span class='lbrace'>{</span> <span class='op'>|</span><span class='id identifier rubyid_application'>application</span><span class='comma'>,</span> <span class='id identifier rubyid__'>_</span><span class='op'>|</span> <span class='id identifier rubyid_application'>application</span><span class='period'>.</span><span class='id identifier rubyid_show_help'>show_help</span> <span class='rbrace'>}</span>
+  <span class='kw'>end</span>
+
+  <span class='comment'># The name of the current executable.
+</span>  <span class='comment'>#
+</span>  <span class='comment'># @return [String] The name of the current executable.
+</span>  <span class='kw'>def</span> <span class='id identifier rubyid_executable_name'>executable_name</span>
+    <span class='gvar'>$0</span>
+  <span class='kw'>end</span>
+
+  <span class='comment'># Shows a help about a command.
+</span>  <span class='comment'>#
+</span>  <span class='comment'># @param command [Command] The command to show help for.
+</span>  <span class='kw'>def</span> <span class='id identifier rubyid_command_help'>command_help</span><span class='lparen'>(</span><span class='id identifier rubyid_command'>command</span><span class='rparen'>)</span>
+    <span class='id identifier rubyid_fetch_commands_for_help'>fetch_commands_for_help</span><span class='lparen'>(</span><span class='id identifier rubyid_command'>command</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_each'>each</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_arg'>arg</span><span class='op'>|</span>
+      <span class='comment'># Find the command across
+</span>      <span class='id identifier rubyid_next_command'>next_command</span> <span class='op'>=</span> <span class='const'>Bovem</span><span class='op'>::</span><span class='const'>Parser</span><span class='period'>.</span><span class='id identifier rubyid_find_command'>find_command</span><span class='lparen'>(</span><span class='id identifier rubyid_arg'>arg</span><span class='comma'>,</span> <span class='id identifier rubyid_command'>command</span><span class='comma'>,</span> <span class='lbracket'>[</span><span class='rbracket'>]</span><span class='rparen'>)</span>
+
+      <span class='kw'>if</span> <span class='id identifier rubyid_next_command'>next_command</span> <span class='kw'>then</span>
+        <span class='id identifier rubyid_command'>command</span> <span class='op'>=</span> <span class='id identifier rubyid_command'>command</span><span class='period'>.</span><span class='id identifier rubyid_commands'>commands</span><span class='lbracket'>[</span><span class='id identifier rubyid_next_command'>next_command</span><span class='lbracket'>[</span><span class='symbol'>:name</span><span class='rbracket'>]</span><span class='rbracket'>]</span>
+      <span class='kw'>else</span>
+        <span class='kw'>break</span>
+      <span class='kw'>end</span>
+    <span class='kw'>end</span>
+
+    <span class='id identifier rubyid_command'>command</span><span class='period'>.</span><span class='id identifier rubyid_show_help'>show_help</span>
+  <span class='kw'>end</span>
+
+  <span class='comment'># Runs a command into the shell.
+</span>  <span class='comment'>#
+</span>  <span class='comment'># @param command [String] The string to run.
+</span>  <span class='comment'># @param message [String] A message to show before running.
+</span>  <span class='comment'># @param show_exit [Boolean] If show the exit status.
+</span>  <span class='comment'># @param fatal [Boolean] If quit in case of fatal errors.
+</span>  <span class='comment'># @return [Hash] An hash with `status` and `output` keys.
+</span>  <span class='kw'>def</span> <span class='id identifier rubyid_run'>run</span><span class='lparen'>(</span><span class='id identifier rubyid_command'>command</span><span class='comma'>,</span> <span class='id identifier rubyid_message'>message</span> <span class='op'>=</span> <span class='kw'>nil</span><span class='comma'>,</span> <span class='id identifier rubyid_show_exit'>show_exit</span> <span class='op'>=</span> <span class='kw'>true</span><span class='comma'>,</span> <span class='id identifier rubyid_fatal'>fatal</span> <span class='op'>=</span> <span class='kw'>true</span><span class='rparen'>)</span>
+    <span class='ivar'>@shell</span><span class='period'>.</span><span class='id identifier rubyid_run'>run</span><span class='lparen'>(</span><span class='id identifier rubyid_command'>command</span><span class='comma'>,</span> <span class='id identifier rubyid_message'>message</span><span class='comma'>,</span> <span class='op'>!</span><span class='ivar'>@skip_commands</span><span class='comma'>,</span> <span class='id identifier rubyid_show_exit'>show_exit</span><span class='comma'>,</span> <span class='ivar'>@output_commands</span><span class='comma'>,</span> <span class='ivar'>@show_commands</span><span class='comma'>,</span> <span class='id identifier rubyid_fatal'>fatal</span><span class='rparen'>)</span>
+  <span class='kw'>end</span>
+
+  <span class='id identifier rubyid_private'>private</span>
+    <span class='comment'># Setup options for application creation.
+</span>    <span class='comment'>#
+</span>    <span class='comment'># @param options [Hash] The options to setups.
+</span>    <span class='comment'># @return [Array] If to run the application, the arguments and the specified options.
+</span>    <span class='kw'>def</span> <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_setup_application_option'>setup_application_option</span><span class='lparen'>(</span><span class='id identifier rubyid_options'>options</span><span class='rparen'>)</span>
+      <span class='id identifier rubyid_options'>options</span> <span class='op'>=</span> <span class='lbrace'>{</span><span class='label'>name:</span> <span class='const'>Bovem</span><span class='op'>::</span><span class='const'>Localizer</span><span class='period'>.</span><span class='id identifier rubyid_localize_on_locale'>localize_on_locale</span><span class='lparen'>(</span><span class='id identifier rubyid_options'>options</span><span class='lbracket'>[</span><span class='symbol'>:locale</span><span class='rbracket'>]</span><span class='comma'>,</span> <span class='symbol'>:default_application_name</span><span class='rparen'>)</span><span class='comma'>,</span> <span class='label'>parent:</span> <span class='kw'>nil</span><span class='comma'>,</span> <span class='label'>application:</span> <span class='kw'>nil</span><span class='rbrace'>}</span><span class='period'>.</span><span class='id identifier rubyid_merge'>merge</span><span class='lparen'>(</span><span class='id identifier rubyid_options'>options</span><span class='period'>.</span><span class='id identifier rubyid_ensure_hash'>ensure_hash</span><span class='rparen'>)</span>
+      <span class='id identifier rubyid_run'>run</span> <span class='op'>=</span> <span class='id identifier rubyid_options'>options</span><span class='period'>.</span><span class='id identifier rubyid_delete'>delete</span><span class='lparen'>(</span><span class='symbol'>:run</span><span class='rparen'>)</span>
+      <span class='lbracket'>[</span><span class='lparen'>(</span><span class='op'>!</span><span class='id identifier rubyid_run'>run</span><span class='period'>.</span><span class='id identifier rubyid_nil?'>nil?</span> <span class='op'>?</span> <span class='id identifier rubyid_run'>run</span> <span class='op'>:</span> <span class='kw'>true</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_to_boolean'>to_boolean</span><span class='comma'>,</span> <span class='id identifier rubyid_options'>options</span><span class='period'>.</span><span class='id identifier rubyid_delete'>delete</span><span class='lparen'>(</span><span class='symbol'>:__args__</span><span class='rparen'>)</span><span class='comma'>,</span> <span class='id identifier rubyid_options'>options</span><span class='rbracket'>]</span>
+    <span class='kw'>end</span>
+
+    <span class='comment'># Create the application.
+</span>    <span class='comment'>#
+</span>    <span class='comment'># @param run [Boolean ]If to run the application.
+</span>    <span class='comment'># @param args [Hash] The arguments to use for running.
+</span>    <span class='comment'># @param options [Hash] The options of the application.
+</span>    <span class='comment'># @return [Application] The new application.
+</span>    <span class='kw'>def</span> <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_create_application'>create_application</span><span class='lparen'>(</span><span class='id identifier rubyid_run'>run</span><span class='comma'>,</span> <span class='id identifier rubyid_args'>args</span><span class='comma'>,</span> <span class='id identifier rubyid_options'>options</span><span class='comma'>,</span> <span class='op'>&amp;</span><span class='id identifier rubyid_block'>block</span><span class='rparen'>)</span>
+      <span class='id identifier rubyid_application'>application</span> <span class='op'>=</span> <span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='id identifier rubyid_options'>options</span><span class='comma'>,</span> <span class='op'>&amp;</span><span class='id identifier rubyid_block'>block</span><span class='rparen'>)</span>
+      <span class='id identifier rubyid_application'>application</span><span class='period'>.</span><span class='id identifier rubyid_execute'>execute</span><span class='lparen'>(</span><span class='id identifier rubyid_args'>args</span><span class='rparen'>)</span> <span class='kw'>if</span> <span class='id identifier rubyid_application'>application</span> <span class='op'>&amp;&amp;</span> <span class='id identifier rubyid_run'>run</span>
+      <span class='id identifier rubyid_application'>application</span>
+    <span class='kw'>end</span>
+
+    <span class='comment'># Fetch a command list for showing help.
+</span>    <span class='comment'>#
+</span>    <span class='comment'># @param command [Command] The command to show help for.
+</span>    <span class='kw'>def</span> <span class='id identifier rubyid_fetch_commands_for_help'>fetch_commands_for_help</span><span class='lparen'>(</span><span class='id identifier rubyid_command'>command</span><span class='rparen'>)</span>
+      <span class='id identifier rubyid_command'>command</span><span class='period'>.</span><span class='id identifier rubyid_arguments'>arguments</span><span class='period'>.</span><span class='id identifier rubyid_map'>map</span> <span class='lbrace'>{</span><span class='op'>|</span><span class='id identifier rubyid_c'>c</span><span class='op'>|</span> <span class='id identifier rubyid_c'>c</span><span class='period'>.</span><span class='id identifier rubyid_split'>split</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>:</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span> <span class='rbrace'>}</span><span class='period'>.</span><span class='id identifier rubyid_flatten'>flatten</span><span class='period'>.</span><span class='id identifier rubyid_map'>map</span><span class='lparen'>(</span><span class='op'>&amp;</span><span class='symbol'>:strip</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_select'>select</span><span class='lparen'>(</span><span class='op'>&amp;</span><span class='symbol'>:present?</span><span class='rparen'>)</span>
+    <span class='kw'>end</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      
+      <span id="version=-instance_method"></span>
+      <div class="method_details ">
+  <h3 class="signature " id="version-instance_method">
+  
+    - (<tt>String|nil</tt>) <strong>version</strong>(value = nil) 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    <p>Reads and optionally sets the version of this application.</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  <p class="tag_title">Parameters:</p>
+<ul class="param">
+  
+    <li>
+      
+        <span class='name'>value</span>
+      
+      
+        <span class='type'>(<tt>String|nil</tt>)</span>
+      
+      
+        <em class="default">(defaults to: <tt>nil</tt>)</em>
+      
+      
+        &mdash;
+        <div class='inline'><p>The new version of this application.</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>String|nil</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'><p>The version of this application.</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48
+49
+50
+51
+52
+53
+54
+55
+56
+57
+58
+59
+60
+61
+62
+63
+64
+65
+66
+67
+68
+69
+70
+71
+72
+73
+74
+75
+76
+77
+78
+79
+80
+81
+82
+83
+84
+85
+86
+87
+88
+89
+90
+91
+92
+93
+94
+95
+96
+97
+98
+99
+100
+101
+102
+103
+104
+105
+106
+107
+108
+109
+110
+111
+112
+113
+114
+115
+116
+117
+118
+119
+120
+121
+122
+123
+124
+125
+126
+127
+128
+129
+130
+131
+132
+133
+134
+135
+136
+137
+138
+139
+140
+141
+142
+143
+144
+145
+146
+147
+148
+149
+150
+151
+152
+153
+154
+155
+156
+157</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/bovem/application.rb', line 24</span>
+
+<span class='kw'>class</span> <span class='const'>Application</span> <span class='op'>&lt;</span> <span class='const'>Bovem</span><span class='op'>::</span><span class='const'>Command</span>
+  <span class='id identifier rubyid_attr_accessor'>attr_accessor</span> <span class='symbol'>:version</span>
+  <span class='id identifier rubyid_attr_accessor'>attr_accessor</span> <span class='symbol'>:shell</span>
+  <span class='id identifier rubyid_attr_accessor'>attr_accessor</span> <span class='symbol'>:console</span>
+  <span class='id identifier rubyid_attr_accessor'>attr_accessor</span> <span class='symbol'>:skip_commands</span>
+  <span class='id identifier rubyid_attr_accessor'>attr_accessor</span> <span class='symbol'>:show_commands</span>
+  <span class='id identifier rubyid_attr_accessor'>attr_accessor</span> <span class='symbol'>:output_commands</span>
+
+  <span class='comment'># Initializes a new Bovem application.
+</span>  <span class='comment'>#
+</span>  <span class='comment'># In options, you can override the command line arguments with `:__args__`, and you can skip execution by specifying `run: false`.
+</span>  <span class='comment'>#
+</span>  <span class='comment'># @see Command#setup_with
+</span>  <span class='comment'>#
+</span>  <span class='comment'># @param options [Hash] The settings to initialize the application with.
+</span>  <span class='comment'># @return [Application] The created application.
+</span>  <span class='kw'>def</span> <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_create'>create</span><span class='lparen'>(</span><span class='id identifier rubyid_options'>options</span> <span class='op'>=</span> <span class='lbrace'>{</span><span class='rbrace'>}</span><span class='comma'>,</span> <span class='op'>&amp;</span><span class='id identifier rubyid_block'>block</span><span class='rparen'>)</span>
+    <span class='id identifier rubyid_raise'>raise</span> <span class='const'>Bovem</span><span class='op'>::</span><span class='const'>Errors</span><span class='op'>::</span><span class='const'>Error</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='const'>Bovem</span><span class='op'>::</span><span class='const'>Application</span><span class='comma'>,</span> <span class='symbol'>:missing_block</span><span class='comma'>,</span> <span class='const'>Bovem</span><span class='op'>::</span><span class='const'>Localizer</span><span class='period'>.</span><span class='id identifier rubyid_localize_on_locale'>localize_on_locale</span><span class='lparen'>(</span><span class='id identifier rubyid_options'>options</span><span class='lbracket'>[</span><span class='symbol'>:locale</span><span class='rbracket'>]</span><span class='comma'>,</span> <span class='symbol'>:missing_app_block</span><span class='rparen'>)</span><span class='rparen'>)</span> <span class='kw'>if</span> <span class='op'>!</span><span class='id identifier rubyid_block_given?'>block_given?</span>
+    <span class='id identifier rubyid_run'>run</span><span class='comma'>,</span> <span class='id identifier rubyid_args'>args</span><span class='comma'>,</span> <span class='id identifier rubyid_options'>options</span> <span class='op'>=</span> <span class='id identifier rubyid_setup_application_option'>setup_application_option</span><span class='lparen'>(</span><span class='id identifier rubyid_options'>options</span><span class='rparen'>)</span>
+
+    <span class='kw'>begin</span>
+      <span class='id identifier rubyid_create_application'>create_application</span><span class='lparen'>(</span><span class='id identifier rubyid_run'>run</span><span class='comma'>,</span> <span class='id identifier rubyid_args'>args</span><span class='comma'>,</span> <span class='id identifier rubyid_options'>options</span><span class='comma'>,</span> <span class='op'>&amp;</span><span class='id identifier rubyid_block'>block</span><span class='rparen'>)</span>
+    <span class='kw'>rescue</span> <span class='op'>=&gt;</span> <span class='id identifier rubyid_e'>e</span>
+      <span class='const'>Kernel</span><span class='period'>.</span><span class='id identifier rubyid_puts'>puts</span><span class='lparen'>(</span><span class='id identifier rubyid_e'>e</span><span class='period'>.</span><span class='id identifier rubyid_to_s'>to_s</span><span class='rparen'>)</span>
+      <span class='const'>Kernel</span><span class='period'>.</span><span class='id identifier rubyid_exit'>exit</span><span class='lparen'>(</span><span class='int'>1</span><span class='rparen'>)</span>
+    <span class='kw'>end</span>
+  <span class='kw'>end</span>
+
+  <span class='comment'># Creates a new application.
+</span>  <span class='comment'>#
+</span>  <span class='comment'># @param options [Hash] The settings to initialize the application with.
+</span>  <span class='kw'>def</span> <span class='id identifier rubyid_initialize'>initialize</span><span class='lparen'>(</span><span class='id identifier rubyid_options'>options</span> <span class='op'>=</span> <span class='lbrace'>{</span><span class='rbrace'>}</span><span class='comma'>,</span> <span class='op'>&amp;</span><span class='id identifier rubyid_block'>block</span><span class='rparen'>)</span>
+    <span class='kw'>super</span><span class='lparen'>(</span><span class='id identifier rubyid_options'>options</span><span class='comma'>,</span> <span class='op'>&amp;</span><span class='id identifier rubyid_block'>block</span><span class='rparen'>)</span>
+
+    <span class='ivar'>@shell</span> <span class='op'>=</span> <span class='const'>Bovem</span><span class='op'>::</span><span class='const'>Shell</span><span class='period'>.</span><span class='id identifier rubyid_instance'>instance</span>
+    <span class='ivar'>@console</span> <span class='op'>=</span> <span class='ivar'>@shell</span><span class='period'>.</span><span class='id identifier rubyid_console'>console</span>
+    <span class='ivar'>@skip_commands</span> <span class='op'>=</span> <span class='kw'>false</span>
+    <span class='ivar'>@show_commands</span> <span class='op'>=</span> <span class='kw'>false</span>
+    <span class='ivar'>@output_commands</span> <span class='op'>=</span> <span class='kw'>false</span>
+
+    <span class='id identifier rubyid_help_option'>help_option</span>
+  <span class='kw'>end</span>
+
+  <span class='comment'># Reads and optionally sets the version of this application.
+</span>  <span class='comment'>#
+</span>  <span class='comment'># @param value [String|nil] The new version of this application.
+</span>  <span class='comment'># @return [String|nil] The version of this application.
+</span>  <span class='kw'>def</span> <span class='id identifier rubyid_version'>version</span><span class='lparen'>(</span><span class='id identifier rubyid_value'>value</span> <span class='op'>=</span> <span class='kw'>nil</span><span class='rparen'>)</span>
+    <span class='ivar'>@version</span> <span class='op'>=</span> <span class='id identifier rubyid_value'>value</span><span class='period'>.</span><span class='id identifier rubyid_ensure_string'>ensure_string</span> <span class='kw'>if</span> <span class='op'>!</span><span class='id identifier rubyid_value'>value</span><span class='period'>.</span><span class='id identifier rubyid_nil?'>nil?</span>
+    <span class='ivar'>@version</span>
+  <span class='kw'>end</span>
+
+  <span class='comment'># Executes this application.
+</span>  <span class='comment'>#
+</span>  <span class='comment'># @param args [Array] The command line to pass to this application. Defaults to `ARGV`.
+</span>  <span class='kw'>def</span> <span class='id identifier rubyid_execute'>execute</span><span class='lparen'>(</span><span class='id identifier rubyid_args'>args</span> <span class='op'>=</span> <span class='kw'>nil</span><span class='rparen'>)</span>
+    <span class='kw'>super</span><span class='lparen'>(</span><span class='id identifier rubyid_args'>args</span> <span class='op'>||</span> <span class='const'>ARGV</span><span class='rparen'>)</span>
+  <span class='kw'>end</span>
+
+  <span class='comment'># Adds a help command and a help option to this application.
+</span>  <span class='kw'>def</span> <span class='id identifier rubyid_help_option'>help_option</span>
+    <span class='id identifier rubyid_command'>command</span><span class='lparen'>(</span><span class='symbol'>:help</span><span class='comma'>,</span> <span class='label'>description:</span> <span class='id identifier rubyid_i18n'>i18n</span><span class='period'>.</span><span class='id identifier rubyid_help_command_description'>help_command_description</span><span class='rparen'>)</span> <span class='kw'>do</span>
+      <span class='id identifier rubyid_action'>action</span> <span class='lbrace'>{</span> <span class='op'>|</span><span class='id identifier rubyid_command'>command</span><span class='op'>|</span> <span class='id identifier rubyid_application'>application</span><span class='period'>.</span><span class='id identifier rubyid_command_help'>command_help</span><span class='lparen'>(</span><span class='id identifier rubyid_command'>command</span><span class='rparen'>)</span> <span class='rbrace'>}</span>
+    <span class='kw'>end</span>
+
+    <span class='id identifier rubyid_option'>option</span><span class='lparen'>(</span><span class='symbol'>:help</span><span class='comma'>,</span> <span class='lbracket'>[</span><span class='id identifier rubyid_i18n'>i18n</span><span class='period'>.</span><span class='id identifier rubyid_help_option_short_form'>help_option_short_form</span><span class='comma'>,</span> <span class='id identifier rubyid_i18n'>i18n</span><span class='period'>.</span><span class='id identifier rubyid_help_option_long_form'>help_option_long_form</span><span class='rbracket'>]</span><span class='comma'>,</span> <span class='label'>help:</span> <span class='id identifier rubyid_i18n'>i18n</span><span class='period'>.</span><span class='id identifier rubyid_help_message'>help_message</span><span class='rparen'>)</span><span class='lbrace'>{</span> <span class='op'>|</span><span class='id identifier rubyid_application'>application</span><span class='comma'>,</span> <span class='id identifier rubyid__'>_</span><span class='op'>|</span> <span class='id identifier rubyid_application'>application</span><span class='period'>.</span><span class='id identifier rubyid_show_help'>show_help</span> <span class='rbrace'>}</span>
+  <span class='kw'>end</span>
+
+  <span class='comment'># The name of the current executable.
+</span>  <span class='comment'>#
+</span>  <span class='comment'># @return [String] The name of the current executable.
+</span>  <span class='kw'>def</span> <span class='id identifier rubyid_executable_name'>executable_name</span>
+    <span class='gvar'>$0</span>
+  <span class='kw'>end</span>
+
+  <span class='comment'># Shows a help about a command.
+</span>  <span class='comment'>#
+</span>  <span class='comment'># @param command [Command] The command to show help for.
+</span>  <span class='kw'>def</span> <span class='id identifier rubyid_command_help'>command_help</span><span class='lparen'>(</span><span class='id identifier rubyid_command'>command</span><span class='rparen'>)</span>
+    <span class='id identifier rubyid_fetch_commands_for_help'>fetch_commands_for_help</span><span class='lparen'>(</span><span class='id identifier rubyid_command'>command</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_each'>each</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_arg'>arg</span><span class='op'>|</span>
+      <span class='comment'># Find the command across
+</span>      <span class='id identifier rubyid_next_command'>next_command</span> <span class='op'>=</span> <span class='const'>Bovem</span><span class='op'>::</span><span class='const'>Parser</span><span class='period'>.</span><span class='id identifier rubyid_find_command'>find_command</span><span class='lparen'>(</span><span class='id identifier rubyid_arg'>arg</span><span class='comma'>,</span> <span class='id identifier rubyid_command'>command</span><span class='comma'>,</span> <span class='lbracket'>[</span><span class='rbracket'>]</span><span class='rparen'>)</span>
+
+      <span class='kw'>if</span> <span class='id identifier rubyid_next_command'>next_command</span> <span class='kw'>then</span>
+        <span class='id identifier rubyid_command'>command</span> <span class='op'>=</span> <span class='id identifier rubyid_command'>command</span><span class='period'>.</span><span class='id identifier rubyid_commands'>commands</span><span class='lbracket'>[</span><span class='id identifier rubyid_next_command'>next_command</span><span class='lbracket'>[</span><span class='symbol'>:name</span><span class='rbracket'>]</span><span class='rbracket'>]</span>
+      <span class='kw'>else</span>
+        <span class='kw'>break</span>
+      <span class='kw'>end</span>
+    <span class='kw'>end</span>
+
+    <span class='id identifier rubyid_command'>command</span><span class='period'>.</span><span class='id identifier rubyid_show_help'>show_help</span>
+  <span class='kw'>end</span>
+
+  <span class='comment'># Runs a command into the shell.
+</span>  <span class='comment'>#
+</span>  <span class='comment'># @param command [String] The string to run.
+</span>  <span class='comment'># @param message [String] A message to show before running.
+</span>  <span class='comment'># @param show_exit [Boolean] If show the exit status.
+</span>  <span class='comment'># @param fatal [Boolean] If quit in case of fatal errors.
+</span>  <span class='comment'># @return [Hash] An hash with `status` and `output` keys.
+</span>  <span class='kw'>def</span> <span class='id identifier rubyid_run'>run</span><span class='lparen'>(</span><span class='id identifier rubyid_command'>command</span><span class='comma'>,</span> <span class='id identifier rubyid_message'>message</span> <span class='op'>=</span> <span class='kw'>nil</span><span class='comma'>,</span> <span class='id identifier rubyid_show_exit'>show_exit</span> <span class='op'>=</span> <span class='kw'>true</span><span class='comma'>,</span> <span class='id identifier rubyid_fatal'>fatal</span> <span class='op'>=</span> <span class='kw'>true</span><span class='rparen'>)</span>
+    <span class='ivar'>@shell</span><span class='period'>.</span><span class='id identifier rubyid_run'>run</span><span class='lparen'>(</span><span class='id identifier rubyid_command'>command</span><span class='comma'>,</span> <span class='id identifier rubyid_message'>message</span><span class='comma'>,</span> <span class='op'>!</span><span class='ivar'>@skip_commands</span><span class='comma'>,</span> <span class='id identifier rubyid_show_exit'>show_exit</span><span class='comma'>,</span> <span class='ivar'>@output_commands</span><span class='comma'>,</span> <span class='ivar'>@show_commands</span><span class='comma'>,</span> <span class='id identifier rubyid_fatal'>fatal</span><span class='rparen'>)</span>
+  <span class='kw'>end</span>
+
+  <span class='id identifier rubyid_private'>private</span>
+    <span class='comment'># Setup options for application creation.
+</span>    <span class='comment'>#
+</span>    <span class='comment'># @param options [Hash] The options to setups.
+</span>    <span class='comment'># @return [Array] If to run the application, the arguments and the specified options.
+</span>    <span class='kw'>def</span> <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_setup_application_option'>setup_application_option</span><span class='lparen'>(</span><span class='id identifier rubyid_options'>options</span><span class='rparen'>)</span>
+      <span class='id identifier rubyid_options'>options</span> <span class='op'>=</span> <span class='lbrace'>{</span><span class='label'>name:</span> <span class='const'>Bovem</span><span class='op'>::</span><span class='const'>Localizer</span><span class='period'>.</span><span class='id identifier rubyid_localize_on_locale'>localize_on_locale</span><span class='lparen'>(</span><span class='id identifier rubyid_options'>options</span><span class='lbracket'>[</span><span class='symbol'>:locale</span><span class='rbracket'>]</span><span class='comma'>,</span> <span class='symbol'>:default_application_name</span><span class='rparen'>)</span><span class='comma'>,</span> <span class='label'>parent:</span> <span class='kw'>nil</span><span class='comma'>,</span> <span class='label'>application:</span> <span class='kw'>nil</span><span class='rbrace'>}</span><span class='period'>.</span><span class='id identifier rubyid_merge'>merge</span><span class='lparen'>(</span><span class='id identifier rubyid_options'>options</span><span class='period'>.</span><span class='id identifier rubyid_ensure_hash'>ensure_hash</span><span class='rparen'>)</span>
+      <span class='id identifier rubyid_run'>run</span> <span class='op'>=</span> <span class='id identifier rubyid_options'>options</span><span class='period'>.</span><span class='id identifier rubyid_delete'>delete</span><span class='lparen'>(</span><span class='symbol'>:run</span><span class='rparen'>)</span>
+      <span class='lbracket'>[</span><span class='lparen'>(</span><span class='op'>!</span><span class='id identifier rubyid_run'>run</span><span class='period'>.</span><span class='id identifier rubyid_nil?'>nil?</span> <span class='op'>?</span> <span class='id identifier rubyid_run'>run</span> <span class='op'>:</span> <span class='kw'>true</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_to_boolean'>to_boolean</span><span class='comma'>,</span> <span class='id identifier rubyid_options'>options</span><span class='period'>.</span><span class='id identifier rubyid_delete'>delete</span><span class='lparen'>(</span><span class='symbol'>:__args__</span><span class='rparen'>)</span><span class='comma'>,</span> <span class='id identifier rubyid_options'>options</span><span class='rbracket'>]</span>
+    <span class='kw'>end</span>
+
+    <span class='comment'># Create the application.
+</span>    <span class='comment'>#
+</span>    <span class='comment'># @param run [Boolean ]If to run the application.
+</span>    <span class='comment'># @param args [Hash] The arguments to use for running.
+</span>    <span class='comment'># @param options [Hash] The options of the application.
+</span>    <span class='comment'># @return [Application] The new application.
+</span>    <span class='kw'>def</span> <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_create_application'>create_application</span><span class='lparen'>(</span><span class='id identifier rubyid_run'>run</span><span class='comma'>,</span> <span class='id identifier rubyid_args'>args</span><span class='comma'>,</span> <span class='id identifier rubyid_options'>options</span><span class='comma'>,</span> <span class='op'>&amp;</span><span class='id identifier rubyid_block'>block</span><span class='rparen'>)</span>
+      <span class='id identifier rubyid_application'>application</span> <span class='op'>=</span> <span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='id identifier rubyid_options'>options</span><span class='comma'>,</span> <span class='op'>&amp;</span><span class='id identifier rubyid_block'>block</span><span class='rparen'>)</span>
+      <span class='id identifier rubyid_application'>application</span><span class='period'>.</span><span class='id identifier rubyid_execute'>execute</span><span class='lparen'>(</span><span class='id identifier rubyid_args'>args</span><span class='rparen'>)</span> <span class='kw'>if</span> <span class='id identifier rubyid_application'>application</span> <span class='op'>&amp;&amp;</span> <span class='id identifier rubyid_run'>run</span>
+      <span class='id identifier rubyid_application'>application</span>
+    <span class='kw'>end</span>
+
+    <span class='comment'># Fetch a command list for showing help.
+</span>    <span class='comment'>#
+</span>    <span class='comment'># @param command [Command] The command to show help for.
+</span>    <span class='kw'>def</span> <span class='id identifier rubyid_fetch_commands_for_help'>fetch_commands_for_help</span><span class='lparen'>(</span><span class='id identifier rubyid_command'>command</span><span class='rparen'>)</span>
+      <span class='id identifier rubyid_command'>command</span><span class='period'>.</span><span class='id identifier rubyid_arguments'>arguments</span><span class='period'>.</span><span class='id identifier rubyid_map'>map</span> <span class='lbrace'>{</span><span class='op'>|</span><span class='id identifier rubyid_c'>c</span><span class='op'>|</span> <span class='id identifier rubyid_c'>c</span><span class='period'>.</span><span class='id identifier rubyid_split'>split</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>:</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span> <span class='rbrace'>}</span><span class='period'>.</span><span class='id identifier rubyid_flatten'>flatten</span><span class='period'>.</span><span class='id identifier rubyid_map'>map</span><span class='lparen'>(</span><span class='op'>&amp;</span><span class='symbol'>:strip</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_select'>select</span><span class='lparen'>(</span><span class='op'>&amp;</span><span class='symbol'>:present?</span><span class='rparen'>)</span>
+    <span class='kw'>end</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+  </div>
+
+
+  <div id="class_method_details" class="method_details_list">
+    <h2>Class Method Details</h2>
+
+    
+      <div class="method_details first">
+  <h3 class="signature first" id="create-class_method">
+  
+    + (<tt><span class='object_link'><a href="" title="Bovem::Application (class)">Application</a></span></tt>) <strong>create</strong>(options = {}, &amp;block) 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    <p>Initializes a new Bovem application.</p>
+
+<p>In options, you can override the command line arguments with <code>:__args__</code>, and you can skip execution by specifying <code>run: false</code>.</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  <p class="tag_title">Parameters:</p>
+<ul class="param">
+  
+    <li>
+      
+        <span class='name'>options</span>
+      
+      
+        <span class='type'>(<tt>Hash</tt>)</span>
+      
+      
+        <em class="default">(defaults to: <tt>{}</tt>)</em>
+      
+      
+        &mdash;
+        <div class='inline'><p>The settings to initialize the application with.</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt><span class='object_link'><a href="" title="Bovem::Application (class)">Application</a></span></tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'><p>The created application.</p>
+</div>
+      
+    </li>
+  
+</ul>
+<p class="tag_title">Raises:</p>
+<ul class="raise">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt><span class='object_link'><a href="Errors/Error.html" title="Bovem::Errors::Error (class)">Bovem::Errors::Error</a></span></tt>)</span>
+      
+      
+      
+    </li>
+  
+</ul>
+
+  <p class="tag_title">See Also:</p>
+  <ul class="see">
+    
+      <li><span class='object_link'><a href="Command.html#setup_with-instance_method" title="Bovem::Command#setup_with (method)">Command#setup_with</a></span></li>
+    
+  </ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+40
+41
+42
+43
+44
+45
+46
+47
+48
+49
+50</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/bovem/application.rb', line 40</span>
+
+<span class='kw'>def</span> <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_create'>create</span><span class='lparen'>(</span><span class='id identifier rubyid_options'>options</span> <span class='op'>=</span> <span class='lbrace'>{</span><span class='rbrace'>}</span><span class='comma'>,</span> <span class='op'>&amp;</span><span class='id identifier rubyid_block'>block</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_raise'>raise</span> <span class='const'>Bovem</span><span class='op'>::</span><span class='const'>Errors</span><span class='op'>::</span><span class='const'>Error</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='const'>Bovem</span><span class='op'>::</span><span class='const'>Application</span><span class='comma'>,</span> <span class='symbol'>:missing_block</span><span class='comma'>,</span> <span class='const'>Bovem</span><span class='op'>::</span><span class='const'>Localizer</span><span class='period'>.</span><span class='id identifier rubyid_localize_on_locale'>localize_on_locale</span><span class='lparen'>(</span><span class='id identifier rubyid_options'>options</span><span class='lbracket'>[</span><span class='symbol'>:locale</span><span class='rbracket'>]</span><span class='comma'>,</span> <span class='symbol'>:missing_app_block</span><span class='rparen'>)</span><span class='rparen'>)</span> <span class='kw'>if</span> <span class='op'>!</span><span class='id identifier rubyid_block_given?'>block_given?</span>
+  <span class='id identifier rubyid_run'>run</span><span class='comma'>,</span> <span class='id identifier rubyid_args'>args</span><span class='comma'>,</span> <span class='id identifier rubyid_options'>options</span> <span class='op'>=</span> <span class='id identifier rubyid_setup_application_option'>setup_application_option</span><span class='lparen'>(</span><span class='id identifier rubyid_options'>options</span><span class='rparen'>)</span>
+
+  <span class='kw'>begin</span>
+    <span class='id identifier rubyid_create_application'>create_application</span><span class='lparen'>(</span><span class='id identifier rubyid_run'>run</span><span class='comma'>,</span> <span class='id identifier rubyid_args'>args</span><span class='comma'>,</span> <span class='id identifier rubyid_options'>options</span><span class='comma'>,</span> <span class='op'>&amp;</span><span class='id identifier rubyid_block'>block</span><span class='rparen'>)</span>
+  <span class='kw'>rescue</span> <span class='op'>=&gt;</span> <span class='id identifier rubyid_e'>e</span>
+    <span class='const'>Kernel</span><span class='period'>.</span><span class='id identifier rubyid_puts'>puts</span><span class='lparen'>(</span><span class='id identifier rubyid_e'>e</span><span class='period'>.</span><span class='id identifier rubyid_to_s'>to_s</span><span class='rparen'>)</span>
+    <span class='const'>Kernel</span><span class='period'>.</span><span class='id identifier rubyid_exit'>exit</span><span class='lparen'>(</span><span class='int'>1</span><span class='rparen'>)</span>
+  <span class='kw'>end</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+  </div>
+
+  <div id="instance_method_details" class="method_details_list">
+    <h2>Instance Method Details</h2>
+
+    
+      <div class="method_details first">
+  <h3 class="signature first" id="command_help-instance_method">
+  
+    - (<tt>Object</tt>) <strong>command_help</strong>(command) 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    <p>Shows a help about a command.</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  <p class="tag_title">Parameters:</p>
+<ul class="param">
+  
+    <li>
+      
+        <span class='name'>command</span>
+      
+      
+        <span class='type'>(<tt><span class='object_link'><a href="Command.html" title="Bovem::Command (class)">Command</a></span></tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'><p>The command to show help for.</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+102
+103
+104
+105
+106
+107
+108
+109
+110
+111
+112
+113
+114
+115</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/bovem/application.rb', line 102</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_command_help'>command_help</span><span class='lparen'>(</span><span class='id identifier rubyid_command'>command</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_fetch_commands_for_help'>fetch_commands_for_help</span><span class='lparen'>(</span><span class='id identifier rubyid_command'>command</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_each'>each</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_arg'>arg</span><span class='op'>|</span>
+    <span class='comment'># Find the command across
+</span>    <span class='id identifier rubyid_next_command'>next_command</span> <span class='op'>=</span> <span class='const'>Bovem</span><span class='op'>::</span><span class='const'>Parser</span><span class='period'>.</span><span class='id identifier rubyid_find_command'>find_command</span><span class='lparen'>(</span><span class='id identifier rubyid_arg'>arg</span><span class='comma'>,</span> <span class='id identifier rubyid_command'>command</span><span class='comma'>,</span> <span class='lbracket'>[</span><span class='rbracket'>]</span><span class='rparen'>)</span>
+
+    <span class='kw'>if</span> <span class='id identifier rubyid_next_command'>next_command</span> <span class='kw'>then</span>
+      <span class='id identifier rubyid_command'>command</span> <span class='op'>=</span> <span class='id identifier rubyid_command'>command</span><span class='period'>.</span><span class='id identifier rubyid_commands'>commands</span><span class='lbracket'>[</span><span class='id identifier rubyid_next_command'>next_command</span><span class='lbracket'>[</span><span class='symbol'>:name</span><span class='rbracket'>]</span><span class='rbracket'>]</span>
+    <span class='kw'>else</span>
+      <span class='kw'>break</span>
+    <span class='kw'>end</span>
+  <span class='kw'>end</span>
+
+  <span class='id identifier rubyid_command'>command</span><span class='period'>.</span><span class='id identifier rubyid_show_help'>show_help</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="executable_name-instance_method">
+  
+    - (<tt>String</tt>) <strong>executable_name</strong> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    <p>The name of the current executable.</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>String</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'><p>The name of the current executable.</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+95
+96
+97</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/bovem/application.rb', line 95</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_executable_name'>executable_name</span>
+  <span class='gvar'>$0</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="execute-instance_method">
+  
+    - (<tt>Object</tt>) <strong>execute</strong>(args = nil) 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    <p>Executes this application.</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  <p class="tag_title">Parameters:</p>
+<ul class="param">
+  
+    <li>
+      
+        <span class='name'>args</span>
+      
+      
+        <span class='type'>(<tt>Array</tt>)</span>
+      
+      
+        <em class="default">(defaults to: <tt>nil</tt>)</em>
+      
+      
+        &mdash;
+        <div class='inline'><p>The command line to pass to this application. Defaults to <code>ARGV</code>.</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+79
+80
+81</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/bovem/application.rb', line 79</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_execute'>execute</span><span class='lparen'>(</span><span class='id identifier rubyid_args'>args</span> <span class='op'>=</span> <span class='kw'>nil</span><span class='rparen'>)</span>
+  <span class='kw'>super</span><span class='lparen'>(</span><span class='id identifier rubyid_args'>args</span> <span class='op'>||</span> <span class='const'>ARGV</span><span class='rparen'>)</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="help_option-instance_method">
+  
+    - (<tt>Object</tt>) <strong>help_option</strong> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    <p>Adds a help command and a help option to this application.</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+84
+85
+86
+87
+88
+89
+90</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/bovem/application.rb', line 84</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_help_option'>help_option</span>
+  <span class='id identifier rubyid_command'>command</span><span class='lparen'>(</span><span class='symbol'>:help</span><span class='comma'>,</span> <span class='label'>description:</span> <span class='id identifier rubyid_i18n'>i18n</span><span class='period'>.</span><span class='id identifier rubyid_help_command_description'>help_command_description</span><span class='rparen'>)</span> <span class='kw'>do</span>
+    <span class='id identifier rubyid_action'>action</span> <span class='lbrace'>{</span> <span class='op'>|</span><span class='id identifier rubyid_command'>command</span><span class='op'>|</span> <span class='id identifier rubyid_application'>application</span><span class='period'>.</span><span class='id identifier rubyid_command_help'>command_help</span><span class='lparen'>(</span><span class='id identifier rubyid_command'>command</span><span class='rparen'>)</span> <span class='rbrace'>}</span>
+  <span class='kw'>end</span>
+
+  <span class='id identifier rubyid_option'>option</span><span class='lparen'>(</span><span class='symbol'>:help</span><span class='comma'>,</span> <span class='lbracket'>[</span><span class='id identifier rubyid_i18n'>i18n</span><span class='period'>.</span><span class='id identifier rubyid_help_option_short_form'>help_option_short_form</span><span class='comma'>,</span> <span class='id identifier rubyid_i18n'>i18n</span><span class='period'>.</span><span class='id identifier rubyid_help_option_long_form'>help_option_long_form</span><span class='rbracket'>]</span><span class='comma'>,</span> <span class='label'>help:</span> <span class='id identifier rubyid_i18n'>i18n</span><span class='period'>.</span><span class='id identifier rubyid_help_message'>help_message</span><span class='rparen'>)</span><span class='lbrace'>{</span> <span class='op'>|</span><span class='id identifier rubyid_application'>application</span><span class='comma'>,</span> <span class='id identifier rubyid__'>_</span><span class='op'>|</span> <span class='id identifier rubyid_application'>application</span><span class='period'>.</span><span class='id identifier rubyid_show_help'>show_help</span> <span class='rbrace'>}</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="run-instance_method">
+  
+    - (<tt>Hash</tt>) <strong>run</strong>(command, message = nil, show_exit = true, fatal = true) 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    <p>Runs a command into the shell.</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  <p class="tag_title">Parameters:</p>
+<ul class="param">
+  
+    <li>
+      
+        <span class='name'>command</span>
+      
+      
+        <span class='type'>(<tt>String</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'><p>The string to run.</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>message</span>
+      
+      
+        <span class='type'>(<tt>String</tt>)</span>
+      
+      
+        <em class="default">(defaults to: <tt>nil</tt>)</em>
+      
+      
+        &mdash;
+        <div class='inline'><p>A message to show before running.</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>show_exit</span>
+      
+      
+        <span class='type'>(<tt>Boolean</tt>)</span>
+      
+      
+        <em class="default">(defaults to: <tt>true</tt>)</em>
+      
+      
+        &mdash;
+        <div class='inline'><p>If show the exit status.</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>fatal</span>
+      
+      
+        <span class='type'>(<tt>Boolean</tt>)</span>
+      
+      
+        <em class="default">(defaults to: <tt>true</tt>)</em>
+      
+      
+        &mdash;
+        <div class='inline'><p>If quit in case of fatal errors.</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>Hash</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'><p>An hash with <code>status</code> and <code>output</code> keys.</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+124
+125
+126</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/bovem/application.rb', line 124</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_run'>run</span><span class='lparen'>(</span><span class='id identifier rubyid_command'>command</span><span class='comma'>,</span> <span class='id identifier rubyid_message'>message</span> <span class='op'>=</span> <span class='kw'>nil</span><span class='comma'>,</span> <span class='id identifier rubyid_show_exit'>show_exit</span> <span class='op'>=</span> <span class='kw'>true</span><span class='comma'>,</span> <span class='id identifier rubyid_fatal'>fatal</span> <span class='op'>=</span> <span class='kw'>true</span><span class='rparen'>)</span>
+  <span class='ivar'>@shell</span><span class='period'>.</span><span class='id identifier rubyid_run'>run</span><span class='lparen'>(</span><span class='id identifier rubyid_command'>command</span><span class='comma'>,</span> <span class='id identifier rubyid_message'>message</span><span class='comma'>,</span> <span class='op'>!</span><span class='ivar'>@skip_commands</span><span class='comma'>,</span> <span class='id identifier rubyid_show_exit'>show_exit</span><span class='comma'>,</span> <span class='ivar'>@output_commands</span><span class='comma'>,</span> <span class='ivar'>@show_commands</span><span class='comma'>,</span> <span class='id identifier rubyid_fatal'>fatal</span><span class='rparen'>)</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+  </div>
+
+</div>
+
+    <div id="footer">
+  Generated on Mon Sep  2 19:15:12 2013 by
+  <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
+  0.8.7 (ruby-2.0.0).
+</div>
+
+  </body>
+</html>
