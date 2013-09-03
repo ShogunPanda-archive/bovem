@@ -509,7 +509,7 @@ module Bovem
       # Assigns a hook to a command.
       #
       # @param method [String|Symbol|NilClass] The method of the application to hookup.
-      # @param block [Proc] The block to hookup if method is not provided.
+      # @param hook [Proc] The block to hookup if method is not provided.
       def assign_hook(method, &hook)
         assigned = nil
         assigned = method if method.is_a?(::String) || method.is_a?(::Symbol)
