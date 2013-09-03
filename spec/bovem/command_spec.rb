@@ -182,7 +182,7 @@ describe Bovem::Command do
       expect(command.commands).to eq({})
       command.command("subcommand1")
       command.command("subcommand2")
-      expect(command.commands.values.collect(&:name).sort).to eq(["subcommand1", "subcommand2"])
+      expect(command.commands.values.map(&:name).sort).to eq(["subcommand1", "subcommand2"])
     end
 
     it "should let access both with Symbol or String" do
@@ -223,7 +223,7 @@ describe Bovem::Command do
       expect(command.options).to eq({})
       command.option("option1")
       command.option("option2")
-      expect(command.options.values.collect(&:name).sort).to eq(["option1", "option2"])
+      expect(command.options.values.map(&:name).sort).to eq(["option1", "option2"])
     end
 
     it "should let access both with Symbol or String" do

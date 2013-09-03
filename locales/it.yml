@@ -53,6 +53,7 @@
       missing_option: "L'opzione richiesta %1 è mancante."
       invalid_value: "Il valore dell'opzione %1 deve essere uno dei seguenti valori: %2."
       invalid_for_regexp: "Il valore dell'opzione %1 deve soddisfare questa espressione regolare: %2."
+      invalid_for_proc: "Il valore dell'opzione %1 non è valido."
       help_option_short_form: "-h"
       help_option_long_form: "--help"
       help_message: "Mostra questo messaggio."

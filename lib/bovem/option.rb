@@ -229,11 +229,13 @@ module Bovem
       def handle_set_failure(vs)
         locale = @parent.i18n
 
-        if vs == "include?" then
-          raise Bovem::Errors::Error.new(self, :validation_failed, locale.invalid_value(label, Bovem::Parser.smart_join(@validator, ", ", locale.join_separator).html_safe))
-        else
-          raise Bovem::Errors::Error.new(self, :validation_failed, locale.invalid_for_regexp(label, @validator.is_a?(::Proc) ? "[FUNCTION]" : @validator.inspect))
+        message = case vs
+          when "match" then locale.invalid_for_regexp(label, @validator.inspect)
+          when "call" then locale.invalid_for_proc(label)
+          else locale.invalid_value(label, Bovem::Parser.smart_join(@validator.ensure_array, ", ", locale.join_separator).html_safe)
         end
+
+        raise Bovem::Errors::Error.new(self, :validation_failed, message)
       end
 
       # Gets the method required to verify a validator.

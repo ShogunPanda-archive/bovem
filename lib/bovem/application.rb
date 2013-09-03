@@ -152,7 +152,7 @@ module Bovem
       #
       # @param command [Command] The command to show help for.
       def fetch_commands_for_help(command)
-        command.arguments.collect {|c| c.split(":") }.flatten.collect(&:strip).select(&:present?)
+        command.arguments.map {|c| c.split(":") }.flatten.map(&:strip).select(&:present?)
       end
   end
 end

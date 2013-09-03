@@ -123,8 +123,8 @@ module Bovem
         def normalize_patterns(patterns, by_extension, case_sensitive)
           # Adjust patterns
           patterns = patterns.ensure_array(nil, true, true) {|p| p.is_a?(::Regexp) ? p : Regexp.new(Regexp.quote(p.ensure_string)) }
-          patterns = patterns.collect {|p| /(#{p.source})$/ } if by_extension
-          patterns = patterns.collect {|p| /#{p.source}/i } if !case_sensitive
+          patterns = patterns.map {|p| /(#{p.source})$/ } if by_extension
+          patterns = patterns.map {|p| /#{p.source}/i } if !case_sensitive
           patterns
         end
 
@@ -213,7 +213,7 @@ module Bovem
         def sanitize_copy_or_move(operation, src, dst)
           operation = :copy if operation != :move
           single = !src.is_a?(Array)
-          src = single ? File.expand_path(src) : src.collect {|s| File.expand_path(s) }
+          src = single ? File.expand_path(src) : src.map {|s| File.expand_path(s) }
 
           [operation, i18n.shell.send(operation), single, src, File.expand_path(dst.ensure_string)]
         end

@@ -44,7 +44,7 @@ module Bovem
         # @param styles [String] The styles to parse.
         # @return [String] A string with ANSI color codes.
         def parse_styles(styles)
-          styles.split(/\s*[\s,-]\s*/).collect { |s| parse_style(s) }.join("")
+          styles.split(/\s*[\s,-]\s*/).map { |s| parse_style(s) }.join("")
         end
 
         #
@@ -151,7 +151,7 @@ module Bovem
         else
           width = (width == true || width.to_integer < 0 ? line_width : width.to_integer)
 
-          message.split("\n").collect { |line|
+          message.split("\n").map { |line|
             line.length > width ? line.gsub(/(.{1,#{width}})(\s+|$)/, "\\1\n").strip : line
           }.join("\n")
         end
@@ -168,7 +168,7 @@ module Bovem
           width = (width.is_a?(TrueClass) ? 0 : width.to_integer)
           width = width < 0 ? -width : @indentation + width
 
-          message = message.split(newline_separator).collect {|line|
+          message = message.split(newline_separator).map {|line|
             (@indentation_string * width) + line
           }.join(newline_separator)
         end

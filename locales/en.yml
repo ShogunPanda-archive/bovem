@@ -53,6 +53,7 @@
       missing_option: "Required option %1 is missing."
       invalid_value: "Value of option %1 must be one of these values: %2."
       invalid_for_regexp: "Value of option %1 must match the regular expression: %2."
+      invalid_for_proc: "Value of option %1 is invalid."
       help_option_short_form: "-h"
       help_option_long_form: "--help"
       help_message: "Shows this message."

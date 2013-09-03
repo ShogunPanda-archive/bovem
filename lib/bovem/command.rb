@@ -77,9 +77,9 @@ module Bovem
         #
         # @return [Hash] The adjusted options for printing.
         def show_help_options_build_labels
-          options.values.inject({}) do |lefts, option|
+          options.values.reduce({}) do |lefts, option|
             left = [option.complete_short, option.complete_long]
-            left.collect!{|l| l + " " + option.meta } if option.requires_argument?
+            left.map!{|l| l + " " + option.meta } if option.requires_argument?
             lefts[left.join(", ")] = option.has_help? ? option.help : i18n.help_no_description
             lefts
           end
@@ -91,7 +91,7 @@ module Bovem
         # @param lefts [Hash] The list of adjusted options.
         # @param head [String] The option to print.
         def show_help_option(console, lefts, head)
-          alignment = lefts.keys.collect(&:length).max
+          alignment = lefts.keys.map(&:length).max
           help = lefts[head]
           console.write("%s - %s" % [head.ljust(alignment, " "), help], "\n", true, true)
         end
@@ -115,7 +115,7 @@ module Bovem
         def prepare_show_help_commands(console)
           console.write("")
           console.write(is_application? ? i18n.help_commands : i18n.help_subcommands)
-          commands.keys.collect(&:length).max
+          commands.keys.map(&:length).max
         end
 
         # Prints information about a command's subcommand.
@@ -268,7 +268,7 @@ module Bovem
         # @return [HashWithIndifferentAccess] The requested options.
         def get_current_options(unprovided, prefix, whitelist)
           rv = HashWithIndifferentAccess.new
-          whitelist = (whitelist.present? ? whitelist : options.keys).collect(&:to_s)
+          whitelist = (whitelist.present? ? whitelist : options.keys).map(&:to_s)
 
           options.each do |key, option|
             rv["#{prefix}#{key}"] = option.value if include_option?(whitelist, unprovided, key, option)
