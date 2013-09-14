@@ -5,6 +5,7 @@
 [![Build Status](https://secure.travis-ci.org/ShogunPanda/bovem.png?branch=master)](http://travis-ci.org/ShogunPanda/bovem)
 [![Code Climate](https://codeclimate.com/github/ShogunPanda/bovem.png)](https://codeclimate.com/github/ShogunPanda/bovem)
 [![Coverage Status](https://coveralls.io/repos/ShogunPanda/bovem/badge.png)](https://coveralls.io/r/ShogunPanda/bovem)
+[![Bitdeli Trend](https://d2weczhvl823v0.cloudfront.net/ShogunPanda/bovem/trend.png)](https://bitdeli.com/free "Bitdeli Badge")
 
 A command line manager and a collection of utilities for developers.
 
