@@ -9,11 +9,13 @@ require "./lib/bovem/version"
 Gem::Specification.new do |gem|
   gem.name = "bovem"
   gem.version = Bovem::Version::STRING
-  gem.authors = ["Shogun"]
-  gem.email = ["shogun@cowtech.it"]
   gem.homepage = "http://sw.cow.tc/bovem"
   gem.summary = %q{A command line manager and a collection of utilities for developers.}
   gem.description = %q{A command line manager and a collection of utilities for developers.}
+
+  gem.authors = ["Shogun"]
+  gem.email = ["shogun@cowtech.it"]
+  gem.license = "MIT"
 
   gem.rubyforge_project = "bovem"
   gem.files = `git ls-files`.split("\n")
@@ -23,6 +25,6 @@ Gem::Specification.new do |gem|
 
   gem.required_ruby_version = ">= 1.9.3"
 
-  gem.add_dependency("lazier", "~> 3.3.9")
+  gem.add_dependency("lazier", "~> 3.4.0")
   gem.add_dependency("open4", "~> 1.3.0")
 end

@@ -1202,7 +1202,7 @@
     <span class='comment'># Assigns a hook to a command.
 </span>    <span class='comment'>#
 </span>    <span class='comment'># @param method [String|Symbol|NilClass] The method of the application to hookup.
-</span>    <span class='comment'># @param block [Proc] The block to hookup if method is not provided.
+</span>    <span class='comment'># @param hook [Proc] The block to hookup if method is not provided.
 </span>    <span class='kw'>def</span> <span class='id identifier rubyid_assign_hook'>assign_hook</span><span class='lparen'>(</span><span class='id identifier rubyid_method'>method</span><span class='comma'>,</span> <span class='op'>&amp;</span><span class='id identifier rubyid_hook'>hook</span><span class='rparen'>)</span>
       <span class='id identifier rubyid_assigned'>assigned</span> <span class='op'>=</span> <span class='kw'>nil</span>
       <span class='id identifier rubyid_assigned'>assigned</span> <span class='op'>=</span> <span class='id identifier rubyid_method'>method</span> <span class='kw'>if</span> <span class='id identifier rubyid_method'>method</span><span class='period'>.</span><span class='id identifier rubyid_is_a?'>is_a?</span><span class='lparen'>(</span><span class='op'>::</span><span class='const'>String</span><span class='rparen'>)</span> <span class='op'>||</span> <span class='id identifier rubyid_method'>method</span><span class='period'>.</span><span class='id identifier rubyid_is_a?'>is_a?</span><span class='lparen'>(</span><span class='op'>::</span><span class='const'>Symbol</span><span class='rparen'>)</span>
@@ -1709,7 +1709,7 @@
     <span class='comment'># Assigns a hook to a command.
 </span>    <span class='comment'>#
 </span>    <span class='comment'># @param method [String|Symbol|NilClass] The method of the application to hookup.
-</span>    <span class='comment'># @param block [Proc] The block to hookup if method is not provided.
+</span>    <span class='comment'># @param hook [Proc] The block to hookup if method is not provided.
 </span>    <span class='kw'>def</span> <span class='id identifier rubyid_assign_hook'>assign_hook</span><span class='lparen'>(</span><span class='id identifier rubyid_method'>method</span><span class='comma'>,</span> <span class='op'>&amp;</span><span class='id identifier rubyid_hook'>hook</span><span class='rparen'>)</span>
       <span class='id identifier rubyid_assigned'>assigned</span> <span class='op'>=</span> <span class='kw'>nil</span>
       <span class='id identifier rubyid_assigned'>assigned</span> <span class='op'>=</span> <span class='id identifier rubyid_method'>method</span> <span class='kw'>if</span> <span class='id identifier rubyid_method'>method</span><span class='period'>.</span><span class='id identifier rubyid_is_a?'>is_a?</span><span class='lparen'>(</span><span class='op'>::</span><span class='const'>String</span><span class='rparen'>)</span> <span class='op'>||</span> <span class='id identifier rubyid_method'>method</span><span class='period'>.</span><span class='id identifier rubyid_is_a?'>is_a?</span><span class='lparen'>(</span><span class='op'>::</span><span class='const'>Symbol</span><span class='rparen'>)</span>
@@ -2178,7 +2178,7 @@
     <span class='comment'># Assigns a hook to a command.
 </span>    <span class='comment'>#
 </span>    <span class='comment'># @param method [String|Symbol|NilClass] The method of the application to hookup.
-</span>    <span class='comment'># @param block [Proc] The block to hookup if method is not provided.
+</span>    <span class='comment'># @param hook [Proc] The block to hookup if method is not provided.
 </span>    <span class='kw'>def</span> <span class='id identifier rubyid_assign_hook'>assign_hook</span><span class='lparen'>(</span><span class='id identifier rubyid_method'>method</span><span class='comma'>,</span> <span class='op'>&amp;</span><span class='id identifier rubyid_hook'>hook</span><span class='rparen'>)</span>
       <span class='id identifier rubyid_assigned'>assigned</span> <span class='op'>=</span> <span class='kw'>nil</span>
       <span class='id identifier rubyid_assigned'>assigned</span> <span class='op'>=</span> <span class='id identifier rubyid_method'>method</span> <span class='kw'>if</span> <span class='id identifier rubyid_method'>method</span><span class='period'>.</span><span class='id identifier rubyid_is_a?'>is_a?</span><span class='lparen'>(</span><span class='op'>::</span><span class='const'>String</span><span class='rparen'>)</span> <span class='op'>||</span> <span class='id identifier rubyid_method'>method</span><span class='period'>.</span><span class='id identifier rubyid_is_a?'>is_a?</span><span class='lparen'>(</span><span class='op'>::</span><span class='const'>Symbol</span><span class='rparen'>)</span>
@@ -2647,7 +2647,7 @@
     <span class='comment'># Assigns a hook to a command.
 </span>    <span class='comment'>#
 </span>    <span class='comment'># @param method [String|Symbol|NilClass] The method of the application to hookup.
-</span>    <span class='comment'># @param block [Proc] The block to hookup if method is not provided.
+</span>    <span class='comment'># @param hook [Proc] The block to hookup if method is not provided.
 </span>    <span class='kw'>def</span> <span class='id identifier rubyid_assign_hook'>assign_hook</span><span class='lparen'>(</span><span class='id identifier rubyid_method'>method</span><span class='comma'>,</span> <span class='op'>&amp;</span><span class='id identifier rubyid_hook'>hook</span><span class='rparen'>)</span>
       <span class='id identifier rubyid_assigned'>assigned</span> <span class='op'>=</span> <span class='kw'>nil</span>
       <span class='id identifier rubyid_assigned'>assigned</span> <span class='op'>=</span> <span class='id identifier rubyid_method'>method</span> <span class='kw'>if</span> <span class='id identifier rubyid_method'>method</span><span class='period'>.</span><span class='id identifier rubyid_is_a?'>is_a?</span><span class='lparen'>(</span><span class='op'>::</span><span class='const'>String</span><span class='rparen'>)</span> <span class='op'>||</span> <span class='id identifier rubyid_method'>method</span><span class='period'>.</span><span class='id identifier rubyid_is_a?'>is_a?</span><span class='lparen'>(</span><span class='op'>::</span><span class='const'>Symbol</span><span class='rparen'>)</span>
@@ -3137,7 +3137,7 @@
     <span class='comment'># Assigns a hook to a command.
 </span>    <span class='comment'>#
 </span>    <span class='comment'># @param method [String|Symbol|NilClass] The method of the application to hookup.
-</span>    <span class='comment'># @param block [Proc] The block to hookup if method is not provided.
+</span>    <span class='comment'># @param hook [Proc] The block to hookup if method is not provided.
 </span>    <span class='kw'>def</span> <span class='id identifier rubyid_assign_hook'>assign_hook</span><span class='lparen'>(</span><span class='id identifier rubyid_method'>method</span><span class='comma'>,</span> <span class='op'>&amp;</span><span class='id identifier rubyid_hook'>hook</span><span class='rparen'>)</span>
       <span class='id identifier rubyid_assigned'>assigned</span> <span class='op'>=</span> <span class='kw'>nil</span>
       <span class='id identifier rubyid_assigned'>assigned</span> <span class='op'>=</span> <span class='id identifier rubyid_method'>method</span> <span class='kw'>if</span> <span class='id identifier rubyid_method'>method</span><span class='period'>.</span><span class='id identifier rubyid_is_a?'>is_a?</span><span class='lparen'>(</span><span class='op'>::</span><span class='const'>String</span><span class='rparen'>)</span> <span class='op'>||</span> <span class='id identifier rubyid_method'>method</span><span class='period'>.</span><span class='id identifier rubyid_is_a?'>is_a?</span><span class='lparen'>(</span><span class='op'>::</span><span class='const'>Symbol</span><span class='rparen'>)</span>
@@ -3644,7 +3644,7 @@
     <span class='comment'># Assigns a hook to a command.
 </span>    <span class='comment'>#
 </span>    <span class='comment'># @param method [String|Symbol|NilClass] The method of the application to hookup.
-</span>    <span class='comment'># @param block [Proc] The block to hookup if method is not provided.
+</span>    <span class='comment'># @param hook [Proc] The block to hookup if method is not provided.
 </span>    <span class='kw'>def</span> <span class='id identifier rubyid_assign_hook'>assign_hook</span><span class='lparen'>(</span><span class='id identifier rubyid_method'>method</span><span class='comma'>,</span> <span class='op'>&amp;</span><span class='id identifier rubyid_hook'>hook</span><span class='rparen'>)</span>
       <span class='id identifier rubyid_assigned'>assigned</span> <span class='op'>=</span> <span class='kw'>nil</span>
       <span class='id identifier rubyid_assigned'>assigned</span> <span class='op'>=</span> <span class='id identifier rubyid_method'>method</span> <span class='kw'>if</span> <span class='id identifier rubyid_method'>method</span><span class='period'>.</span><span class='id identifier rubyid_is_a?'>is_a?</span><span class='lparen'>(</span><span class='op'>::</span><span class='const'>String</span><span class='rparen'>)</span> <span class='op'>||</span> <span class='id identifier rubyid_method'>method</span><span class='period'>.</span><span class='id identifier rubyid_is_a?'>is_a?</span><span class='lparen'>(</span><span class='op'>::</span><span class='const'>Symbol</span><span class='rparen'>)</span>
@@ -4113,7 +4113,7 @@
     <span class='comment'># Assigns a hook to a command.
 </span>    <span class='comment'>#
 </span>    <span class='comment'># @param method [String|Symbol|NilClass] The method of the application to hookup.
-</span>    <span class='comment'># @param block [Proc] The block to hookup if method is not provided.
+</span>    <span class='comment'># @param hook [Proc] The block to hookup if method is not provided.
 </span>    <span class='kw'>def</span> <span class='id identifier rubyid_assign_hook'>assign_hook</span><span class='lparen'>(</span><span class='id identifier rubyid_method'>method</span><span class='comma'>,</span> <span class='op'>&amp;</span><span class='id identifier rubyid_hook'>hook</span><span class='rparen'>)</span>
       <span class='id identifier rubyid_assigned'>assigned</span> <span class='op'>=</span> <span class='kw'>nil</span>
       <span class='id identifier rubyid_assigned'>assigned</span> <span class='op'>=</span> <span class='id identifier rubyid_method'>method</span> <span class='kw'>if</span> <span class='id identifier rubyid_method'>method</span><span class='period'>.</span><span class='id identifier rubyid_is_a?'>is_a?</span><span class='lparen'>(</span><span class='op'>::</span><span class='const'>String</span><span class='rparen'>)</span> <span class='op'>||</span> <span class='id identifier rubyid_method'>method</span><span class='period'>.</span><span class='id identifier rubyid_is_a?'>is_a?</span><span class='lparen'>(</span><span class='op'>::</span><span class='const'>Symbol</span><span class='rparen'>)</span>
@@ -4603,7 +4603,7 @@
     <span class='comment'># Assigns a hook to a command.
 </span>    <span class='comment'>#
 </span>    <span class='comment'># @param method [String|Symbol|NilClass] The method of the application to hookup.
-</span>    <span class='comment'># @param block [Proc] The block to hookup if method is not provided.
+</span>    <span class='comment'># @param hook [Proc] The block to hookup if method is not provided.
 </span>    <span class='kw'>def</span> <span class='id identifier rubyid_assign_hook'>assign_hook</span><span class='lparen'>(</span><span class='id identifier rubyid_method'>method</span><span class='comma'>,</span> <span class='op'>&amp;</span><span class='id identifier rubyid_hook'>hook</span><span class='rparen'>)</span>
       <span class='id identifier rubyid_assigned'>assigned</span> <span class='op'>=</span> <span class='kw'>nil</span>
       <span class='id identifier rubyid_assigned'>assigned</span> <span class='op'>=</span> <span class='id identifier rubyid_method'>method</span> <span class='kw'>if</span> <span class='id identifier rubyid_method'>method</span><span class='period'>.</span><span class='id identifier rubyid_is_a?'>is_a?</span><span class='lparen'>(</span><span class='op'>::</span><span class='const'>String</span><span class='rparen'>)</span> <span class='op'>||</span> <span class='id identifier rubyid_method'>method</span><span class='period'>.</span><span class='id identifier rubyid_is_a?'>is_a?</span><span class='lparen'>(</span><span class='op'>::</span><span class='const'>Symbol</span><span class='rparen'>)</span>
@@ -5093,7 +5093,7 @@
     <span class='comment'># Assigns a hook to a command.
 </span>    <span class='comment'>#
 </span>    <span class='comment'># @param method [String|Symbol|NilClass] The method of the application to hookup.
-</span>    <span class='comment'># @param block [Proc] The block to hookup if method is not provided.
+</span>    <span class='comment'># @param hook [Proc] The block to hookup if method is not provided.
 </span>    <span class='kw'>def</span> <span class='id identifier rubyid_assign_hook'>assign_hook</span><span class='lparen'>(</span><span class='id identifier rubyid_method'>method</span><span class='comma'>,</span> <span class='op'>&amp;</span><span class='id identifier rubyid_hook'>hook</span><span class='rparen'>)</span>
       <span class='id identifier rubyid_assigned'>assigned</span> <span class='op'>=</span> <span class='kw'>nil</span>
       <span class='id identifier rubyid_assigned'>assigned</span> <span class='op'>=</span> <span class='id identifier rubyid_method'>method</span> <span class='kw'>if</span> <span class='id identifier rubyid_method'>method</span><span class='period'>.</span><span class='id identifier rubyid_is_a?'>is_a?</span><span class='lparen'>(</span><span class='op'>::</span><span class='const'>String</span><span class='rparen'>)</span> <span class='op'>||</span> <span class='id identifier rubyid_method'>method</span><span class='period'>.</span><span class='id identifier rubyid_is_a?'>is_a?</span><span class='lparen'>(</span><span class='op'>::</span><span class='const'>Symbol</span><span class='rparen'>)</span>
@@ -5562,7 +5562,7 @@
     <span class='comment'># Assigns a hook to a command.
 </span>    <span class='comment'>#
 </span>    <span class='comment'># @param method [String|Symbol|NilClass] The method of the application to hookup.
-</span>    <span class='comment'># @param block [Proc] The block to hookup if method is not provided.
+</span>    <span class='comment'># @param hook [Proc] The block to hookup if method is not provided.
 </span>    <span class='kw'>def</span> <span class='id identifier rubyid_assign_hook'>assign_hook</span><span class='lparen'>(</span><span class='id identifier rubyid_method'>method</span><span class='comma'>,</span> <span class='op'>&amp;</span><span class='id identifier rubyid_hook'>hook</span><span class='rparen'>)</span>
       <span class='id identifier rubyid_assigned'>assigned</span> <span class='op'>=</span> <span class='kw'>nil</span>
       <span class='id identifier rubyid_assigned'>assigned</span> <span class='op'>=</span> <span class='id identifier rubyid_method'>method</span> <span class='kw'>if</span> <span class='id identifier rubyid_method'>method</span><span class='period'>.</span><span class='id identifier rubyid_is_a?'>is_a?</span><span class='lparen'>(</span><span class='op'>::</span><span class='const'>String</span><span class='rparen'>)</span> <span class='op'>||</span> <span class='id identifier rubyid_method'>method</span><span class='period'>.</span><span class='id identifier rubyid_is_a?'>is_a?</span><span class='lparen'>(</span><span class='op'>::</span><span class='const'>Symbol</span><span class='rparen'>)</span>
@@ -6031,7 +6031,7 @@
     <span class='comment'># Assigns a hook to a command.
 </span>    <span class='comment'>#
 </span>    <span class='comment'># @param method [String|Symbol|NilClass] The method of the application to hookup.
-</span>    <span class='comment'># @param block [Proc] The block to hookup if method is not provided.
+</span>    <span class='comment'># @param hook [Proc] The block to hookup if method is not provided.
 </span>    <span class='kw'>def</span> <span class='id identifier rubyid_assign_hook'>assign_hook</span><span class='lparen'>(</span><span class='id identifier rubyid_method'>method</span><span class='comma'>,</span> <span class='op'>&amp;</span><span class='id identifier rubyid_hook'>hook</span><span class='rparen'>)</span>
       <span class='id identifier rubyid_assigned'>assigned</span> <span class='op'>=</span> <span class='kw'>nil</span>
       <span class='id identifier rubyid_assigned'>assigned</span> <span class='op'>=</span> <span class='id identifier rubyid_method'>method</span> <span class='kw'>if</span> <span class='id identifier rubyid_method'>method</span><span class='period'>.</span><span class='id identifier rubyid_is_a?'>is_a?</span><span class='lparen'>(</span><span class='op'>::</span><span class='const'>String</span><span class='rparen'>)</span> <span class='op'>||</span> <span class='id identifier rubyid_method'>method</span><span class='period'>.</span><span class='id identifier rubyid_is_a?'>is_a?</span><span class='lparen'>(</span><span class='op'>::</span><span class='const'>Symbol</span><span class='rparen'>)</span>
@@ -6521,7 +6521,7 @@
     <span class='comment'># Assigns a hook to a command.
 </span>    <span class='comment'>#
 </span>    <span class='comment'># @param method [String|Symbol|NilClass] The method of the application to hookup.
-</span>    <span class='comment'># @param block [Proc] The block to hookup if method is not provided.
+</span>    <span class='comment'># @param hook [Proc] The block to hookup if method is not provided.
 </span>    <span class='kw'>def</span> <span class='id identifier rubyid_assign_hook'>assign_hook</span><span class='lparen'>(</span><span class='id identifier rubyid_method'>method</span><span class='comma'>,</span> <span class='op'>&amp;</span><span class='id identifier rubyid_hook'>hook</span><span class='rparen'>)</span>
       <span class='id identifier rubyid_assigned'>assigned</span> <span class='op'>=</span> <span class='kw'>nil</span>
       <span class='id identifier rubyid_assigned'>assigned</span> <span class='op'>=</span> <span class='id identifier rubyid_method'>method</span> <span class='kw'>if</span> <span class='id identifier rubyid_method'>method</span><span class='period'>.</span><span class='id identifier rubyid_is_a?'>is_a?</span><span class='lparen'>(</span><span class='op'>::</span><span class='const'>String</span><span class='rparen'>)</span> <span class='op'>||</span> <span class='id identifier rubyid_method'>method</span><span class='period'>.</span><span class='id identifier rubyid_is_a?'>is_a?</span><span class='lparen'>(</span><span class='op'>::</span><span class='const'>Symbol</span><span class='rparen'>)</span>
@@ -7022,9 +7022,9 @@
 </div>
 
     <div id="footer">
-  Generated on Mon Sep  2 19:15:12 2013 by
+  Generated on Sat Jan 25 15:49:21 2014 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
-  0.8.7 (ruby-2.0.0).
+  0.8.7 (ruby-2.1.0).
 </div>
 
   </body>
