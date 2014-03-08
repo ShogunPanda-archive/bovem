@@ -5,3 +5,4 @@ coverage/
 pkg/
 .idea/
 .yardoc/
+.bundle/
