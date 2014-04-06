@@ -6,3 +6,7 @@ pkg/
 .idea/
 .yardoc/
 .bundle/
+
+/metrics
+/.metrics
+/tmp/metric_fu
