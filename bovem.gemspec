@@ -9,7 +9,7 @@ require "./lib/bovem/version"
 Gem::Specification.new do |gem|
   gem.name = "bovem"
   gem.version = Bovem::Version::STRING
-  gem.homepage = "http://sw.cow.tc/bovem"
+  gem.homepage = "http://sw.cowtech.it/bovem"
   gem.summary = %q{A command line manager and a collection of utilities for developers.}
   gem.description = %q{A command line manager and a collection of utilities for developers.}
 

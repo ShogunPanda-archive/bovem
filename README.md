@@ -9,7 +9,7 @@
 
 A command line manager and a collection of utilities for developers.
 
-http://sw.cow.tc/bovem
+http://sw.cowtech.it/bovem
 
 http://rdoc.info/gems/bovem
 
