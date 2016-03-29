@@ -22,4 +22,7 @@ if ENV["COVERAGE"]
   end
 end
 
+require "i18n"
+::I18n.enforce_available_locales = false
 require File.dirname(__FILE__) + "/../lib/bovem"
+Lazier::I18n.default_locale = :en

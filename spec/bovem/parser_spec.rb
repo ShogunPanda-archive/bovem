@@ -41,13 +41,13 @@ describe Bovem::Parser do
   describe ".smart_join" do
     it "should correctly join arrays" do
       expect(Bovem::Parser.smart_join([])).to eq("")
-      expect(Bovem::Parser.smart_join(["A"], ", ", " and ", nil)).to eq("A")
-      expect(Bovem::Parser.smart_join(1, ", ", " and ", nil)).to eq("1")
-      expect(Bovem::Parser.smart_join(["A", 1], ", ", " and ", nil)).to eq("A and 1")
-      expect(Bovem::Parser.smart_join(["A", 1, true], ", ", " and ", nil)).to eq("A, 1 and true")
-      expect(Bovem::Parser.smart_join(["A", "B", "C"], "-", " and ", nil)).to eq("A-B and C")
-      expect(Bovem::Parser.smart_join(["A", "B", "C"], "-", "@", nil)).to eq("A-B@C")
-      expect(Bovem::Parser.smart_join(["A", "B", "C"], ", ", " and ", "@")).to eq("@A@, @B@ and @C@")
+      expect(Bovem::Parser.smart_join(["A"], quote: nil)).to eq("A")
+      expect(Bovem::Parser.smart_join(1, quote: nil)).to eq("1")
+      expect(Bovem::Parser.smart_join(["A", 1], quote: nil)).to eq("A and 1")
+      expect(Bovem::Parser.smart_join(["A", 1, true], quote: nil)).to eq("A, 1 and true")
+      expect(Bovem::Parser.smart_join(["A", "B", "C"], separator: "-", last_separator: " and ", quote: nil)).to eq("A-B and C")
+      expect(Bovem::Parser.smart_join(["A", "B", "C"], separator: "-", last_separator: "@", quote: nil)).to eq("A-B@C")
+      expect(Bovem::Parser.smart_join(["A", "B", "C"], quote: "@")).to eq("@A@, @B@ and @C@")
     end
   end
 
@@ -58,12 +58,12 @@ describe Bovem::Parser do
       s2 = command.command("abd")
       s1.command("def")
 
-      expect(Bovem::Parser.find_command("abc", command, args)).to eq({name: "abc", args: args})
-      expect(Bovem::Parser.find_command("abc:def", command, args)).to eq({name: "abc", args: ["def"] + args})
-      expect(Bovem::Parser.find_command("abc def", command, args, " ")).to eq({name: "abc", args: ["def"] + args})
-      expect(Bovem::Parser.find_command("d", s1, args)).to eq({name: "def", args: args})
-      expect{ Bovem::Parser.find_command("ab", command, args) }.to raise_error(Bovem::Errors::Error)
-      expect(Bovem::Parser.find_command("abc", s2, args)).to be_nil
+      expect(Bovem::Parser.find_command("abc", command, args: args)).to eq({name: "abc", args: args})
+      expect(Bovem::Parser.find_command("abc:def", command, args: args)).to eq({name: "abc", args: ["def"] + args})
+      expect(Bovem::Parser.find_command("abc def", command, args: args, separator: " ")).to eq({name: "abc", args: ["def"] + args})
+      expect(Bovem::Parser.find_command("d", s1, args: args)).to eq({name: "def", args: args})
+      expect{ Bovem::Parser.find_command("ab", command, args: args) }.to raise_error(Bovem::Errors::Error)
+      expect(Bovem::Parser.find_command("abc", s2, args: args)).to be_nil
     end
   end
 

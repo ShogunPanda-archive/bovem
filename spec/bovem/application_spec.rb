@@ -21,9 +21,9 @@ describe Bovem::Application do
     it "should set good defaults" do
       expect(application.shell).to eq(Bovem::Shell.instance)
       expect(application.console).to eq(application.shell.console)
-      expect(application.skip_commands).to be_false
-      expect(application.show_commands).to be_false
-      expect(application.output_commands).to be_false
+      expect(application.skip_commands).to be_falsey
+      expect(application.show_commands).to be_falsey
+      expect(application.output_commands).to be_falsey
     end
   end
 
@@ -53,7 +53,7 @@ describe Bovem::Application do
 
   describe "#executable_name" do
     it "should return executable name" do
-      expect(application.executable_name).to eq($0)
+      expect(application.executable_name).to eq($PROGRAM_NAME)
     end
   end
 
@@ -123,7 +123,7 @@ describe Bovem::Application do
       check = false
 
       application = Bovem::Application.create(options) { check = true }
-      expect(check).to be_true
+      expect(check).to be_truthy
       expect(application.name).to eq("OK")
     end
 
@@ -134,6 +134,7 @@ describe Bovem::Application do
         option("require", [], {})
         option("format", [], {})
         option("example", [], {})
+        option("pattern", [], {})
 
         action do |command|
           args = command.arguments.join("-")

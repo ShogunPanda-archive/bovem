@@ -67,8 +67,10 @@ module Bovem
         color = LEVEL_NAMES.fetch(severity, :white)
 
         header = Bovem::Console.replace_markers(
-          "{mark=bright-#{color}}[%s T+%0.5f] %s:{/mark}", datetime.strftime("%Y/%b/%d %H:%M:%S"),
-          [datetime.to_f - start_time.to_f, 0].max, severity.rjust(5)
+          sprintf(
+            "{mark=bright-#{color}}[%s T+%0.5f] %s:{/mark}", datetime.strftime("%Y/%b/%d %H:%M:%S"),
+            [datetime.to_f - start_time.to_f, 0].max, severity.rjust(5)
+          )
         )
 
         sprintf("%s %s\n", header, msg)

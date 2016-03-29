@@ -18,7 +18,11 @@ module Bovem
   # # Configuration file
   # config.property = "VALUE"
   # ```
+  #
+  # @attribute [r] i18n
+  #   @return [I18n] A i18n helper.
   class Configuration < Lazier::Configuration
+    attr_reader :i18n
     # Creates a new configuration.
     #
     # A configuration file is a plain Ruby file with a top-level {Configuration config} object.
@@ -30,7 +34,7 @@ module Bovem
     def initialize(file = nil, overrides = {}, logger = nil)
       super()
 
-      i18n_setup(:bovem, ::File.absolute_path(::Pathname.new(::File.dirname(__FILE__)).to_s + "/../../locales/"))
+      @i18n = Bovem::I18n.new(root: "bovem.configuration", path: ::File.absolute_path(::Pathname.new(::File.dirname(__FILE__)).to_s + "/../../locales/"))
       parse(file, overrides, logger)
     end
 
@@ -51,7 +55,7 @@ module Bovem
       file = file.present? ? File.expand_path(file) : nil
 
       if file
-        raise(Bovem::Errors::InvalidConfiguration, i18n.configuration.not_found(file)) unless File.readable?(file)
+        raise(Bovem::Errors::InvalidConfiguration, i18n.not_found(file)) unless File.readable?(file)
         read_configuration_file(file, logger)
       end
 
@@ -64,14 +68,16 @@ module Bovem
     private
 
     # :nodoc:
+    # rubocop:disable RescueException
     def read_configuration_file(file, logger)
       # Open the file
       path = file =~ /^#{File::SEPARATOR}/ ? file : ::Pathname.new(file).realpath
       logger.info(i18n.configuration.using(path)) if logger
       eval_file(path)
-    rescue
-      raise(Bovem::Errors::InvalidConfiguration, i18n.configuration.invalid(file))
+    rescue Exception
+      raise(Bovem::Errors::InvalidConfiguration, i18n.invalid(file))
     end
+    # rubocop:enable RescueException
 
     # :nodoc:
     def eval_file(path)

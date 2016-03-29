@@ -304,6 +304,8 @@ module Bovem
   #   @return [Array] The options available for this command.
   # @attribute [r] arguments
   #   @return [Array] The arguments provided to this command.
+  # @attribute [r] i18n
+  #   @return [I18n] A i18n helper.
   class Command
     attr_accessor :name
     attr_accessor :description
@@ -314,8 +316,8 @@ module Bovem
     attr_accessor :after
     attr_accessor :application
     attr_accessor :parent
+    attr_reader :i18n
 
-    include Lazier::I18n
     include Bovem::CommandMethods::Help
     include Bovem::CommandMethods::Children
 
@@ -478,8 +480,7 @@ module Bovem
 
     # :nodoc:
     def setup_i18n(options)
-      i18n_setup("bovem.application", ::File.absolute_path(::Pathname.new(::File.dirname(__FILE__)).to_s + "/../../locales/"))
-      self.i18n = (options[:locale]).ensure_string
+      @i18n = Bovem::I18n.new(options[:locale], root: "bovem.application", path: Bovem::Application::LOCALE_ROOT)
     end
 
     # :nodoc:

@@ -7,11 +7,7 @@
 require "spec_helper"
 
 describe Bovem::Shell do
-  let(:shell) {
-    s = Bovem::Shell.new
-    s.i18n = :en
-    s
-  }
+  let(:shell) { Bovem::Shell.new }
   let(:temp_file_1) { "/tmp/bovem-test-1-#{Time.now.strftime("%Y%m%d-%H%M%S")}" }
   let(:temp_file_2) { "/tmp/bovem-test-2-#{Time.now.strftime("%Y%m%d-%H%M%S")}" }
   let(:temp_file_3) { "/tmp/bovem-test-3-#{Time.now.strftime("%Y%m%d-%H%M%S")}" }
@@ -42,25 +38,20 @@ describe Bovem::Shell do
 
     it "should show a message" do
       expect(shell.console).to receive("begin").with("MESSAGE")
-      shell.run("echo OK", "MESSAGE", true, false)
+      shell.run("echo OK", "MESSAGE", show_exit: false)
       expect(shell.console).not_to receive("begin").with("MESSAGE")
-      shell.run("echo OK", nil, true, false)
+      shell.run("echo OK", show_exit: false)
     end
 
     it "should print the command line" do
       expect(shell.console).to receive("info").with("Running command: {mark=bright}\"echo OK\"{/mark}...")
-      shell.run("echo OK", nil, true, false, false, true)
+      shell.run("echo OK", show_exit: true, show_command: true)
     end
 
     it "should only print the command if requested to" do
       expect(shell.console).to receive("warn").with("Will run command: {mark=bright}\"echo OK\"{/mark}...")
       expect(::Open4).not_to receive("popen4")
-      shell.run("echo OK", nil, false, false)
-    end
-
-    it "should only execute a command" do
-      expect(shell.console).not_to receive("warn").with("Will run command: {mark=bright}\"echo OK\"{/mark}...")
-      shell.run("echo OK", nil, true, false)
+      shell.run("echo OK", run: false)
     end
 
     it "should show a exit message" do
@@ -71,9 +62,9 @@ describe Bovem::Shell do
       end
 
       expect(shell.console).to receive(:status).with(:ok)
-      shell.run("echo OK", nil, true, true)
+      shell.run("echo OK", show_exit: true, fatal_errors: false)
       expect(shell.console).to receive(:status).with(:fail)
-      shell.run("echo1 OK", nil, true, true, false, false, false)
+      shell.run("echo1 OK", show_exit: true, fatal_errors: false)
     end
 
     it "should print output" do
@@ -83,27 +74,27 @@ describe Bovem::Shell do
       allow(stdout).to receive(:each_line).and_yield("OK\n")
       allow(::Open4).to receive(:popen4).and_yield(nil, nil, stdout, nil).and_return(OpenStruct.new(exitstatus: 0))
 
-      shell.run("echo OK", nil, true, false, true)
+      shell.run("echo OK", show_output: true)
     end
 
     it "should raise a exception for failures" do
       allow(::Open4).to receive(:popen4) {|_, _, _, _| OpenStruct.new(exitstatus: 1) }
-      expect { shell.run("echo1 OK", nil, true, false, false, false, false) }.not_to raise_error
-      expect { shell.run("echo1 OK", nil, true, false, false) }.to raise_error(SystemExit)
+      expect { shell.run("echo1 OK", fatal_errors: false) }.not_to raise_error
+      expect { shell.run("echo1 OK") }.to raise_error(SystemExit)
     end
   end
 
   describe "#check" do
     it "executes all tests" do
-      expect(shell.check("/", [:read, :dir])).to be_true
-      expect(shell.check("/dev/null", :write)).to be_true
-      expect(shell.check("/bin/sh", [:execute, :exec])).to be_true
-      expect(shell.check("/", [:read, :directory])).to be_true
-      expect(shell.check("/", [:writable?, :directory?])).to be_false
+      expect(shell.check("/", :read, :dir)).to be_truthy
+      expect(shell.check("/dev/null", :write)).to be_truthy
+      expect(shell.check("/bin/sh", :execute, :exec)).to be_truthy
+      expect(shell.check("/", :read, :directory)).to be_truthy
+      expect(shell.check("/", :writable?, :directory?)).to be_falsey
     end
 
     it "returns false when some tests are invalid" do
-      expect(shell.check("/", [:read, :none])).to be_false
+      expect(shell.check("/", :read, :none)).to be_falsey
     end
   end
 
@@ -112,45 +103,45 @@ describe Bovem::Shell do
       File.unlink(temp_file_1) if File.exists?(temp_file_1)
       File.open(temp_file_1, "w") {|f| f.write("OK") }
 
-      expect(File.exists?(temp_file_1)).to be_true
-      expect(shell.delete(temp_file_1, true, false)).to be_true
-      expect(File.exists?(temp_file_1)).to be_false
+      expect(File.exists?(temp_file_1)).to be_truthy
+      expect(shell.delete(temp_file_1, show_errors: false)).to be_truthy
+      expect(File.exists?(temp_file_1)).to be_falsey
       File.unlink(temp_file_1) if File.exists?(temp_file_1)
     end
 
     it "should only print the list of files" do
       expect(shell.console).to receive(:warn).with("Will remove file(s):")
       expect(FileUtils).not_to receive(:rm_r)
-      expect(shell.delete(temp_file_1, false)).to be_true
+      expect(shell.delete(temp_file_1, run: false)).to be_truthy
     end
 
     it "should complain about non existing files" do
       expect(shell.console).to receive(:error).with("Cannot remove following non existent file: {mark=bright}#{temp_file_1}{/mark}")
-      expect(shell.delete(temp_file_1, true, true, false)).to be_false
+      expect(shell.delete(temp_file_1, fatal_errors: false)).to be_falsey
     end
 
     it "should complain about non writeable files" do
       expect(shell.console).to receive(:error).with("Cannot remove following non writable file: {mark=bright}/dev/null{/mark}")
-      expect(shell.delete("/dev/null", true, true, false)).to be_false
+      expect(shell.delete("/dev/null", fatal_errors: false)).to be_falsey
     end
 
     it "should complain about other exceptions" do
       allow(FileUtils).to receive(:rm_r).and_raise(ArgumentError.new("ERROR"))
       expect(shell.console).to receive(:error).with("Cannot remove following file(s):")
       expect(shell.console).to receive(:write).at_least(2)
-      expect(shell.delete("/dev/null", true, true, false)).to be_false
+      expect(shell.delete("/dev/null", show_errors: true, fatal_errors: false)).to be_falsey
     end
 
     describe "should exit when requested to" do
       it "by calling :fatal" do
         expect(shell.console).to receive(:fatal).with("Cannot remove following non writable file: {mark=bright}/dev/null{/mark}")
-        expect(shell.delete("/dev/null")).to be_false
+        expect(shell.delete("/dev/null")).to be_falsey
       end
 
       it "by calling Kernel#exit" do
         allow(FileUtils).to receive(:rm_r).and_raise(ArgumentError.new("ERROR"))
         expect(Kernel).to receive(:exit).with(-1)
-        expect(shell.delete("/dev/null", true, true)).to be_false
+        expect(shell.delete("/dev/null", show_errors: true, fatal_errors: true)).to be_falsey
       end
     end
   end
@@ -174,16 +165,16 @@ describe Bovem::Shell do
 
     it "should copy a file" do
       File.open(temp_file_1, "w") {|f| f.write("OK") }
-      expect(shell.copy_or_move(temp_file_1, temp_file_2, :copy)).to eq(true)
-      expect(File.exists?(temp_file_1)).to be_true
-      expect(File.exists?(temp_file_2)).to be_true
+      expect(shell.send(:copy_or_move, temp_file_1, temp_file_2, :copy)).to eq(true)
+      expect(File.exists?(temp_file_1)).to be_truthy
+      expect(File.exists?(temp_file_2)).to be_truthy
     end
 
     it "should move a file" do
       File.open(temp_file_1, "w") {|f| f.write("OK") }
-      expect(shell.copy_or_move(temp_file_1, temp_file_2, :move, true)).to eq(true)
-      expect(File.exists?(temp_file_1)).to be_false
-      expect(File.exists?(temp_file_2)).to be_true
+      expect(shell.send(:copy_or_move, temp_file_1, temp_file_2, :move, true)).to eq(true)
+      expect(File.exists?(temp_file_1)).to be_falsey
+      expect(File.exists?(temp_file_2)).to be_truthy
     end
 
     it "should copy multiple entries" do
@@ -192,11 +183,11 @@ describe Bovem::Shell do
       shell.create_directories(temp_dir_1)
       File.open(temp_dir_1 + "/temp", "w") {|f| f.write("OK") }
 
-      expect(shell.copy_or_move([temp_file_1, temp_file_2, temp_dir_1], temp_dir_2, :copy)).to be_true
-      expect(File.exists?(temp_dir_2 + "/" + File.basename(temp_file_1))).to be_true
-      expect(File.exists?(temp_dir_2 + "/" + File.basename(temp_file_2))).to be_true
-      expect(File.exists?(temp_dir_2 + "/" + File.basename(temp_dir_1))).to be_true
-      expect(File.exists?(temp_dir_2 + "/" + File.basename(temp_dir_1) + "/temp")).to be_true
+      expect(shell.send(:copy_or_move, [temp_file_1, temp_file_2, temp_dir_1], temp_dir_2, :copy)).to be_truthy
+      expect(File.exists?(temp_dir_2 + "/" + File.basename(temp_file_1))).to be_truthy
+      expect(File.exists?(temp_dir_2 + "/" + File.basename(temp_file_2))).to be_truthy
+      expect(File.exists?(temp_dir_2 + "/" + File.basename(temp_dir_1))).to be_truthy
+      expect(File.exists?(temp_dir_2 + "/" + File.basename(temp_dir_1) + "/temp")).to be_truthy
     end
 
     it "should move multiple entries" do
@@ -205,23 +196,23 @@ describe Bovem::Shell do
       shell.create_directories(temp_dir_1)
       File.open(temp_dir_1 + "/temp", "w") {|f| f.write("OK") }
 
-      expect(shell.copy_or_move([temp_file_1, temp_file_2, temp_dir_1], temp_dir_2, :move, true)).to be_true
-      expect(File.exists?(temp_dir_2 + "/" + File.basename(temp_file_1))).to be_true
-      expect(File.exists?(temp_dir_2 + "/" + File.basename(temp_file_2))).to be_true
-      expect(File.exists?(temp_dir_2 + "/" + File.basename(temp_dir_1))).to be_true
-      expect(File.exists?(temp_dir_2 + "/" + File.basename(temp_dir_1) + "/temp")).to be_true
-      expect(File.exists?(temp_file_1)).to be_false
-      expect(File.exists?(temp_file_2)).to be_false
-      expect(File.exists?(temp_dir_1)).to be_false
-      expect(File.exists?(temp_dir_1 + "/temp")).to be_false
+      expect(shell.send(:copy_or_move, [temp_file_1, temp_file_2, temp_dir_1], temp_dir_2, :move, true)).to be_truthy
+      expect(File.exists?(temp_dir_2 + "/" + File.basename(temp_file_1))).to be_truthy
+      expect(File.exists?(temp_dir_2 + "/" + File.basename(temp_file_2))).to be_truthy
+      expect(File.exists?(temp_dir_2 + "/" + File.basename(temp_dir_1))).to be_truthy
+      expect(File.exists?(temp_dir_2 + "/" + File.basename(temp_dir_1) + "/temp")).to be_truthy
+      expect(File.exists?(temp_file_1)).to be_falsey
+      expect(File.exists?(temp_file_2)).to be_falsey
+      expect(File.exists?(temp_dir_1)).to be_falsey
+      expect(File.exists?(temp_dir_1 + "/temp")).to be_falsey
     end
 
     it "should complain about non existing source" do
       expect(shell.console).to receive(:error).with("Cannot copy non existent file {mark=bright}#{temp_file_1}{/mark}.")
-      expect(shell.copy_or_move(temp_file_1, temp_file_2, :copy, true, false, false)).to be_false
+      expect(shell.send(:copy_or_move, temp_file_1, temp_file_2, :copy, true, false, false)).to be_falsey
 
       expect(shell.console).to receive(:error).with("Cannot move non existent file {mark=bright}#{temp_file_1}{/mark}.")
-      expect(shell.copy_or_move(temp_file_1, temp_file_2, :move, true, false, false)).to be_false
+      expect(shell.send(:copy_or_move, temp_file_1, temp_file_2, :move, true, false, false)).to be_falsey
     end
 
     it "should not copy a file to a path which is currently a directory" do
@@ -229,18 +220,18 @@ describe Bovem::Shell do
       shell.create_directories(temp_file_2)
 
       expect(shell.console).to receive(:error).with("Cannot copy file {mark=bright}#{temp_file_1}{/mark} to {mark=bright}#{temp_file_2}{/mark} because it is currently a directory.")
-      expect(shell.copy_or_move(temp_file_1, temp_file_2, :copy, true, false, false)).to be_false
+      expect(shell.send(:copy_or_move, temp_file_1, temp_file_2, :copy, true, false, false)).to be_falsey
 
       expect(shell.console).to receive(:error).with("Cannot move file {mark=bright}#{temp_file_1}{/mark} to {mark=bright}#{temp_file_2}{/mark} because it is currently a directory.")
-      expect(shell.copy_or_move(temp_file_1, temp_file_2, :move, true, false, false)).to be_false
+      expect(shell.send(:copy_or_move, temp_file_1, temp_file_2, :move, true, false, false)).to be_falsey
     end
 
     it "should create the parent directory if needed" do
-      expect(shell.check(temp_dir_1, :dir)).to be_false
+      expect(shell.check(temp_dir_1, :dir)).to be_falsey
 
       expect(shell).to receive(:create_directories).exactly(2)
-      expect(shell.copy_or_move(temp_file_1, temp_dir_1 + "/test-1", :copy)).to be_false
-      expect(shell.copy_or_move(temp_file_1, temp_dir_1 + "/test-1", :move)).to be_false
+      expect(shell.send(:copy_or_move, temp_file_1, temp_dir_1 + "/test-1", :copy)).to be_falsey
+      expect(shell.send(:copy_or_move, temp_file_1, temp_dir_1 + "/test-1", :move)).to be_falsey
     end
 
     it "should only print the list of files" do
@@ -248,24 +239,24 @@ describe Bovem::Shell do
       expect(FileUtils).not_to receive(:mv)
 
       expect(shell.console).to receive(:warn).with("Will copy a file:")
-      expect(shell.copy_or_move(temp_file_1, temp_file_2, :copy, false)).to be_true
+      expect(shell.send(:copy_or_move, temp_file_1, temp_file_2, :copy, false)).to be_truthy
       expect(shell.console).to receive(:warn).with("Will copy following entries:")
-      expect(shell.copy_or_move([temp_file_1, temp_file_2], temp_dir_1, :copy, false)).to be_true
+      expect(shell.send(:copy_or_move, [temp_file_1, temp_file_2], temp_dir_1, :copy, false)).to be_truthy
 
       expect(shell.console).to receive(:warn).with("Will move a file:")
-      expect(shell.copy_or_move(temp_file_1, temp_file_2, :move, false)).to be_true
+      expect(shell.send(:copy_or_move, temp_file_1, temp_file_2, :move, false)).to be_truthy
       expect(shell.console).to receive(:warn).with("Will move following entries:")
-      expect(shell.copy_or_move([temp_file_1, temp_file_2], temp_dir_1, :move, false)).to be_true
+      expect(shell.send(:copy_or_move, [temp_file_1, temp_file_2], temp_dir_1, :move, false)).to be_truthy
     end
 
     it "should complain about non writeable parent directory" do
       File.open(temp_file_1, "w") {|f| f.write("OK") }
 
-      expect(shell.console).to receive(:error).with("Cannot copy file {mark=bright}#{temp_file_1}{/mark} to non writable directory {mark=bright}/dev{/mark}.", "\n", 5)
-      expect(shell.copy_or_move(temp_file_1, "/dev/bovem", :copy, true, true, false)).to be_false
+      expect(shell.console).to receive(:error).with("Cannot copy file {mark=bright}#{temp_file_1}{/mark} to non writable directory {mark=bright}/dev{/mark}.", suffix: "\n", indented: 5)
+      expect(shell.send(:copy_or_move, temp_file_1, "/dev/bovem", :copy, true, true, false)).to be_falsey
 
-      expect(shell.console).to receive(:error).with("Cannot move file {mark=bright}#{temp_file_1}{/mark} to non writable directory {mark=bright}/dev{/mark}.", "\n", 5)
-      expect(shell.copy_or_move(temp_file_1, "/dev/bovem", :move, true, true, false)).to be_false
+      expect(shell.console).to receive(:error).with("Cannot move file {mark=bright}#{temp_file_1}{/mark} to non writable directory {mark=bright}/dev{/mark}.", suffix: "\n", indented: 5)
+      expect(shell.send(:copy_or_move, temp_file_1, "/dev/bovem", :move, true, true, false)).to be_falsey
     end
 
     it "should complain about other exceptions" do
@@ -273,33 +264,33 @@ describe Bovem::Shell do
       allow(FileUtils).to receive(:mv).and_raise(ArgumentError.new("ERROR"))
       File.open(temp_file_1, "w") {|f| f.write("OK") }
 
-      expect(shell.console).to receive(:error).with("Cannot copy file {mark=bright}#{temp_file_1}{/mark} to directory {mark=bright}#{File.dirname(temp_file_2)}{/mark} due to this error: [ArgumentError] ERROR.", "\n", 5)
-      expect(shell.copy_or_move(temp_file_1, temp_file_2, :copy, true, true, false)).to be_false
+      expect(shell.console).to receive(:error).with("Cannot copy file {mark=bright}#{temp_file_1}{/mark} to directory {mark=bright}#{File.dirname(temp_file_2)}{/mark} due to this error: [ArgumentError] ERROR.", suffix: "\n", indented: 5)
+      expect(shell.send(:copy_or_move, temp_file_1, temp_file_2, :copy, true, true, false)).to be_falsey
 
-      expect(shell.console).to receive(:error).with("Cannot move file {mark=bright}#{temp_file_1}{/mark} to directory {mark=bright}#{File.dirname(temp_file_2)}{/mark} due to this error: [ArgumentError] ERROR.", "\n", 5)
-      expect(shell.copy_or_move(temp_file_1, temp_file_2, :move, true, true, false)).to be_false
+      expect(shell.console).to receive(:error).with("Cannot move file {mark=bright}#{temp_file_1}{/mark} to directory {mark=bright}#{File.dirname(temp_file_2)}{/mark} due to this error: [ArgumentError] ERROR.", suffix: "\n", indented: 5)
+      expect(shell.send(:copy_or_move, temp_file_1, temp_file_2, :move, true, true, false)).to be_falsey
     end
 
     describe "should exit when requested to" do
       it "by calling :fatal" do
         allow(FileUtils).to receive(:cp_r).and_raise(ArgumentError.new("ERROR"))
         allow(FileUtils).to receive(:mv).and_raise(ArgumentError.new("ERROR"))
+        allow(Kernel).to receive(:exit).and_return(true)
 
         File.open(temp_file_1, "w") {|f| f.write("OK") }
         File.open(temp_file_2, "w") {|f| f.write("OK") }
 
-        expect(shell.console).to receive(:fatal).with("Cannot copy file {mark=bright}#{temp_file_1}{/mark} to directory {mark=bright}/dev{/mark} due to this error: [ArgumentError] ERROR.", "\n", 5)
-        expect(shell.copy_or_move(temp_file_1, "/dev/bovem", :copy, true, true, true)).to be_false
+        expect(shell.console).to receive(:fatal).with("Cannot copy file {mark=bright}#{temp_file_1}{/mark} to directory {mark=bright}/dev{/mark} due to this error: [ArgumentError] ERROR.", suffix: "\n", indented: 5)
+        expect(shell.send(:copy_or_move, temp_file_1, "/dev/bovem", :copy, true, true, true)).to be_falsey
 
-        expect(shell.console).to receive(:fatal).with("Cannot move file {mark=bright}#{temp_file_1}{/mark} to directory {mark=bright}/dev{/mark} due to this error: [ArgumentError] ERROR.", "\n", 5)
-        expect(shell.copy_or_move(temp_file_1, "/dev/bovem", :move, true, true, true)).to be_false
+        expect(shell.console).to receive(:fatal).with("Cannot move file {mark=bright}#{temp_file_1}{/mark} to directory {mark=bright}/dev{/mark} due to this error: [ArgumentError] ERROR.", suffix: "\n", indented: 5)
+        expect(shell.send(:copy_or_move, temp_file_1, "/dev/bovem", :move, true, true, true)).to be_falsey
 
-        allow(Kernel).to receive(:exit).and_return(true)
         expect(shell.console).to receive(:error).with("Cannot copy following entries to {mark=bright}/dev{/mark}:")
-        expect(shell.copy_or_move([temp_file_1, temp_file_2], "/dev", :copy, true, true, true)).to be_false
+        expect(shell.send(:copy_or_move, [temp_file_1, temp_file_2], "/dev", :copy, true, true, true)).to be_falsey
 
         expect(shell.console).to receive(:error).with("Cannot move following entries to {mark=bright}/dev{/mark}:")
-        expect(shell.copy_or_move([temp_file_1, temp_file_2], "/dev", :move, true, true, true)).to be_false
+        expect(shell.send(:copy_or_move, [temp_file_1, temp_file_2], "/dev", :move, true, true, true)).to be_falsey
       end
 
       it "by calling Kernel#exit" do
@@ -307,25 +298,25 @@ describe Bovem::Shell do
         File.open(temp_file_2, "w") {|f| f.write("OK") }
 
         expect(Kernel).to receive(:exit).with(-1).exactly(4).and_return(true)
-        expect(shell.copy_or_move(temp_file_1, "/dev/bovem", :copy, true, false, true)).to be_false
-        expect(shell.copy_or_move([temp_file_1, temp_file_2], "/dev", :copy, true, false, true)).to be_false
-        expect(shell.copy_or_move(temp_file_1, "/dev/bovem", :move, true, false, true)).to be_false
-        expect(shell.copy_or_move([temp_file_1, temp_file_2], "/dev", :move, true, false, true)).to be_false
+        expect(shell.send(:copy_or_move, temp_file_1, "/dev/bovem", :copy, true, false, true)).to be_falsey
+        expect(shell.send(:copy_or_move, [temp_file_1, temp_file_2], "/dev", :copy, true, false, true)).to be_falsey
+        expect(shell.send(:copy_or_move, temp_file_1, "/dev/bovem", :move, true, false, true)).to be_falsey
+        expect(shell.send(:copy_or_move, [temp_file_1, temp_file_2], "/dev", :move, true, false, true)).to be_falsey
       end
     end
   end
 
   describe "#copy" do
     it "should forward everything to #copy_or_move" do
-      expect(shell).to receive(:copy_or_move).with("A", "B", :copy, "C", "D", "E")
-      shell.copy("A", "B", "C", "D", "E")
+      expect(shell).to receive(:copy_or_move).with("A", "B", operation: :copy, run: "C", show_errors: "D", fatal_errors: "E")
+      shell.copy("A", "B", run: "C", show_errors: "D", fatal_errors: "E")
     end
   end
 
   describe "#move" do
     it "should forward everything to #copy_or_move" do
-      expect(shell).to receive(:copy_or_move).with("A", "B", :move, "C", "D", "E")
-      shell.move("A", "B", "C", "D", "E")
+      expect(shell).to receive(:copy_or_move).with("A", "B", operation: :move, run: "C", show_errors: "D", fatal_errors: "E")
+      shell.move("A", "B", run: "C", show_errors: "D", fatal_errors: "E")
     end
   end
 
@@ -356,7 +347,7 @@ describe Bovem::Shell do
     it "should change but not restore directory" do
       owd = Dir.pwd
 
-      shell.within_directory(target, false) do
+      shell.within_directory(target, restore: false) do
         expect(Dir.pwd).to eq(target)
       end
 
@@ -365,21 +356,21 @@ describe Bovem::Shell do
 
     it "should show messages" do
       expect(shell.console).to receive(:info).with(/Moving (.*)into directory \{mark=bright\}(.+)\{\/mark\}/).exactly(2)
-      shell.within_directory(target, true, true) { "OK" }
+      shell.within_directory(target, show_messages: true) { "OK" }
     end
 
     it "should return false and not execute code in case of invalid directory" do
       dir = ""
 
-      expect(shell.within_directory("/invalid") { dir = "OK" }).to be_false
+      expect(shell.within_directory("/invalid") { dir = "OK" }).to be_falsey
       expect(dir).to eq("")
 
       allow(Dir).to receive(:chdir).and_raise(ArgumentError)
-      expect(shell.within_directory("/") { true }).to be_false
+      expect(shell.within_directory("/") { true }).to be_falsey
 
       allow(Dir).to receive(:chdir)
       allow(Dir).to receive(:pwd).and_return("/invalid")
-      expect(shell.within_directory("/") { true }).to be_false
+      expect(shell.within_directory("/") { true }).to be_falsey
     end
   end
 
@@ -401,52 +392,52 @@ describe Bovem::Shell do
     end
 
     it "should create directory" do
-      expect(shell.create_directories([temp_dir_1, temp_dir_2])).to be_true
-      expect(shell.check(temp_dir_1, :directory)).to be_true
-      expect(shell.check(temp_dir_2, :directory)).to be_true
+      expect(shell.create_directories([temp_dir_1, temp_dir_2])).to be_truthy
+      expect(shell.check(temp_dir_1, :directory)).to be_truthy
+      expect(shell.check(temp_dir_2, :directory)).to be_truthy
     end
 
     it "should only print the list of files" do
       expect(shell.console).to receive(:warn).with("Will create directories:")
       expect(FileUtils).not_to receive(:mkdir_p)
-      expect(shell.create_directories(temp_file_1, 0755, false)).to be_true
+      expect(shell.create_directories(temp_file_1, run: false)).to be_truthy
     end
 
     it "should complain about directory already existing" do
-      shell.create_directories(temp_dir_1, 0755, true, false, false)
+      shell.create_directories(temp_dir_1, fatal_errors: false)
       expect(shell.console).to receive(:error).with("The directory {mark=bright}#{temp_dir_1}{/mark} already exists.")
-      expect(shell.create_directories(temp_dir_1, 0755, true, false, false)).to be_false
+      expect(shell.create_directories(temp_dir_1, show_errors: true, fatal_errors: false)).to be_falsey
     end
 
     it "should complain about paths already existing as a file." do
       File.open(temp_file_1, "w") {|f| f.write("OK") }
 
       expect(shell.console).to receive(:error).with("Path {mark=bright}#{temp_file_1}{/mark} is currently a file.")
-      expect(shell.create_directories(temp_file_1, 0755, true, false, false)).to be_false
+      expect(shell.create_directories(temp_file_1, show_errors: true, fatal_errors: false)).to be_falsey
     end
 
     it "should complain about non writable parents" do
       expect(shell.console).to receive(:error).with("Cannot create following directory due to permission denied: {mark=bright}/dev/bovem{/mark}.")
-      expect(shell.create_directories("/dev/bovem", 0755, true, false, false)).to be_false
+      expect(shell.create_directories("/dev/bovem", show_errors: true, fatal_errors: false)).to be_falsey
     end
 
     it "should complain about other exceptions" do
       allow(FileUtils).to receive(:mkdir_p).and_raise(ArgumentError.new("ERROR"))
       expect(shell.console).to receive(:error).with("Cannot create following directories:")
       expect(shell.console).to receive(:write).at_least(2)
-      expect(shell.create_directories(temp_dir_1, 0755, true, true, false)).to be_false
+      expect(shell.create_directories(temp_dir_1, show_errors: true, fatal_errors: false)).to be_falsey
     end
 
     describe "should exit when requested to" do
       it "by calling :fatal" do
         expect(shell.console).to receive(:fatal).with("Path {mark=bright}/dev/null{/mark} is currently a file.")
-        expect(shell.create_directories("/dev/null")).to be_false
+        expect(shell.create_directories("/dev/null")).to be_falsey
       end
 
       it "by calling Kernel#exit" do
         allow(FileUtils).to receive(:mkdir_p).and_raise(ArgumentError.new("ERROR"))
         expect(Kernel).to receive(:exit).with(-1)
-        expect(shell.create_directories(temp_dir_1, 0755, true, true)).to be_false
+        expect(shell.create_directories(temp_dir_1, show_errors: true, fatal_errors: true)).to be_falsey
       end
     end
   end
@@ -455,7 +446,7 @@ describe Bovem::Shell do
     let(:root) {File.expand_path(File.dirname(__FILE__) + "/../../") }
 
     it "it should return [] for invalid or empty directories" do
-      expect(shell.find("/invalid", /rb/)).to eq([])
+      expect(shell.find("/invalid", patterns: /rb/)).to eq([])
     end
 
     it "it should return every file for empty patterns" do
@@ -465,7 +456,7 @@ describe Bovem::Shell do
         files << file
       end
 
-      expect(shell.find(root, nil)).to eq(files)
+      expect(shell.find(root, patterns: nil)).to eq(files)
     end
 
     it "should find files basing on pattern" do
@@ -475,10 +466,10 @@ describe Bovem::Shell do
         files << file if !File.directory?(file)
       end
 
-      expect(shell.find(root, /lib\/bovem\/.+rb/)).to eq(files)
-      expect(shell.find(root, /lib\/BOVEM\/.+rb/)).to eq(files)
-      expect(shell.find(root, "lib\/bovem/")).to eq(files)
-      expect(shell.find(root, /lib\/BOVEM\/.+rb/, false, true)).to eq([])
+      expect(shell.find(root, patterns: /lib\/bovem\/.+rb/)).to eq(files)
+      expect(shell.find(root, patterns: /lib\/BOVEM\/.+rb/)).to eq(files)
+      expect(shell.find(root, patterns: "lib\/bovem/")).to eq(files)
+      expect(shell.find(root, patterns: /lib\/BOVEM\/.+rb/, case_sensitive: true)).to eq([])
     end
 
     it "should find files basing on extension" do
@@ -488,9 +479,9 @@ describe Bovem::Shell do
         files << file if !File.directory?(file)
       end
 
-      expect(shell.find(root + "/lib/bovem", /rb/, true)).to eq(files)
-      expect(shell.find(root + "/lib/bovem", /bovem/, true)).to eq([])
-      expect(shell.find(root + "/lib/bovem", "RB", true, true)).to eq([])
+      expect(shell.find(root + "/lib/bovem", patterns: /rb/, extension_only: true)).to eq(files)
+      expect(shell.find(root + "/lib/bovem", patterns: /bovem/, extension_only: true)).to eq([])
+      expect(shell.find(root + "/lib/bovem", patterns: "RB", extension_only: true, case_sensitive: true)).to eq([])
     end
 
     it "should filter files basing using a block" do
@@ -500,10 +491,10 @@ describe Bovem::Shell do
         files << file if !File.directory?(file)
       end
 
-      expect(shell.find(root + "/lib/bovem", /rb/, true) { |file|
+      expect(shell.find(root + "/lib/bovem", patterns: /rb/, extension_only: true) { |file|
         !File.directory?(file)
       }).to eq(files)
-      expect(shell.find(root + "/lib/bovem", /bovem/, true) { |file|
+      expect(shell.find(root + "/lib/bovem", patterns: /bovem/, extension_only: true) { |file|
         false
       }).to eq([])
     end

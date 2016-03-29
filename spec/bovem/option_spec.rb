@@ -46,7 +46,7 @@ describe Bovem::Option do
 
     it "should set options" do
       option = Bovem::Option.new("NAME", ["O", "OPTION"], {required: true, help: "HELP", unused: "UNUSED"})
-      expect(option.help).to be_true
+      expect(option.help).to be_truthy
       expect(option.help).to eq("HELP")
     end
   end
@@ -164,74 +164,74 @@ describe Bovem::Option do
 
   describe "#set" do
     it "should set the value" do
-      expect(option.set("VALUE")).to be_true
+      expect(option.set("VALUE")).to be_truthy
       expect(option.value).to eq("VALUE")
-      expect(option.provided?).to be_true
+      expect(option.provided?).to be_truthy
     end
 
     it "should match against a regexp validator" do
       option.validator = /^A|B$/
 
       expect{ option.set("VALUE") }.to raise_error(Bovem::Errors::Error)
-      expect(option.value).to be_false
-      expect(option.provided?).to be_false
+      expect(option.value).to be_falsey
+      expect(option.provided?).to be_falsey
 
-      expect(option.set("VALUE", false)).to be_false
-      expect(option.value).to be_false
-      expect(option.provided?).to be_false
+      expect(option.set("VALUE", false)).to be_falsey
+      expect(option.value).to be_falsey
+      expect(option.provided?).to be_falsey
 
       option.set("A")
       expect(option.value).to eq("A")
-      expect(option.provided?).to be_true
+      expect(option.provided?).to be_truthy
 
       option.set("B")
       expect(option.value).to eq("B")
-      expect(option.provided?).to be_true
+      expect(option.provided?).to be_truthy
     end
 
     it "should match against an array validator" do
       option.validator = ["A", "B"]
 
       expect{ option.set("VALUE") }.to raise_error(Bovem::Errors::Error)
-      expect(option.value).to be_false
-      expect(option.provided?).to be_false
+      expect(option.value).to be_falsey
+      expect(option.provided?).to be_falsey
 
-      expect(option.set("VALUE", false)).to be_false
-      expect(option.value).to be_false
-      expect(option.provided?).to be_false
+      expect(option.set("VALUE", false)).to be_falsey
+      expect(option.value).to be_falsey
+      expect(option.provided?).to be_falsey
 
       option.set("A")
       expect(option.value).to eq("A")
-      expect(option.provided?).to be_true
+      expect(option.provided?).to be_truthy
 
       option.set("B")
       expect(option.value).to eq("B")
-      expect(option.provided?).to be_true
+      expect(option.provided?).to be_truthy
 
       option.validator = [1, 2]
       expect{ option.set("VALUE") }.to raise_error(Bovem::Errors::Error)
-      expect(option.value).to be_false
-      expect(option.provided?).to be_false
+      expect(option.value).to be_falsey
+      expect(option.provided?).to be_falsey
 
       option.set(1)
       expect(option.value).to eq(1)
-      expect(option.provided?).to be_true
+      expect(option.provided?).to be_truthy
     end
 
     it "should match against a Proc validator" do
       option.validator = ->(v) { v % 2 == 0 }
 
       expect{ option.set(1) }.to raise_error(Bovem::Errors::Error)
-      expect(option.value).to be_false
-      expect(option.provided?).to be_false
+      expect(option.value).to be_falsey
+      expect(option.provided?).to be_falsey
 
       option.set(2)
       expect(option.value).to eq(2)
-      expect(option.provided?).to be_true
+      expect(option.provided?).to be_truthy
 
       option.set(4)
       expect(option.value).to eq(4)
-      expect(option.provided?).to be_true
+      expect(option.provided?).to be_truthy
     end
   end
 
@@ -241,42 +241,42 @@ describe Bovem::Option do
       option = Bovem::Option.new("NAME") { |_, _| check = true }
       option.execute_action
 
-      expect(check).to be_true
-      expect(option.provided?).to be_true
+      expect(check).to be_truthy
+      expect(option.provided?).to be_truthy
     end
 
     it "should result in a no-op if the action is missing or doesn't take enough arguments" do
       option.execute_action
-      expect(option.provided?).to be_false
+      expect(option.provided?).to be_falsey
 
       option = Bovem::Option.new("NAME")
-      expect(option.provided?).to be_false
+      expect(option.provided?).to be_falsey
     end
   end
 
   describe "#requires_argument?" do
     it "should check if the option requires argument" do
-      expect(Bovem::Option.new("NAME", []).requires_argument?).to be_false
-      expect(Bovem::Option.new("NAME", [], {type: String}).requires_argument?).to be_true
-      expect(Bovem::Option.new("NAME", [], {type: Integer}).requires_argument?).to be_true
-      expect(Bovem::Option.new("NAME", [], {type: Float}).requires_argument?).to be_true
-      expect(Bovem::Option.new("NAME", [], {type: Array}).requires_argument?).to be_true
-      expect(Bovem::Option.new("NAME").requires_argument?).to be_false
+      expect(Bovem::Option.new("NAME", []).requires_argument?).to be_falsey
+      expect(Bovem::Option.new("NAME", [], {type: String}).requires_argument?).to be_truthy
+      expect(Bovem::Option.new("NAME", [], {type: Integer}).requires_argument?).to be_truthy
+      expect(Bovem::Option.new("NAME", [], {type: Float}).requires_argument?).to be_truthy
+      expect(Bovem::Option.new("NAME", [], {type: Array}).requires_argument?).to be_truthy
+      expect(Bovem::Option.new("NAME").requires_argument?).to be_falsey
     end
   end
 
   describe "#provided?" do
     it "should check if the option was provided" do
-      expect(Bovem::Option.new("NAME").provided?).to be_false
+      expect(Bovem::Option.new("NAME").provided?).to be_falsey
       option.set(true)
-      expect(option.provided?).to be_true
+      expect(option.provided?).to be_truthy
     end
   end
 
   describe "#help?" do
     it "should check if the option has a help" do
-      expect(Bovem::Option.new("NAME").help?).to be_false
-      expect(Bovem::Option.new("NAME", [], help: "HELP").help?).to be_true
+      expect(Bovem::Option.new("NAME").help?).to be_falsey
+      expect(Bovem::Option.new("NAME", [], help: "HELP").help?).to be_truthy
     end
   end
 
@@ -286,18 +286,18 @@ describe Bovem::Option do
       expect(option.value).to eq("DEFAULT VALUE")
 
       option.default = nil
-      expect(option.value).to be_false
+      expect(option.value).to be_falsey
 
       option.set(true)
-      expect(option.value).to be_true
+      expect(option.value).to be_truthy
 
       option.set("VALUE")
       expect(option.value).to eq("VALUE")
     end
 
     it "should return good defaults" do
-      expect(Bovem::Option.new("NAME").value).to be_false
-      expect(Bovem::Option.new("NAME", [], {type: Regexp}).value).to be_false
+      expect(Bovem::Option.new("NAME").value).to be_falsey
+      expect(Bovem::Option.new("NAME", [], {type: Regexp}).value).to be_falsey
       expect(Bovem::Option.new("NAME", [], {type: String}).value).to eq("")
       expect(Bovem::Option.new("NAME", [], {type: Integer}).value).to eq(0)
       expect(Bovem::Option.new("NAME", [], {type: Float}).value).to eq(0.0)

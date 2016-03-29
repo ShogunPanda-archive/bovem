@@ -14,8 +14,8 @@ require "lazier"
 Lazier.load!(:object, :boolean, :math)
 
 require "bovem/version" unless defined?(Bovem::Version)
+require "bovem/i18n"
 require "bovem/errors"
-require "bovem/localizer"
 require "bovem/configuration"
 require "bovem/logger"
 require "bovem/console"

@@ -29,6 +29,9 @@ module Bovem
     attr_accessor :show_commands
     attr_accessor :output_commands
 
+    # The location of the locales translation files.
+    LOCALE_ROOT = ::File.absolute_path(::Pathname.new(::File.dirname(__FILE__)).to_s + "/../../locales/").freeze
+
     # Initializes a new Bovem application.
     #
     # In options, you can override the command line arguments with `:__args__`, and you can skip execution by specifying `run: false`.
@@ -39,7 +42,10 @@ module Bovem
     # @return [Application] The created application.
     def self.create(options = {}, &block)
       unless block_given?
-        raise Bovem::Errors::Error.new(Bovem::Application, :missing_block, Bovem::Localizer.localize_on_locale(options[:locale], :missing_app_block))
+        raise Bovem::Errors::Error.new(
+          Bovem::Application, :missing_block,
+          Bovem::I18n.new(options[:locale], root: "bovem.application", path: LOCALE_ROOT).missing_app_block
+        )
       end
 
       run, args, options = setup_application_option(options)
@@ -57,7 +63,10 @@ module Bovem
     # @param options [Hash] The options to setups.
     # @return [Array] If to run the application, the arguments and the specified options.
     def self.setup_application_option(options)
-      base_options = {name: Bovem::Localizer.localize_on_locale(options[:locale], :default_application_name), parent: nil, application: nil}
+      base_options = {
+        name: Bovem::I18n.new(options[:locale], root: "bovem.application", path: LOCALE_ROOT).default_application_name,
+        parent: nil, application: nil
+      }
       options = base_options.merge(options.ensure_hash)
       run = options.delete(:run)
       [(!run.nil? ? run : true).to_boolean, options.delete(:__args__), options]
@@ -128,7 +137,7 @@ module Bovem
     def command_help(command)
       fetch_commands_for_help(command).each do |arg|
         # Find the command across
-        next_command = Bovem::Parser.find_command(arg, command, [])
+        next_command = Bovem::Parser.find_command(arg, command, args: [])
         break unless next_command
         command = command.commands[next_command[:name]]
       end

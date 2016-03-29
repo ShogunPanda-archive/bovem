@@ -124,15 +124,15 @@ describe Bovem::Command do
 
   describe "#description?" do
     it "should check if the command has a description" do
-      expect(Bovem::Command.new.description?).to be_false
-      expect(Bovem::Command.new({description: "DESCRIPTION"}).description?).to be_true
+      expect(Bovem::Command.new.description?).to be_falsey
+      expect(Bovem::Command.new({description: "DESCRIPTION"}).description?).to be_truthy
     end
   end
 
   describe "#banner?" do
     it "should check if the command has a banner" do
-      expect(Bovem::Command.new.banner?).to be_false
-      expect(Bovem::Command.new({banner: "BANNER"}).banner?).to be_true
+      expect(Bovem::Command.new.banner?).to be_falsey
+      expect(Bovem::Command.new({banner: "BANNER"}).banner?).to be_truthy
     end
   end
 
@@ -203,9 +203,9 @@ describe Bovem::Command do
 
   describe "#commands?" do
     it "should check if the command has subcommands" do
-      expect(command.commands?).to be_false
+      expect(command.commands?).to be_falsey
       command.command("subcommand")
-      expect(command.commands?).to be_true
+      expect(command.commands?).to be_truthy
     end
   end
 
@@ -235,9 +235,9 @@ describe Bovem::Command do
 
   describe "#options?" do
     it "should check if the command has options" do
-      expect(command.options?).to be_false
+      expect(command.options?).to be_falsey
       command.option("option")
-      expect(command.options?).to be_true
+      expect(command.options?).to be_truthy
     end
   end
 
@@ -270,8 +270,8 @@ describe Bovem::Command do
 
   describe "#application?" do
     it "should check if the command is an application" do
-      expect(command.application?).to be_false
-      expect(application.application?).to be_true
+      expect(command.application?).to be_falsey
+      expect(application.application?).to be_truthy
     end
   end
 
@@ -438,38 +438,38 @@ describe Bovem::Command do
     it "should only return provided options if required to" do
       Bovem::Parser.parse(reference.application, ["--aaa", "111"])
       Bovem::Parser.parse(reference, ["--ccc", "2.0"])
-      expect(reference.get_options(false).symbolize_keys).to eq({application_aaa: 111, aaa: 456, ccc: ["2.0"]})
+      expect(reference.get_options.symbolize_keys).to eq({application_aaa: 111, aaa: 456, ccc: ["2.0"]})
     end
 
     it "should skip application options if required to" do
       Bovem::Parser.parse(reference.application, ["--aaa", "111", "--ddd", "2.0"])
       Bovem::Parser.parse(reference, ["--bbb", "2.0", "--ccc", "A,B,C"])
-      expect(reference.get_options(true, false).symbolize_keys).to eq({aaa: 456, bbb: "2.0", ccc: ["A", "B", "C"]})
-      expect(reference.get_options(true, nil).symbolize_keys).to eq({aaa: 456, bbb: "2.0", ccc: ["A", "B", "C"]})
+      expect(reference.get_options(unprovided: true, application: false).symbolize_keys).to eq({aaa: 456, bbb: "2.0", ccc: ["A", "B", "C"]})
+      expect(reference.get_options(unprovided: true, application: nil).symbolize_keys).to eq({aaa: 456, bbb: "2.0", ccc: ["A", "B", "C"]})
     end
 
     it "should apply the requested prefix for command options" do
       Bovem::Parser.parse(reference.application, ["--aaa", "111", "--ddd", "2.0"])
       Bovem::Parser.parse(reference, ["--bbb", "2.0", "--ccc", "A,B,C"])
-      expect(reference.get_options(true, false, "PREFIX").symbolize_keys).to eq({PREFIXaaa: 456, PREFIXbbb: "2.0", PREFIXccc: ["A", "B", "C"]})
+      expect(reference.get_options(unprovided: true, application: false, prefix: "PREFIX").symbolize_keys).to eq({PREFIXaaa: 456, PREFIXbbb: "2.0", PREFIXccc: ["A", "B", "C"]})
     end
 
     it "should apply the requested prefix for application options" do
       Bovem::Parser.parse(reference.application, ["--aaa", "111", "--ddd", "2.0"])
       Bovem::Parser.parse(reference, ["--bbb", "2.0", "--ccc", "A,B,C"])
-      expect(reference.get_options(true, "APP").symbolize_keys).to eq({APPaaa: 111, APPddd: 2.0, aaa: 456, bbb: "2.0", ccc: ["A", "B", "C"]})
+      expect(reference.get_options(unprovided: true, application: "APP").symbolize_keys).to eq({APPaaa: 111, APPddd: 2.0, aaa: 456, bbb: "2.0", ccc: ["A", "B", "C"]})
     end
 
     it "should only return requested options" do
       Bovem::Parser.parse(reference.application, ["--aaa", "111", "--ddd", "2.0"])
       Bovem::Parser.parse(reference, ["--bbb", "2.0", "--ccc", "A,B,C"])
-      expect(reference.get_options(true, "application_", "", :aaa, :bbb).symbolize_keys).to eq({application_aaa: 111, aaa: 456, bbb: "2.0"})
+      expect(reference.get_options(unprovided: true, whitelist: [:aaa, :bbb]).symbolize_keys).to eq({application_aaa: 111, aaa: 456, bbb: "2.0"})
     end
 
     it "should apply higher precedence to command options in case of conflicts" do
       Bovem::Parser.parse(reference.application, ["--aaa", "111", "--ddd", "2.0"])
       Bovem::Parser.parse(reference, ["--bbb", "2.0", "--ccc", "A,B,C"])
-      expect(reference.get_options(true, "", "").symbolize_keys).to eq({ddd: 2.0, aaa: 456, bbb: "2.0", ccc: ["A", "B", "C"]})
+      expect(reference.get_options(unprovided: true, application: "").symbolize_keys).to eq({ddd: 2.0, aaa: 456, bbb: "2.0", ccc: ["A", "B", "C"]})
     end
   end
 
@@ -517,7 +517,7 @@ describe Bovem::Command do
 
     it "should exit" do
       allow(Kernel).to receive(:puts)
-      allow(Bovem::Console.any_instance).to receive(:write)
+      allow_any_instance_of(Bovem::Console).to receive(:write)
 
       expect(Kernel).to receive(:exit).with(0).exactly(1)
       application.show_help

@@ -78,7 +78,7 @@ module Bovem
 
         # :nodoc:
         def format_alternatives(matching, command)
-          Bovem::Parser.smart_join(matching, ", ", command.i18n.join_separator).html_safe
+          Bovem::Parser.smart_join(matching, separator: ", ", last_separator: command.i18n.join_separator).html_safe
         end
 
         # :nodoc:
@@ -161,7 +161,7 @@ module Bovem
       case option.type.to_s
       when "String" then parse_string(command, opts, option)
       when "Integer", "Fixnum", "Bignum" then setup_int_option(command, option, opts)
-      when "Float" then parse_number(command, opts, option, :is_float?, :to_float, command.i18n.invalid_float(option.label))
+      when "Float" then parse_number(command, opts, option, :float?, :to_float, command.i18n.invalid_float(option.label))
       when "Array" then parse_array(command, opts, option)
       else option.action.present? ? parse_action(opts, option) : parse_boolean(opts, option)
       end
@@ -169,7 +169,7 @@ module Bovem
 
     # :nodoc:
     def setup_int_option(command, option, opts)
-      parse_number(command, opts, option, :is_integer?, :to_integer, command.i18n.invalid_integer(option.label))
+      parse_number(command, opts, option, :integer?, :to_integer, command.i18n.invalid_integer(option.label))
     end
 
     # :nodoc:
@@ -236,7 +236,7 @@ module Bovem
 
       # Parse options
       parser.order!(args) do |arg|
-        fc = Bovem::Parser.find_command(arg, command, args)
+        fc = Bovem::Parser.find_command(arg, command, args: args)
 
         if fc.present?
           rv = fc
@@ -262,7 +262,7 @@ module Bovem
       rv = nil
 
       # Try to find a command into the first argument
-      fc = Bovem::Parser.find_command(args[0], command, args[1, args.length - 1])
+      fc = Bovem::Parser.find_command(args[0], command, args: args[1, args.length - 1])
 
       if fc.present?
         rv = fc

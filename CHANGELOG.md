@@ -2,6 +2,7 @@
 
 * Refactored `Bovem::Console`.
 * Refactored `Bovem::Shell`.
+* Replace `Bovem::Localizer` with `Bovem::I18n`.
 * Dropped `is_` or `has_` from all methods in `Bovem::Command` and `Bovem::Option`.
 * Changed signature of `Bovem::Parser.smart_join`.
 * Changed signature of `Bovem::Parser.find_command`.

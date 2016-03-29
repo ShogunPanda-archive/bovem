@@ -11,7 +11,6 @@ module Bovem
   #
   # For any unknown type, the default value is `false`, it means that any unknown type is managed as a Boolean value with no argument.
   OPTION_TYPES = {String => "", Integer => 0, Fixnum => 0, Bignum => 0, Float => 0.0, Array => []}.freeze
-  OPTION_TYPES.default = false
 
   # This class represents an option for a command.
   #
@@ -96,7 +95,7 @@ module Bovem
     # @param value [String] The validator of this option.
     def validator=(value)
       value = nil if value.blank? || (value.is_a?(Regexp) && value.source.blank?)
-      value = value.ensure_array(nil, true, true, true) if !value.nil? && !value.is_a?(Regexp) && !value.is_a?(Proc)
+      value = value.ensure_array(no_duplicates: true, compact: true, flatten: true) if !value.nil? && !value.is_a?(Regexp) && !value.is_a?(Proc)
       @validator = value
     end
 
@@ -134,7 +133,7 @@ module Bovem
     #
     # @return [Object] The default value for this option.
     def default
-      @default || Bovem::OPTION_TYPES[@type]
+      @default || Bovem::OPTION_TYPES[@type] || false
     end
 
     # Check if the current option has a default value.
@@ -227,7 +226,7 @@ module Bovem
         case vs
         when "match" then locale.invalid_for_regexp(label, @validator.inspect)
         when "call" then locale.invalid_for_proc(label)
-        else locale.invalid_value(label, Bovem::Parser.smart_join(@validator.ensure_array, ", ", locale.join_separator).html_safe)
+        else locale.invalid_value(label, Bovem::Parser.smart_join(@validator.ensure_array, separator: ", ", last_separator: locale.join_separator).html_safe)
         end
 
       raise Bovem::Errors::Error.new(self, :validation_failed, message)

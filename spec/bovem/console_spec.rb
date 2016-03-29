@@ -7,11 +7,7 @@
 require "spec_helper"
 
 describe Bovem::Console do
-  let(:console) {
-    c = Bovem::Console.new
-    c.i18n = :en
-    c
-  }
+  let(:console) { Bovem::Console.new }
 
   before(:each) do
     ENV["TERM"] = "xterm-256color"
@@ -74,7 +70,7 @@ describe Bovem::Console do
     it "should return a Fixnum greater than 0" do
       w = console.line_width
       expect(w).to be_a(Fixnum)
-      expect(w >= 0).to be_true
+      expect(w >= 0).to be_truthy
     end
 
     it "should use $stdin.winsize if available" do
@@ -124,10 +120,10 @@ describe Bovem::Console do
   describe "#wrap" do
     it "should correct wrap text" do
       message = "  ABC__DEF GHI JKL"
-      expect(console.wrap(message, 2)).to eq("ABC__DEF\nGHI\nJKL")
-      expect(console.wrap(message, 3)).to eq("ABC__DEF\nGHI\nJKL")
-      expect(console.wrap(message, 4)).to eq("ABC__DEF\nGHI\nJKL")
-      expect(console.wrap(message, 5)).to eq("ABC__DEF\nGHI\nJKL")
+      expect(console.wrap(message, 2)).to eq("  ABC__DEF\nGHI\nJKL")
+      expect(console.wrap(message, 3)).to eq("  ABC__DEF\nGHI\nJKL")
+      expect(console.wrap(message, 4)).to eq("  ABC__DEF\nGHI\nJKL")
+      expect(console.wrap(message, 5)).to eq("  ABC__DEF\nGHI\nJKL")
       expect(console.wrap(message, 20)).to eq("  ABC__DEF GHI JKL")
 
       expect(console.wrap(message, nil)).to eq(message)
@@ -137,7 +133,7 @@ describe Bovem::Console do
     it "should work well with #indent" do
       message = "AB CD"
       console.set_indentation(2)
-      expect(console.wrap(console.indent(message), 2)).to eq("AB\nCD")
+      expect(console.wrap(console.indent(message), 2)).to eq("  AB\n  CD")
     end
   end
 
@@ -162,18 +158,11 @@ describe Bovem::Console do
     it "should apply modifications to the message" do
       message = "ABC"
       console.set_indentation(2)
-      expect(console.format(message, "\n", false)).to eq("ABC\n")
-      expect(console.format(message, "A")).to eq("  ABCA")
-      expect(console.format(message, "A", 3)).to eq("     ABCA")
-      expect(console.format(message, "A", 3, 4)).to eq("     ABCA")
-      expect(console.format("{mark=red}ABC{/mark}", "\n", true, true, true)).to eq("  ABC\n")
-    end
-  end
-
-  describe "#replace_markers" do
-    it "should just forwards to .replace_markers" do
-      expect(Bovem::Console).to receive(:replace_markers).with("A", "B")
-      console.replace_markers("A", "B")
+      expect(console.format(message, suffix: "\n", indented: false)).to eq("ABC\n")
+      expect(console.format(message, suffix: "A")).to eq("  ABCA")
+      expect(console.format(message, suffix: "A", indented: 3)).to eq("     ABCA")
+      expect(console.format(message, suffix: "A", indented: 3, wrap: 4)).to eq("     ABCA")
+      expect(console.format("{mark=red}ABC{/mark}", plain: true)).to eq("  ABC\n")
     end
   end
 
@@ -184,11 +173,18 @@ describe Bovem::Console do
       allow(console).to receive(:line_width).and_return(80)
 
       expect(console.format_right(message)).to eq("\e[A\e[0G\e[#{75}CABCDE")
-      expect(console.format_right(message, 10)).to eq("\e[A\e[0G\e[#{-5}CABCDE")
+      expect(console.format_right(message, width: 10)).to eq("\e[A\e[0G\e[#{-5}CABCDE")
       expect(console.format_right(extended_message)).to eq("\e[A\e[0G\e[#{75}CABC\e[AD\e[3mE")
-      expect(console.format_right(message, nil, false)).to eq("\e[0G\e[#{75}CABCDE")
+      expect(console.format_right(message, width: nil, go_up: false)).to eq("\e[0G\e[#{75}CABCDE")
       allow(console).to receive(:line_width).and_return(10)
       expect(console.format_right(message)).to eq("\e[A\e[0G\e[#{5}CABCDE")
+    end
+  end
+
+  describe "#replace_markers" do
+    it "should just forwards to .replace_markers" do
+      expect(Bovem::Console).to receive(:replace_markers).with("A", "B")
+      console.replace_markers("A", "B")
     end
   end
 
@@ -201,41 +197,41 @@ describe Bovem::Console do
 
   describe "#write" do
     it "should call #format" do
-      expect(console).to receive(:format).with("A", "B", "C", "D", "E")
-      console.write("A", "B", "C", "D", "E")
+      expect(console).to receive(:format).with("A", suffix: "B", indented: "C", wrap: "D", plain: "E")
+      console.write("A", suffix: "B", indented: "C", wrap: "D", plain: "E")
     end
   end
 
   describe "#write_banner_aligned" do
     it "should call #min_banner_length and #format" do
       expect(Bovem::Console).to receive(:min_banner_length).and_return(1)
-      expect(console).to receive(:format).with("    A", "B", "C", "D", "E")
-      console.write_banner_aligned("A", "B", "C", "D", "E")
+      expect(console).to receive(:write).with("    A", suffix: "B", indented: "C", wrap: "D", plain: "E", print: "F")
+      console.write_banner_aligned("A", suffix: "B", indented: "C", wrap: "D", plain: "E", print: "F")
     end
   end
 
   describe "#get_banner" do
     it "should correctly format arguments" do
       expect(console.get_banner("LABEL", "red")).to eq("{mark=blue}[{mark=red}LABEL{/mark}]{/mark}")
-      expect(console.get_banner("LABEL", "red", true)).to eq("{mark=red}[{mark=red}LABEL{/mark}]{/mark}")
-      expect(console.get_banner("LABEL", "red", false, "yellow")).to eq("{mark=yellow}[{mark=red}LABEL{/mark}]{/mark}")
-      expect(console.get_banner("LABEL", "red", false, "blue", nil)).to eq("{mark=blue}{mark=red}LABEL{/mark}{/mark}")
-      expect(console.get_banner("LABEL", "red", false, "blue", "A")).to eq("{mark=blue}A{mark=red}LABEL{/mark}{/mark}")
-      expect(console.get_banner("LABEL", "red", false, "blue", ["A", "B"])).to eq("{mark=blue}A{mark=red}LABEL{/mark}B{/mark}")
+      expect(console.get_banner("LABEL", "red", full_colored: true)).to eq("{mark=red}[{mark=red}LABEL{/mark}]{/mark}")
+      expect(console.get_banner("LABEL", "red", bracket_color: "yellow")).to eq("{mark=yellow}[{mark=red}LABEL{/mark}]{/mark}")
+      expect(console.get_banner("LABEL", "red", brackets: nil)).to eq("{mark=blue}{mark=red}LABEL{/mark}{/mark}")
+      expect(console.get_banner("LABEL", "red", brackets: "A")).to eq("{mark=blue}A{mark=red}LABEL{/mark}{/mark}")
+      expect(console.get_banner("LABEL", "red", brackets: ["A", "B"])).to eq("{mark=blue}A{mark=red}LABEL{/mark}B{/mark}")
     end
   end
 
   describe "#info" do
     it "should forward everything to #get_banner" do
-      expect(console).to receive(:get_banner).with("I", "bright cyan", false).at_least(1).and_return("")
-      console.info("OK", "\n", true, false, false, false, false, false)
-      expect(console).to receive(:get_banner).with("I", "bright cyan", true).at_least(1).and_return("")
-      console.info("OK", "\n", true, false, false, false, true, false)
+      expect(console).to receive(:get_banner).with("I", "bright cyan", full_colored: false).at_least(1).and_return("")
+      console.info("OK", suffix: "\n", full_colored: false)
+      expect(console).to receive(:get_banner).with("I", "bright cyan", full_colored: true).at_least(1).and_return("")
+      console.info("OK", suffix: "\n", full_colored: true)
     end
 
     it "should forward everything to #write" do
-      expect(console).to receive(:write).with(/.+/, "B", "C", "D", "E", false)
-      console.info("A", "B", "C", "D", "E", "F", "G", false)
+      expect(console).to receive(:write).with(/.+/, suffix: "B", indented: 0, wrap: "D", plain: "E", print: false)
+      console.info("A", suffix: "B", indented: "C", wrap: "D", plain: "E", print: false)
     end
   end
 
@@ -246,96 +242,98 @@ describe Bovem::Console do
     end
 
     it "should format good percentage progresses" do
-      expect(console.progress(1, 100, :percentage)).to eq("  1 %")
-      expect(console.progress(33, 100, :percentage)).to eq(" 33 %")
-      expect(console.progress(1400, 100, :percentage)).to eq("1400 %")
-      expect(console.progress(50, 70, :percentage)).to eq(" 71 %")
-      expect(console.progress(50, 70, :percentage, 2)).to eq(" 71.43 %")
-      expect(console.progress(50, 70, :percentage, 3)).to eq(" 71.429 %")
-      expect(console.progress(0, 0, :percentage)).to eq("100 %")
-      expect(console.progress(1, 0, :percentage)).to eq("100 %")
-      expect(console.progress(0, 100, :percentage)).to eq("  0 %")
+      expect(console.progress(1, 100, type: :percentage)).to eq("  1 %")
+      expect(console.progress(33, 100, type: :percentage)).to eq(" 33 %")
+      expect(console.progress(1400, 100, type: :percentage)).to eq("1400 %")
+      expect(console.progress(50, 70, type: :percentage)).to eq(" 71 %")
+      expect(console.progress(50, 70, type: :percentage, precision: 2)).to eq(" 71.43 %")
+      expect(console.progress(50, 70, type: :percentage, precision: 3)).to eq(" 71.429 %")
+      expect(console.progress(0, 0, type: :percentage)).to eq("100 %")
+      expect(console.progress(1, 0, type: :percentage)).to eq("100 %")
+      expect(console.progress(0, 100, type: :percentage)).to eq("  0 %")
     end
   end
 
   describe "#begin" do
     it "should forward everything to #get_banner" do
-      expect(console).to receive(:get_banner).with("*", "bright green", false).at_least(1).and_return("")
-      console.begin("OK", "\n", true, false, false, false, false, false)
+      expect(console).to receive(:get_banner).with("*", "bright green", full_colored: false).at_least(1).and_return("")
+      console.begin("OK", suffix: "\n", full_colored: false)
+      expect(console).to receive(:get_banner).with("*", "bright green", full_colored: true).at_least(1).and_return("")
+      console.begin("OK", suffix: "\n", full_colored: true)
     end
 
     it "should forward everything to #write" do
-      expect(console).to receive(:write).with(/.+/, "B", "C", "D", "E", false)
-      console.begin("A", "B", "C", "D", "E", "F", "G", false)
+      expect(console).to receive(:write).with(/.+/, suffix: "B", indented: 0, wrap: "D", plain: "E", print: false)
+      console.begin("A", suffix: "B", indented: "C", wrap: "D", plain: "E", print: false)
     end
   end
 
   describe "#warn" do
     it "should forward everything to #get_banner" do
-      expect(console).to receive(:get_banner).with("W", "bright yellow", false).at_least(1).and_return("")
-      console.warn("OK", "\n", true, false, false, false, false, false)
-      expect(console).to receive(:get_banner).with("W", "bright yellow", true).at_least(1).and_return("")
-      console.warn("OK", "\n", true, false, false, false, true, false)
+      expect(console).to receive(:get_banner).with("W", "bright yellow", full_colored: false).at_least(1).and_return("")
+      console.warn("OK", suffix: "\n", full_colored: false)
+      expect(console).to receive(:get_banner).with("W", "bright yellow", full_colored: true).at_least(1).and_return("")
+      console.warn("OK", suffix: "\n", full_colored: true)
     end
 
     it "should forward everything to #write" do
-      expect(console).to receive(:write).with(/.+/, "B", "C", "D", "E", false)
-      console.warn("A", "B", "C", "D", "E", "F", "G", false)
+      expect(console).to receive(:write).with(/.+/, suffix: "B", indented: 0, wrap: "D", plain: "E", print: false)
+      console.warn("A", suffix: "B", indented: "C", wrap: "D", plain: "E", print: false)
     end
   end
 
   describe "#error" do
     it "should forward everything to #get_banner" do
-      expect(console).to receive(:get_banner).with("E", "bright red", false).at_least(1).and_return("")
-      console.error("OK", "\n", true, false, false, false, false, false)
-      expect(console).to receive(:get_banner).with("E", "bright red", true).at_least(1).and_return("")
-      console.error("OK", "\n", true, false, false, false, true, false)
+      expect(console).to receive(:get_banner).with("E", "bright red", full_colored: false).at_least(1).and_return("")
+      console.error("OK", suffix: "\n", full_colored: false)
+      expect(console).to receive(:get_banner).with("E", "bright red", full_colored: true).at_least(1).and_return("")
+      console.error("OK", suffix: "\n", full_colored: true)
     end
 
     it "should forward everything to #write" do
-      expect(console).to receive(:write).with(/.+/, "B", "C", "D", "E", false)
-      console.error("A", "B", "C", "D", "E", "F", "G", false)
+      expect(console).to receive(:write).with(/.+/, suffix: "B", indented: 0, wrap: "D", plain: "E", print: false)
+      console.error("A", suffix: "B", indented: "C", wrap: "D", plain: "E", print: false)
     end
   end
 
   describe "#fatal" do
     it "should forward anything to #error" do
       allow(Kernel).to receive(:exit).and_return(true)
-      expect(console).to receive(:error).with("A", "B", "C", "D", "E", "F", "G", false)
-      console.fatal("A", "B", "C", "D", "E", "F", "G", "H", false)
+      expect(console).to receive(:error).with("A", suffix: "B", indented: "C", wrap: "D", plain: "E", indented_banner: "F", full_colored: "G", print: true)
+      console.fatal("A", suffix: "B", indented: "C", wrap: "D", plain: "E", indented_banner: "F", full_colored: "G")
     end
 
     it "should call abort with the right error code" do
       allow(Kernel).to receive(:exit).and_return(true)
 
       expect(Kernel).to receive(:exit).with(-1).exactly(2)
-      console.fatal("A", "B", "C", "D", "E", "F", "G", -1, false)
-      console.fatal("A", "B", "C", "D", "E", "F", "G", "H", false)
+      console.fatal("A", suffix: "B", indented: "C", wrap: "D", plain: "E", indented_banner: "F", full_colored: "G", return_code: -1, print: false)
+      console.fatal("A", suffix: "B", indented: "C", wrap: "D", plain: "E", indented_banner: "F", full_colored: "G", return_code: "H", print: false)
     end
   end
 
   describe "#debug" do
     it "should forward everything to #get_banner" do
-      expect(console).to receive(:get_banner).with("D", "bright magenta", false).at_least(1).and_return("")
-      console.debug("OK", "\n", true, false, false, false, false, false)
-      expect(console).to receive(:get_banner).with("D", "bright magenta", true).at_least(1).and_return("")
-      console.debug("OK", "\n", true, false, false, false, true, false)
+      expect(console).to receive(:get_banner).with("D", "bright magenta", full_colored: false).at_least(1).and_return("")
+      console.debug("OK", suffix: "\n", full_colored: false)
+      expect(console).to receive(:get_banner).with("D", "bright magenta", full_colored: true).at_least(1).and_return("")
+      console.debug("OK", suffix: "\n", full_colored: true)
     end
 
     it "should forward everything to #write" do
-      expect(console).to receive(:write).with(/.+/, "B", "C", "D", "E", false)
-      console.debug("A", "B", "C", "D", "E", "F", "G", false)
+      expect(console).to receive(:write).with(/.+/, suffix: "B", indented: 0, wrap: "D", plain: "E", print: false)
+      console.debug("A", suffix: "B", indented: "C", wrap: "D", plain: "E", print: false)
     end
   end
 
   describe "#status" do
     it "should get the right status" do
-      expect(console.status(:ok, false, true, false)).to eq({label: " OK ", color: "bright green"})
-      expect(console.status(:pass, false, true, false)).to eq({label: "PASS", color: "bright cyan"})
-      expect(console.status(:warn, false, true, false)).to eq({label: "WARN", color: "bright yellow"})
-      expect(console.status(:fail, false, true, false)).to eq({label: "FAIL", color: "bright red"})
-      expect(console.status("NO", false, true, false)).to eq({label: " OK ", color: "bright green"})
-      expect(console.status(nil, false, true, false)).to eq({label: " OK ", color: "bright green"})
+      expect(console.status(:ok, print: false)).to eq({label: " OK ", color: "bright green"})
+      expect(console.status(:pass, print: false)).to eq({label: "PASS", color: "bright cyan"})
+      expect(console.status(:warn, print: false)).to eq({label: "WARN", color: "bright yellow"})
+      expect(console.status(:fail, print: false)).to eq({label: "FAIL", color: "bright red"})
+      expect(console.status("NO", print: false)).to eq({label: " OK ", color: "bright green"})
+      expect(console.status(nil, print: false)).to eq({label: " OK ", color: "bright green"})
     end
 
     it "should create the banner" do
@@ -344,10 +342,11 @@ describe Bovem::Console do
     end
 
     it "should format correctly" do
-      expect(console).to receive(:format_right).with(/.+/, true, true, false)
-      console.status(:ok, false, true)
-      expect(console).to receive(:format).with(/.+/, "\n", true, true, false)
-      console.status(:ok, false, true, false)
+      expect(console).to receive(:format_right).with(/.+/, width: true, go_up: true, plain: false)
+      expect(console).to receive(:format).with(/.+/, suffix: "\n", indent: true, wrap: true, plain: false)
+
+      console.status(:ok)
+      console.status(:ok, right: false)
     end
   end
 
@@ -357,30 +356,30 @@ describe Bovem::Console do
 
       prompt = "PROMPT"
       expect(Kernel).to receive(:print).with("Please insert a value: ")
-      console.read(true)
+      console.read(prompt: true)
       expect(Kernel).to receive(:print).with(prompt + ": ")
-      console.read(prompt)
+      console.read(prompt: prompt)
       expect(Kernel).not_to receive("print")
-      console.read(nil)
+      console.read(prompt: nil)
     end
 
     it "should read a value or a default" do
       allow($stdin).to receive(:gets).and_return("VALUE\n")
-      expect(console.read(nil, "DEFAULT")).to eq("VALUE")
+      expect(console.read(prompt: nil, default_value: "DEFAULT")).to eq("VALUE")
       allow($stdin).to receive(:gets).and_return("\n")
-      expect(console.read(nil, "DEFAULT")).to eq("DEFAULT")
+      expect(console.read(prompt: nil, default_value: "DEFAULT")).to eq("DEFAULT")
     end
 
     it "should return the default value if the user quits" do
       allow($stdin).to receive(:gets).and_raise(Interrupt)
-      expect(console.read(nil, "DEFAULT")).to eq("DEFAULT")
+      expect(console.read(prompt: nil, default_value: "DEFAULT")).to eq("DEFAULT")
     end
 
     it "should validate against an object or array validator" do
       count = 0
 
       allow($stdin).to receive(:gets) do
-        if count == 0 then
+        if count == 0
           count += 1
           "2\n"
         else
@@ -390,13 +389,13 @@ describe Bovem::Console do
 
       expect(console).to receive(:write).with("Sorry, your reply was not understood. Please try again.", false, false).exactly(4)
       count = 0
-      console.read(nil, nil, "A")
+      console.read(prompt: nil, validator: "A")
       count = 0
-      console.read(nil, nil, "1")
+      console.read(prompt: nil, validator: "1")
       count = 0
-      console.read(nil, nil, "nil")
+      console.read(prompt: nil, validator: "nil")
       count = 0
-      console.read(nil, nil, ["A", 1])
+      console.read(prompt: nil, validator: ["A", 1])
     end
 
     it "should validate against an regexp validator" do
@@ -412,12 +411,12 @@ describe Bovem::Console do
       end
 
       expect(console).to receive(:write).with("Sorry, your reply was not understood. Please try again.", false, false)
-      console.read(nil, nil, /[abc]/)
+      console.read(prompt: nil, validator: /[abc]/)
     end
 
     it "should hide echo to the user when the terminal shows echo" do
       expect($stdin).to receive(:noecho).and_return("VALUE")
-      console.read(nil, nil, nil, false)
+      console.read(prompt: nil, echo: false)
     end
   end
 
@@ -428,9 +427,9 @@ describe Bovem::Console do
     end
 
     it "should print the message and indentate correctly" do
-      expect(console).to receive(:begin).with("A", "B", "C", "D", "E", "F", "G")
+      expect(console).to receive(:begin).with("A", suffix: "B", indented: "C", wrap: "D", plain: "E", indented_banner: "F", full_colored: "G")
       expect(console).to receive(:with_indentation).with("H", "I")
-      console.task("A", "B", "C", "D", "E", "F", "G", "H", "I") { :ok }
+      console.task("A", suffix: "B", indented: "C", wrap: "D", plain: "E", indented_banner: "F", full_colored: "G", block_indentation: "H", block_indentation_absolute: "I") { :ok }
     end
 
     it "should execute the given block" do
@@ -440,9 +439,9 @@ describe Bovem::Console do
 
     it "should write the correct status" do
       allow(console).to receive(:begin)
-      expect(console).to receive(:status).with(:ok, false)
+      expect(console).to receive(:status).with(:ok, plain: false)
       console.task("OK") { :ok }
-      expect(console).to receive(:status).with(:fail, false)
+      expect(console).to receive(:status).with(:fail, plain: false)
       expect { console.task("") { :fatal }}.to raise_error(SystemExit)
     end
 

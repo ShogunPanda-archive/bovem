@@ -85,7 +85,7 @@ module Bovem
               stack.pop
               plain || stack.blank? ? "" : Bovem::Console.parse_styles(stack.last)
             else
-              add_style(plain, stack)
+              add_style($LAST_MATCH_INFO[3], plain, stack)
             end
           end
         end
@@ -93,8 +93,8 @@ module Bovem
         private
 
         # :nodoc:
-        def add_style(plain, stack)
-          styles = $LAST_MATCH_INFO[3].ensure_string
+        def add_style(styles, plain, stack)
+          styles = styles.ensure_string
           replacement = plain ? "" : Bovem::Console.parse_styles(styles)
 
           unless replacement.empty?
@@ -162,7 +162,7 @@ module Bovem
           width = (width == true || width.to_integer < 0 ? line_width : width.to_integer)
 
           rv = message.split("\n").map do |line|
-            line.length > width ? line.gsub(/(.{1,#{width}})(\s+|$)/, "\\1\n").strip : line
+            wrap_line(line, width)
           end
 
           rv.join("\n")
@@ -181,11 +181,11 @@ module Bovem
           width = (width.is_a?(TrueClass) ? 0 : width.to_integer)
           width = width < 0 ? -width : @indentation + width
 
-          rv = message = message.split(newline_separator).map do |line|
+          rv = message.split(newline_separator).map do |line|
             (@indentation_string * width) + line
           end
 
-          rv.join(newline_separator)
+          message = rv.join(newline_separator)
         end
 
         message
@@ -199,20 +199,20 @@ module Bovem
       #
       # @param message [String] The message to format.
       # @param suffix [Object] If not `nil` or `false`, a suffix to add to the message. `true` means to add `\n`.
-      # @param indent [Object] If not `nil` or `false`, the width to use for indentation. `true` means to use the current indentation,
+      # @param indented [Object] If not `nil` or `false`, the width to use for indentation. `true` means to use the current indentation,
       #   a negative value of `-x` will indent of `x` absolute spaces.
       # @param wrap [Object] If not `nil` or `false`, the maximum length of a line. `true` means the current line width.
       # @param plain [Boolean] If ignore color markers into the message.
       # @return [String] The formatted message.
-      def format(message, suffix: "\n", indent: true, wrap: true, plain: false)
+      def format(message, suffix: "\n", indented: true, wrap: true, plain: false)
         rv = message
 
         rv = replace_markers(rv, plain) # Replace markers
 
         # Compute the real width available for the screen, if we both indent and wrap
-        wrap = compute_wrap(indent) if wrap.is_a?(TrueClass)
+        wrap = compute_wrap(indented) if wrap.is_a?(TrueClass)
 
-        rv = indent(wrap(rv, wrap), indent) # Wrap & Indent
+        rv = indent(wrap(rv, wrap), indented) # Wrap & Indent
         rv += (suffix.is_a?(TrueClass) ? "\n" : suffix.ensure_string) if suffix # Add the suffix
         rv
       end
@@ -246,6 +246,11 @@ module Bovem
       end
 
       private
+
+      # :nodoc:
+      def wrap_line(line, width)
+        line.length > width ? line.gsub(/(\S{1,#{width}})(\s+|$)/, "\\1\n#{@indentation_string * @indentation}").rstrip : line
+      end
 
       # :nodoc:
       def compute_wrap(indent)
@@ -286,7 +291,7 @@ module Bovem
       #
       # @param message [String] The message to format.
       # @param suffix [Object] If not `nil` or `false`, a suffix to add to the message. `true` means to add `\n`.
-      # @param indent [Object] If not `nil` or `false`, the width to use for indentation. `true` means to use the current indentation,
+      # @param indented [Object] If not `nil` or `false`, the width to use for indentation. `true` means to use the current indentation,
       #   a negative value of `-x` will indent of `x` absolute spaces.
       # @param wrap [Object] If not `nil` or `false`, the maximum length of a line for wrapped text. `true` means the current line width.
       # @param plain [Boolean] If ignore color markers into the message.
@@ -294,8 +299,8 @@ module Bovem
       # @return [String] The printed message.
       #
       # @see #format
-      def write(message, suffix: "\n", indent: true, wrap: false, plain: false, print: true)
-        rv = format(message, suffix: suffix, indent: indent, wrap: wrap, plain: plain)
+      def write(message, suffix: "\n", indented: true, wrap: false, plain: false, print: true)
+        rv = format(message, suffix: suffix, indented: indented, wrap: wrap, plain: plain)
         Kernel.puts(rv) if print
         rv
       end
@@ -304,7 +309,7 @@ module Bovem
       #
       # @param message [String] The message to format.
       # @param suffix [Object] If not `nil` or `false`, a suffix to add to the message. `true` means to add `\n`.
-      # @param indent [Object] If not `nil` or `false`, the width to use for indentation. `true` means to use the current indentation,
+      # @param indented [Object] If not `nil` or `false`, the width to use for indentation. `true` means to use the current indentation,
       #   a negative value of `-x` will indent of `x` absolute spaces.
       # @param wrap [Object] If not `nil` or `false`, the maximum length of a line for wrapped text. `true` means the current line width.
       # @param plain [Boolean] If ignore color markers into the message.
@@ -312,8 +317,15 @@ module Bovem
       # @return [String] The printed message.
       #
       # @see #format
-      def write_banner_aligned(message, suffix: "\n", indent: true, wrap: false, plain: false, print: true)
-        write((" " * (Bovem::Console.min_banner_length + 3)) + message.ensure_string, suffix: suffix, indent: indent, wrap: wrap, plain: plain, print: print)
+      def write_banner_aligned(message, suffix: "\n", indented: true, wrap: false, plain: false, print: true)
+        write(
+          (" " * (Bovem::Console.min_banner_length + 3)) + message.ensure_string,
+          suffix: suffix,
+          indented: indented,
+          wrap: wrap,
+          plain: plain,
+          print: print
+        )
       end
 
       # Writes a status to the output. Valid values are `:ok`, `:pass`, `:fail`, `:warn`, `skip`.
@@ -380,7 +392,7 @@ module Bovem
       #
       # @param message [String] The message to format.
       # @param suffix [Object] If not `nil` or `false`, a suffix to add to the message. `true` means to add `\n`.
-      # @param indent [Object] If not `nil` or `false`, the width to use for indentation. `true` means to use the current indentation,
+      # @param indented [Object] If not `nil` or `false`, the width to use for indentation. `true` means to use the current indentation,
       #   a negative value of `-x` will indent of `x` absolute spaces.
       # @param wrap [Object] If not `nil` or `false`, the maximum length of a line for wrapped text. `true` means the current line width.
       # @param plain [Boolean] If ignore color markers into the message.
@@ -389,17 +401,17 @@ module Bovem
       # @param print [Boolean] If `false`, the result will be returned instead of be printed.
       #
       # @see #format
-      def begin(message, suffix: "\n", indent: true, wrap: false, plain: false, indented_banner: false, full_colored: false, print: true)
-        banner = get_banner("*", "bright green", full_colored)
-        message = indent(message, indented_banner ? 0 : indent)
-        write(banner + " " + message, suffix: suffix, indents: indented_banner ? indent : 0, wrap: wrap, plain: plain, print: print)
+      def begin(message, suffix: "\n", indented: true, wrap: false, plain: false, indented_banner: false, full_colored: false, print: true)
+        banner = get_banner("*", "bright green", full_colored: full_colored)
+        message = indent(message, indented_banner ? 0 : indented)
+        write(banner + " " + message, suffix: suffix, indented: indented_banner ? indented : 0, wrap: wrap, plain: plain, print: print)
       end
 
       # Writes a message prepending a red banner and then quits the application.
       #
       # @param message [String] The message to format.
       # @param suffix [Object] If not `nil` or `false`, a suffix to add to the message. `true` means to add `\n`.
-      # @param indent [Object] If not `nil` or `false`, the width to use for indentation. `true` means to use the current indentation,
+      # @param indented [Object] If not `nil` or `false`, the width to use for indentation. `true` means to use the current indentation,
       #   a negative value of `-x` will indent of `x` absolute spaces.
       # @param wrap [Object] If not `nil` or `false`, the maximum length of a line for wrapped text. `true` means the current line width.
       # @param plain [Boolean] If ignore color markers into the message.
@@ -409,8 +421,8 @@ module Bovem
       # @param print [Boolean] If `false`, the result will be returned instead of be printed.
       #
       # @see #format
-      def fatal(message, suffix: "\n", indent: true, wrap: false, plain: false, indented_banner: false, full_colored: false, return_code: -1, print: true)
-        error(message, suffix: suffix, indent: indent, wrap: wrap, plain: plain, indented_banner: indented_banner, full_colored: full_colored, print: print)
+      def fatal(message, suffix: "\n", indented: true, wrap: false, plain: false, indented_banner: false, full_colored: false, return_code: -1, print: true)
+        error(message, suffix: suffix, indented: indented, wrap: wrap, plain: plain, indented_banner: indented_banner, full_colored: full_colored, print: print)
         Kernel.exit(return_code.to_integer(-1))
       end
 
@@ -418,7 +430,7 @@ module Bovem
       #
       # @param message [String] The message to format.
       # @param suffix [Object] If not `nil` or `false`, a suffix to add to the message. `true` means to add `\n`.
-      # @param indent [Object] If not `nil` or `false`, the width to use for indentation. `true` means to use the current indentation,
+      # @param indented [Object] If not `nil` or `false`, the width to use for indentation. `true` means to use the current indentation,
       #   a negative value of `-x` will indent of `x` absolute spaces.
       # @param wrap [Object] If not `nil` or `false`, the maximum length of a line for wrapped text. `true` means the current line width.
       # @param plain [Boolean] If ignore color markers into the message.
@@ -428,19 +440,19 @@ module Bovem
       # @param banner [Array] An array with at last letter and style to use for the banner.
       #
       # @see #format
-      def info(message, suffix: "\n", indent: true, wrap: false, plain: false, indented_banner: false, full_colored: false, print: true, banner: [])
-        banner = banner.ensure_array(nil, true, true, true)
+      def info(message, suffix: "\n", indented: true, wrap: false, plain: false, indented_banner: false, full_colored: false, print: true, banner: [])
+        banner = banner.ensure_array(no_duplicates: true, compact: true, flatten: true)
         banner = ["I", "bright cyan"] if banner.blank?
-        banner = get_banner(banner[0], banner[1], full_colored)
-        message = indent(message, indented_banner ? 0 : indent)
-        write(banner + " " + message, suffix: suffix, indent: indented_banner ? indent : 0, wrap: wrap, plain: plain, print: print)
+        banner = get_banner(banner[0], banner[1], full_colored: full_colored)
+        message = indent(message, indented_banner ? 0 : indented)
+        write(banner + " " + message, suffix: suffix, indented: indented_banner ? indented : 0, wrap: wrap, plain: plain, print: print)
       end
 
       # Writes a message prepending a magenta banner.
       #
       # @param message [String] The message to format.
       # @param suffix [Object] If not `nil` or `false`, a suffix to add to the message. `true` means to add `\n`.
-      # @param indent [Object] If not `nil` or `false`, the width to use for indentation. `true` means to use the current indentation,
+      # @param indented [Object] If not `nil` or `false`, the width to use for indentation. `true` means to use the current indentation,
       #   a negative value of `-x` will indent of `x` absolute spaces.
       # @param wrap [Object] If not `nil` or `false`, the maximum length of a line for wrapped text. `true` means the current line width.
       # @param plain [Boolean] If ignore color markers into the message.
@@ -449,11 +461,11 @@ module Bovem
       # @param print [Boolean] If `false`, the result will be returned instead of be printed.
       #
       # @see #format
-      def debug(message, suffix: "\n", indent: true, wrap: false, plain: false, indented_banner: false, full_colored: false, print: true)
+      def debug(message, suffix: "\n", indented: true, wrap: false, plain: false, indented_banner: false, full_colored: false, print: true)
         info(
           message,
           suffix: suffix,
-          indent: indent,
+          indented: indented,
           wrap: wrap,
           plain: plain,
           indented_banner: indented_banner,
@@ -467,7 +479,7 @@ module Bovem
       #
       # @param message [String] The message to format.
       # @param suffix [Object] If not `nil` or `false`, a suffix to add to the message. `true` means to add `\n`.
-      # @param indent [Object] If not `nil` or `false`, the width to use for indentation. `true` means to use the current indentation,
+      # @param indented [Object] If not `nil` or `false`, the width to use for indentation. `true` means to use the current indentation,
       #   a negative value of `-x` will indent of `x` absolute spaces.
       # @param wrap [Object] If not `nil` or `false`, the maximum length of a line for wrapped text. `true` means the current line width.
       # @param plain [Boolean] If ignore color markers into the message.
@@ -476,11 +488,11 @@ module Bovem
       # @param print [Boolean] If `false`, the result will be returned instead of be printed.
       #
       # @see #format
-      def warn(message, suffix: "\n", indent: true, wrap: false, plain: false, indented_banner: false, full_colored: false, print: true)
+      def warn(message, suffix: "\n", indented: true, wrap: false, plain: false, indented_banner: false, full_colored: false, print: true)
         info(
           message,
           suffix: suffix,
-          indent: indent,
+          indented: indented,
           wrap: wrap,
           plain: plain,
           indented_banner: indented_banner,
@@ -494,7 +506,7 @@ module Bovem
       #
       # @param message [String] The message to format.
       # @param suffix [Object] If not `nil` or `false`, a suffix to add to the message. `true` means to add `\n`.
-      # @param indent [Object] If not `nil` or `false`, the width to use for indentation. `true` means to use the current indentation,
+      # @param indented [Object] If not `nil` or `false`, the width to use for indentation. `true` means to use the current indentation,
       #   a negative value of `-x` will indent of `x` absolute spaces.
       # @param wrap [Object] If not `nil` or `false`, the maximum length of a line for wrapped text. `true` means the current line width.
       # @param plain [Boolean] If ignore color markers into the message.
@@ -503,17 +515,17 @@ module Bovem
       # @param print [Boolean] If `false`, the result will be returned instead of be printed.
       #
       # @see #format
-      def error(message, suffix: "\n", indent: true, wrap: false, plain: false, indented_banner: false, full_colored: false, print: true)
+      def error(message, suffix: "\n", indented: true, wrap: false, plain: false, indented_banner: false, full_colored: false, print: true)
         info(
           message,
           suffix: suffix,
-          indent: indent,
+          indented: indented,
           wrap: wrap,
           plain: plain,
           indented_banner: indented_banner,
           full_colored: full_colored,
           print: print,
-          banner: ["W", "bright red"]
+          banner: ["E", "bright red"]
         )
       end
 
@@ -568,7 +580,7 @@ module Bovem
       #
       # @param message [String] The message to format.
       # @param suffix [Object] If not `nil` or `false`, a suffix to add to the message. `true` means to add `\n`.
-      # @param indent [Object] If not `nil` or `false`, the width to use for indentation. `true` means to use the current indentation,
+      # @param indented [Object] If not `nil` or `false`, the width to use for indentation. `true` means to use the current indentation,
       #   a negative value of `-x` will indent of `x` absolute spaces.
       # @param wrap [Object] If not `nil` or `false`, the maximum length of a line for wrapped text. `true` means the current line width.
       # @param plain [Boolean] If ignore color markers into the message.
@@ -578,12 +590,15 @@ module Bovem
       # @param block_indentation_absolute [Boolean] If the new width should not be added to the current one but rather replace it.
       # @return [Symbol] The exit status for the block.
       def task(
-        message: nil, suffix: "\n", indent: true, wrap: false, plain: false, indented_banner: false,
+        message = nil, suffix: "\n", indented: true, wrap: false, plain: false, indented_banner: false,
         full_colored: false, block_indentation: 2, block_indentation_absolute: false
       )
         status = nil
 
-        self.begin(message, suffix, indent, wrap, plain, indented_banner, full_colored) if message.present?
+        if message.present?
+          self.begin(message, suffix: suffix, indented: indented, wrap: wrap, plain: plain, indented_banner: indented_banner, full_colored: full_colored)
+        end
+
         with_indentation(block_indentation, block_indentation_absolute) do
           rv = block_given? ? yield.ensure_array : [:ok] # Execute block
           exit_task(message, rv, plain) # Handle task exit
@@ -598,28 +613,32 @@ module Bovem
       # :nodoc:
       def exit_task(message, rv, plain)
         if rv[0] == :fatal
-          status(:fail, plain)
+          status(:fail, plain: plain)
           exit(rv.length > 1 ? rv[1].to_integer : -1)
         elsif message.present?
-          status(rv[0], plain)
+          status(rv[0], plain: plain)
         end
       end
 
       # :nodoc:
       def sanitize_prompt(prompt)
         return nil unless prompt.present?
-        (prompt.is_a?(TrueClass) ? i18n.console.prompt : prompt).gsub(/:?\s*$/, "") + ": "
+        (prompt.is_a?(TrueClass) ? i18n.prompt : prompt).gsub(/:?\s*$/, "") + ": "
       end
 
       # :nodoc:
       def sanitize_validator(validator)
-        validator.present? && !validator.is_a?(::Regexp) ? validator.ensure_array(nil, true, true, true, :ensure_string) : validator
+        if validator.present? && !validator.is_a?(::Regexp)
+          validator.ensure_array(no_duplicates: true, compact: true, flatten: true, sanitizer: :ensure_string)
+        else
+          validator
+        end
       end
 
       # :nodoc:
       def read_input_value(prompt, echo, default_value = nil)
         if prompt
-          Kernel.print(format(prompt, false, false))
+          Kernel.print(format(prompt, suffix: false, indented: false))
           $stdout.flush
         end
 
@@ -652,7 +671,7 @@ module Bovem
         if reply
           throw(:reply, reply)
         else
-          write(i18n.console.unknown_reply, false, false)
+          write(i18n.unknown_reply, false, false)
         end
       end
     end
@@ -664,11 +683,12 @@ module Bovem
   #   @return [Fixnum] Current indentation width.
   # @attribute indentation_string
   #   @return [String] The string used for indentation.
+  # @attribute [r] i18n
+  #   @return [I18n] A i18n helper.
   class Console
-    attr_accessor :indentation
-    attr_accessor :indentation_string
+    attr_accessor :indentation, :indentation_string
+    attr_reader :i18n
 
-    include Lazier::I18n
     include Bovem::ConsoleMethods::StyleHandling
     include Bovem::ConsoleMethods::Output
     include Bovem::ConsoleMethods::Logging
@@ -685,7 +705,7 @@ module Bovem
     def initialize
       @indentation = 0
       @indentation_string = " "
-      i18n_setup(:bovem, ::File.absolute_path(::Pathname.new(::File.dirname(__FILE__)).to_s + "/../../locales/"))
+      @i18n = Bovem::I18n.new(root: "bovem.console", path: ::File.absolute_path(::Pathname.new(::File.dirname(__FILE__)).to_s + "/../../locales/"))
     end
 
     # Get the width of the terminal.

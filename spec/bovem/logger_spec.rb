@@ -20,15 +20,15 @@ describe Bovem::Logger do
     end
 
     it "should create a logger with a custom file and level" do
-      logger = Bovem::Logger.create("/dev/null", ::Logger::WARN)
+      logger = Bovem::Logger.create("/dev/null", level: ::Logger::WARN)
       expect(logger.device).to eq("/dev/null")
       expect(logger.level).to eq(::Logger::WARN)
       expect(logger.formatter).to eq(Bovem::Logger.default_formatter)
     end
 
     it "should create a logger with a custom formatter" do
-      formatter = Proc.new {|severity, datetime, progname, msg| msg }
-      logger = Bovem::Logger.create("/dev/null", ::Logger::WARN, formatter)
+      formatter = Proc.new {|_, _, _, msg| msg }
+      logger = Bovem::Logger.create("/dev/null", level: ::Logger::WARN, formatter: formatter)
       expect(logger.device).to eq("/dev/null")
       expect(logger.level).to eq(::Logger::WARN)
       expect(logger.formatter).to eq(formatter)
@@ -41,7 +41,7 @@ describe Bovem::Logger do
 
   describe ".default_formatter" do
     let(:output) { ::StringIO.new }
-    let(:logger) { Bovem::Logger.create(output, Logger::DEBUG) }
+    let(:logger) { Bovem::Logger.create(output, level: Logger::DEBUG) }
 
     def get_last_line(buffer)
       buffer.string.split("\n").last.strip.gsub(/ T\+\d+\.\d+/, "")
