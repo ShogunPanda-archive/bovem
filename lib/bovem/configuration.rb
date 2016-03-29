@@ -34,7 +34,7 @@ module Bovem
     def initialize(file = nil, overrides = {}, logger = nil)
       super()
 
-      @i18n = Bovem::I18n.new(root: "bovem.configuration", path: ::File.absolute_path(::Pathname.new(::File.dirname(__FILE__)).to_s + "/../../locales/"))
+      @i18n = Bovem::I18n.new(root: "bovem.configuration", path: Bovem::Application::LOCALE_ROOT)
       parse(file, overrides, logger)
     end
 

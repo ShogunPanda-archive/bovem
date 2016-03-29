@@ -519,7 +519,7 @@ module Bovem
     # Initializes a new Shell.
     def initialize
       @console = Bovem::Console.instance
-      @i18n = Bovem::I18n.new(root: "bovem.shell", path: ::File.absolute_path(::Pathname.new(::File.dirname(__FILE__)).to_s + "/../../locales/"))
+      @i18n = Bovem::I18n.new(root: "bovem.shell", path: Bovem::Application::LOCALE_ROOT)
     end
   end
 end

@@ -705,7 +705,7 @@ module Bovem
     def initialize
       @indentation = 0
       @indentation_string = " "
-      @i18n = Bovem::I18n.new(root: "bovem.console", path: ::File.absolute_path(::Pathname.new(::File.dirname(__FILE__)).to_s + "/../../locales/"))
+      @i18n = Bovem::I18n.new(root: "bovem.console", path: Bovem::Application::LOCALE_ROOT)
     end
 
     # Get the width of the terminal.

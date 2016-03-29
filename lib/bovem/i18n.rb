@@ -4,7 +4,6 @@
 # Licensed under the MIT license, which can be found at http://www.opensource.org/licenses/mit-license.php.
 #
 
-# TODO@PI: Test me
 module Bovem
   # Extension of Lazier::I18n to support method based access.
   class I18n < ::Lazier::I18n
