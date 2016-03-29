@@ -1,0 +1,2342 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>
+  Module: Bovem::ConsoleMethods::Logging
+  
+    &mdash; Documentation by YARD 0.8.7.6
+  
+</title>
+
+  <link rel="stylesheet" href="../../css/style.css" type="text/css" charset="utf-8" />
+
+  <link rel="stylesheet" href="../../css/common.css" type="text/css" charset="utf-8" />
+
+<script type="text/javascript" charset="utf-8">
+  hasFrames = window.top.frames.main ? true : false;
+  relpath = '../../';
+  framesUrl = "../../frames.html#!Bovem/ConsoleMethods/Logging.html";
+</script>
+
+
+  <script type="text/javascript" charset="utf-8" src="../../js/jquery.js"></script>
+
+  <script type="text/javascript" charset="utf-8" src="../../js/app.js"></script>
+
+
+  </head>
+  <body>
+    <div id="header">
+      <div id="menu">
+  
+    <a href="../../_index.html">Index (L)</a> &raquo;
+    <span class='title'><span class='object_link'><a href="../../Bovem.html" title="Bovem (module)">Bovem</a></span></span> &raquo; <span class='title'><span class='object_link'><a href="../ConsoleMethods.html" title="Bovem::ConsoleMethods (module)">ConsoleMethods</a></span></span>
+     &raquo; 
+    <span class="title">Logging</span>
+  
+
+  <div class="noframes"><span class="title">(</span><a href="." target="_top">no frames</a><span class="title">)</span></div>
+</div>
+
+      <div id="search">
+  
+    <a class="full_list_link" id="class_list_link"
+        href="../../class_list.html">
+      Class List
+    </a>
+  
+    <a class="full_list_link" id="method_list_link"
+        href="../../method_list.html">
+      Method List
+    </a>
+  
+    <a class="full_list_link" id="file_list_link"
+        href="../../file_list.html">
+      File List
+    </a>
+  
+</div>
+      <div class="clear"></div>
+    </div>
+
+    <iframe id="search_frame"></iframe>
+
+    <div id="content"><h1>Module: Bovem::ConsoleMethods::Logging
+  
+  
+  
+</h1>
+
+<dl class="box">
+  
+  
+    
+      <dt class="r1">Extended by:</dt>
+      <dd class="r1">ActiveSupport::Concern</dd>
+      
+    
+  
+    
+  
+  
+    <dt class="r2">Included in:</dt>
+    <dd class="r2"><span class='object_link'><a href="../Console.html" title="Bovem::Console (class)">Bovem::Console</a></span></dd>
+    
+  
+  
+    <dt class="r1 last">Defined in:</dt>
+    <dd class="r1 last">lib/bovem/console.rb</dd>
+  
+</dl>
+<div class="clear"></div>
+
+<h2>Overview</h2><div class="docstring">
+  <div class="discussion">
+    <p>Methods for logging activities to the user.</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+
+</div><h2>Defined Under Namespace</h2>
+<p class="children">
+  
+    
+      <strong class="modules">Modules:</strong> <span class='object_link'><a href="Logging/ClassMethods.html" title="Bovem::ConsoleMethods::Logging::ClassMethods (module)">ClassMethods</a></span>
+    
+  
+    
+  
+</p>
+
+  <h2>Constant Summary</h2>
+  
+    <dl class="constants">
+      
+        <dt id="DEFAULT_STATUSES-constant" class="">DEFAULT_STATUSES =
+          
+        </dt>
+        <dd><pre class="code"><span class='lbrace'>{</span>
+  <span class='label'>ok:</span> <span class='lbrace'>{</span><span class='label'>label:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'> OK </span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='label'>color:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>bright green</span><span class='tstring_end'>&quot;</span></span><span class='rbrace'>}</span><span class='comma'>,</span>
+  <span class='label'>pass:</span> <span class='lbrace'>{</span><span class='label'>label:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>PASS</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='label'>color:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>bright cyan</span><span class='tstring_end'>&quot;</span></span><span class='rbrace'>}</span><span class='comma'>,</span>
+  <span class='label'>warn:</span> <span class='lbrace'>{</span><span class='label'>label:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>WARN</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='label'>color:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>bright yellow</span><span class='tstring_end'>&quot;</span></span><span class='rbrace'>}</span><span class='comma'>,</span>
+  <span class='label'>fail:</span> <span class='lbrace'>{</span><span class='label'>label:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>FAIL</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='label'>color:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>bright red</span><span class='tstring_end'>&quot;</span></span><span class='rbrace'>}</span><span class='comma'>,</span>
+  <span class='label'>skip:</span> <span class='lbrace'>{</span><span class='label'>label:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>SKIP</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='label'>color:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>gray</span><span class='tstring_end'>&quot;</span></span><span class='rbrace'>}</span>
+<span class='rbrace'>}</span><span class='period'>.</span><span class='id identifier rubyid_freeze'>freeze</span></pre></dd>
+      
+    </dl>
+  
+
+
+
+
+
+
+
+  
+    <h2>
+      Instance Method Summary
+      <small>(<a href="#" class="summary_toggle">collapse</a>)</small>
+    </h2>
+
+    <ul class="summary">
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#begin-instance_method" title="#begin (instance method)">- (Object) <strong>begin</strong>(message, suffix: &quot;\n&quot;, indented: true, wrap: false, plain: false, indented_banner: false, full_colored: false, print: true) </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'><p>Writes a message prepending a green banner.</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#debug-instance_method" title="#debug (instance method)">- (Object) <strong>debug</strong>(message, suffix: &quot;\n&quot;, indented: true, wrap: false, plain: false, indented_banner: false, full_colored: false, print: true) </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'><p>Writes a message prepending a magenta banner.</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#error-instance_method" title="#error (instance method)">- (Object) <strong>error</strong>(message, suffix: &quot;\n&quot;, indented: true, wrap: false, plain: false, indented_banner: false, full_colored: false, print: true) </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'><p>Writes a message prepending a red banner.</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#fatal-instance_method" title="#fatal (instance method)">- (Object) <strong>fatal</strong>(message, suffix: &quot;\n&quot;, indented: true, wrap: false, plain: false, indented_banner: false, full_colored: false, return_code: -1,, print: true) </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'><p>Writes a message prepending a red banner and then quits the application.</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#get_banner-instance_method" title="#get_banner (instance method)">- (String) <strong>get_banner</strong>(label, base_color, full_colored: false, bracket_color: &quot;blue&quot;, brackets: [&quot;[&quot;, &quot;]&quot;]) </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'><p>Gets a banner for the messages.</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#info-instance_method" title="#info (instance method)">- (Object) <strong>info</strong>(message, suffix: &quot;\n&quot;, indented: true, wrap: false, plain: false, indented_banner: false, full_colored: false, print: true, banner: []) </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'><p>Writes a message prepending a cyan banner.</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#progress-instance_method" title="#progress (instance method)">- (String) <strong>progress</strong>(current, total, type: :list, precision: 0) </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'><p>Formats a progress for pretty printing.</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#status-instance_method" title="#status (instance method)">- (Array) <strong>status</strong>(status, plain: false, go_up: true, right: true, print: true) </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'><p>Writes a status to the output.</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#warn-instance_method" title="#warn (instance method)">- (Object) <strong>warn</strong>(message, suffix: &quot;\n&quot;, indented: true, wrap: false, plain: false, indented_banner: false, full_colored: false, print: true) </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'><p>Writes a message prepending a yellow banner.</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#write-instance_method" title="#write (instance method)">- (String) <strong>write</strong>(message, suffix: &quot;\n&quot;, indented: true, wrap: false, plain: false, print: true) </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'><p>Writes a message.</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#write_banner_aligned-instance_method" title="#write_banner_aligned (instance method)">- (String) <strong>write_banner_aligned</strong>(message, suffix: &quot;\n&quot;, indented: true, wrap: false, plain: false, print: true) </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'><p>Writes a message, aligning to a call with an empty banner.</p>
+</div></span>
+  
+</li>
+
+      
+    </ul>
+  
+
+
+  
+
+  <div id="instance_method_details" class="method_details_list">
+    <h2>Instance Method Details</h2>
+
+    
+      <div class="method_details first">
+  <h3 class="signature first" id="begin-instance_method">
+  
+    - (<tt>Object</tt>) <strong>begin</strong>(message, suffix: &quot;\n&quot;, indented: true, wrap: false, plain: false, indented_banner: false, full_colored: false, print: true) 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    <p>Writes a message prepending a green banner.</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  <p class="tag_title">Parameters:</p>
+<ul class="param">
+  
+    <li>
+      
+        <span class='name'>message</span>
+      
+      
+        <span class='type'>(<tt>String</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'><p>The message to format.</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>suffix</span>
+      
+      
+        <span class='type'>(<tt>Object</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'><p>If not <code>nil</code> or <code>false</code>, a suffix to add to the message. <code>true</code> means to add <code>\n</code>.</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>indented</span>
+      
+      
+        <span class='type'>(<tt>Object</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'><p>If not <code>nil</code> or <code>false</code>, the width to use for indentation. <code>true</code> means to use the current indentation,
+a negative value of <code>-x</code> will indent of <code>x</code> absolute spaces.</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>wrap</span>
+      
+      
+        <span class='type'>(<tt>Object</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'><p>If not <code>nil</code> or <code>false</code>, the maximum length of a line for wrapped text. <code>true</code> means the current line width.</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>plain</span>
+      
+      
+        <span class='type'>(<tt>Boolean</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'><p>If ignore color markers into the message.</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>indented_banner</span>
+      
+      
+        <span class='type'>(<tt>Boolean</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'><p>If also the banner should be indented.</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>full_colored</span>
+      
+      
+        <span class='type'>(<tt>Boolean</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'><p>If the banner should be fully colored.</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>print</span>
+      
+      
+        <span class='type'>(<tt>Boolean</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'><p>If <code>false</code>, the result will be returned instead of be printed.</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+
+  <p class="tag_title">See Also:</p>
+  <ul class="see">
+    
+      <li>#format</li>
+    
+  </ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+404
+405
+406
+407
+408</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/bovem/console.rb', line 404</span>
+
+<span class='kw'>def</span> <span class='kw'>begin</span><span class='lparen'>(</span><span class='id identifier rubyid_message'>message</span><span class='comma'>,</span> <span class='label'>suffix:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>\n</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='label'>indented:</span> <span class='kw'>true</span><span class='comma'>,</span> <span class='label'>wrap:</span> <span class='kw'>false</span><span class='comma'>,</span> <span class='label'>plain:</span> <span class='kw'>false</span><span class='comma'>,</span> <span class='label'>indented_banner:</span> <span class='kw'>false</span><span class='comma'>,</span> <span class='label'>full_colored:</span> <span class='kw'>false</span><span class='comma'>,</span> <span class='label'>print:</span> <span class='kw'>true</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_banner'>banner</span> <span class='op'>=</span> <span class='id identifier rubyid_get_banner'>get_banner</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>*</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>bright green</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='label'>full_colored:</span> <span class='id identifier rubyid_full_colored'>full_colored</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_message'>message</span> <span class='op'>=</span> <span class='id identifier rubyid_indent'>indent</span><span class='lparen'>(</span><span class='id identifier rubyid_message'>message</span><span class='comma'>,</span> <span class='id identifier rubyid_indented_banner'>indented_banner</span> <span class='op'>?</span> <span class='int'>0</span> <span class='op'>:</span> <span class='id identifier rubyid_indented'>indented</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_write'>write</span><span class='lparen'>(</span><span class='id identifier rubyid_banner'>banner</span> <span class='op'>+</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'> </span><span class='tstring_end'>&quot;</span></span> <span class='op'>+</span> <span class='id identifier rubyid_message'>message</span><span class='comma'>,</span> <span class='label'>suffix:</span> <span class='id identifier rubyid_suffix'>suffix</span><span class='comma'>,</span> <span class='label'>indented:</span> <span class='id identifier rubyid_indented_banner'>indented_banner</span> <span class='op'>?</span> <span class='id identifier rubyid_indented'>indented</span> <span class='op'>:</span> <span class='int'>0</span><span class='comma'>,</span> <span class='label'>wrap:</span> <span class='id identifier rubyid_wrap'>wrap</span><span class='comma'>,</span> <span class='label'>plain:</span> <span class='id identifier rubyid_plain'>plain</span><span class='comma'>,</span> <span class='label'>print:</span> <span class='id identifier rubyid_print'>print</span><span class='rparen'>)</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="debug-instance_method">
+  
+    - (<tt>Object</tt>) <strong>debug</strong>(message, suffix: &quot;\n&quot;, indented: true, wrap: false, plain: false, indented_banner: false, full_colored: false, print: true) 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    <p>Writes a message prepending a magenta banner.</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  <p class="tag_title">Parameters:</p>
+<ul class="param">
+  
+    <li>
+      
+        <span class='name'>message</span>
+      
+      
+        <span class='type'>(<tt>String</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'><p>The message to format.</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>suffix</span>
+      
+      
+        <span class='type'>(<tt>Object</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'><p>If not <code>nil</code> or <code>false</code>, a suffix to add to the message. <code>true</code> means to add <code>\n</code>.</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>indented</span>
+      
+      
+        <span class='type'>(<tt>Object</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'><p>If not <code>nil</code> or <code>false</code>, the width to use for indentation. <code>true</code> means to use the current indentation,
+a negative value of <code>-x</code> will indent of <code>x</code> absolute spaces.</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>wrap</span>
+      
+      
+        <span class='type'>(<tt>Object</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'><p>If not <code>nil</code> or <code>false</code>, the maximum length of a line for wrapped text. <code>true</code> means the current line width.</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>plain</span>
+      
+      
+        <span class='type'>(<tt>Boolean</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'><p>If ignore color markers into the message.</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>indented_banner</span>
+      
+      
+        <span class='type'>(<tt>Boolean</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'><p>If also the banner should be indented.</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>full_colored</span>
+      
+      
+        <span class='type'>(<tt>Boolean</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'><p>If the banner should be fully colored.</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>print</span>
+      
+      
+        <span class='type'>(<tt>Boolean</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'><p>If <code>false</code>, the result will be returned instead of be printed.</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+
+  <p class="tag_title">See Also:</p>
+  <ul class="see">
+    
+      <li>#format</li>
+    
+  </ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+464
+465
+466
+467
+468
+469
+470
+471
+472
+473
+474
+475
+476</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/bovem/console.rb', line 464</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_debug'>debug</span><span class='lparen'>(</span><span class='id identifier rubyid_message'>message</span><span class='comma'>,</span> <span class='label'>suffix:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>\n</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='label'>indented:</span> <span class='kw'>true</span><span class='comma'>,</span> <span class='label'>wrap:</span> <span class='kw'>false</span><span class='comma'>,</span> <span class='label'>plain:</span> <span class='kw'>false</span><span class='comma'>,</span> <span class='label'>indented_banner:</span> <span class='kw'>false</span><span class='comma'>,</span> <span class='label'>full_colored:</span> <span class='kw'>false</span><span class='comma'>,</span> <span class='label'>print:</span> <span class='kw'>true</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_info'>info</span><span class='lparen'>(</span>
+    <span class='id identifier rubyid_message'>message</span><span class='comma'>,</span>
+    <span class='label'>suffix:</span> <span class='id identifier rubyid_suffix'>suffix</span><span class='comma'>,</span>
+    <span class='label'>indented:</span> <span class='id identifier rubyid_indented'>indented</span><span class='comma'>,</span>
+    <span class='label'>wrap:</span> <span class='id identifier rubyid_wrap'>wrap</span><span class='comma'>,</span>
+    <span class='label'>plain:</span> <span class='id identifier rubyid_plain'>plain</span><span class='comma'>,</span>
+    <span class='label'>indented_banner:</span> <span class='id identifier rubyid_indented_banner'>indented_banner</span><span class='comma'>,</span>
+    <span class='label'>full_colored:</span> <span class='id identifier rubyid_full_colored'>full_colored</span><span class='comma'>,</span>
+    <span class='label'>print:</span> <span class='id identifier rubyid_print'>print</span><span class='comma'>,</span>
+    <span class='label'>banner:</span> <span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>D</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>bright magenta</span><span class='tstring_end'>&quot;</span></span><span class='rbracket'>]</span>
+  <span class='rparen'>)</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="error-instance_method">
+  
+    - (<tt>Object</tt>) <strong>error</strong>(message, suffix: &quot;\n&quot;, indented: true, wrap: false, plain: false, indented_banner: false, full_colored: false, print: true) 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    <p>Writes a message prepending a red banner.</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  <p class="tag_title">Parameters:</p>
+<ul class="param">
+  
+    <li>
+      
+        <span class='name'>message</span>
+      
+      
+        <span class='type'>(<tt>String</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'><p>The message to format.</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>suffix</span>
+      
+      
+        <span class='type'>(<tt>Object</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'><p>If not <code>nil</code> or <code>false</code>, a suffix to add to the message. <code>true</code> means to add <code>\n</code>.</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>indented</span>
+      
+      
+        <span class='type'>(<tt>Object</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'><p>If not <code>nil</code> or <code>false</code>, the width to use for indentation. <code>true</code> means to use the current indentation,
+a negative value of <code>-x</code> will indent of <code>x</code> absolute spaces.</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>wrap</span>
+      
+      
+        <span class='type'>(<tt>Object</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'><p>If not <code>nil</code> or <code>false</code>, the maximum length of a line for wrapped text. <code>true</code> means the current line width.</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>plain</span>
+      
+      
+        <span class='type'>(<tt>Boolean</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'><p>If ignore color markers into the message.</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>indented_banner</span>
+      
+      
+        <span class='type'>(<tt>Boolean</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'><p>If also the banner should be indented.</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>full_colored</span>
+      
+      
+        <span class='type'>(<tt>Boolean</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'><p>If the banner should be fully colored.</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>print</span>
+      
+      
+        <span class='type'>(<tt>Boolean</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'><p>If <code>false</code>, the result will be returned instead of be printed.</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+
+  <p class="tag_title">See Also:</p>
+  <ul class="see">
+    
+      <li>#format</li>
+    
+  </ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+518
+519
+520
+521
+522
+523
+524
+525
+526
+527
+528
+529
+530</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/bovem/console.rb', line 518</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_error'>error</span><span class='lparen'>(</span><span class='id identifier rubyid_message'>message</span><span class='comma'>,</span> <span class='label'>suffix:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>\n</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='label'>indented:</span> <span class='kw'>true</span><span class='comma'>,</span> <span class='label'>wrap:</span> <span class='kw'>false</span><span class='comma'>,</span> <span class='label'>plain:</span> <span class='kw'>false</span><span class='comma'>,</span> <span class='label'>indented_banner:</span> <span class='kw'>false</span><span class='comma'>,</span> <span class='label'>full_colored:</span> <span class='kw'>false</span><span class='comma'>,</span> <span class='label'>print:</span> <span class='kw'>true</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_info'>info</span><span class='lparen'>(</span>
+    <span class='id identifier rubyid_message'>message</span><span class='comma'>,</span>
+    <span class='label'>suffix:</span> <span class='id identifier rubyid_suffix'>suffix</span><span class='comma'>,</span>
+    <span class='label'>indented:</span> <span class='id identifier rubyid_indented'>indented</span><span class='comma'>,</span>
+    <span class='label'>wrap:</span> <span class='id identifier rubyid_wrap'>wrap</span><span class='comma'>,</span>
+    <span class='label'>plain:</span> <span class='id identifier rubyid_plain'>plain</span><span class='comma'>,</span>
+    <span class='label'>indented_banner:</span> <span class='id identifier rubyid_indented_banner'>indented_banner</span><span class='comma'>,</span>
+    <span class='label'>full_colored:</span> <span class='id identifier rubyid_full_colored'>full_colored</span><span class='comma'>,</span>
+    <span class='label'>print:</span> <span class='id identifier rubyid_print'>print</span><span class='comma'>,</span>
+    <span class='label'>banner:</span> <span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>E</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>bright red</span><span class='tstring_end'>&quot;</span></span><span class='rbracket'>]</span>
+  <span class='rparen'>)</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="fatal-instance_method">
+  
+    - (<tt>Object</tt>) <strong>fatal</strong>(message, suffix: &quot;\n&quot;, indented: true, wrap: false, plain: false, indented_banner: false, full_colored: false, return_code: -1,, print: true) 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    <p>Writes a message prepending a red banner and then quits the application.</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  <p class="tag_title">Parameters:</p>
+<ul class="param">
+  
+    <li>
+      
+        <span class='name'>message</span>
+      
+      
+        <span class='type'>(<tt>String</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'><p>The message to format.</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>suffix</span>
+      
+      
+        <span class='type'>(<tt>Object</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'><p>If not <code>nil</code> or <code>false</code>, a suffix to add to the message. <code>true</code> means to add <code>\n</code>.</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>indented</span>
+      
+      
+        <span class='type'>(<tt>Object</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'><p>If not <code>nil</code> or <code>false</code>, the width to use for indentation. <code>true</code> means to use the current indentation,
+a negative value of <code>-x</code> will indent of <code>x</code> absolute spaces.</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>wrap</span>
+      
+      
+        <span class='type'>(<tt>Object</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'><p>If not <code>nil</code> or <code>false</code>, the maximum length of a line for wrapped text. <code>true</code> means the current line width.</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>plain</span>
+      
+      
+        <span class='type'>(<tt>Boolean</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'><p>If ignore color markers into the message.</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>indented_banner</span>
+      
+      
+        <span class='type'>(<tt>Boolean</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'><p>If also the banner should be indented.</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>full_colored</span>
+      
+      
+        <span class='type'>(<tt>Boolean</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'><p>If the banner should be fully colored.</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>return_code</span>
+      
+      
+        <span class='type'>(<tt>Fixnum</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'><p>The code to return to the shell.</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>print</span>
+      
+      
+        <span class='type'>(<tt>Boolean</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'><p>If <code>false</code>, the result will be returned instead of be printed.</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+
+  <p class="tag_title">See Also:</p>
+  <ul class="see">
+    
+      <li>#format</li>
+    
+  </ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+424
+425
+426
+427</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/bovem/console.rb', line 424</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_fatal'>fatal</span><span class='lparen'>(</span><span class='id identifier rubyid_message'>message</span><span class='comma'>,</span> <span class='label'>suffix:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>\n</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='label'>indented:</span> <span class='kw'>true</span><span class='comma'>,</span> <span class='label'>wrap:</span> <span class='kw'>false</span><span class='comma'>,</span> <span class='label'>plain:</span> <span class='kw'>false</span><span class='comma'>,</span> <span class='label'>indented_banner:</span> <span class='kw'>false</span><span class='comma'>,</span> <span class='label'>full_colored:</span> <span class='kw'>false</span><span class='comma'>,</span> <span class='label'>return_code:</span> <span class='op'>-</span><span class='int'>1</span><span class='comma'>,</span> <span class='label'>print:</span> <span class='kw'>true</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_error'>error</span><span class='lparen'>(</span><span class='id identifier rubyid_message'>message</span><span class='comma'>,</span> <span class='label'>suffix:</span> <span class='id identifier rubyid_suffix'>suffix</span><span class='comma'>,</span> <span class='label'>indented:</span> <span class='id identifier rubyid_indented'>indented</span><span class='comma'>,</span> <span class='label'>wrap:</span> <span class='id identifier rubyid_wrap'>wrap</span><span class='comma'>,</span> <span class='label'>plain:</span> <span class='id identifier rubyid_plain'>plain</span><span class='comma'>,</span> <span class='label'>indented_banner:</span> <span class='id identifier rubyid_indented_banner'>indented_banner</span><span class='comma'>,</span> <span class='label'>full_colored:</span> <span class='id identifier rubyid_full_colored'>full_colored</span><span class='comma'>,</span> <span class='label'>print:</span> <span class='id identifier rubyid_print'>print</span><span class='rparen'>)</span>
+  <span class='const'>Kernel</span><span class='period'>.</span><span class='id identifier rubyid_exit'>exit</span><span class='lparen'>(</span><span class='id identifier rubyid_return_code'>return_code</span><span class='period'>.</span><span class='id identifier rubyid_to_integer'>to_integer</span><span class='lparen'>(</span><span class='op'>-</span><span class='int'>1</span><span class='rparen'>)</span><span class='rparen'>)</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="get_banner-instance_method">
+  
+    - (<tt>String</tt>) <strong>get_banner</strong>(label, base_color, full_colored: false, bracket_color: &quot;blue&quot;, brackets: [&quot;[&quot;, &quot;]&quot;]) 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    <p>Gets a banner for the messages.</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  <p class="tag_title">Parameters:</p>
+<ul class="param">
+  
+    <li>
+      
+        <span class='name'>label</span>
+      
+      
+        <span class='type'>(<tt>String</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'><p>The label for the banner.</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>base_color</span>
+      
+      
+        <span class='type'>(<tt>String</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'><p>The color for the label.</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>full_colored</span>
+      
+      
+        <span class='type'>(<tt>String</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'><p>If all the message should be of the label color.</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>bracket_color</span>
+      
+      
+        <span class='type'>(<tt>String</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'><p>The color of the brackets.</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>brackets</span>
+      
+      
+        <span class='type'>(<tt>Array</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'><p>An array of dimension 2 to use for brackets.</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>String</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'><p>The banner.</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+  <p class="tag_title">See Also:</p>
+  <ul class="see">
+    
+      <li>#format</li>
+    
+  </ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+367
+368
+369
+370
+371
+372</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/bovem/console.rb', line 367</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_get_banner'>get_banner</span><span class='lparen'>(</span><span class='id identifier rubyid_label'>label</span><span class='comma'>,</span> <span class='id identifier rubyid_base_color'>base_color</span><span class='comma'>,</span> <span class='label'>full_colored:</span> <span class='kw'>false</span><span class='comma'>,</span> <span class='label'>bracket_color:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>blue</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='label'>brackets:</span> <span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>[</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>]</span><span class='tstring_end'>&quot;</span></span><span class='rbracket'>]</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_label'>label</span> <span class='op'>=</span> <span class='id identifier rubyid_label'>label</span><span class='period'>.</span><span class='id identifier rubyid_rjust'>rjust</span><span class='lparen'>(</span><span class='const'>Bovem</span><span class='op'>::</span><span class='const'>Console</span><span class='period'>.</span><span class='id identifier rubyid_min_banner_length'>min_banner_length</span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'> </span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_brackets'>brackets</span> <span class='op'>=</span> <span class='id identifier rubyid_brackets'>brackets</span><span class='period'>.</span><span class='id identifier rubyid_ensure_array'>ensure_array</span>
+  <span class='id identifier rubyid_bracket_color'>bracket_color</span> <span class='op'>=</span> <span class='id identifier rubyid_base_color'>base_color</span> <span class='kw'>if</span> <span class='id identifier rubyid_full_colored'>full_colored</span>
+  <span class='id identifier rubyid_sprintf'>sprintf</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>{mark=%s}%s{mark=%s}%s{/mark}%s{/mark}</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='id identifier rubyid_bracket_color'>bracket_color</span><span class='period'>.</span><span class='id identifier rubyid_parameterize'>parameterize</span><span class='comma'>,</span> <span class='id identifier rubyid_brackets'>brackets</span><span class='lbracket'>[</span><span class='int'>0</span><span class='rbracket'>]</span><span class='comma'>,</span> <span class='id identifier rubyid_base_color'>base_color</span><span class='period'>.</span><span class='id identifier rubyid_parameterize'>parameterize</span><span class='comma'>,</span> <span class='id identifier rubyid_label'>label</span><span class='comma'>,</span> <span class='id identifier rubyid_brackets'>brackets</span><span class='lbracket'>[</span><span class='int'>1</span><span class='rbracket'>]</span><span class='rparen'>)</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="info-instance_method">
+  
+    - (<tt>Object</tt>) <strong>info</strong>(message, suffix: &quot;\n&quot;, indented: true, wrap: false, plain: false, indented_banner: false, full_colored: false, print: true, banner: []) 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    <p>Writes a message prepending a cyan banner.</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  <p class="tag_title">Parameters:</p>
+<ul class="param">
+  
+    <li>
+      
+        <span class='name'>message</span>
+      
+      
+        <span class='type'>(<tt>String</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'><p>The message to format.</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>suffix</span>
+      
+      
+        <span class='type'>(<tt>Object</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'><p>If not <code>nil</code> or <code>false</code>, a suffix to add to the message. <code>true</code> means to add <code>\n</code>.</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>indented</span>
+      
+      
+        <span class='type'>(<tt>Object</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'><p>If not <code>nil</code> or <code>false</code>, the width to use for indentation. <code>true</code> means to use the current indentation,
+a negative value of <code>-x</code> will indent of <code>x</code> absolute spaces.</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>wrap</span>
+      
+      
+        <span class='type'>(<tt>Object</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'><p>If not <code>nil</code> or <code>false</code>, the maximum length of a line for wrapped text. <code>true</code> means the current line width.</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>plain</span>
+      
+      
+        <span class='type'>(<tt>Boolean</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'><p>If ignore color markers into the message.</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>indented_banner</span>
+      
+      
+        <span class='type'>(<tt>Boolean</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'><p>If also the banner should be indented.</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>full_colored</span>
+      
+      
+        <span class='type'>(<tt>Boolean</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'><p>If the banner should be fully colored.</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>print</span>
+      
+      
+        <span class='type'>(<tt>Boolean</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'><p>If <code>false</code>, the result will be returned instead of be printed.</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>banner</span>
+      
+      
+        <span class='type'>(<tt>Array</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'><p>An array with at last letter and style to use for the banner.</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+
+  <p class="tag_title">See Also:</p>
+  <ul class="see">
+    
+      <li>#format</li>
+    
+  </ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+443
+444
+445
+446
+447
+448
+449</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/bovem/console.rb', line 443</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_info'>info</span><span class='lparen'>(</span><span class='id identifier rubyid_message'>message</span><span class='comma'>,</span> <span class='label'>suffix:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>\n</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='label'>indented:</span> <span class='kw'>true</span><span class='comma'>,</span> <span class='label'>wrap:</span> <span class='kw'>false</span><span class='comma'>,</span> <span class='label'>plain:</span> <span class='kw'>false</span><span class='comma'>,</span> <span class='label'>indented_banner:</span> <span class='kw'>false</span><span class='comma'>,</span> <span class='label'>full_colored:</span> <span class='kw'>false</span><span class='comma'>,</span> <span class='label'>print:</span> <span class='kw'>true</span><span class='comma'>,</span> <span class='label'>banner:</span> <span class='lbracket'>[</span><span class='rbracket'>]</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_banner'>banner</span> <span class='op'>=</span> <span class='id identifier rubyid_banner'>banner</span><span class='period'>.</span><span class='id identifier rubyid_ensure_array'>ensure_array</span><span class='lparen'>(</span><span class='label'>no_duplicates:</span> <span class='kw'>true</span><span class='comma'>,</span> <span class='label'>compact:</span> <span class='kw'>true</span><span class='comma'>,</span> <span class='label'>flatten:</span> <span class='kw'>true</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_banner'>banner</span> <span class='op'>=</span> <span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>I</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>bright cyan</span><span class='tstring_end'>&quot;</span></span><span class='rbracket'>]</span> <span class='kw'>if</span> <span class='id identifier rubyid_banner'>banner</span><span class='period'>.</span><span class='id identifier rubyid_blank?'>blank?</span>
+  <span class='id identifier rubyid_banner'>banner</span> <span class='op'>=</span> <span class='id identifier rubyid_get_banner'>get_banner</span><span class='lparen'>(</span><span class='id identifier rubyid_banner'>banner</span><span class='lbracket'>[</span><span class='int'>0</span><span class='rbracket'>]</span><span class='comma'>,</span> <span class='id identifier rubyid_banner'>banner</span><span class='lbracket'>[</span><span class='int'>1</span><span class='rbracket'>]</span><span class='comma'>,</span> <span class='label'>full_colored:</span> <span class='id identifier rubyid_full_colored'>full_colored</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_message'>message</span> <span class='op'>=</span> <span class='id identifier rubyid_indent'>indent</span><span class='lparen'>(</span><span class='id identifier rubyid_message'>message</span><span class='comma'>,</span> <span class='id identifier rubyid_indented_banner'>indented_banner</span> <span class='op'>?</span> <span class='int'>0</span> <span class='op'>:</span> <span class='id identifier rubyid_indented'>indented</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_write'>write</span><span class='lparen'>(</span><span class='id identifier rubyid_banner'>banner</span> <span class='op'>+</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'> </span><span class='tstring_end'>&quot;</span></span> <span class='op'>+</span> <span class='id identifier rubyid_message'>message</span><span class='comma'>,</span> <span class='label'>suffix:</span> <span class='id identifier rubyid_suffix'>suffix</span><span class='comma'>,</span> <span class='label'>indented:</span> <span class='id identifier rubyid_indented_banner'>indented_banner</span> <span class='op'>?</span> <span class='id identifier rubyid_indented'>indented</span> <span class='op'>:</span> <span class='int'>0</span><span class='comma'>,</span> <span class='label'>wrap:</span> <span class='id identifier rubyid_wrap'>wrap</span><span class='comma'>,</span> <span class='label'>plain:</span> <span class='id identifier rubyid_plain'>plain</span><span class='comma'>,</span> <span class='label'>print:</span> <span class='id identifier rubyid_print'>print</span><span class='rparen'>)</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="progress-instance_method">
+  
+    - (<tt>String</tt>) <strong>progress</strong>(current, total, type: :list, precision: 0) 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    <p>Formats a progress for pretty printing.</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  <p class="tag_title">Parameters:</p>
+<ul class="param">
+  
+    <li>
+      
+        <span class='name'>current</span>
+      
+      
+        <span class='type'>(<tt>Fixnum</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'><p>The current progress index (e.g. the number of the current operation).</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>total</span>
+      
+      
+        <span class='type'>(<tt>Fixnum</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'><p>The total progress index (e.g. the total number of operations).</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>type</span>
+      
+      
+        <span class='type'>(<tt>Symbol</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'><p>The progress type. Can be <code>:list</code> (e.g. 01/15) or <code>:percentage</code> (e.g. 99.56%).</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>precision</span>
+      
+      
+        <span class='type'>(<tt>Fixnum</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'><p>The precision of the percentage to return. <em>Ignored for list progress.</em></p>
+</div>
+      
+    </li>
+  
+</ul>
+
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>String</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'><p>The formatted progress.</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+381
+382
+383
+384
+385
+386
+387
+388
+389</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/bovem/console.rb', line 381</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_progress'>progress</span><span class='lparen'>(</span><span class='id identifier rubyid_current'>current</span><span class='comma'>,</span> <span class='id identifier rubyid_total'>total</span><span class='comma'>,</span> <span class='label'>type:</span> <span class='symbol'>:list</span><span class='comma'>,</span> <span class='label'>precision:</span> <span class='int'>0</span><span class='rparen'>)</span>
+  <span class='kw'>if</span> <span class='id identifier rubyid_type'>type</span> <span class='op'>==</span> <span class='symbol'>:list</span>
+    <span class='id identifier rubyid_compute_list_progress'>compute_list_progress</span><span class='lparen'>(</span><span class='id identifier rubyid_current'>current</span><span class='comma'>,</span> <span class='id identifier rubyid_total'>total</span><span class='rparen'>)</span>
+  <span class='kw'>else</span>
+    <span class='id identifier rubyid_precision'>precision</span> <span class='op'>=</span> <span class='lbracket'>[</span><span class='int'>0</span><span class='comma'>,</span> <span class='id identifier rubyid_precision'>precision</span><span class='rbracket'>]</span><span class='period'>.</span><span class='id identifier rubyid_max'>max</span>
+    <span class='id identifier rubyid_result'>result</span> <span class='op'>=</span> <span class='id identifier rubyid_total'>total</span> <span class='op'>==</span> <span class='int'>0</span> <span class='op'>?</span> <span class='int'>100</span> <span class='op'>:</span> <span class='lparen'>(</span><span class='int'>100</span> <span class='op'>*</span> <span class='lparen'>(</span><span class='id identifier rubyid_current'>current</span><span class='period'>.</span><span class='id identifier rubyid_to_f'>to_f</span> <span class='op'>/</span> <span class='id identifier rubyid_total'>total</span><span class='rparen'>)</span><span class='rparen'>)</span>
+    <span class='id identifier rubyid_sprintf'>sprintf</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>%0.</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_precision'>precision</span><span class='embexpr_end'>}</span><span class='tstring_content'>f %%</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='id identifier rubyid_result'>result</span><span class='period'>.</span><span class='id identifier rubyid_round'>round</span><span class='lparen'>(</span><span class='id identifier rubyid_precision'>precision</span><span class='rparen'>)</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_rjust'>rjust</span><span class='lparen'>(</span><span class='int'>5</span> <span class='op'>+</span> <span class='lparen'>(</span><span class='id identifier rubyid_precision'>precision</span> <span class='op'>&gt;</span> <span class='int'>0</span> <span class='op'>?</span> <span class='id identifier rubyid_precision'>precision</span> <span class='op'>+</span> <span class='int'>1</span> <span class='op'>:</span> <span class='int'>0</span><span class='rparen'>)</span><span class='rparen'>)</span>
+  <span class='kw'>end</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="status-instance_method">
+  
+    - (<tt>Array</tt>) <strong>status</strong>(status, plain: false, go_up: true, right: true, print: true) 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    <p>Writes a status to the output. Valid values are <code>:ok</code>, <code>:pass</code>, <code>:fail</code>, <code>:warn</code>, <code>skip</code>.</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  <p class="tag_title">Parameters:</p>
+<ul class="param">
+  
+    <li>
+      
+        <span class='name'>status</span>
+      
+      
+        <span class='type'>(<tt>Symbol</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'><p>The status to write.</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>plain</span>
+      
+      
+        <span class='type'>(<tt>Boolean</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'><p>If not use colors.</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>go_up</span>
+      
+      
+        <span class='type'>(<tt>Boolean</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'><p>If go up one line before formatting.</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>right</span>
+      
+      
+        <span class='type'>(<tt>Boolean</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'><p>If to print results on the right.</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>print</span>
+      
+      
+        <span class='type'>(<tt>Boolean</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'><p>If <code>false</code>, the result will be returned instead of be printed.</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>Array</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'><p>An dictionary with <code>:label</code> and <code>:color</code> keys for the status.</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+339
+340
+341
+342
+343
+344
+345
+346
+347
+348
+349
+350
+351
+352
+353
+354
+355
+356</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/bovem/console.rb', line 339</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_status'>status</span><span class='lparen'>(</span><span class='id identifier rubyid_status'>status</span><span class='comma'>,</span> <span class='label'>plain:</span> <span class='kw'>false</span><span class='comma'>,</span> <span class='label'>go_up:</span> <span class='kw'>true</span><span class='comma'>,</span> <span class='label'>right:</span> <span class='kw'>true</span><span class='comma'>,</span> <span class='label'>print:</span> <span class='kw'>true</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_statuses'>statuses</span> <span class='op'>=</span> <span class='const'>DEFAULT_STATUSES</span><span class='period'>.</span><span class='id identifier rubyid_dup'>dup</span>
+  <span class='id identifier rubyid_statuses'>statuses</span><span class='period'>.</span><span class='id identifier rubyid_default'>default</span> <span class='op'>=</span> <span class='id identifier rubyid_statuses'>statuses</span><span class='lbracket'>[</span><span class='symbol'>:ok</span><span class='rbracket'>]</span>
+
+  <span class='id identifier rubyid_rv'>rv</span> <span class='op'>=</span> <span class='id identifier rubyid_statuses'>statuses</span><span class='lbracket'>[</span><span class='id identifier rubyid_status'>status</span><span class='rbracket'>]</span>
+
+  <span class='kw'>if</span> <span class='id identifier rubyid_print'>print</span>
+    <span class='id identifier rubyid_banner'>banner</span> <span class='op'>=</span> <span class='id identifier rubyid_get_banner'>get_banner</span><span class='lparen'>(</span><span class='id identifier rubyid_rv'>rv</span><span class='lbracket'>[</span><span class='symbol'>:label</span><span class='rbracket'>]</span><span class='comma'>,</span> <span class='id identifier rubyid_rv'>rv</span><span class='lbracket'>[</span><span class='symbol'>:color</span><span class='rbracket'>]</span><span class='rparen'>)</span>
+
+    <span class='kw'>if</span> <span class='id identifier rubyid_right'>right</span>
+      <span class='const'>Kernel</span><span class='period'>.</span><span class='id identifier rubyid_puts'>puts</span><span class='lparen'>(</span><span class='id identifier rubyid_format_right'>format_right</span><span class='lparen'>(</span><span class='id identifier rubyid_banner'>banner</span> <span class='op'>+</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'> </span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='label'>width:</span> <span class='kw'>true</span><span class='comma'>,</span> <span class='label'>go_up:</span> <span class='id identifier rubyid_go_up'>go_up</span><span class='comma'>,</span> <span class='label'>plain:</span> <span class='id identifier rubyid_plain'>plain</span><span class='rparen'>)</span><span class='rparen'>)</span>
+    <span class='kw'>else</span>
+      <span class='const'>Kernel</span><span class='period'>.</span><span class='id identifier rubyid_puts'>puts</span><span class='lparen'>(</span><span class='id identifier rubyid_format'>format</span><span class='lparen'>(</span><span class='id identifier rubyid_banner'>banner</span> <span class='op'>+</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'> </span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='label'>suffix:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>\n</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='label'>indent:</span> <span class='kw'>true</span><span class='comma'>,</span> <span class='label'>wrap:</span> <span class='kw'>true</span><span class='comma'>,</span> <span class='label'>plain:</span> <span class='id identifier rubyid_plain'>plain</span><span class='rparen'>)</span><span class='rparen'>)</span>
+    <span class='kw'>end</span>
+  <span class='kw'>end</span>
+
+  <span class='id identifier rubyid_rv'>rv</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="warn-instance_method">
+  
+    - (<tt>Object</tt>) <strong>warn</strong>(message, suffix: &quot;\n&quot;, indented: true, wrap: false, plain: false, indented_banner: false, full_colored: false, print: true) 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    <p>Writes a message prepending a yellow banner.</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  <p class="tag_title">Parameters:</p>
+<ul class="param">
+  
+    <li>
+      
+        <span class='name'>message</span>
+      
+      
+        <span class='type'>(<tt>String</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'><p>The message to format.</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>suffix</span>
+      
+      
+        <span class='type'>(<tt>Object</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'><p>If not <code>nil</code> or <code>false</code>, a suffix to add to the message. <code>true</code> means to add <code>\n</code>.</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>indented</span>
+      
+      
+        <span class='type'>(<tt>Object</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'><p>If not <code>nil</code> or <code>false</code>, the width to use for indentation. <code>true</code> means to use the current indentation,
+a negative value of <code>-x</code> will indent of <code>x</code> absolute spaces.</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>wrap</span>
+      
+      
+        <span class='type'>(<tt>Object</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'><p>If not <code>nil</code> or <code>false</code>, the maximum length of a line for wrapped text. <code>true</code> means the current line width.</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>plain</span>
+      
+      
+        <span class='type'>(<tt>Boolean</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'><p>If ignore color markers into the message.</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>indented_banner</span>
+      
+      
+        <span class='type'>(<tt>Boolean</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'><p>If also the banner should be indented.</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>full_colored</span>
+      
+      
+        <span class='type'>(<tt>Boolean</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'><p>If the banner should be fully colored.</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>print</span>
+      
+      
+        <span class='type'>(<tt>Boolean</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'><p>If <code>false</code>, the result will be returned instead of be printed.</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+
+  <p class="tag_title">See Also:</p>
+  <ul class="see">
+    
+      <li>#format</li>
+    
+  </ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+491
+492
+493
+494
+495
+496
+497
+498
+499
+500
+501
+502
+503</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/bovem/console.rb', line 491</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_warn'>warn</span><span class='lparen'>(</span><span class='id identifier rubyid_message'>message</span><span class='comma'>,</span> <span class='label'>suffix:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>\n</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='label'>indented:</span> <span class='kw'>true</span><span class='comma'>,</span> <span class='label'>wrap:</span> <span class='kw'>false</span><span class='comma'>,</span> <span class='label'>plain:</span> <span class='kw'>false</span><span class='comma'>,</span> <span class='label'>indented_banner:</span> <span class='kw'>false</span><span class='comma'>,</span> <span class='label'>full_colored:</span> <span class='kw'>false</span><span class='comma'>,</span> <span class='label'>print:</span> <span class='kw'>true</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_info'>info</span><span class='lparen'>(</span>
+    <span class='id identifier rubyid_message'>message</span><span class='comma'>,</span>
+    <span class='label'>suffix:</span> <span class='id identifier rubyid_suffix'>suffix</span><span class='comma'>,</span>
+    <span class='label'>indented:</span> <span class='id identifier rubyid_indented'>indented</span><span class='comma'>,</span>
+    <span class='label'>wrap:</span> <span class='id identifier rubyid_wrap'>wrap</span><span class='comma'>,</span>
+    <span class='label'>plain:</span> <span class='id identifier rubyid_plain'>plain</span><span class='comma'>,</span>
+    <span class='label'>indented_banner:</span> <span class='id identifier rubyid_indented_banner'>indented_banner</span><span class='comma'>,</span>
+    <span class='label'>full_colored:</span> <span class='id identifier rubyid_full_colored'>full_colored</span><span class='comma'>,</span>
+    <span class='label'>print:</span> <span class='id identifier rubyid_print'>print</span><span class='comma'>,</span>
+    <span class='label'>banner:</span> <span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>W</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>bright yellow</span><span class='tstring_end'>&quot;</span></span><span class='rbracket'>]</span>
+  <span class='rparen'>)</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="write-instance_method">
+  
+    - (<tt>String</tt>) <strong>write</strong>(message, suffix: &quot;\n&quot;, indented: true, wrap: false, plain: false, print: true) 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    <p>Writes a message.</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  <p class="tag_title">Parameters:</p>
+<ul class="param">
+  
+    <li>
+      
+        <span class='name'>message</span>
+      
+      
+        <span class='type'>(<tt>String</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'><p>The message to format.</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>suffix</span>
+      
+      
+        <span class='type'>(<tt>Object</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'><p>If not <code>nil</code> or <code>false</code>, a suffix to add to the message. <code>true</code> means to add <code>\n</code>.</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>indented</span>
+      
+      
+        <span class='type'>(<tt>Object</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'><p>If not <code>nil</code> or <code>false</code>, the width to use for indentation. <code>true</code> means to use the current indentation,
+a negative value of <code>-x</code> will indent of <code>x</code> absolute spaces.</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>wrap</span>
+      
+      
+        <span class='type'>(<tt>Object</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'><p>If not <code>nil</code> or <code>false</code>, the maximum length of a line for wrapped text. <code>true</code> means the current line width.</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>plain</span>
+      
+      
+        <span class='type'>(<tt>Boolean</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'><p>If ignore color markers into the message.</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>print</span>
+      
+      
+        <span class='type'>(<tt>Boolean</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'><p>If <code>false</code>, the result will be returned instead of be printed.</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>String</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'><p>The printed message.</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+  <p class="tag_title">See Also:</p>
+  <ul class="see">
+    
+      <li>#format</li>
+    
+  </ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+302
+303
+304
+305
+306</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/bovem/console.rb', line 302</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_write'>write</span><span class='lparen'>(</span><span class='id identifier rubyid_message'>message</span><span class='comma'>,</span> <span class='label'>suffix:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>\n</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='label'>indented:</span> <span class='kw'>true</span><span class='comma'>,</span> <span class='label'>wrap:</span> <span class='kw'>false</span><span class='comma'>,</span> <span class='label'>plain:</span> <span class='kw'>false</span><span class='comma'>,</span> <span class='label'>print:</span> <span class='kw'>true</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_rv'>rv</span> <span class='op'>=</span> <span class='id identifier rubyid_format'>format</span><span class='lparen'>(</span><span class='id identifier rubyid_message'>message</span><span class='comma'>,</span> <span class='label'>suffix:</span> <span class='id identifier rubyid_suffix'>suffix</span><span class='comma'>,</span> <span class='label'>indented:</span> <span class='id identifier rubyid_indented'>indented</span><span class='comma'>,</span> <span class='label'>wrap:</span> <span class='id identifier rubyid_wrap'>wrap</span><span class='comma'>,</span> <span class='label'>plain:</span> <span class='id identifier rubyid_plain'>plain</span><span class='rparen'>)</span>
+  <span class='const'>Kernel</span><span class='period'>.</span><span class='id identifier rubyid_puts'>puts</span><span class='lparen'>(</span><span class='id identifier rubyid_rv'>rv</span><span class='rparen'>)</span> <span class='kw'>if</span> <span class='id identifier rubyid_print'>print</span>
+  <span class='id identifier rubyid_rv'>rv</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="write_banner_aligned-instance_method">
+  
+    - (<tt>String</tt>) <strong>write_banner_aligned</strong>(message, suffix: &quot;\n&quot;, indented: true, wrap: false, plain: false, print: true) 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    <p>Writes a message, aligning to a call with an empty banner.</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  <p class="tag_title">Parameters:</p>
+<ul class="param">
+  
+    <li>
+      
+        <span class='name'>message</span>
+      
+      
+        <span class='type'>(<tt>String</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'><p>The message to format.</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>suffix</span>
+      
+      
+        <span class='type'>(<tt>Object</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'><p>If not <code>nil</code> or <code>false</code>, a suffix to add to the message. <code>true</code> means to add <code>\n</code>.</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>indented</span>
+      
+      
+        <span class='type'>(<tt>Object</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'><p>If not <code>nil</code> or <code>false</code>, the width to use for indentation. <code>true</code> means to use the current indentation,
+a negative value of <code>-x</code> will indent of <code>x</code> absolute spaces.</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>wrap</span>
+      
+      
+        <span class='type'>(<tt>Object</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'><p>If not <code>nil</code> or <code>false</code>, the maximum length of a line for wrapped text. <code>true</code> means the current line width.</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>plain</span>
+      
+      
+        <span class='type'>(<tt>Boolean</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'><p>If ignore color markers into the message.</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>print</span>
+      
+      
+        <span class='type'>(<tt>Boolean</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'><p>If <code>false</code>, the result will be returned instead of be printed.</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>String</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'><p>The printed message.</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+  <p class="tag_title">See Also:</p>
+  <ul class="see">
+    
+      <li>#format</li>
+    
+  </ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+320
+321
+322
+323
+324
+325
+326
+327
+328
+329</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/bovem/console.rb', line 320</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_write_banner_aligned'>write_banner_aligned</span><span class='lparen'>(</span><span class='id identifier rubyid_message'>message</span><span class='comma'>,</span> <span class='label'>suffix:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>\n</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='label'>indented:</span> <span class='kw'>true</span><span class='comma'>,</span> <span class='label'>wrap:</span> <span class='kw'>false</span><span class='comma'>,</span> <span class='label'>plain:</span> <span class='kw'>false</span><span class='comma'>,</span> <span class='label'>print:</span> <span class='kw'>true</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_write'>write</span><span class='lparen'>(</span>
+    <span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'> </span><span class='tstring_end'>&quot;</span></span> <span class='op'>*</span> <span class='lparen'>(</span><span class='const'>Bovem</span><span class='op'>::</span><span class='const'>Console</span><span class='period'>.</span><span class='id identifier rubyid_min_banner_length'>min_banner_length</span> <span class='op'>+</span> <span class='int'>3</span><span class='rparen'>)</span><span class='rparen'>)</span> <span class='op'>+</span> <span class='id identifier rubyid_message'>message</span><span class='period'>.</span><span class='id identifier rubyid_ensure_string'>ensure_string</span><span class='comma'>,</span>
+    <span class='label'>suffix:</span> <span class='id identifier rubyid_suffix'>suffix</span><span class='comma'>,</span>
+    <span class='label'>indented:</span> <span class='id identifier rubyid_indented'>indented</span><span class='comma'>,</span>
+    <span class='label'>wrap:</span> <span class='id identifier rubyid_wrap'>wrap</span><span class='comma'>,</span>
+    <span class='label'>plain:</span> <span class='id identifier rubyid_plain'>plain</span><span class='comma'>,</span>
+    <span class='label'>print:</span> <span class='id identifier rubyid_print'>print</span>
+  <span class='rparen'>)</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+  </div>
+
+</div>
+
+    <div id="footer">
+  Generated on Tue Mar 29 20:43:16 2016 by
+  <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
+  0.8.7.6 (ruby-2.3.0).
+</div>
+
+  </body>
+</html>
