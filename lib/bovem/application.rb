@@ -38,7 +38,10 @@ module Bovem
     # @param options [Hash] The settings to initialize the application with.
     # @return [Application] The created application.
     def self.create(options = {}, &block)
-      raise Bovem::Errors::Error.new(Bovem::Application, :missing_block, Bovem::Localizer.localize_on_locale(options[:locale], :missing_app_block)) if !block_given?
+      unless block_given?
+        raise Bovem::Errors::Error.new(Bovem::Application, :missing_block, Bovem::Localizer.localize_on_locale(options[:locale], :missing_app_block))
+      end
+
       run, args, options = setup_application_option(options)
 
       begin
@@ -47,6 +50,29 @@ module Bovem
         Kernel.puts(e.to_s)
         Kernel.exit(1)
       end
+    end
+
+    # Setup options for application creation.
+    #
+    # @param options [Hash] The options to setups.
+    # @return [Array] If to run the application, the arguments and the specified options.
+    def self.setup_application_option(options)
+      base_options = {name: Bovem::Localizer.localize_on_locale(options[:locale], :default_application_name), parent: nil, application: nil}
+      options = base_options.merge(options.ensure_hash)
+      run = options.delete(:run)
+      [(!run.nil? ? run : true).to_boolean, options.delete(:__args__), options]
+    end
+
+    # Create the application.
+    #
+    # @param run [Boolean] If to run the application.
+    # @param args [Hash] The arguments to use for running.
+    # @param options [Hash] The options of the application.
+    # @return [Application] The new application.
+    def self.create_application(run, args, options, &block)
+      application = new(options, &block)
+      application.execute(args) if application && run
+      application
     end
 
     # Creates a new application.
@@ -69,7 +95,7 @@ module Bovem
     # @param value [String|nil] The new version of this application.
     # @return [String|nil] The version of this application.
     def version(value = nil)
-      @version = value.ensure_string if !value.nil?
+      @version = value.ensure_string unless value.nil?
       @version
     end
 
@@ -86,14 +112,14 @@ module Bovem
         action { |command| application.command_help(command) }
       end
 
-      option(:help, [i18n.help_option_short_form, i18n.help_option_long_form], help: i18n.help_message){ |application, _| application.show_help }
+      option(:help, [i18n.help_option_short_form, i18n.help_option_long_form], help: i18n.help_message) { |application, _| application.show_help }
     end
 
     # The name of the current executable.
     #
     # @return [String] The name of the current executable.
     def executable_name
-      $0
+      $PROGRAM_NAME
     end
 
     # Shows a help about a command.
@@ -103,12 +129,8 @@ module Bovem
       fetch_commands_for_help(command).each do |arg|
         # Find the command across
         next_command = Bovem::Parser.find_command(arg, command, [])
-
-        if next_command then
-          command = command.commands[next_command[:name]]
-        else
-          break
-        end
+        break unless next_command
+        command = command.commands[next_command[:name]]
       end
 
       command.show_help
@@ -126,33 +148,10 @@ module Bovem
     end
 
     private
-      # Setup options for application creation.
-      #
-      # @param options [Hash] The options to setups.
-      # @return [Array] If to run the application, the arguments and the specified options.
-      def self.setup_application_option(options)
-        options = {name: Bovem::Localizer.localize_on_locale(options[:locale], :default_application_name), parent: nil, application: nil}.merge(options.ensure_hash)
-        run = options.delete(:run)
-        [(!run.nil? ? run : true).to_boolean, options.delete(:__args__), options]
-      end
 
-      # Create the application.
-      #
-      # @param run [Boolean ]If to run the application.
-      # @param args [Hash] The arguments to use for running.
-      # @param options [Hash] The options of the application.
-      # @return [Application] The new application.
-      def self.create_application(run, args, options, &block)
-        application = new(options, &block)
-        application.execute(args) if application && run
-        application
-      end
-
-      # Fetch a command list for showing help.
-      #
-      # @param command [Command] The command to show help for.
-      def fetch_commands_for_help(command)
-        command.arguments.map {|c| c.split(":") }.flatten.map(&:strip).select(&:present?)
-      end
+    # :nodoc:
+    def fetch_commands_for_help(command)
+      command.arguments.map { |c| c.split(":") }.flatten.map(&:strip).select(&:present?)
+    end
   end
 end

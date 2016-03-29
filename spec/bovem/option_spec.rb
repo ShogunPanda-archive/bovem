@@ -273,10 +273,10 @@ describe Bovem::Option do
     end
   end
 
-  describe "#has_help?" do
+  describe "#help?" do
     it "should check if the option has a help" do
-      expect(Bovem::Option.new("NAME").has_help?).to be_false
-      expect(Bovem::Option.new("NAME", [], help: "HELP").has_help?).to be_true
+      expect(Bovem::Option.new("NAME").help?).to be_false
+      expect(Bovem::Option.new("NAME", [], help: "HELP").help?).to be_true
     end
   end
 

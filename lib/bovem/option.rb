@@ -10,7 +10,7 @@ module Bovem
   # Values are the default values for that type.
   #
   # For any unknown type, the default value is `false`, it means that any unknown type is managed as a Boolean value with no argument.
-  OPTION_TYPES = {String => "", Integer => 0, Fixnum => 0, Bignum => 0, Float => 0.0, Array => []}
+  OPTION_TYPES = {String => "", Integer => 0, Fixnum => 0, Bignum => 0, Float => 0.0, Array => []}.freeze
   OPTION_TYPES.default = false
 
   # This class represents an option for a command.
@@ -71,7 +71,7 @@ module Bovem
     #
     # @param value [String] The short form of this option.
     def short=(value)
-      value = @name[0, 1] if !value.present?
+      value = @name[0, 1] unless value.present?
 
       # Clean value
       final_value = value.to_s.match(/^-{0,2}([a-z0-9])(.*)$/i)[1]
@@ -83,7 +83,7 @@ module Bovem
     #
     # @param value [String] The short form of this option.
     def long=(value)
-      value = @name if !value.present?
+      value = @name unless value.present?
 
       # Clean value
       final_value = value.to_s.match(/^-{0,2}(.+)$/)[1]
@@ -123,9 +123,11 @@ module Bovem
 
     # Returns the meta argument for this option.
     #
-    # @return [String|NilClass] Returns the current meta argument for this option (the default value is the option name uppercased) or `nil`, if this option doesn't require a meta argument.
+    # @return [String|NilClass] Returns the current meta argument for this option (the default value is the option name uppercased) or `nil`,
+    #   if this option doesn't require a meta argument.
     def meta
-      requires_argument? ? (@meta.present? ? @meta : @name.upcase) : nil
+      return nil unless requires_argument?
+      @meta.present? ? @meta : @name.upcase
     end
 
     # Get the current default value for this option.
@@ -138,7 +140,7 @@ module Bovem
     # Check if the current option has a default value.
     #
     # @return [Boolean] If the current option has a default value.
-    def has_default?
+    def default?
       !@default.nil?
     end
 
@@ -151,7 +153,7 @@ module Bovem
       vs = get_validator_method(@validator)
       rv = vs ? @validator.send(vs, value) : true
 
-      if rv then
+      if rv
         @value = value
         @provided = true
       else # Validation failed
@@ -164,10 +166,9 @@ module Bovem
 
     # Executes the action associated to this option.
     def execute_action
-      if @action.present? then
-        @provided = true
-        @action.call(parent, self)
-      end
+      return nil unless @action.present?
+      @provided = true
+      @action.call(parent, self)
     end
 
     # Checks if this option requires an argument.
@@ -187,7 +188,7 @@ module Bovem
     # Check if this command has a help.
     #
     # @return [Boolean] `true` if this command has a help, `false` otherwise.
-    def has_help?
+    def help?
       @help.present?
     end
 
@@ -199,56 +200,47 @@ module Bovem
     end
 
     private
-      # Setups the forms of the this option.
-      #
-      # @param forms [Array] An array of short and long forms for this option. Missing forms will be inferred by the name.
-      def setup_forms(forms)
-        self.short = forms.length > 0 ? forms[0] : @name[0, 1]
-        self.long = forms.length == 2 ? forms[1] : @name
+
+    # :nodoc:
+    def setup_forms(forms)
+      self.short = !forms.empty? ? forms[0] : @name[0, 1]
+      self.long = forms.length == 2 ? forms[1] : @name
+    end
+
+    # :nodoc:
+    def setup_options(options)
+      (options.is_a?(::Hash) ? options : {}).each_pair do |option, value|
+        send("#{option}=", value) if respond_to?("#{option}=")
       end
+    end
 
-      # Setups the settings of the this option.
-      #
-      # @param options [Hash] The settings for this option.
-      def setup_options(options)
-        (options.is_a?(::Hash) ? options : {}).each_pair do |option, value|
-          send("#{option}=", value) if respond_to?("#{option}=")
-        end
-      end
+    # :nodoc:
+    def setup_action(action)
+      @action = action if action.present? && action.respond_to?(:call) && action.try(:arity) == 2
+    end
 
-      # Setups the action of the this option.
-      #
-      # @param action [Proc] The action of this option.
-      def setup_action(action)
-        @action = action if action.present? && action.respond_to?(:call) && action.try(:arity) == 2
-      end
+    # :nodoc:
+    def handle_set_failure(vs)
+      locale = @parent.i18n
 
-      # Handle failure in setting an option.
-      #
-      # @param vs [Symbol] The type of validator.
-      def handle_set_failure(vs)
-        locale = @parent.i18n
-
-        message = case vs
-          when "match" then locale.invalid_for_regexp(label, @validator.inspect)
-          when "call" then locale.invalid_for_proc(label)
-          else locale.invalid_value(label, Bovem::Parser.smart_join(@validator.ensure_array, ", ", locale.join_separator).html_safe)
+      message =
+        case vs
+        when "match" then locale.invalid_for_regexp(label, @validator.inspect)
+        when "call" then locale.invalid_for_proc(label)
+        else locale.invalid_value(label, Bovem::Parser.smart_join(@validator.ensure_array, ", ", locale.join_separator).html_safe)
         end
 
-        raise Bovem::Errors::Error.new(self, :validation_failed, message)
-      end
+      raise Bovem::Errors::Error.new(self, :validation_failed, message)
+    end
 
-      # Gets the method required to verify a validator.
-      #
-      # @param validator [Object] The type of the validator.
-      # @return [String] A method to call to verify the validator.
-      def get_validator_method(validator)
-        case validator.class.to_s
-          when "Array" then "include?"
-          when "Regexp" then "match"
-          when "Proc" then "call"
-          else false
-        end
+    # :nodoc:
+    def get_validator_method(validator)
+      case validator.class.to_s
+      when "Array" then "include?"
+      when "Regexp" then "match"
+      when "Proc" then "call"
+      else false
       end
+    end
   end
 end

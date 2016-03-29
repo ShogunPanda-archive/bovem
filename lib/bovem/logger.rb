@@ -12,6 +12,9 @@ module Bovem
   class Logger < ::Logger
     attr_reader :device
 
+    # List of valid logger levels.
+    LEVEL_NAMES = {"DEBUG" => :cyan, "INFO" => :green, "WARN" => :yellow, "ERROR" => :red, "FATAL" => :magenta}.freeze
+
     # Creates a new logger.
     #
     # @see http://www.ruby-doc.org/stdlib-1.9.3/libdoc/logger/rdoc/Logger.html
@@ -19,7 +22,7 @@ module Bovem
     # @param logdev [String|IO] The log device. This is a filename (String) or IO object (typically STDOUT, STDERR, or an open file).
     # @param shift_age [Fixnum]  Number of old log files to keep, or frequency of rotation (daily, weekly or monthly).
     # @param shift_size [Fixnum] Maximum logfile size (only applies when shift_age is a number).
-    def initialize(logdev, shift_age = 0, shift_size = 1048576)
+    def initialize(logdev, shift_age = 0, shift_size = 1_048_576)
       @device = logdev
       super(logdev, shift_age, shift_size)
     end
@@ -30,15 +33,13 @@ module Bovem
     # @param level [Fixnum] The minimum severity to log. See http://www.ruby-doc.org/stdlib-1.9.3/libdoc/logger/rdoc/Logger.html for valid levels.
     # @param formatter [Proc] The formatter to use for logging.
     # @return [Logger] The new logger.
-    def self.create(file = nil, level = Logger::INFO, formatter = nil)
-      begin
-        rv = new(get_real_file(file || default_file))
-        rv.level = level.to_integer
-        rv.formatter = formatter || default_formatter
-        rv
-      rescue
-        raise Bovem::Errors::InvalidLogger
-      end
+    def self.create(file = nil, level: Logger::INFO, formatter: nil)
+      rv = new(get_real_file(file || default_file))
+      rv.level = level.to_integer
+      rv.formatter = formatter || default_formatter
+      rv
+    rescue
+      raise Bovem::Errors::InvalidLogger
     end
 
     # Translates a file to standard input or standard output in some special cases.
@@ -47,9 +48,9 @@ module Bovem
     # @return [String|IO] The translated file name.
     def self.get_real_file(file)
       case file
-        when "STDOUT" then $stdout
-        when "STDERR" then $stderr
-        else file
+      when "STDOUT" then $stdout
+      when "STDERR" then $stderr
+      else file
       end
     end
 
@@ -62,19 +63,16 @@ module Bovem
     # The default formatter for logging.
     # @return [Proc] The default formatter for logging.
     def self.default_formatter
-      @default_formatter ||= ::Proc.new {|severity, datetime, _, msg|
-        color = case severity
-          when "DEBUG" then :cyan
-          when "INFO" then :green
-          when "WARN" then :yellow
-          when "ERROR" then :red
-          when "FATAL" then :magenta
-          else :white
-        end
+      @default_formatter ||= ::Proc.new do |severity, datetime, _, msg|
+        color = LEVEL_NAMES.fetch(severity, :white)
 
-        header = Bovem::Console.replace_markers("{mark=bright-#{color}}[%s T+%0.5f] %s:{/mark}" %[datetime.strftime("%Y/%b/%d %H:%M:%S"), [datetime.to_f - start_time.to_f, 0].max, severity.rjust(5)])
-        "%s %s\n" % [header, msg]
-      }
+        header = Bovem::Console.replace_markers(
+          "{mark=bright-#{color}}[%s T+%0.5f] %s:{/mark}", datetime.strftime("%Y/%b/%d %H:%M:%S"),
+          [datetime.to_f - start_time.to_f, 0].max, severity.rjust(5)
+        )
+
+        sprintf("%s %s\n", header, msg)
+      end
     end
 
     # The log time of the first logger. This allows to show a `T+0.1234` information into the log.

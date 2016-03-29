@@ -4,7 +4,7 @@
 # Licensed under the MIT license, which can be found at http://www.opensource.org/licenses/mit-license.php.
 #
 
-require "./lib/bovem/version"
+require File.expand_path("../lib/bovem/version", __FILE__)
 
 Gem::Specification.new do |gem|
   gem.name = "bovem"
@@ -23,8 +23,8 @@ Gem::Specification.new do |gem|
   gem.executables = `git ls-files -- bin/*`.split("\n").map{ |f| File.basename(f) }
   gem.require_paths = ["lib"]
 
-  gem.required_ruby_version = ">= 1.9.3"
+  gem.required_ruby_version = ">= 2.3.0"
 
-  gem.add_dependency("lazier", "~> 3.5.1")
-  gem.add_dependency("open4", "~> 1.3.3")
+  gem.add_dependency("lazier", "~> 4.2")
+  gem.add_dependency("open4", "~> 1.3")
 end

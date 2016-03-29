@@ -9,12 +9,11 @@ require "prettyprint"
 require "logger"
 require "open4"
 require "find"
-require "fileutils"
 require "lazier"
 
 Lazier.load!(:object, :boolean, :math)
 
-require "bovem/version" if !defined?(Bovem::Version)
+require "bovem/version" unless defined?(Bovem::Version)
 require "bovem/errors"
 require "bovem/localizer"
 require "bovem/configuration"

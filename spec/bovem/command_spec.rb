@@ -122,17 +122,17 @@ describe Bovem::Command do
     end
   end 
 
-  describe "#has_description?" do
+  describe "#description?" do
     it "should check if the command has a description" do
-      expect(Bovem::Command.new.has_description?).to be_false
-      expect(Bovem::Command.new({description: "DESCRIPTION"}).has_description?).to be_true
+      expect(Bovem::Command.new.description?).to be_false
+      expect(Bovem::Command.new({description: "DESCRIPTION"}).description?).to be_true
     end
   end
 
-  describe "#has_banner?" do
+  describe "#banner?" do
     it "should check if the command has a banner" do
-      expect(Bovem::Command.new.has_banner?).to be_false
-      expect(Bovem::Command.new({banner: "BANNER"}).has_banner?).to be_true
+      expect(Bovem::Command.new.banner?).to be_false
+      expect(Bovem::Command.new({banner: "BANNER"}).banner?).to be_true
     end
   end
 
@@ -201,11 +201,11 @@ describe Bovem::Command do
     end
   end
 
-  describe "#has_commands?" do
+  describe "#commands?" do
     it "should check if the command has subcommands" do
-      expect(command.has_commands?).to be_false
+      expect(command.commands?).to be_false
       command.command("subcommand")
-      expect(command.has_commands?).to be_true
+      expect(command.commands?).to be_true
     end
   end
 
@@ -233,11 +233,11 @@ describe Bovem::Command do
     end
   end
 
-  describe "#has_options?" do
+  describe "#options?" do
     it "should check if the command has options" do
-      expect(command.has_options?).to be_false
+      expect(command.options?).to be_false
       command.option("option")
-      expect(command.has_options?).to be_true
+      expect(command.options?).to be_true
     end
   end
 
@@ -268,10 +268,10 @@ describe Bovem::Command do
     end
   end
 
-  describe "#is_application?" do
+  describe "#application?" do
     it "should check if the command is an application" do
-      expect(command.is_application?).to be_false
-      expect(application.is_application?).to be_true
+      expect(command.application?).to be_false
+      expect(application.application?).to be_true
     end
   end
 

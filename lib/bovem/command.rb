@@ -11,122 +11,121 @@ module Bovem
     module Help
       # Shows a help about this command.
       def show_help
-        console = is_application? ? self.console : application.console
-        is_application? ? show_help_application_summary(console) : show_help_command_summary(console)
-        show_help_banner(console) if has_banner?
-        show_help_options(console) if has_options?
-        show_help_commands(console) if has_commands?
+        console = application? ? self.console : application.console
+        application? ? show_help_application_summary(console) : show_help_command_summary(console)
+        show_help_banner(console) if banner?
+        show_help_options(console) if options?
+        show_help_commands(console) if commands?
         Kernel.exit(0)
       end
 
       private
-        # Prints a help summary about the application.
-        #
-        # @param console [Bovem::Console] The console object to use to print.
-        def show_help_application_summary(console)
-          # Application
-          console.write(i18n.help_name)
-          console.write("%s %s%s" % [name, version, has_description? ? " - " + description : ""], "\n", 4, true)
-          show_synopsis(console)
-        end
 
-        # Prints a synopsis about the application.
-        #
-        # @param console [Bovem::Console] The console object to use to print.
-        def show_synopsis(console)
-          console.write("")
-          console.write(i18n.help_synopsis)
-          console.write(synopsis.present? ? synopsis : i18n.help_application_synopsis % [executable_name, has_commands? ? i18n.help_subcommand_invocation : ""], "\n", 4, true)
-        end
+      # :nodoc:
+      def show_help_application_summary(console)
+        # Application
+        console.write(i18n.help_name)
+        console.write(sprintf("%s %s%s", name, version, description? ? " - " + description : ""), "\n", 4, true)
+        show_synopsis(console)
+      end
 
-        # Prints a help summary about the command.
-        #
-        # @param console [Bovem::Console] The console object to use to print.
-        def show_help_command_summary(console)
-          console.write(i18n.help_synopsis)
-          console.write(synopsis.present? ? synopsis : i18n.help_command_synopsis % [application.executable_name, full_name(nil, " "), has_commands? ? i18n.help_subsubcommand_invocation : ""], "\n", 4, true)
-        end
+      # :nodoc:
+      def show_synopsis(console)
+        console.write("")
+        console.write(i18n.help_synopsis)
+        console.write(format_synopsis, "\n", 4, true)
+      end
 
-        # Prints the description of the command.
-        #
-        # @param console [Bovem::Console] The console object to use to print.
-        def show_help_banner(console)
-          console.write("")
-          console.write(i18n.help_description)
-          console.write(banner, "\n", 4, true)
-        end
+      # :nodoc:
+      def show_help_command_summary(console)
+        console.write(i18n.help_synopsis)
+        console.write(format_summary, "\n", 4, true)
+      end
 
-        # Prints information about the command's options.
-        #
-        # @param console [Bovem::Console] The console object to use to print.
-        def show_help_options(console)
-          console.write("")
-          console.write(is_application? ? i18n.help_global_options : i18n.help_options)
+      # :nodoc:
+      def show_help_banner(console)
+        console.write("")
+        console.write(i18n.help_description)
+        console.write(banner, "\n", 4, true)
+      end
 
-          # First of all, grab all options and construct labels
-          lefts = show_help_options_build_labels
+      # :nodoc:
+      def show_help_options(console)
+        console.write("")
+        console.write(application? ? i18n.help_global_options : i18n.help_options)
 
-          console.with_indentation(4) do
-            lefts.keys.sort.each do |head|
-              show_help_option(console, lefts, head)
-            end
+        # First of all, grab all options and construct labels
+        lefts = show_help_options_build_labels
+
+        console.with_indentation(4) do
+          lefts.keys.sort.each do |head|
+            show_help_option(console, lefts, head)
           end
         end
+      end
 
-        # Adjusts options names for printing.
-        #
-        # @return [Hash] The adjusted options for printing.
-        def show_help_options_build_labels
-          options.values.reduce({}) do |lefts, option|
-            left = [option.complete_short, option.complete_long]
-            left.map!{|l| l + " " + option.meta } if option.requires_argument?
-            lefts[left.join(", ")] = option.has_help? ? option.help : i18n.help_no_description
-            lefts
+      # :nodoc:
+      def show_help_options_build_labels
+        options.values.reduce({}) do |lefts, option|
+          left = [option.complete_short, option.complete_long]
+          format_label(option, left, lefts)
+        end
+      end
+
+      # :nodoc:
+      def show_help_option(console, lefts, head)
+        alignment = lefts.keys.map(&:length).max
+        help = lefts[head]
+        console.write(sprintf("%s - %s", head.ljust(alignment, " "), help), "\n", true, true)
+      end
+
+      # :nodoc:
+      def show_help_commands(console)
+        alignment = prepare_show_help_commands(console)
+
+        console.with_indentation(4) do
+          commands.keys.sort.each do |name|
+            show_help_command(console, name, alignment)
           end
         end
+      end
 
-        # Prints information about an option.
-        #
-        # @param console [Bovem::Console] The console object to use to print.
-        # @param lefts [Hash] The list of adjusted options.
-        # @param head [String] The option to print.
-        def show_help_option(console, lefts, head)
-          alignment = lefts.keys.map(&:length).max
-          help = lefts[head]
-          console.write("%s - %s" % [head.ljust(alignment, " "), help], "\n", true, true)
-        end
+      # :nodoc:
+      def prepare_show_help_commands(console)
+        console.write("")
+        console.write(application? ? i18n.help_commands : i18n.help_subcommands)
+        commands.keys.map(&:length).max
+      end
 
-        # Prints information about the command's subcommands.
-        #
-        # @param console [Bovem::Console] The console object to use to print.
-        def show_help_commands(console)
-          alignment = prepare_show_help_commands(console)
+      # :nodoc:
+      def show_help_command(console, name, alignment)
+        # Find the maximum length of the commands
+        command = commands[name]
+        console.write(
+          sprintf("%s - %s", name.ljust(alignment, " "), command.description.present? ? command.description : i18n.help_no_description),
+          "\n", true, true
+        )
+      end
 
-          console.with_indentation(4) do
-            commands.keys.sort.each do |name|
-              show_help_command(console, name, alignment)
-            end
-          end
-        end
+      # :nodoc:
+      def format_synopsis
+        sprintf(synopsis.present? ? synopsis : i18n.help_application_synopsis, executable_name, commands? ? i18n.help_subcommand_invocation : "")
+      end
 
-        # Starts printing information about the command's subcommands.
-        #
-        # @param console [Bovem::Console] The console object to use to print.
-        def prepare_show_help_commands(console)
-          console.write("")
-          console.write(is_application? ? i18n.help_commands : i18n.help_subcommands)
-          commands.keys.map(&:length).max
-        end
+      # :nodoc:
+      def format_summary
+        sprintf(
+          synopsis.present? ? synopsis : i18n.help_command_synopsis,
+          application.executable_name, full_name(nil, " "), commands? ? i18n.help_subsubcommand_invocation : ""
+        )
+      end
 
-        # Prints information about a command's subcommand.
-        #
-        # @param name [String] The name of command to print.
-        # @param console [Bovem::Console] The console object to use to print.
-        def show_help_command(console, name, alignment)
-          # Find the maximum length of the commands
-          command = commands[name]
-          console.write("%s - %s" % [name.ljust(alignment, " "), command.description.present? ? command.description : i18n.help_no_description], "\n", true, true)
-        end
+      # :nodoc:
+      def format_label(option, left, lefts)
+        left.map! { |l| l + " " + option.meta } if option.requires_argument?
+        lefts[left.join(", ")] = option.help? ? option.help : i18n.help_no_description
+        lefts
+      end
     end
 
     # Methods to manage options and subcommands.
@@ -161,12 +160,8 @@ module Bovem
         name = name.ensure_string
         @options ||= HashWithIndifferentAccess.new
 
-        if @options[name] then
-          if is_application? then
-            raise Bovem::Errors::Error.new(self, :duplicate_option, i18n.existing_option_global(name))
-          else
-            raise Bovem::Errors::Error.new(self, :duplicate_option, i18n.existing_option(name, full_name))
-          end
+        if @options[name]
+          raise Bovem::Errors::Error.new(self, :duplicate_option, application? ? i18n.existing_option_global(name) : i18n.existing_option(name, full_name))
         end
 
         option = Bovem::Option.new(name, forms, options, &action)
@@ -192,8 +187,8 @@ module Bovem
       # Check if this command has subcommands.
       #
       # @return [Boolean] `true` if this command has subcommands, `false` otherwise.
-      def has_commands?
-        commands.length > 0
+      def commands?
+        !commands.empty?
       end
 
       # Returns the list of options of this command.
@@ -212,8 +207,8 @@ module Bovem
       # Check if this command has options.
       #
       # @return [Boolean] `true` if this command has options, `false` otherwise.
-      def has_options?
-        options.length > 0
+      def options?
+        !options.empty?
       end
 
       # Adds a new argument to this command.
@@ -241,52 +236,43 @@ module Bovem
       # @param prefix [String] The prefix to add to the option of this command.
       # @param whitelist [Array] The list of options to include. By default all options are included.
       # @return [HashWithIndifferentAccess] The requested options.
-      def get_options(unprovided = false, application = "application_", prefix = "", *whitelist)
+      def get_options(unprovided: false, application: "application_", prefix: "", whitelist: [])
         rv = HashWithIndifferentAccess.new
-        rv.merge!(self.application.get_options(unprovided, nil, application, *whitelist)) if application && !is_application?
+
+        if application && !application?
+          rv.merge!(self.application.get_options(unprovided: unprovided, application: nil, prefix: application, whitelist: whitelist))
+        end
+
         rv.merge!(get_current_options(unprovided, prefix, whitelist))
         rv
       end
 
       private
-        # Creates a new command.
-        #
-        # @param name [String] The name of this command.
-        # @param options [Hash] The settings for this command.
-        # @return [Command] The new command.
-        def create_command(name, options, &block)
-          command = Bovem::Command.new(options, &block)
-          command.option(:help, [i18n.help_option_short_form, i18n.help_option_long_form], help: i18n.help_message){|c, _| c.show_help }
-          @commands[name.to_s] = command
-          command
+
+      # :nodoc:
+      def create_command(name, options, &block)
+        command = Bovem::Command.new(options, &block)
+        command.option(:help, [i18n.help_option_short_form, i18n.help_option_long_form], help: i18n.help_message) { |c, _| c.show_help }
+        @commands[name.to_s] = command
+        command
+      end
+
+      # :nodoc:
+      def get_current_options(unprovided, prefix, whitelist)
+        rv = HashWithIndifferentAccess.new
+        whitelist = (whitelist.present? ? whitelist : options.keys).map(&:to_s)
+
+        options.each do |key, option|
+          rv["#{prefix}#{key}"] = option.value if include_option?(whitelist, unprovided, key, option)
         end
 
-        # Gets the list of the options of this command.
-        # @param unprovided [Boolean] If to include also options that were not provided by the user and that don't have any default value.
-        # @param prefix [String] The prefix to add to the option of this command.
-        # @param whitelist [Array] The list of options to include. By default all options are included.
-        # @return [HashWithIndifferentAccess] The requested options.
-        def get_current_options(unprovided, prefix, whitelist)
-          rv = HashWithIndifferentAccess.new
-          whitelist = (whitelist.present? ? whitelist : options.keys).map(&:to_s)
+        rv
+      end
 
-          options.each do |key, option|
-            rv["#{prefix}#{key}"] = option.value if include_option?(whitelist, unprovided, key, option)
-          end
-
-          rv
-        end
-
-        # Checks if a option must be included in a hash.
-        #
-        # @param whitelist [Array] The list of options to include.
-        # @param unprovided [Boolean] If to include also options that were not provided by the user and that don't have any default value.
-        # @param key [String] The option name.
-        # @param option [Option] The option to include.
-        # @return [Boolean] Whether to include the option.
-        def include_option?(whitelist, unprovided, key, option)
-          whitelist.include?(key.to_s) && (option.provided? || option.has_default? || (unprovided && option.action.nil?))
-        end
+      # :nodoc:
+      def include_option?(whitelist, unprovided, key, option)
+        whitelist.include?(key.to_s) && (option.provided? || option.default? || (unprovided && option.action.nil?))
+      end
     end
   end
 
@@ -346,7 +332,7 @@ module Bovem
     # @param value [NilClass|Object] The new name of this command.
     # @return [String] The name of this command.
     def name(value = nil)
-      @name = value if !value.nil?
+      @name = value unless value.nil?
       @name
     end
 
@@ -356,11 +342,8 @@ module Bovem
     # @param separator [String] The separator to use for components.
     # @return [String] The full name.
     def full_name(suffix = nil, separator = ":")
-      if is_application? then
-        nil
-      else
-        [@parent ? @parent.full_name(nil, separator) : nil, !is_application? ? name : nil, suffix].compact.join(separator)
-      end
+      return nil if application?
+      [@parent ? @parent.full_name(nil, separator) : nil, !application? ? name : nil, suffix].compact.join(separator)
     end
 
     # Reads and optionally sets the short description of this command.
@@ -368,7 +351,7 @@ module Bovem
     # @param value [NilClass|Object] The new short description of this command.
     # @return [String] The short description of this command.
     def description(value = nil)
-      @description = value if !value.nil?
+      @description = value unless value.nil?
       @description
     end
 
@@ -377,7 +360,7 @@ module Bovem
     # @param value [NilClass|Object] The new description of this command.
     # @return [String] The description of this command.
     def banner(value = nil)
-      @banner = value if !value.nil?
+      @banner = value unless value.nil?
       @banner
     end
 
@@ -386,7 +369,7 @@ module Bovem
     # @param value [NilClass|Object] The new synopsis of this command.
     # @return [String] The synopsis of this command.
     def synopsis(value = nil)
-      @synopsis = value if !value.nil?
+      @synopsis = value unless value.nil?
       @synopsis
     end
 
@@ -430,27 +413,27 @@ module Bovem
     #
     # @return [Application] The application this command belongs to or `self`, if the command is an Application.
     def application
-      is_application? ? self : @application
+      application? ? self : @application
     end
 
     # Checks if the command is an application.
     #
     # @return [Boolean] `true` if command is an application, `false` otherwise.
-    def is_application?
+    def application?
       is_a?(Bovem::Application)
     end
 
     # Check if this command has a description.
     #
     # @return [Boolean] `true` if this command has a description, `false` otherwise.
-    def has_description?
+    def description?
       description.present?
     end
 
     # Check if this command has a banner.
     #
     # @return [Boolean] `true` if this command has a banner, `false` otherwise.
-    def has_banner?
+    def banner?
       banner.present?
     end
 
@@ -459,15 +442,15 @@ module Bovem
     # @param options [Hash] The settings for this command.
     # @return [Command] The command.
     def setup_with(options = {})
-      options = {} if !options.is_a?(::Hash)
+      options = {} unless options.is_a?(::Hash)
       setup_i18n(options)
 
       options.each_pair do |option, value|
         method = option.to_s
 
-        if respond_to?(method) && self.method(method).arity != 0 then
+        if respond_to?(method) && self.method(method).arity != 0
           send(method, value)
-        elsif respond_to?(method + "=") then
+        elsif respond_to?(method + "=")
           send(method + "=", value)
         end
       end
@@ -481,49 +464,47 @@ module Bovem
     def execute(args)
       subcommand = Bovem::Parser.parse(self, args)
 
-      if subcommand.present? then # We have a subcommand to call
+      if subcommand.present? # We have a subcommand to call
         commands[subcommand[:name]].execute(subcommand[:args])
-      elsif action then # Run our action
+      elsif action # Run our action
         # Run the before hook
-        execute_hook(before)
-
-        # Run the action
-        execute_hook(action)
-
-        # Run the after hook
-        execute_hook(after)
+        perform_action
       else # Show the help
         show_help
       end
     end
 
     private
-      # Setups the application localization.
-      #
-      # @param options [Hash] The settings for this command.
-      def setup_i18n(options)
-        i18n_setup("bovem.application", ::File.absolute_path(::Pathname.new(::File.dirname(__FILE__)).to_s + "/../../locales/"))
-        self.i18n = (options[:locale]).ensure_string
-      end
 
-      # Assigns a hook to a command.
-      #
-      # @param method [String|Symbol|NilClass] The method of the application to hookup.
-      # @param hook [Proc] The block to hookup if method is not provided.
-      def assign_hook(method, &hook)
-        assigned = nil
-        assigned = method if method.is_a?(::String) || method.is_a?(::Symbol)
-        assigned = hook if !assigned && hook && hook.arity == 1
-        assigned
-      end
+    # :nodoc:
+    def setup_i18n(options)
+      i18n_setup("bovem.application", ::File.absolute_path(::Pathname.new(::File.dirname(__FILE__)).to_s + "/../../locales/"))
+      self.i18n = (options[:locale]).ensure_string
+    end
 
-      # Executes a hook.
-      #
-      # @param hook [String|Symbol|Proc|NilClass] The hook to execute.
-      def execute_hook(hook)
-        if hook then
-          hook.is_a?(::String) || hook.is_a?(::Symbol) ? application.send(hook, self) : hook.call(self)
-        end
-      end
+    # :nodoc:
+    def assign_hook(method, &hook)
+      assigned = nil
+      assigned = method if method.is_a?(::String) || method.is_a?(::Symbol)
+      assigned = hook if !assigned && hook && hook.arity == 1
+      assigned
+    end
+
+    # :nodoc:
+    def execute_hook(hook)
+      return unless hook
+      hook.is_a?(::String) || hook.is_a?(::Symbol) ? application.send(hook, self) : hook.call(self)
+    end
+
+    # :nodoc:
+    def perform_action
+      execute_hook(before)
+
+      # Run the action
+      execute_hook(action)
+
+      # Run the after hook
+      execute_hook(after)
+    end
   end
 end

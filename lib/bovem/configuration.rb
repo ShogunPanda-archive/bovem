@@ -50,41 +50,34 @@ module Bovem
     def parse(file = nil, overrides = {}, logger = nil)
       file = file.present? ? File.expand_path(file) : nil
 
-      if file then
-        if File.readable?(file) then
-          read_configuration_file(file, logger)
-        else
-          raise Bovem::Errors::InvalidConfiguration.new(i18n.configuration.not_found(file))
-        end
+      if file
+        raise(Bovem::Errors::InvalidConfiguration, i18n.configuration.not_found(file)) unless File.readable?(file)
+        read_configuration_file(file, logger)
       end
 
       # Apply overrides
-      overrides.each_pair { |k, v| send("#{k}=", v) if self.respond_to?("#{k}=") } if overrides.is_a?(::Hash)
+      overrides.each_pair { |k, v| send("#{k}=", v) if respond_to?("#{k}=") } if overrides.is_a?(::Hash)
 
       self
     end
 
     private
-      # Reads a configuration file.
-      #
-      # @param file [String] The file to read.
-      # @param logger [Logger] The logger to use for notifications.
-      def read_configuration_file(file, logger)
-        begin
-          # Open the file
-          path = file =~ /^#{File::SEPARATOR}/ ? file : ::Pathname.new(file).realpath
-          logger.info(i18n.configuration.using(path)) if logger
-          eval_file(path)
-        rescue Exception
-          raise Bovem::Errors::InvalidConfiguration.new(i18n.configuration.invalid(file))
-        end
-      end
 
-      # Eval a configuration file.
-      #
-      # @param path [String] The file to read.
-      def eval_file(path)
-        tap { |config| eval(::File.read(path)) }
-      end
+    # :nodoc:
+    def read_configuration_file(file, logger)
+      # Open the file
+      path = file =~ /^#{File::SEPARATOR}/ ? file : ::Pathname.new(file).realpath
+      logger.info(i18n.configuration.using(path)) if logger
+      eval_file(path)
+    rescue
+      raise(Bovem::Errors::InvalidConfiguration, i18n.configuration.invalid(file))
+    end
+
+    # :nodoc:
+    def eval_file(path)
+      # rubocop:disable UnusedBlockArgument, Eval
+      tap { |config| eval(File.read(path)) }
+      # rubocop:enable UnusedBlockArgument, Eval
+    end
   end
 end
