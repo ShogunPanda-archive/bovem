@@ -25,7 +25,7 @@ module Bovem
       def show_help_application_summary(console)
         # Application
         console.write(i18n.help_name)
-        console.write(sprintf("%s %s%s", name, version, description? ? " - " + description : ""), "\n", 4, true)
+        console.write(sprintf("%s %s%s", name, version, description? ? " - " + description : ""), suffix: "\n", indented: 4, wrap: true)
         show_synopsis(console)
       end
 
@@ -33,20 +33,20 @@ module Bovem
       def show_synopsis(console)
         console.write("")
         console.write(i18n.help_synopsis)
-        console.write(format_synopsis, "\n", 4, true)
+        console.write(format_synopsis, suffix: "\n", indented: 4, wrap: true)
       end
 
       # :nodoc:
       def show_help_command_summary(console)
         console.write(i18n.help_synopsis)
-        console.write(format_summary, "\n", 4, true)
+        console.write(format_summary, suffix: "\n", indented: 4, wrap: true)
       end
 
       # :nodoc:
       def show_help_banner(console)
         console.write("")
         console.write(i18n.help_description)
-        console.write(banner, "\n", 4, true)
+        console.write(banner, suffix: "\n", indented: 4, wrap: true)
       end
 
       # :nodoc:
@@ -76,7 +76,7 @@ module Bovem
       def show_help_option(console, lefts, head)
         alignment = lefts.keys.map(&:length).max
         help = lefts[head]
-        console.write(sprintf("%s - %s", head.ljust(alignment, " "), help), "\n", true, true)
+        console.write(sprintf("%s - %s", head.ljust(alignment, " "), help), suffix: "\n", indented: true, wrap: true)
       end
 
       # :nodoc:
@@ -103,7 +103,7 @@ module Bovem
         command = commands[name]
         console.write(
           sprintf("%s - %s", name.ljust(alignment, " "), command.description.present? ? command.description : i18n.help_no_description),
-          "\n", true, true
+          suffix: "\n", indented: true, wrap: true
         )
       end
 
