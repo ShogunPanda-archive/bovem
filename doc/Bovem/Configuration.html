@@ -507,7 +507,7 @@ end</p>
 </span>  <span class='kw'>def</span> <span class='id identifier rubyid_read_configuration_file'>read_configuration_file</span><span class='lparen'>(</span><span class='id identifier rubyid_file'>file</span><span class='comma'>,</span> <span class='id identifier rubyid_logger'>logger</span><span class='rparen'>)</span>
     <span class='comment'># Open the file
 </span>    <span class='id identifier rubyid_path'>path</span> <span class='op'>=</span> <span class='id identifier rubyid_file'>file</span> <span class='op'>=~</span> <span class='tstring'><span class='regexp_beg'>/</span><span class='tstring_content'>^</span><span class='embexpr_beg'>#{</span><span class='const'>File</span><span class='op'>::</span><span class='const'>SEPARATOR</span><span class='embexpr_end'>}</span><span class='regexp_end'>/</span></span> <span class='op'>?</span> <span class='id identifier rubyid_file'>file</span> <span class='op'>:</span> <span class='op'>::</span><span class='const'>Pathname</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='id identifier rubyid_file'>file</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_realpath'>realpath</span>
-    <span class='id identifier rubyid_logger'>logger</span><span class='period'>.</span><span class='id identifier rubyid_info'>info</span><span class='lparen'>(</span><span class='id identifier rubyid_i18n'>i18n</span><span class='period'>.</span><span class='id identifier rubyid_configuration'>configuration</span><span class='period'>.</span><span class='id identifier rubyid_using'>using</span><span class='lparen'>(</span><span class='id identifier rubyid_path'>path</span><span class='rparen'>)</span><span class='rparen'>)</span> <span class='kw'>if</span> <span class='id identifier rubyid_logger'>logger</span>
+    <span class='id identifier rubyid_logger'>logger</span><span class='period'>.</span><span class='id identifier rubyid_info'>info</span><span class='lparen'>(</span><span class='id identifier rubyid_i18n'>i18n</span><span class='period'>.</span><span class='id identifier rubyid_using'>using</span><span class='lparen'>(</span><span class='id identifier rubyid_path'>path</span><span class='rparen'>)</span><span class='rparen'>)</span> <span class='kw'>if</span> <span class='id identifier rubyid_logger'>logger</span>
     <span class='id identifier rubyid_eval_file'>eval_file</span><span class='lparen'>(</span><span class='id identifier rubyid_path'>path</span><span class='rparen'>)</span>
   <span class='kw'>rescue</span> <span class='const'>Exception</span>
     <span class='id identifier rubyid_raise'>raise</span><span class='lparen'>(</span><span class='const'>Bovem</span><span class='op'>::</span><span class='const'>Errors</span><span class='op'>::</span><span class='const'>InvalidConfiguration</span><span class='comma'>,</span> <span class='id identifier rubyid_i18n'>i18n</span><span class='period'>.</span><span class='id identifier rubyid_invalid'>invalid</span><span class='lparen'>(</span><span class='id identifier rubyid_file'>file</span><span class='rparen'>)</span><span class='rparen'>)</span>
@@ -661,7 +661,7 @@ config.property = "VALUE"
 </div>
 
     <div id="footer">
-  Generated on Wed Mar 30 09:57:30 2016 by
+  Generated on Wed Mar 30 11:49:27 2016 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.8.7.6 (ruby-2.3.0).
 </div>

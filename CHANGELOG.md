@@ -1,3 +1,7 @@
+### 4.0.1 / 2016-03-30
+
+* Minor bugfix.
+
 ### 4.0.0 / 2016-03-29
 
 * Refactored `Bovem::Console`.

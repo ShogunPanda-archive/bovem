@@ -73,7 +73,7 @@ module Bovem
     def read_configuration_file(file, logger)
       # Open the file
       path = file =~ /^#{File::SEPARATOR}/ ? file : ::Pathname.new(file).realpath
-      logger.info(i18n.configuration.using(path)) if logger
+      logger.info(i18n.using(path)) if logger
       eval_file(path)
     rescue Exception
       raise(Bovem::Errors::InvalidConfiguration, i18n.invalid(file))
