@@ -315,15 +315,15 @@ end</p>
       <pre class="lines">
 
 
-34
 35
 36
 37
 38
-39</pre>
+39
+40</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/bovem/configuration.rb', line 34</span>
+      <pre class="code"><span class="info file"># File 'lib/bovem/configuration.rb', line 35</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_initialize'>initialize</span><span class='lparen'>(</span><span class='id identifier rubyid_file'>file</span> <span class='op'>=</span> <span class='kw'>nil</span><span class='comma'>,</span> <span class='id identifier rubyid_overrides'>overrides</span> <span class='op'>=</span> <span class='lbrace'>{</span><span class='rbrace'>}</span><span class='comma'>,</span> <span class='id identifier rubyid_logger'>logger</span> <span class='op'>=</span> <span class='kw'>nil</span><span class='rparen'>)</span>
   <span class='kw'>super</span><span class='lparen'>(</span><span class='rparen'>)</span>
@@ -449,13 +449,15 @@ end</p>
 85
 86
 87
-88</pre>
+88
+89</pre>
     </td>
     <td>
       <pre class="code"><span class="info file"># File 'lib/bovem/configuration.rb', line 24</span>
 
 <span class='kw'>class</span> <span class='const'>Configuration</span> <span class='op'>&lt;</span> <span class='const'>Lazier</span><span class='op'>::</span><span class='const'>Configuration</span>
   <span class='id identifier rubyid_attr_reader'>attr_reader</span> <span class='symbol'>:i18n</span>
+
   <span class='comment'># Creates a new configuration.
 </span>  <span class='comment'>#
 </span>  <span class='comment'># A configuration file is a plain Ruby file with a top-level {Configuration config} object.
@@ -619,7 +621,6 @@ config.property = "VALUE"
       <pre class="lines">
 
 
-54
 55
 56
 57
@@ -631,10 +632,11 @@ config.property = "VALUE"
 63
 64
 65
-66</pre>
+66
+67</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/bovem/configuration.rb', line 54</span>
+      <pre class="code"><span class="info file"># File 'lib/bovem/configuration.rb', line 55</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_parse'>parse</span><span class='lparen'>(</span><span class='id identifier rubyid_file'>file</span> <span class='op'>=</span> <span class='kw'>nil</span><span class='comma'>,</span> <span class='id identifier rubyid_overrides'>overrides</span> <span class='op'>=</span> <span class='lbrace'>{</span><span class='rbrace'>}</span><span class='comma'>,</span> <span class='id identifier rubyid_logger'>logger</span> <span class='op'>=</span> <span class='kw'>nil</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_file'>file</span> <span class='op'>=</span> <span class='id identifier rubyid_file'>file</span><span class='period'>.</span><span class='id identifier rubyid_present?'>present?</span> <span class='op'>?</span> <span class='const'>File</span><span class='period'>.</span><span class='id identifier rubyid_expand_path'>expand_path</span><span class='lparen'>(</span><span class='id identifier rubyid_file'>file</span><span class='rparen'>)</span> <span class='op'>:</span> <span class='kw'>nil</span>
@@ -659,7 +661,7 @@ config.property = "VALUE"
 </div>
 
     <div id="footer">
-  Generated on Tue Mar 29 20:43:18 2016 by
+  Generated on Wed Mar 30 09:57:30 2016 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.8.7.6 (ruby-2.3.0).
 </div>

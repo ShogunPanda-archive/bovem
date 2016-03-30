@@ -23,6 +23,7 @@ module Bovem
   #   @return [I18n] A i18n helper.
   class Configuration < Lazier::Configuration
     attr_reader :i18n
+
     # Creates a new configuration.
     #
     # A configuration file is a plain Ruby file with a top-level {Configuration config} object.

@@ -270,6 +270,7 @@ module Bovem
     module Logging
       extend ActiveSupport::Concern
 
+      # Available statuses for tasks.
       DEFAULT_STATUSES = {
         ok: {label: " OK ", color: "bright green"},
         pass: {label: "PASS", color: "bright cyan"},
