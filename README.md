@@ -4,13 +4,11 @@
 [![Dependency Status](https://gemnasium.com/ShogunPanda/bovem.png?travis)](https://gemnasium.com/ShogunPanda/bovem)
 [![Build Status](https://secure.travis-ci.org/ShogunPanda/bovem.png?branch=master)](http://travis-ci.org/ShogunPanda/bovem)
 [![Code Climate](https://codeclimate.com/github/ShogunPanda/bovem.png)](https://codeclimate.com/github/ShogunPanda/bovem)
-[![Coverage Status](https://coveralls.io/repos/ShogunPanda/bovem/badge.png)](https://coveralls.io/r/ShogunPanda/bovem)
+[![Coverage Status](https://coveralls.io/repos/github/ShogunPanda/bovem/badge.svg?branch=master)](https://coveralls.io/github/ShogunPanda/bovem?branch=master)
 
 A command line manager and a collection of utilities for developers.
 
-http://sw.cowtech.it/bovem
-
-http://rdoc.info/gems/bovem
+https://sw.cowtech.it/bovem
 
 ## Description
 
@@ -109,10 +107,13 @@ $ ./test help manage
     remove - Removes a TODO.
 ```
 
-
 ## Advanced usage
 
 See documentation for more information.
+
+## API Documentation
+
+The API documentation can be found [here](https://sw.cowtech.it/bovem/docs).
 
 ## Contributing to bovem
 
