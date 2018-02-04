@@ -1,12 +1,12 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
-  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<!DOCTYPE html>
+<html>
   <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>
   Class: Bovem::Command
   
-    &mdash; Documentation by YARD 0.8.7.6
+    &mdash; Documentation by YARD 0.9.7
   
 </title>
 
@@ -15,9 +15,8 @@
   <link rel="stylesheet" href="../css/common.css" type="text/css" charset="utf-8" />
 
 <script type="text/javascript" charset="utf-8">
-  hasFrames = window.top.frames.main ? true : false;
+  pathId = "Bovem::Command";
   relpath = '../';
-  framesUrl = "../frames.html#!Bovem/Command.html";
 </script>
 
 
@@ -28,51 +27,48 @@
 
   </head>
   <body>
-    <div id="header">
-      <div id="menu">
+    <div class="nav_wrap">
+      <iframe id="nav" src="../class_list.html?1"></iframe>
+      <div id="resizer"></div>
+    </div>
+
+    <div id="main" tabindex="-1">
+      <div id="header">
+        <div id="menu">
   
     <a href="../_index.html">Index (C)</a> &raquo;
     <span class='title'><span class='object_link'><a href="../Bovem.html" title="Bovem (module)">Bovem</a></span></span>
      &raquo; 
     <span class="title">Command</span>
   
-
-  <div class="noframes"><span class="title">(</span><a href="." target="_top">no frames</a><span class="title">)</span></div>
 </div>
 
-      <div id="search">
+        <div id="search">
   
     <a class="full_list_link" id="class_list_link"
         href="../class_list.html">
-      Class List
-    </a>
-  
-    <a class="full_list_link" id="method_list_link"
-        href="../method_list.html">
-      Method List
-    </a>
-  
-    <a class="full_list_link" id="file_list_link"
-        href="../file_list.html">
-      File List
+
+        <svg width="24" height="24">
+          <rect x="0" y="4" width="24" height="4" rx="1" ry="1"></rect>
+          <rect x="0" y="12" width="24" height="4" rx="1" ry="1"></rect>
+          <rect x="0" y="20" width="24" height="4" rx="1" ry="1"></rect>
+        </svg>
     </a>
   
 </div>
-      <div class="clear"></div>
-    </div>
+        <div class="clear"></div>
+      </div>
 
-    <iframe id="search_frame"></iframe>
-
-    <div id="content"><h1>Class: Bovem::Command
+      <div id="content"><h1>Class: Bovem::Command
   
   
   
 </h1>
-
-<dl class="box">
+<div class="box_info">
   
-    <dt class="r1">Inherits:</dt>
-    <dd class="r1">
+  <dl>
+    <dt>Inherits:</dt>
+    <dd>
       <span class="inheritName">Object</span>
       
         <ul class="fullTree">
@@ -83,25 +79,30 @@
         </ul>
         <a href="#" class="inheritanceTree">show all</a>
       
-      </dd>
-    
+    </dd>
+  </dl>
   
-  
-    
-  
-    
-      <dt class="r2">Includes:</dt>
-      <dd class="r2"><span class='object_link'><a href="CommandMethods/Children.html" title="Bovem::CommandMethods::Children (module)">Bovem::CommandMethods::Children</a></span>, <span class='object_link'><a href="CommandMethods/Help.html" title="Bovem::CommandMethods::Help (module)">Bovem::CommandMethods::Help</a></span></dd>
-      
-    
+
   
   
   
-    <dt class="r1 last">Defined in:</dt>
-    <dd class="r1 last">lib/bovem/command.rb</dd>
   
-</dl>
-<div class="clear"></div>
+  <dl>
+      <dt>Includes:</dt>
+      <dd><span class='object_link'><a href="CommandMethods/Children.html" title="Bovem::CommandMethods::Children (module)">Bovem::CommandMethods::Children</a></span>, <span class='object_link'><a href="CommandMethods/Help.html" title="Bovem::CommandMethods::Help (module)">Bovem::CommandMethods::Help</a></span></dd>
+  </dl>
+  
+  
+
+  
+
+  
+  <dl>
+    <dt>Defined in:</dt>
+    <dd>lib/bovem/command.rb</dd>
+  </dl>
+  
+</div>
 
 <h2>Overview</h2><div class="docstring">
   <div class="discussion">
@@ -123,13 +124,13 @@
 
 
 
-  <h2>Instance Attribute Summary <small>(<a href="#" class="summary_toggle">collapse</a>)</small></h2>
+  <h2>Instance Attribute Summary <small><a href="#" class="summary_toggle">collapse</a></small></h2>
   <ul class="summary">
     
       <li class="public ">
   <span class="summary_signature">
     
-      <a href="#action-instance_method" title="#action (instance method)">- (Proc|Symbol|NilClass) <strong>action</strong>(method = nil, &amp;hook) </a>
+      <a href="#action-instance_method" title="#action (instance method)">#<strong>action</strong>(method = nil, &amp;hook)  &#x21d2; Proc|Symbol|NilClass </a>
     
 
     
@@ -155,7 +156,7 @@
       <li class="public ">
   <span class="summary_signature">
     
-      <a href="#after-instance_method" title="#after (instance method)">- (Proc|Symbol|NilClass) <strong>after</strong>(method = nil, &amp;hook) </a>
+      <a href="#after-instance_method" title="#after (instance method)">#<strong>after</strong>(method = nil, &amp;hook)  &#x21d2; Proc|Symbol|NilClass </a>
     
 
     
@@ -181,7 +182,7 @@
       <li class="public ">
   <span class="summary_signature">
     
-      <a href="#application-instance_method" title="#application (instance method)">- (Application) <strong>application</strong> </a>
+      <a href="#application-instance_method" title="#application (instance method)">#<strong>application</strong>  &#x21d2; Application </a>
     
 
     
@@ -207,7 +208,7 @@
       <li class="public ">
   <span class="summary_signature">
     
-      <a href="#arguments-instance_method" title="#arguments (instance method)">- (Array) <strong>arguments</strong> </a>
+      <a href="#arguments-instance_method" title="#arguments (instance method)">#<strong>arguments</strong>  &#x21d2; Array </a>
     
 
     
@@ -235,7 +236,7 @@
       <li class="public ">
   <span class="summary_signature">
     
-      <a href="#banner-instance_method" title="#banner (instance method)">- (String) <strong>banner</strong>(value = nil) </a>
+      <a href="#banner-instance_method" title="#banner (instance method)">#<strong>banner</strong>(value = nil)  &#x21d2; String </a>
     
 
     
@@ -261,7 +262,7 @@
       <li class="public ">
   <span class="summary_signature">
     
-      <a href="#before-instance_method" title="#before (instance method)">- (Proc|Symbol|NilClass) <strong>before</strong>(method = nil, &amp;hook) </a>
+      <a href="#before-instance_method" title="#before (instance method)">#<strong>before</strong>(method = nil, &amp;hook)  &#x21d2; Proc|Symbol|NilClass </a>
     
 
     
@@ -287,7 +288,7 @@
       <li class="public ">
   <span class="summary_signature">
     
-      <a href="#commands-instance_method" title="#commands (instance method)">- (Array) <strong>commands</strong> </a>
+      <a href="#commands-instance_method" title="#commands (instance method)">#<strong>commands</strong>  &#x21d2; Array </a>
     
 
     
@@ -315,7 +316,7 @@
       <li class="public ">
   <span class="summary_signature">
     
-      <a href="#description-instance_method" title="#description (instance method)">- (String) <strong>description</strong>(value = nil) </a>
+      <a href="#description-instance_method" title="#description (instance method)">#<strong>description</strong>(value = nil)  &#x21d2; String </a>
     
 
     
@@ -341,7 +342,7 @@
       <li class="public ">
   <span class="summary_signature">
     
-      <a href="#i18n-instance_method" title="#i18n (instance method)">- (I18n) <strong>i18n</strong> </a>
+      <a href="#i18n-instance_method" title="#i18n (instance method)">#<strong>i18n</strong>  &#x21d2; I18n </a>
     
 
     
@@ -369,7 +370,7 @@
       <li class="public ">
   <span class="summary_signature">
     
-      <a href="#name-instance_method" title="#name (instance method)">- (String) <strong>name</strong>(value = nil) </a>
+      <a href="#name-instance_method" title="#name (instance method)">#<strong>name</strong>(value = nil)  &#x21d2; String </a>
     
 
     
@@ -395,7 +396,7 @@
       <li class="public ">
   <span class="summary_signature">
     
-      <a href="#options-instance_method" title="#options (instance method)">- (Array) <strong>options</strong> </a>
+      <a href="#options-instance_method" title="#options (instance method)">#<strong>options</strong>  &#x21d2; Array </a>
     
 
     
@@ -423,7 +424,7 @@
       <li class="public ">
   <span class="summary_signature">
     
-      <a href="#parent-instance_method" title="#parent (instance method)">- (Command) <strong>parent</strong> </a>
+      <a href="#parent-instance_method" title="#parent (instance method)">#<strong>parent</strong>  &#x21d2; Command </a>
     
 
     
@@ -449,7 +450,7 @@
       <li class="public ">
   <span class="summary_signature">
     
-      <a href="#synopsis-instance_method" title="#synopsis (instance method)">- (String) <strong>synopsis</strong>(value = nil) </a>
+      <a href="#synopsis-instance_method" title="#synopsis (instance method)">#<strong>synopsis</strong>(value = nil)  &#x21d2; String </a>
     
 
     
@@ -480,7 +481,7 @@
   
     <h2>
       Instance Method Summary
-      <small>(<a href="#" class="summary_toggle">collapse</a>)</small>
+      <small><a href="#" class="summary_toggle">collapse</a></small>
     </h2>
 
     <ul class="summary">
@@ -488,7 +489,7 @@
         <li class="public ">
   <span class="summary_signature">
     
-      <a href="#application%3F-instance_method" title="#application? (instance method)">- (Boolean) <strong>application?</strong> </a>
+      <a href="#application%3F-instance_method" title="#application? (instance method)">#<strong>application?</strong>  &#x21d2; Boolean </a>
     
 
     
@@ -511,7 +512,7 @@
         <li class="public ">
   <span class="summary_signature">
     
-      <a href="#banner%3F-instance_method" title="#banner? (instance method)">- (Boolean) <strong>banner?</strong> </a>
+      <a href="#banner%3F-instance_method" title="#banner? (instance method)">#<strong>banner?</strong>  &#x21d2; Boolean </a>
     
 
     
@@ -534,7 +535,7 @@
         <li class="public ">
   <span class="summary_signature">
     
-      <a href="#description%3F-instance_method" title="#description? (instance method)">- (Boolean) <strong>description?</strong> </a>
+      <a href="#description%3F-instance_method" title="#description? (instance method)">#<strong>description?</strong>  &#x21d2; Boolean </a>
     
 
     
@@ -557,7 +558,7 @@
         <li class="public ">
   <span class="summary_signature">
     
-      <a href="#execute-instance_method" title="#execute (instance method)">- (Object) <strong>execute</strong>(args) </a>
+      <a href="#execute-instance_method" title="#execute (instance method)">#<strong>execute</strong>(args)  &#x21d2; Object </a>
     
 
     
@@ -580,7 +581,7 @@
         <li class="public ">
   <span class="summary_signature">
     
-      <a href="#full_name-instance_method" title="#full_name (instance method)">- (String) <strong>full_name</strong>(suffix = nil, separator = &quot;:&quot;) </a>
+      <a href="#full_name-instance_method" title="#full_name (instance method)">#<strong>full_name</strong>(suffix = nil, separator = &quot;:&quot;)  &#x21d2; String </a>
     
 
     
@@ -603,7 +604,7 @@
         <li class="public ">
   <span class="summary_signature">
     
-      <a href="#initialize-instance_method" title="#initialize (instance method)">- (Command) <strong>initialize</strong>(options = {}, &amp;block) </a>
+      <a href="#initialize-instance_method" title="#initialize (instance method)">#<strong>initialize</strong>(options = {}, &amp;block)  &#x21d2; Command </a>
     
 
     
@@ -628,7 +629,7 @@
         <li class="public ">
   <span class="summary_signature">
     
-      <a href="#setup_with-instance_method" title="#setup_with (instance method)">- (Command) <strong>setup_with</strong>(options = {}) </a>
+      <a href="#setup_with-instance_method" title="#setup_with (instance method)">#<strong>setup_with</strong>(options = {})  &#x21d2; Command </a>
     
 
     
@@ -679,7 +680,7 @@
     <div class="method_details first">
   <h3 class="signature first" id="initialize-instance_method">
   
-    - (<tt><span class='object_link'><a href="" title="Bovem::Command (class)">Command</a></span></tt>) <strong>initialize</strong>(options = {}, &amp;block) 
+    #<strong>initialize</strong>(options = {}, &amp;block)  &#x21d2; <tt><span class='object_link'><a href="" title="Bovem::Command (class)">Command</a></span></tt> 
   
 
   
@@ -749,7 +750,7 @@
       <div class="method_details first">
   <h3 class="signature first" id="action-instance_method">
   
-    - (<tt>Proc|Symbol|NilClass</tt>) <strong>action</strong>(method = nil, &amp;hook) 
+    #<strong>action</strong>(method = nil, &amp;hook)  &#x21d2; <tt>Proc|Symbol|NilClass</tt> 
   
 
   
@@ -1032,7 +1033,7 @@
     <td>
       <pre class="code"><span class="info file"># File 'lib/bovem/command.rb', line 309</span>
 
-<span class='kw'>class</span> <span class='const'>Command</span>
+<span class='kw'>class</span> <span class='const'><span class='object_link'><a href="" title="Bovem::Command (class)">Command</a></span></span>
   <span class='id identifier rubyid_attr_accessor'>attr_accessor</span> <span class='symbol'>:name</span>
   <span class='id identifier rubyid_attr_accessor'>attr_accessor</span> <span class='symbol'>:description</span>
   <span class='id identifier rubyid_attr_accessor'>attr_accessor</span> <span class='symbol'>:banner</span>
@@ -1044,8 +1045,8 @@
   <span class='id identifier rubyid_attr_accessor'>attr_accessor</span> <span class='symbol'>:parent</span>
   <span class='id identifier rubyid_attr_reader'>attr_reader</span> <span class='symbol'>:i18n</span>
 
-  <span class='id identifier rubyid_include'>include</span> <span class='const'>Bovem</span><span class='op'>::</span><span class='const'>CommandMethods</span><span class='op'>::</span><span class='const'>Help</span>
-  <span class='id identifier rubyid_include'>include</span> <span class='const'>Bovem</span><span class='op'>::</span><span class='const'>CommandMethods</span><span class='op'>::</span><span class='const'>Children</span>
+  <span class='id identifier rubyid_include'>include</span> <span class='const'><span class='object_link'><a href="../Bovem.html" title="Bovem (module)">Bovem</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="CommandMethods.html" title="Bovem::CommandMethods (module)">CommandMethods</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="CommandMethods/Help.html" title="Bovem::CommandMethods::Help (module)">Help</a></span></span>
+  <span class='id identifier rubyid_include'>include</span> <span class='const'><span class='object_link'><a href="../Bovem.html" title="Bovem (module)">Bovem</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="CommandMethods.html" title="Bovem::CommandMethods (module)">CommandMethods</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="CommandMethods/Children.html" title="Bovem::CommandMethods::Children (module)">Children</a></span></span>
 
   <span class='comment'># Creates a new command.
 </span>  <span class='comment'>#
@@ -1148,7 +1149,7 @@
 </span>  <span class='comment'>#
 </span>  <span class='comment'># @return [Boolean] `true` if command is an application, `false` otherwise.
 </span>  <span class='kw'>def</span> <span class='id identifier rubyid_application?'>application?</span>
-    <span class='id identifier rubyid_is_a?'>is_a?</span><span class='lparen'>(</span><span class='const'>Bovem</span><span class='op'>::</span><span class='const'>Application</span><span class='rparen'>)</span>
+    <span class='id identifier rubyid_is_a?'>is_a?</span><span class='lparen'>(</span><span class='const'><span class='object_link'><a href="../Bovem.html" title="Bovem (module)">Bovem</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="Application.html" title="Bovem::Application (class)">Application</a></span></span><span class='rparen'>)</span>
   <span class='kw'>end</span>
 
   <span class='comment'># Check if this command has a description.
@@ -1190,7 +1191,7 @@
 </span>  <span class='comment'>#
 </span>  <span class='comment'># @param args [Array] The arguments to pass to the command.
 </span>  <span class='kw'>def</span> <span class='id identifier rubyid_execute'>execute</span><span class='lparen'>(</span><span class='id identifier rubyid_args'>args</span><span class='rparen'>)</span>
-    <span class='id identifier rubyid_subcommand'>subcommand</span> <span class='op'>=</span> <span class='const'>Bovem</span><span class='op'>::</span><span class='const'>Parser</span><span class='period'>.</span><span class='id identifier rubyid_parse'>parse</span><span class='lparen'>(</span><span class='kw'>self</span><span class='comma'>,</span> <span class='id identifier rubyid_args'>args</span><span class='rparen'>)</span>
+    <span class='id identifier rubyid_subcommand'>subcommand</span> <span class='op'>=</span> <span class='const'><span class='object_link'><a href="../Bovem.html" title="Bovem (module)">Bovem</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="Parser.html" title="Bovem::Parser (class)">Parser</a></span></span><span class='period'>.</span><span class='id identifier rubyid_parse'><span class='object_link'><a href="Parser.html#parse-instance_method" title="Bovem::Parser#parse (method)">parse</a></span></span><span class='lparen'>(</span><span class='kw'>self</span><span class='comma'>,</span> <span class='id identifier rubyid_args'>args</span><span class='rparen'>)</span>
 
     <span class='kw'>if</span> <span class='id identifier rubyid_subcommand'>subcommand</span><span class='period'>.</span><span class='id identifier rubyid_present?'>present?</span> <span class='comment'># We have a subcommand to call
 </span>      <span class='id identifier rubyid_commands'>commands</span><span class='lbracket'>[</span><span class='id identifier rubyid_subcommand'>subcommand</span><span class='lbracket'>[</span><span class='symbol'>:name</span><span class='rbracket'>]</span><span class='rbracket'>]</span><span class='period'>.</span><span class='id identifier rubyid_execute'>execute</span><span class='lparen'>(</span><span class='id identifier rubyid_subcommand'>subcommand</span><span class='lbracket'>[</span><span class='symbol'>:args</span><span class='rbracket'>]</span><span class='rparen'>)</span>
@@ -1206,7 +1207,7 @@
 
   <span class='comment'># :nodoc:
 </span>  <span class='kw'>def</span> <span class='id identifier rubyid_setup_i18n'>setup_i18n</span><span class='lparen'>(</span><span class='id identifier rubyid_options'>options</span><span class='rparen'>)</span>
-    <span class='ivar'>@i18n</span> <span class='op'>=</span> <span class='const'>Bovem</span><span class='op'>::</span><span class='const'>I18n</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='id identifier rubyid_options'>options</span><span class='lbracket'>[</span><span class='symbol'>:locale</span><span class='rbracket'>]</span><span class='comma'>,</span> <span class='label'>root:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>bovem.application</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='label'>path:</span> <span class='const'>Bovem</span><span class='op'>::</span><span class='const'>Application</span><span class='op'>::</span><span class='const'>LOCALE_ROOT</span><span class='rparen'>)</span>
+    <span class='ivar'>@i18n</span> <span class='op'>=</span> <span class='const'><span class='object_link'><a href="../Bovem.html" title="Bovem (module)">Bovem</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="I18n.html" title="Bovem::I18n (class)">I18n</a></span></span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='id identifier rubyid_options'>options</span><span class='lbracket'>[</span><span class='symbol'>:locale</span><span class='rbracket'>]</span><span class='comma'>,</span> <span class='label'>root:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>bovem.application</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='label'>path:</span> <span class='const'><span class='object_link'><a href="../Bovem.html" title="Bovem (module)">Bovem</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="Application.html" title="Bovem::Application (class)">Application</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="Application.html#LOCALE_ROOT-constant" title="Bovem::Application::LOCALE_ROOT (constant)">LOCALE_ROOT</a></span></span><span class='rparen'>)</span>
   <span class='kw'>end</span>
 
   <span class='comment'># :nodoc:
@@ -1244,7 +1245,7 @@
       <div class="method_details ">
   <h3 class="signature " id="after-instance_method">
   
-    - (<tt>Proc|Symbol|NilClass</tt>) <strong>after</strong>(method = nil, &amp;hook) 
+    #<strong>after</strong>(method = nil, &amp;hook)  &#x21d2; <tt>Proc|Symbol|NilClass</tt> 
   
 
   
@@ -1527,7 +1528,7 @@
     <td>
       <pre class="code"><span class="info file"># File 'lib/bovem/command.rb', line 309</span>
 
-<span class='kw'>class</span> <span class='const'>Command</span>
+<span class='kw'>class</span> <span class='const'><span class='object_link'><a href="" title="Bovem::Command (class)">Command</a></span></span>
   <span class='id identifier rubyid_attr_accessor'>attr_accessor</span> <span class='symbol'>:name</span>
   <span class='id identifier rubyid_attr_accessor'>attr_accessor</span> <span class='symbol'>:description</span>
   <span class='id identifier rubyid_attr_accessor'>attr_accessor</span> <span class='symbol'>:banner</span>
@@ -1539,8 +1540,8 @@
   <span class='id identifier rubyid_attr_accessor'>attr_accessor</span> <span class='symbol'>:parent</span>
   <span class='id identifier rubyid_attr_reader'>attr_reader</span> <span class='symbol'>:i18n</span>
 
-  <span class='id identifier rubyid_include'>include</span> <span class='const'>Bovem</span><span class='op'>::</span><span class='const'>CommandMethods</span><span class='op'>::</span><span class='const'>Help</span>
-  <span class='id identifier rubyid_include'>include</span> <span class='const'>Bovem</span><span class='op'>::</span><span class='const'>CommandMethods</span><span class='op'>::</span><span class='const'>Children</span>
+  <span class='id identifier rubyid_include'>include</span> <span class='const'><span class='object_link'><a href="../Bovem.html" title="Bovem (module)">Bovem</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="CommandMethods.html" title="Bovem::CommandMethods (module)">CommandMethods</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="CommandMethods/Help.html" title="Bovem::CommandMethods::Help (module)">Help</a></span></span>
+  <span class='id identifier rubyid_include'>include</span> <span class='const'><span class='object_link'><a href="../Bovem.html" title="Bovem (module)">Bovem</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="CommandMethods.html" title="Bovem::CommandMethods (module)">CommandMethods</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="CommandMethods/Children.html" title="Bovem::CommandMethods::Children (module)">Children</a></span></span>
 
   <span class='comment'># Creates a new command.
 </span>  <span class='comment'>#
@@ -1643,7 +1644,7 @@
 </span>  <span class='comment'>#
 </span>  <span class='comment'># @return [Boolean] `true` if command is an application, `false` otherwise.
 </span>  <span class='kw'>def</span> <span class='id identifier rubyid_application?'>application?</span>
-    <span class='id identifier rubyid_is_a?'>is_a?</span><span class='lparen'>(</span><span class='const'>Bovem</span><span class='op'>::</span><span class='const'>Application</span><span class='rparen'>)</span>
+    <span class='id identifier rubyid_is_a?'>is_a?</span><span class='lparen'>(</span><span class='const'><span class='object_link'><a href="../Bovem.html" title="Bovem (module)">Bovem</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="Application.html" title="Bovem::Application (class)">Application</a></span></span><span class='rparen'>)</span>
   <span class='kw'>end</span>
 
   <span class='comment'># Check if this command has a description.
@@ -1685,7 +1686,7 @@
 </span>  <span class='comment'>#
 </span>  <span class='comment'># @param args [Array] The arguments to pass to the command.
 </span>  <span class='kw'>def</span> <span class='id identifier rubyid_execute'>execute</span><span class='lparen'>(</span><span class='id identifier rubyid_args'>args</span><span class='rparen'>)</span>
-    <span class='id identifier rubyid_subcommand'>subcommand</span> <span class='op'>=</span> <span class='const'>Bovem</span><span class='op'>::</span><span class='const'>Parser</span><span class='period'>.</span><span class='id identifier rubyid_parse'>parse</span><span class='lparen'>(</span><span class='kw'>self</span><span class='comma'>,</span> <span class='id identifier rubyid_args'>args</span><span class='rparen'>)</span>
+    <span class='id identifier rubyid_subcommand'>subcommand</span> <span class='op'>=</span> <span class='const'><span class='object_link'><a href="../Bovem.html" title="Bovem (module)">Bovem</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="Parser.html" title="Bovem::Parser (class)">Parser</a></span></span><span class='period'>.</span><span class='id identifier rubyid_parse'><span class='object_link'><a href="Parser.html#parse-instance_method" title="Bovem::Parser#parse (method)">parse</a></span></span><span class='lparen'>(</span><span class='kw'>self</span><span class='comma'>,</span> <span class='id identifier rubyid_args'>args</span><span class='rparen'>)</span>
 
     <span class='kw'>if</span> <span class='id identifier rubyid_subcommand'>subcommand</span><span class='period'>.</span><span class='id identifier rubyid_present?'>present?</span> <span class='comment'># We have a subcommand to call
 </span>      <span class='id identifier rubyid_commands'>commands</span><span class='lbracket'>[</span><span class='id identifier rubyid_subcommand'>subcommand</span><span class='lbracket'>[</span><span class='symbol'>:name</span><span class='rbracket'>]</span><span class='rbracket'>]</span><span class='period'>.</span><span class='id identifier rubyid_execute'>execute</span><span class='lparen'>(</span><span class='id identifier rubyid_subcommand'>subcommand</span><span class='lbracket'>[</span><span class='symbol'>:args</span><span class='rbracket'>]</span><span class='rparen'>)</span>
@@ -1701,7 +1702,7 @@
 
   <span class='comment'># :nodoc:
 </span>  <span class='kw'>def</span> <span class='id identifier rubyid_setup_i18n'>setup_i18n</span><span class='lparen'>(</span><span class='id identifier rubyid_options'>options</span><span class='rparen'>)</span>
-    <span class='ivar'>@i18n</span> <span class='op'>=</span> <span class='const'>Bovem</span><span class='op'>::</span><span class='const'>I18n</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='id identifier rubyid_options'>options</span><span class='lbracket'>[</span><span class='symbol'>:locale</span><span class='rbracket'>]</span><span class='comma'>,</span> <span class='label'>root:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>bovem.application</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='label'>path:</span> <span class='const'>Bovem</span><span class='op'>::</span><span class='const'>Application</span><span class='op'>::</span><span class='const'>LOCALE_ROOT</span><span class='rparen'>)</span>
+    <span class='ivar'>@i18n</span> <span class='op'>=</span> <span class='const'><span class='object_link'><a href="../Bovem.html" title="Bovem (module)">Bovem</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="I18n.html" title="Bovem::I18n (class)">I18n</a></span></span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='id identifier rubyid_options'>options</span><span class='lbracket'>[</span><span class='symbol'>:locale</span><span class='rbracket'>]</span><span class='comma'>,</span> <span class='label'>root:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>bovem.application</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='label'>path:</span> <span class='const'><span class='object_link'><a href="../Bovem.html" title="Bovem (module)">Bovem</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="Application.html" title="Bovem::Application (class)">Application</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="Application.html#LOCALE_ROOT-constant" title="Bovem::Application::LOCALE_ROOT (constant)">LOCALE_ROOT</a></span></span><span class='rparen'>)</span>
   <span class='kw'>end</span>
 
   <span class='comment'># :nodoc:
@@ -1739,7 +1740,7 @@
       <div class="method_details ">
   <h3 class="signature " id="application-instance_method">
   
-    - (<tt><span class='object_link'><a href="Application.html" title="Bovem::Application (class)">Application</a></span></tt>) <strong>application</strong> 
+    #<strong>application</strong>  &#x21d2; <tt><span class='object_link'><a href="Application.html" title="Bovem::Application (class)">Application</a></span></tt> 
   
 
   
@@ -1984,7 +1985,7 @@
     <td>
       <pre class="code"><span class="info file"># File 'lib/bovem/command.rb', line 309</span>
 
-<span class='kw'>class</span> <span class='const'>Command</span>
+<span class='kw'>class</span> <span class='const'><span class='object_link'><a href="" title="Bovem::Command (class)">Command</a></span></span>
   <span class='id identifier rubyid_attr_accessor'>attr_accessor</span> <span class='symbol'>:name</span>
   <span class='id identifier rubyid_attr_accessor'>attr_accessor</span> <span class='symbol'>:description</span>
   <span class='id identifier rubyid_attr_accessor'>attr_accessor</span> <span class='symbol'>:banner</span>
@@ -1996,8 +1997,8 @@
   <span class='id identifier rubyid_attr_accessor'>attr_accessor</span> <span class='symbol'>:parent</span>
   <span class='id identifier rubyid_attr_reader'>attr_reader</span> <span class='symbol'>:i18n</span>
 
-  <span class='id identifier rubyid_include'>include</span> <span class='const'>Bovem</span><span class='op'>::</span><span class='const'>CommandMethods</span><span class='op'>::</span><span class='const'>Help</span>
-  <span class='id identifier rubyid_include'>include</span> <span class='const'>Bovem</span><span class='op'>::</span><span class='const'>CommandMethods</span><span class='op'>::</span><span class='const'>Children</span>
+  <span class='id identifier rubyid_include'>include</span> <span class='const'><span class='object_link'><a href="../Bovem.html" title="Bovem (module)">Bovem</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="CommandMethods.html" title="Bovem::CommandMethods (module)">CommandMethods</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="CommandMethods/Help.html" title="Bovem::CommandMethods::Help (module)">Help</a></span></span>
+  <span class='id identifier rubyid_include'>include</span> <span class='const'><span class='object_link'><a href="../Bovem.html" title="Bovem (module)">Bovem</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="CommandMethods.html" title="Bovem::CommandMethods (module)">CommandMethods</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="CommandMethods/Children.html" title="Bovem::CommandMethods::Children (module)">Children</a></span></span>
 
   <span class='comment'># Creates a new command.
 </span>  <span class='comment'>#
@@ -2100,7 +2101,7 @@
 </span>  <span class='comment'>#
 </span>  <span class='comment'># @return [Boolean] `true` if command is an application, `false` otherwise.
 </span>  <span class='kw'>def</span> <span class='id identifier rubyid_application?'>application?</span>
-    <span class='id identifier rubyid_is_a?'>is_a?</span><span class='lparen'>(</span><span class='const'>Bovem</span><span class='op'>::</span><span class='const'>Application</span><span class='rparen'>)</span>
+    <span class='id identifier rubyid_is_a?'>is_a?</span><span class='lparen'>(</span><span class='const'><span class='object_link'><a href="../Bovem.html" title="Bovem (module)">Bovem</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="Application.html" title="Bovem::Application (class)">Application</a></span></span><span class='rparen'>)</span>
   <span class='kw'>end</span>
 
   <span class='comment'># Check if this command has a description.
@@ -2142,7 +2143,7 @@
 </span>  <span class='comment'>#
 </span>  <span class='comment'># @param args [Array] The arguments to pass to the command.
 </span>  <span class='kw'>def</span> <span class='id identifier rubyid_execute'>execute</span><span class='lparen'>(</span><span class='id identifier rubyid_args'>args</span><span class='rparen'>)</span>
-    <span class='id identifier rubyid_subcommand'>subcommand</span> <span class='op'>=</span> <span class='const'>Bovem</span><span class='op'>::</span><span class='const'>Parser</span><span class='period'>.</span><span class='id identifier rubyid_parse'>parse</span><span class='lparen'>(</span><span class='kw'>self</span><span class='comma'>,</span> <span class='id identifier rubyid_args'>args</span><span class='rparen'>)</span>
+    <span class='id identifier rubyid_subcommand'>subcommand</span> <span class='op'>=</span> <span class='const'><span class='object_link'><a href="../Bovem.html" title="Bovem (module)">Bovem</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="Parser.html" title="Bovem::Parser (class)">Parser</a></span></span><span class='period'>.</span><span class='id identifier rubyid_parse'><span class='object_link'><a href="Parser.html#parse-instance_method" title="Bovem::Parser#parse (method)">parse</a></span></span><span class='lparen'>(</span><span class='kw'>self</span><span class='comma'>,</span> <span class='id identifier rubyid_args'>args</span><span class='rparen'>)</span>
 
     <span class='kw'>if</span> <span class='id identifier rubyid_subcommand'>subcommand</span><span class='period'>.</span><span class='id identifier rubyid_present?'>present?</span> <span class='comment'># We have a subcommand to call
 </span>      <span class='id identifier rubyid_commands'>commands</span><span class='lbracket'>[</span><span class='id identifier rubyid_subcommand'>subcommand</span><span class='lbracket'>[</span><span class='symbol'>:name</span><span class='rbracket'>]</span><span class='rbracket'>]</span><span class='period'>.</span><span class='id identifier rubyid_execute'>execute</span><span class='lparen'>(</span><span class='id identifier rubyid_subcommand'>subcommand</span><span class='lbracket'>[</span><span class='symbol'>:args</span><span class='rbracket'>]</span><span class='rparen'>)</span>
@@ -2158,7 +2159,7 @@
 
   <span class='comment'># :nodoc:
 </span>  <span class='kw'>def</span> <span class='id identifier rubyid_setup_i18n'>setup_i18n</span><span class='lparen'>(</span><span class='id identifier rubyid_options'>options</span><span class='rparen'>)</span>
-    <span class='ivar'>@i18n</span> <span class='op'>=</span> <span class='const'>Bovem</span><span class='op'>::</span><span class='const'>I18n</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='id identifier rubyid_options'>options</span><span class='lbracket'>[</span><span class='symbol'>:locale</span><span class='rbracket'>]</span><span class='comma'>,</span> <span class='label'>root:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>bovem.application</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='label'>path:</span> <span class='const'>Bovem</span><span class='op'>::</span><span class='const'>Application</span><span class='op'>::</span><span class='const'>LOCALE_ROOT</span><span class='rparen'>)</span>
+    <span class='ivar'>@i18n</span> <span class='op'>=</span> <span class='const'><span class='object_link'><a href="../Bovem.html" title="Bovem (module)">Bovem</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="I18n.html" title="Bovem::I18n (class)">I18n</a></span></span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='id identifier rubyid_options'>options</span><span class='lbracket'>[</span><span class='symbol'>:locale</span><span class='rbracket'>]</span><span class='comma'>,</span> <span class='label'>root:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>bovem.application</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='label'>path:</span> <span class='const'><span class='object_link'><a href="../Bovem.html" title="Bovem (module)">Bovem</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="Application.html" title="Bovem::Application (class)">Application</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="Application.html#LOCALE_ROOT-constant" title="Bovem::Application::LOCALE_ROOT (constant)">LOCALE_ROOT</a></span></span><span class='rparen'>)</span>
   <span class='kw'>end</span>
 
   <span class='comment'># :nodoc:
@@ -2196,7 +2197,7 @@
       <div class="method_details ">
   <h3 class="signature " id="arguments-instance_method">
   
-    - (<tt>Array</tt>) <strong>arguments</strong>  <span class="extras">(readonly)</span>
+    #<strong>arguments</strong>  &#x21d2; <tt>Array</tt>  <span class="extras">(readonly)</span>
   
 
   
@@ -2441,7 +2442,7 @@
     <td>
       <pre class="code"><span class="info file"># File 'lib/bovem/command.rb', line 309</span>
 
-<span class='kw'>class</span> <span class='const'>Command</span>
+<span class='kw'>class</span> <span class='const'><span class='object_link'><a href="" title="Bovem::Command (class)">Command</a></span></span>
   <span class='id identifier rubyid_attr_accessor'>attr_accessor</span> <span class='symbol'>:name</span>
   <span class='id identifier rubyid_attr_accessor'>attr_accessor</span> <span class='symbol'>:description</span>
   <span class='id identifier rubyid_attr_accessor'>attr_accessor</span> <span class='symbol'>:banner</span>
@@ -2453,8 +2454,8 @@
   <span class='id identifier rubyid_attr_accessor'>attr_accessor</span> <span class='symbol'>:parent</span>
   <span class='id identifier rubyid_attr_reader'>attr_reader</span> <span class='symbol'>:i18n</span>
 
-  <span class='id identifier rubyid_include'>include</span> <span class='const'>Bovem</span><span class='op'>::</span><span class='const'>CommandMethods</span><span class='op'>::</span><span class='const'>Help</span>
-  <span class='id identifier rubyid_include'>include</span> <span class='const'>Bovem</span><span class='op'>::</span><span class='const'>CommandMethods</span><span class='op'>::</span><span class='const'>Children</span>
+  <span class='id identifier rubyid_include'>include</span> <span class='const'><span class='object_link'><a href="../Bovem.html" title="Bovem (module)">Bovem</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="CommandMethods.html" title="Bovem::CommandMethods (module)">CommandMethods</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="CommandMethods/Help.html" title="Bovem::CommandMethods::Help (module)">Help</a></span></span>
+  <span class='id identifier rubyid_include'>include</span> <span class='const'><span class='object_link'><a href="../Bovem.html" title="Bovem (module)">Bovem</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="CommandMethods.html" title="Bovem::CommandMethods (module)">CommandMethods</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="CommandMethods/Children.html" title="Bovem::CommandMethods::Children (module)">Children</a></span></span>
 
   <span class='comment'># Creates a new command.
 </span>  <span class='comment'>#
@@ -2557,7 +2558,7 @@
 </span>  <span class='comment'>#
 </span>  <span class='comment'># @return [Boolean] `true` if command is an application, `false` otherwise.
 </span>  <span class='kw'>def</span> <span class='id identifier rubyid_application?'>application?</span>
-    <span class='id identifier rubyid_is_a?'>is_a?</span><span class='lparen'>(</span><span class='const'>Bovem</span><span class='op'>::</span><span class='const'>Application</span><span class='rparen'>)</span>
+    <span class='id identifier rubyid_is_a?'>is_a?</span><span class='lparen'>(</span><span class='const'><span class='object_link'><a href="../Bovem.html" title="Bovem (module)">Bovem</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="Application.html" title="Bovem::Application (class)">Application</a></span></span><span class='rparen'>)</span>
   <span class='kw'>end</span>
 
   <span class='comment'># Check if this command has a description.
@@ -2599,7 +2600,7 @@
 </span>  <span class='comment'>#
 </span>  <span class='comment'># @param args [Array] The arguments to pass to the command.
 </span>  <span class='kw'>def</span> <span class='id identifier rubyid_execute'>execute</span><span class='lparen'>(</span><span class='id identifier rubyid_args'>args</span><span class='rparen'>)</span>
-    <span class='id identifier rubyid_subcommand'>subcommand</span> <span class='op'>=</span> <span class='const'>Bovem</span><span class='op'>::</span><span class='const'>Parser</span><span class='period'>.</span><span class='id identifier rubyid_parse'>parse</span><span class='lparen'>(</span><span class='kw'>self</span><span class='comma'>,</span> <span class='id identifier rubyid_args'>args</span><span class='rparen'>)</span>
+    <span class='id identifier rubyid_subcommand'>subcommand</span> <span class='op'>=</span> <span class='const'><span class='object_link'><a href="../Bovem.html" title="Bovem (module)">Bovem</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="Parser.html" title="Bovem::Parser (class)">Parser</a></span></span><span class='period'>.</span><span class='id identifier rubyid_parse'><span class='object_link'><a href="Parser.html#parse-instance_method" title="Bovem::Parser#parse (method)">parse</a></span></span><span class='lparen'>(</span><span class='kw'>self</span><span class='comma'>,</span> <span class='id identifier rubyid_args'>args</span><span class='rparen'>)</span>
 
     <span class='kw'>if</span> <span class='id identifier rubyid_subcommand'>subcommand</span><span class='period'>.</span><span class='id identifier rubyid_present?'>present?</span> <span class='comment'># We have a subcommand to call
 </span>      <span class='id identifier rubyid_commands'>commands</span><span class='lbracket'>[</span><span class='id identifier rubyid_subcommand'>subcommand</span><span class='lbracket'>[</span><span class='symbol'>:name</span><span class='rbracket'>]</span><span class='rbracket'>]</span><span class='period'>.</span><span class='id identifier rubyid_execute'>execute</span><span class='lparen'>(</span><span class='id identifier rubyid_subcommand'>subcommand</span><span class='lbracket'>[</span><span class='symbol'>:args</span><span class='rbracket'>]</span><span class='rparen'>)</span>
@@ -2615,7 +2616,7 @@
 
   <span class='comment'># :nodoc:
 </span>  <span class='kw'>def</span> <span class='id identifier rubyid_setup_i18n'>setup_i18n</span><span class='lparen'>(</span><span class='id identifier rubyid_options'>options</span><span class='rparen'>)</span>
-    <span class='ivar'>@i18n</span> <span class='op'>=</span> <span class='const'>Bovem</span><span class='op'>::</span><span class='const'>I18n</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='id identifier rubyid_options'>options</span><span class='lbracket'>[</span><span class='symbol'>:locale</span><span class='rbracket'>]</span><span class='comma'>,</span> <span class='label'>root:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>bovem.application</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='label'>path:</span> <span class='const'>Bovem</span><span class='op'>::</span><span class='const'>Application</span><span class='op'>::</span><span class='const'>LOCALE_ROOT</span><span class='rparen'>)</span>
+    <span class='ivar'>@i18n</span> <span class='op'>=</span> <span class='const'><span class='object_link'><a href="../Bovem.html" title="Bovem (module)">Bovem</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="I18n.html" title="Bovem::I18n (class)">I18n</a></span></span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='id identifier rubyid_options'>options</span><span class='lbracket'>[</span><span class='symbol'>:locale</span><span class='rbracket'>]</span><span class='comma'>,</span> <span class='label'>root:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>bovem.application</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='label'>path:</span> <span class='const'><span class='object_link'><a href="../Bovem.html" title="Bovem (module)">Bovem</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="Application.html" title="Bovem::Application (class)">Application</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="Application.html#LOCALE_ROOT-constant" title="Bovem::Application::LOCALE_ROOT (constant)">LOCALE_ROOT</a></span></span><span class='rparen'>)</span>
   <span class='kw'>end</span>
 
   <span class='comment'># :nodoc:
@@ -2653,7 +2654,7 @@
       <div class="method_details ">
   <h3 class="signature " id="banner-instance_method">
   
-    - (<tt>String</tt>) <strong>banner</strong>(value = nil) 
+    #<strong>banner</strong>(value = nil)  &#x21d2; <tt>String</tt> 
   
 
   
@@ -2919,7 +2920,7 @@
     <td>
       <pre class="code"><span class="info file"># File 'lib/bovem/command.rb', line 309</span>
 
-<span class='kw'>class</span> <span class='const'>Command</span>
+<span class='kw'>class</span> <span class='const'><span class='object_link'><a href="" title="Bovem::Command (class)">Command</a></span></span>
   <span class='id identifier rubyid_attr_accessor'>attr_accessor</span> <span class='symbol'>:name</span>
   <span class='id identifier rubyid_attr_accessor'>attr_accessor</span> <span class='symbol'>:description</span>
   <span class='id identifier rubyid_attr_accessor'>attr_accessor</span> <span class='symbol'>:banner</span>
@@ -2931,8 +2932,8 @@
   <span class='id identifier rubyid_attr_accessor'>attr_accessor</span> <span class='symbol'>:parent</span>
   <span class='id identifier rubyid_attr_reader'>attr_reader</span> <span class='symbol'>:i18n</span>
 
-  <span class='id identifier rubyid_include'>include</span> <span class='const'>Bovem</span><span class='op'>::</span><span class='const'>CommandMethods</span><span class='op'>::</span><span class='const'>Help</span>
-  <span class='id identifier rubyid_include'>include</span> <span class='const'>Bovem</span><span class='op'>::</span><span class='const'>CommandMethods</span><span class='op'>::</span><span class='const'>Children</span>
+  <span class='id identifier rubyid_include'>include</span> <span class='const'><span class='object_link'><a href="../Bovem.html" title="Bovem (module)">Bovem</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="CommandMethods.html" title="Bovem::CommandMethods (module)">CommandMethods</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="CommandMethods/Help.html" title="Bovem::CommandMethods::Help (module)">Help</a></span></span>
+  <span class='id identifier rubyid_include'>include</span> <span class='const'><span class='object_link'><a href="../Bovem.html" title="Bovem (module)">Bovem</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="CommandMethods.html" title="Bovem::CommandMethods (module)">CommandMethods</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="CommandMethods/Children.html" title="Bovem::CommandMethods::Children (module)">Children</a></span></span>
 
   <span class='comment'># Creates a new command.
 </span>  <span class='comment'>#
@@ -3035,7 +3036,7 @@
 </span>  <span class='comment'>#
 </span>  <span class='comment'># @return [Boolean] `true` if command is an application, `false` otherwise.
 </span>  <span class='kw'>def</span> <span class='id identifier rubyid_application?'>application?</span>
-    <span class='id identifier rubyid_is_a?'>is_a?</span><span class='lparen'>(</span><span class='const'>Bovem</span><span class='op'>::</span><span class='const'>Application</span><span class='rparen'>)</span>
+    <span class='id identifier rubyid_is_a?'>is_a?</span><span class='lparen'>(</span><span class='const'><span class='object_link'><a href="../Bovem.html" title="Bovem (module)">Bovem</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="Application.html" title="Bovem::Application (class)">Application</a></span></span><span class='rparen'>)</span>
   <span class='kw'>end</span>
 
   <span class='comment'># Check if this command has a description.
@@ -3077,7 +3078,7 @@
 </span>  <span class='comment'>#
 </span>  <span class='comment'># @param args [Array] The arguments to pass to the command.
 </span>  <span class='kw'>def</span> <span class='id identifier rubyid_execute'>execute</span><span class='lparen'>(</span><span class='id identifier rubyid_args'>args</span><span class='rparen'>)</span>
-    <span class='id identifier rubyid_subcommand'>subcommand</span> <span class='op'>=</span> <span class='const'>Bovem</span><span class='op'>::</span><span class='const'>Parser</span><span class='period'>.</span><span class='id identifier rubyid_parse'>parse</span><span class='lparen'>(</span><span class='kw'>self</span><span class='comma'>,</span> <span class='id identifier rubyid_args'>args</span><span class='rparen'>)</span>
+    <span class='id identifier rubyid_subcommand'>subcommand</span> <span class='op'>=</span> <span class='const'><span class='object_link'><a href="../Bovem.html" title="Bovem (module)">Bovem</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="Parser.html" title="Bovem::Parser (class)">Parser</a></span></span><span class='period'>.</span><span class='id identifier rubyid_parse'><span class='object_link'><a href="Parser.html#parse-instance_method" title="Bovem::Parser#parse (method)">parse</a></span></span><span class='lparen'>(</span><span class='kw'>self</span><span class='comma'>,</span> <span class='id identifier rubyid_args'>args</span><span class='rparen'>)</span>
 
     <span class='kw'>if</span> <span class='id identifier rubyid_subcommand'>subcommand</span><span class='period'>.</span><span class='id identifier rubyid_present?'>present?</span> <span class='comment'># We have a subcommand to call
 </span>      <span class='id identifier rubyid_commands'>commands</span><span class='lbracket'>[</span><span class='id identifier rubyid_subcommand'>subcommand</span><span class='lbracket'>[</span><span class='symbol'>:name</span><span class='rbracket'>]</span><span class='rbracket'>]</span><span class='period'>.</span><span class='id identifier rubyid_execute'>execute</span><span class='lparen'>(</span><span class='id identifier rubyid_subcommand'>subcommand</span><span class='lbracket'>[</span><span class='symbol'>:args</span><span class='rbracket'>]</span><span class='rparen'>)</span>
@@ -3093,7 +3094,7 @@
 
   <span class='comment'># :nodoc:
 </span>  <span class='kw'>def</span> <span class='id identifier rubyid_setup_i18n'>setup_i18n</span><span class='lparen'>(</span><span class='id identifier rubyid_options'>options</span><span class='rparen'>)</span>
-    <span class='ivar'>@i18n</span> <span class='op'>=</span> <span class='const'>Bovem</span><span class='op'>::</span><span class='const'>I18n</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='id identifier rubyid_options'>options</span><span class='lbracket'>[</span><span class='symbol'>:locale</span><span class='rbracket'>]</span><span class='comma'>,</span> <span class='label'>root:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>bovem.application</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='label'>path:</span> <span class='const'>Bovem</span><span class='op'>::</span><span class='const'>Application</span><span class='op'>::</span><span class='const'>LOCALE_ROOT</span><span class='rparen'>)</span>
+    <span class='ivar'>@i18n</span> <span class='op'>=</span> <span class='const'><span class='object_link'><a href="../Bovem.html" title="Bovem (module)">Bovem</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="I18n.html" title="Bovem::I18n (class)">I18n</a></span></span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='id identifier rubyid_options'>options</span><span class='lbracket'>[</span><span class='symbol'>:locale</span><span class='rbracket'>]</span><span class='comma'>,</span> <span class='label'>root:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>bovem.application</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='label'>path:</span> <span class='const'><span class='object_link'><a href="../Bovem.html" title="Bovem (module)">Bovem</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="Application.html" title="Bovem::Application (class)">Application</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="Application.html#LOCALE_ROOT-constant" title="Bovem::Application::LOCALE_ROOT (constant)">LOCALE_ROOT</a></span></span><span class='rparen'>)</span>
   <span class='kw'>end</span>
 
   <span class='comment'># :nodoc:
@@ -3131,7 +3132,7 @@
       <div class="method_details ">
   <h3 class="signature " id="before-instance_method">
   
-    - (<tt>Proc|Symbol|NilClass</tt>) <strong>before</strong>(method = nil, &amp;hook) 
+    #<strong>before</strong>(method = nil, &amp;hook)  &#x21d2; <tt>Proc|Symbol|NilClass</tt> 
   
 
   
@@ -3414,7 +3415,7 @@
     <td>
       <pre class="code"><span class="info file"># File 'lib/bovem/command.rb', line 309</span>
 
-<span class='kw'>class</span> <span class='const'>Command</span>
+<span class='kw'>class</span> <span class='const'><span class='object_link'><a href="" title="Bovem::Command (class)">Command</a></span></span>
   <span class='id identifier rubyid_attr_accessor'>attr_accessor</span> <span class='symbol'>:name</span>
   <span class='id identifier rubyid_attr_accessor'>attr_accessor</span> <span class='symbol'>:description</span>
   <span class='id identifier rubyid_attr_accessor'>attr_accessor</span> <span class='symbol'>:banner</span>
@@ -3426,8 +3427,8 @@
   <span class='id identifier rubyid_attr_accessor'>attr_accessor</span> <span class='symbol'>:parent</span>
   <span class='id identifier rubyid_attr_reader'>attr_reader</span> <span class='symbol'>:i18n</span>
 
-  <span class='id identifier rubyid_include'>include</span> <span class='const'>Bovem</span><span class='op'>::</span><span class='const'>CommandMethods</span><span class='op'>::</span><span class='const'>Help</span>
-  <span class='id identifier rubyid_include'>include</span> <span class='const'>Bovem</span><span class='op'>::</span><span class='const'>CommandMethods</span><span class='op'>::</span><span class='const'>Children</span>
+  <span class='id identifier rubyid_include'>include</span> <span class='const'><span class='object_link'><a href="../Bovem.html" title="Bovem (module)">Bovem</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="CommandMethods.html" title="Bovem::CommandMethods (module)">CommandMethods</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="CommandMethods/Help.html" title="Bovem::CommandMethods::Help (module)">Help</a></span></span>
+  <span class='id identifier rubyid_include'>include</span> <span class='const'><span class='object_link'><a href="../Bovem.html" title="Bovem (module)">Bovem</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="CommandMethods.html" title="Bovem::CommandMethods (module)">CommandMethods</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="CommandMethods/Children.html" title="Bovem::CommandMethods::Children (module)">Children</a></span></span>
 
   <span class='comment'># Creates a new command.
 </span>  <span class='comment'>#
@@ -3530,7 +3531,7 @@
 </span>  <span class='comment'>#
 </span>  <span class='comment'># @return [Boolean] `true` if command is an application, `false` otherwise.
 </span>  <span class='kw'>def</span> <span class='id identifier rubyid_application?'>application?</span>
-    <span class='id identifier rubyid_is_a?'>is_a?</span><span class='lparen'>(</span><span class='const'>Bovem</span><span class='op'>::</span><span class='const'>Application</span><span class='rparen'>)</span>
+    <span class='id identifier rubyid_is_a?'>is_a?</span><span class='lparen'>(</span><span class='const'><span class='object_link'><a href="../Bovem.html" title="Bovem (module)">Bovem</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="Application.html" title="Bovem::Application (class)">Application</a></span></span><span class='rparen'>)</span>
   <span class='kw'>end</span>
 
   <span class='comment'># Check if this command has a description.
@@ -3572,7 +3573,7 @@
 </span>  <span class='comment'>#
 </span>  <span class='comment'># @param args [Array] The arguments to pass to the command.
 </span>  <span class='kw'>def</span> <span class='id identifier rubyid_execute'>execute</span><span class='lparen'>(</span><span class='id identifier rubyid_args'>args</span><span class='rparen'>)</span>
-    <span class='id identifier rubyid_subcommand'>subcommand</span> <span class='op'>=</span> <span class='const'>Bovem</span><span class='op'>::</span><span class='const'>Parser</span><span class='period'>.</span><span class='id identifier rubyid_parse'>parse</span><span class='lparen'>(</span><span class='kw'>self</span><span class='comma'>,</span> <span class='id identifier rubyid_args'>args</span><span class='rparen'>)</span>
+    <span class='id identifier rubyid_subcommand'>subcommand</span> <span class='op'>=</span> <span class='const'><span class='object_link'><a href="../Bovem.html" title="Bovem (module)">Bovem</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="Parser.html" title="Bovem::Parser (class)">Parser</a></span></span><span class='period'>.</span><span class='id identifier rubyid_parse'><span class='object_link'><a href="Parser.html#parse-instance_method" title="Bovem::Parser#parse (method)">parse</a></span></span><span class='lparen'>(</span><span class='kw'>self</span><span class='comma'>,</span> <span class='id identifier rubyid_args'>args</span><span class='rparen'>)</span>
 
     <span class='kw'>if</span> <span class='id identifier rubyid_subcommand'>subcommand</span><span class='period'>.</span><span class='id identifier rubyid_present?'>present?</span> <span class='comment'># We have a subcommand to call
 </span>      <span class='id identifier rubyid_commands'>commands</span><span class='lbracket'>[</span><span class='id identifier rubyid_subcommand'>subcommand</span><span class='lbracket'>[</span><span class='symbol'>:name</span><span class='rbracket'>]</span><span class='rbracket'>]</span><span class='period'>.</span><span class='id identifier rubyid_execute'>execute</span><span class='lparen'>(</span><span class='id identifier rubyid_subcommand'>subcommand</span><span class='lbracket'>[</span><span class='symbol'>:args</span><span class='rbracket'>]</span><span class='rparen'>)</span>
@@ -3588,7 +3589,7 @@
 
   <span class='comment'># :nodoc:
 </span>  <span class='kw'>def</span> <span class='id identifier rubyid_setup_i18n'>setup_i18n</span><span class='lparen'>(</span><span class='id identifier rubyid_options'>options</span><span class='rparen'>)</span>
-    <span class='ivar'>@i18n</span> <span class='op'>=</span> <span class='const'>Bovem</span><span class='op'>::</span><span class='const'>I18n</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='id identifier rubyid_options'>options</span><span class='lbracket'>[</span><span class='symbol'>:locale</span><span class='rbracket'>]</span><span class='comma'>,</span> <span class='label'>root:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>bovem.application</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='label'>path:</span> <span class='const'>Bovem</span><span class='op'>::</span><span class='const'>Application</span><span class='op'>::</span><span class='const'>LOCALE_ROOT</span><span class='rparen'>)</span>
+    <span class='ivar'>@i18n</span> <span class='op'>=</span> <span class='const'><span class='object_link'><a href="../Bovem.html" title="Bovem (module)">Bovem</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="I18n.html" title="Bovem::I18n (class)">I18n</a></span></span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='id identifier rubyid_options'>options</span><span class='lbracket'>[</span><span class='symbol'>:locale</span><span class='rbracket'>]</span><span class='comma'>,</span> <span class='label'>root:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>bovem.application</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='label'>path:</span> <span class='const'><span class='object_link'><a href="../Bovem.html" title="Bovem (module)">Bovem</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="Application.html" title="Bovem::Application (class)">Application</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="Application.html#LOCALE_ROOT-constant" title="Bovem::Application::LOCALE_ROOT (constant)">LOCALE_ROOT</a></span></span><span class='rparen'>)</span>
   <span class='kw'>end</span>
 
   <span class='comment'># :nodoc:
@@ -3626,7 +3627,7 @@
       <div class="method_details ">
   <h3 class="signature " id="commands-instance_method">
   
-    - (<tt>Array</tt>) <strong>commands</strong>  <span class="extras">(readonly)</span>
+    #<strong>commands</strong>  &#x21d2; <tt>Array</tt>  <span class="extras">(readonly)</span>
   
 
   
@@ -3871,7 +3872,7 @@
     <td>
       <pre class="code"><span class="info file"># File 'lib/bovem/command.rb', line 309</span>
 
-<span class='kw'>class</span> <span class='const'>Command</span>
+<span class='kw'>class</span> <span class='const'><span class='object_link'><a href="" title="Bovem::Command (class)">Command</a></span></span>
   <span class='id identifier rubyid_attr_accessor'>attr_accessor</span> <span class='symbol'>:name</span>
   <span class='id identifier rubyid_attr_accessor'>attr_accessor</span> <span class='symbol'>:description</span>
   <span class='id identifier rubyid_attr_accessor'>attr_accessor</span> <span class='symbol'>:banner</span>
@@ -3883,8 +3884,8 @@
   <span class='id identifier rubyid_attr_accessor'>attr_accessor</span> <span class='symbol'>:parent</span>
   <span class='id identifier rubyid_attr_reader'>attr_reader</span> <span class='symbol'>:i18n</span>
 
-  <span class='id identifier rubyid_include'>include</span> <span class='const'>Bovem</span><span class='op'>::</span><span class='const'>CommandMethods</span><span class='op'>::</span><span class='const'>Help</span>
-  <span class='id identifier rubyid_include'>include</span> <span class='const'>Bovem</span><span class='op'>::</span><span class='const'>CommandMethods</span><span class='op'>::</span><span class='const'>Children</span>
+  <span class='id identifier rubyid_include'>include</span> <span class='const'><span class='object_link'><a href="../Bovem.html" title="Bovem (module)">Bovem</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="CommandMethods.html" title="Bovem::CommandMethods (module)">CommandMethods</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="CommandMethods/Help.html" title="Bovem::CommandMethods::Help (module)">Help</a></span></span>
+  <span class='id identifier rubyid_include'>include</span> <span class='const'><span class='object_link'><a href="../Bovem.html" title="Bovem (module)">Bovem</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="CommandMethods.html" title="Bovem::CommandMethods (module)">CommandMethods</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="CommandMethods/Children.html" title="Bovem::CommandMethods::Children (module)">Children</a></span></span>
 
   <span class='comment'># Creates a new command.
 </span>  <span class='comment'>#
@@ -3987,7 +3988,7 @@
 </span>  <span class='comment'>#
 </span>  <span class='comment'># @return [Boolean] `true` if command is an application, `false` otherwise.
 </span>  <span class='kw'>def</span> <span class='id identifier rubyid_application?'>application?</span>
-    <span class='id identifier rubyid_is_a?'>is_a?</span><span class='lparen'>(</span><span class='const'>Bovem</span><span class='op'>::</span><span class='const'>Application</span><span class='rparen'>)</span>
+    <span class='id identifier rubyid_is_a?'>is_a?</span><span class='lparen'>(</span><span class='const'><span class='object_link'><a href="../Bovem.html" title="Bovem (module)">Bovem</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="Application.html" title="Bovem::Application (class)">Application</a></span></span><span class='rparen'>)</span>
   <span class='kw'>end</span>
 
   <span class='comment'># Check if this command has a description.
@@ -4029,7 +4030,7 @@
 </span>  <span class='comment'>#
 </span>  <span class='comment'># @param args [Array] The arguments to pass to the command.
 </span>  <span class='kw'>def</span> <span class='id identifier rubyid_execute'>execute</span><span class='lparen'>(</span><span class='id identifier rubyid_args'>args</span><span class='rparen'>)</span>
-    <span class='id identifier rubyid_subcommand'>subcommand</span> <span class='op'>=</span> <span class='const'>Bovem</span><span class='op'>::</span><span class='const'>Parser</span><span class='period'>.</span><span class='id identifier rubyid_parse'>parse</span><span class='lparen'>(</span><span class='kw'>self</span><span class='comma'>,</span> <span class='id identifier rubyid_args'>args</span><span class='rparen'>)</span>
+    <span class='id identifier rubyid_subcommand'>subcommand</span> <span class='op'>=</span> <span class='const'><span class='object_link'><a href="../Bovem.html" title="Bovem (module)">Bovem</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="Parser.html" title="Bovem::Parser (class)">Parser</a></span></span><span class='period'>.</span><span class='id identifier rubyid_parse'><span class='object_link'><a href="Parser.html#parse-instance_method" title="Bovem::Parser#parse (method)">parse</a></span></span><span class='lparen'>(</span><span class='kw'>self</span><span class='comma'>,</span> <span class='id identifier rubyid_args'>args</span><span class='rparen'>)</span>
 
     <span class='kw'>if</span> <span class='id identifier rubyid_subcommand'>subcommand</span><span class='period'>.</span><span class='id identifier rubyid_present?'>present?</span> <span class='comment'># We have a subcommand to call
 </span>      <span class='id identifier rubyid_commands'>commands</span><span class='lbracket'>[</span><span class='id identifier rubyid_subcommand'>subcommand</span><span class='lbracket'>[</span><span class='symbol'>:name</span><span class='rbracket'>]</span><span class='rbracket'>]</span><span class='period'>.</span><span class='id identifier rubyid_execute'>execute</span><span class='lparen'>(</span><span class='id identifier rubyid_subcommand'>subcommand</span><span class='lbracket'>[</span><span class='symbol'>:args</span><span class='rbracket'>]</span><span class='rparen'>)</span>
@@ -4045,7 +4046,7 @@
 
   <span class='comment'># :nodoc:
 </span>  <span class='kw'>def</span> <span class='id identifier rubyid_setup_i18n'>setup_i18n</span><span class='lparen'>(</span><span class='id identifier rubyid_options'>options</span><span class='rparen'>)</span>
-    <span class='ivar'>@i18n</span> <span class='op'>=</span> <span class='const'>Bovem</span><span class='op'>::</span><span class='const'>I18n</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='id identifier rubyid_options'>options</span><span class='lbracket'>[</span><span class='symbol'>:locale</span><span class='rbracket'>]</span><span class='comma'>,</span> <span class='label'>root:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>bovem.application</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='label'>path:</span> <span class='const'>Bovem</span><span class='op'>::</span><span class='const'>Application</span><span class='op'>::</span><span class='const'>LOCALE_ROOT</span><span class='rparen'>)</span>
+    <span class='ivar'>@i18n</span> <span class='op'>=</span> <span class='const'><span class='object_link'><a href="../Bovem.html" title="Bovem (module)">Bovem</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="I18n.html" title="Bovem::I18n (class)">I18n</a></span></span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='id identifier rubyid_options'>options</span><span class='lbracket'>[</span><span class='symbol'>:locale</span><span class='rbracket'>]</span><span class='comma'>,</span> <span class='label'>root:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>bovem.application</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='label'>path:</span> <span class='const'><span class='object_link'><a href="../Bovem.html" title="Bovem (module)">Bovem</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="Application.html" title="Bovem::Application (class)">Application</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="Application.html#LOCALE_ROOT-constant" title="Bovem::Application::LOCALE_ROOT (constant)">LOCALE_ROOT</a></span></span><span class='rparen'>)</span>
   <span class='kw'>end</span>
 
   <span class='comment'># :nodoc:
@@ -4083,7 +4084,7 @@
       <div class="method_details ">
   <h3 class="signature " id="description-instance_method">
   
-    - (<tt>String</tt>) <strong>description</strong>(value = nil) 
+    #<strong>description</strong>(value = nil)  &#x21d2; <tt>String</tt> 
   
 
   
@@ -4349,7 +4350,7 @@
     <td>
       <pre class="code"><span class="info file"># File 'lib/bovem/command.rb', line 309</span>
 
-<span class='kw'>class</span> <span class='const'>Command</span>
+<span class='kw'>class</span> <span class='const'><span class='object_link'><a href="" title="Bovem::Command (class)">Command</a></span></span>
   <span class='id identifier rubyid_attr_accessor'>attr_accessor</span> <span class='symbol'>:name</span>
   <span class='id identifier rubyid_attr_accessor'>attr_accessor</span> <span class='symbol'>:description</span>
   <span class='id identifier rubyid_attr_accessor'>attr_accessor</span> <span class='symbol'>:banner</span>
@@ -4361,8 +4362,8 @@
   <span class='id identifier rubyid_attr_accessor'>attr_accessor</span> <span class='symbol'>:parent</span>
   <span class='id identifier rubyid_attr_reader'>attr_reader</span> <span class='symbol'>:i18n</span>
 
-  <span class='id identifier rubyid_include'>include</span> <span class='const'>Bovem</span><span class='op'>::</span><span class='const'>CommandMethods</span><span class='op'>::</span><span class='const'>Help</span>
-  <span class='id identifier rubyid_include'>include</span> <span class='const'>Bovem</span><span class='op'>::</span><span class='const'>CommandMethods</span><span class='op'>::</span><span class='const'>Children</span>
+  <span class='id identifier rubyid_include'>include</span> <span class='const'><span class='object_link'><a href="../Bovem.html" title="Bovem (module)">Bovem</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="CommandMethods.html" title="Bovem::CommandMethods (module)">CommandMethods</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="CommandMethods/Help.html" title="Bovem::CommandMethods::Help (module)">Help</a></span></span>
+  <span class='id identifier rubyid_include'>include</span> <span class='const'><span class='object_link'><a href="../Bovem.html" title="Bovem (module)">Bovem</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="CommandMethods.html" title="Bovem::CommandMethods (module)">CommandMethods</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="CommandMethods/Children.html" title="Bovem::CommandMethods::Children (module)">Children</a></span></span>
 
   <span class='comment'># Creates a new command.
 </span>  <span class='comment'>#
@@ -4465,7 +4466,7 @@
 </span>  <span class='comment'>#
 </span>  <span class='comment'># @return [Boolean] `true` if command is an application, `false` otherwise.
 </span>  <span class='kw'>def</span> <span class='id identifier rubyid_application?'>application?</span>
-    <span class='id identifier rubyid_is_a?'>is_a?</span><span class='lparen'>(</span><span class='const'>Bovem</span><span class='op'>::</span><span class='const'>Application</span><span class='rparen'>)</span>
+    <span class='id identifier rubyid_is_a?'>is_a?</span><span class='lparen'>(</span><span class='const'><span class='object_link'><a href="../Bovem.html" title="Bovem (module)">Bovem</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="Application.html" title="Bovem::Application (class)">Application</a></span></span><span class='rparen'>)</span>
   <span class='kw'>end</span>
 
   <span class='comment'># Check if this command has a description.
@@ -4507,7 +4508,7 @@
 </span>  <span class='comment'>#
 </span>  <span class='comment'># @param args [Array] The arguments to pass to the command.
 </span>  <span class='kw'>def</span> <span class='id identifier rubyid_execute'>execute</span><span class='lparen'>(</span><span class='id identifier rubyid_args'>args</span><span class='rparen'>)</span>
-    <span class='id identifier rubyid_subcommand'>subcommand</span> <span class='op'>=</span> <span class='const'>Bovem</span><span class='op'>::</span><span class='const'>Parser</span><span class='period'>.</span><span class='id identifier rubyid_parse'>parse</span><span class='lparen'>(</span><span class='kw'>self</span><span class='comma'>,</span> <span class='id identifier rubyid_args'>args</span><span class='rparen'>)</span>
+    <span class='id identifier rubyid_subcommand'>subcommand</span> <span class='op'>=</span> <span class='const'><span class='object_link'><a href="../Bovem.html" title="Bovem (module)">Bovem</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="Parser.html" title="Bovem::Parser (class)">Parser</a></span></span><span class='period'>.</span><span class='id identifier rubyid_parse'><span class='object_link'><a href="Parser.html#parse-instance_method" title="Bovem::Parser#parse (method)">parse</a></span></span><span class='lparen'>(</span><span class='kw'>self</span><span class='comma'>,</span> <span class='id identifier rubyid_args'>args</span><span class='rparen'>)</span>
 
     <span class='kw'>if</span> <span class='id identifier rubyid_subcommand'>subcommand</span><span class='period'>.</span><span class='id identifier rubyid_present?'>present?</span> <span class='comment'># We have a subcommand to call
 </span>      <span class='id identifier rubyid_commands'>commands</span><span class='lbracket'>[</span><span class='id identifier rubyid_subcommand'>subcommand</span><span class='lbracket'>[</span><span class='symbol'>:name</span><span class='rbracket'>]</span><span class='rbracket'>]</span><span class='period'>.</span><span class='id identifier rubyid_execute'>execute</span><span class='lparen'>(</span><span class='id identifier rubyid_subcommand'>subcommand</span><span class='lbracket'>[</span><span class='symbol'>:args</span><span class='rbracket'>]</span><span class='rparen'>)</span>
@@ -4523,7 +4524,7 @@
 
   <span class='comment'># :nodoc:
 </span>  <span class='kw'>def</span> <span class='id identifier rubyid_setup_i18n'>setup_i18n</span><span class='lparen'>(</span><span class='id identifier rubyid_options'>options</span><span class='rparen'>)</span>
-    <span class='ivar'>@i18n</span> <span class='op'>=</span> <span class='const'>Bovem</span><span class='op'>::</span><span class='const'>I18n</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='id identifier rubyid_options'>options</span><span class='lbracket'>[</span><span class='symbol'>:locale</span><span class='rbracket'>]</span><span class='comma'>,</span> <span class='label'>root:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>bovem.application</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='label'>path:</span> <span class='const'>Bovem</span><span class='op'>::</span><span class='const'>Application</span><span class='op'>::</span><span class='const'>LOCALE_ROOT</span><span class='rparen'>)</span>
+    <span class='ivar'>@i18n</span> <span class='op'>=</span> <span class='const'><span class='object_link'><a href="../Bovem.html" title="Bovem (module)">Bovem</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="I18n.html" title="Bovem::I18n (class)">I18n</a></span></span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='id identifier rubyid_options'>options</span><span class='lbracket'>[</span><span class='symbol'>:locale</span><span class='rbracket'>]</span><span class='comma'>,</span> <span class='label'>root:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>bovem.application</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='label'>path:</span> <span class='const'><span class='object_link'><a href="../Bovem.html" title="Bovem (module)">Bovem</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="Application.html" title="Bovem::Application (class)">Application</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="Application.html#LOCALE_ROOT-constant" title="Bovem::Application::LOCALE_ROOT (constant)">LOCALE_ROOT</a></span></span><span class='rparen'>)</span>
   <span class='kw'>end</span>
 
   <span class='comment'># :nodoc:
@@ -4561,7 +4562,7 @@
       <div class="method_details ">
   <h3 class="signature " id="i18n-instance_method">
   
-    - (<tt><span class='object_link'><a href="I18n.html" title="Bovem::I18n (class)">I18n</a></span></tt>) <strong>i18n</strong>  <span class="extras">(readonly)</span>
+    #<strong>i18n</strong>  &#x21d2; <tt><span class='object_link'><a href="I18n.html" title="Bovem::I18n (class)">I18n</a></span></tt>  <span class="extras">(readonly)</span>
   
 
   
@@ -4806,7 +4807,7 @@
     <td>
       <pre class="code"><span class="info file"># File 'lib/bovem/command.rb', line 309</span>
 
-<span class='kw'>class</span> <span class='const'>Command</span>
+<span class='kw'>class</span> <span class='const'><span class='object_link'><a href="" title="Bovem::Command (class)">Command</a></span></span>
   <span class='id identifier rubyid_attr_accessor'>attr_accessor</span> <span class='symbol'>:name</span>
   <span class='id identifier rubyid_attr_accessor'>attr_accessor</span> <span class='symbol'>:description</span>
   <span class='id identifier rubyid_attr_accessor'>attr_accessor</span> <span class='symbol'>:banner</span>
@@ -4818,8 +4819,8 @@
   <span class='id identifier rubyid_attr_accessor'>attr_accessor</span> <span class='symbol'>:parent</span>
   <span class='id identifier rubyid_attr_reader'>attr_reader</span> <span class='symbol'>:i18n</span>
 
-  <span class='id identifier rubyid_include'>include</span> <span class='const'>Bovem</span><span class='op'>::</span><span class='const'>CommandMethods</span><span class='op'>::</span><span class='const'>Help</span>
-  <span class='id identifier rubyid_include'>include</span> <span class='const'>Bovem</span><span class='op'>::</span><span class='const'>CommandMethods</span><span class='op'>::</span><span class='const'>Children</span>
+  <span class='id identifier rubyid_include'>include</span> <span class='const'><span class='object_link'><a href="../Bovem.html" title="Bovem (module)">Bovem</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="CommandMethods.html" title="Bovem::CommandMethods (module)">CommandMethods</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="CommandMethods/Help.html" title="Bovem::CommandMethods::Help (module)">Help</a></span></span>
+  <span class='id identifier rubyid_include'>include</span> <span class='const'><span class='object_link'><a href="../Bovem.html" title="Bovem (module)">Bovem</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="CommandMethods.html" title="Bovem::CommandMethods (module)">CommandMethods</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="CommandMethods/Children.html" title="Bovem::CommandMethods::Children (module)">Children</a></span></span>
 
   <span class='comment'># Creates a new command.
 </span>  <span class='comment'>#
@@ -4922,7 +4923,7 @@
 </span>  <span class='comment'>#
 </span>  <span class='comment'># @return [Boolean] `true` if command is an application, `false` otherwise.
 </span>  <span class='kw'>def</span> <span class='id identifier rubyid_application?'>application?</span>
-    <span class='id identifier rubyid_is_a?'>is_a?</span><span class='lparen'>(</span><span class='const'>Bovem</span><span class='op'>::</span><span class='const'>Application</span><span class='rparen'>)</span>
+    <span class='id identifier rubyid_is_a?'>is_a?</span><span class='lparen'>(</span><span class='const'><span class='object_link'><a href="../Bovem.html" title="Bovem (module)">Bovem</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="Application.html" title="Bovem::Application (class)">Application</a></span></span><span class='rparen'>)</span>
   <span class='kw'>end</span>
 
   <span class='comment'># Check if this command has a description.
@@ -4964,7 +4965,7 @@
 </span>  <span class='comment'>#
 </span>  <span class='comment'># @param args [Array] The arguments to pass to the command.
 </span>  <span class='kw'>def</span> <span class='id identifier rubyid_execute'>execute</span><span class='lparen'>(</span><span class='id identifier rubyid_args'>args</span><span class='rparen'>)</span>
-    <span class='id identifier rubyid_subcommand'>subcommand</span> <span class='op'>=</span> <span class='const'>Bovem</span><span class='op'>::</span><span class='const'>Parser</span><span class='period'>.</span><span class='id identifier rubyid_parse'>parse</span><span class='lparen'>(</span><span class='kw'>self</span><span class='comma'>,</span> <span class='id identifier rubyid_args'>args</span><span class='rparen'>)</span>
+    <span class='id identifier rubyid_subcommand'>subcommand</span> <span class='op'>=</span> <span class='const'><span class='object_link'><a href="../Bovem.html" title="Bovem (module)">Bovem</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="Parser.html" title="Bovem::Parser (class)">Parser</a></span></span><span class='period'>.</span><span class='id identifier rubyid_parse'><span class='object_link'><a href="Parser.html#parse-instance_method" title="Bovem::Parser#parse (method)">parse</a></span></span><span class='lparen'>(</span><span class='kw'>self</span><span class='comma'>,</span> <span class='id identifier rubyid_args'>args</span><span class='rparen'>)</span>
 
     <span class='kw'>if</span> <span class='id identifier rubyid_subcommand'>subcommand</span><span class='period'>.</span><span class='id identifier rubyid_present?'>present?</span> <span class='comment'># We have a subcommand to call
 </span>      <span class='id identifier rubyid_commands'>commands</span><span class='lbracket'>[</span><span class='id identifier rubyid_subcommand'>subcommand</span><span class='lbracket'>[</span><span class='symbol'>:name</span><span class='rbracket'>]</span><span class='rbracket'>]</span><span class='period'>.</span><span class='id identifier rubyid_execute'>execute</span><span class='lparen'>(</span><span class='id identifier rubyid_subcommand'>subcommand</span><span class='lbracket'>[</span><span class='symbol'>:args</span><span class='rbracket'>]</span><span class='rparen'>)</span>
@@ -4980,7 +4981,7 @@
 
   <span class='comment'># :nodoc:
 </span>  <span class='kw'>def</span> <span class='id identifier rubyid_setup_i18n'>setup_i18n</span><span class='lparen'>(</span><span class='id identifier rubyid_options'>options</span><span class='rparen'>)</span>
-    <span class='ivar'>@i18n</span> <span class='op'>=</span> <span class='const'>Bovem</span><span class='op'>::</span><span class='const'>I18n</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='id identifier rubyid_options'>options</span><span class='lbracket'>[</span><span class='symbol'>:locale</span><span class='rbracket'>]</span><span class='comma'>,</span> <span class='label'>root:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>bovem.application</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='label'>path:</span> <span class='const'>Bovem</span><span class='op'>::</span><span class='const'>Application</span><span class='op'>::</span><span class='const'>LOCALE_ROOT</span><span class='rparen'>)</span>
+    <span class='ivar'>@i18n</span> <span class='op'>=</span> <span class='const'><span class='object_link'><a href="../Bovem.html" title="Bovem (module)">Bovem</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="I18n.html" title="Bovem::I18n (class)">I18n</a></span></span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='id identifier rubyid_options'>options</span><span class='lbracket'>[</span><span class='symbol'>:locale</span><span class='rbracket'>]</span><span class='comma'>,</span> <span class='label'>root:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>bovem.application</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='label'>path:</span> <span class='const'><span class='object_link'><a href="../Bovem.html" title="Bovem (module)">Bovem</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="Application.html" title="Bovem::Application (class)">Application</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="Application.html#LOCALE_ROOT-constant" title="Bovem::Application::LOCALE_ROOT (constant)">LOCALE_ROOT</a></span></span><span class='rparen'>)</span>
   <span class='kw'>end</span>
 
   <span class='comment'># :nodoc:
@@ -5018,7 +5019,7 @@
       <div class="method_details ">
   <h3 class="signature " id="name-instance_method">
   
-    - (<tt>String</tt>) <strong>name</strong>(value = nil) 
+    #<strong>name</strong>(value = nil)  &#x21d2; <tt>String</tt> 
   
 
   
@@ -5284,7 +5285,7 @@
     <td>
       <pre class="code"><span class="info file"># File 'lib/bovem/command.rb', line 309</span>
 
-<span class='kw'>class</span> <span class='const'>Command</span>
+<span class='kw'>class</span> <span class='const'><span class='object_link'><a href="" title="Bovem::Command (class)">Command</a></span></span>
   <span class='id identifier rubyid_attr_accessor'>attr_accessor</span> <span class='symbol'>:name</span>
   <span class='id identifier rubyid_attr_accessor'>attr_accessor</span> <span class='symbol'>:description</span>
   <span class='id identifier rubyid_attr_accessor'>attr_accessor</span> <span class='symbol'>:banner</span>
@@ -5296,8 +5297,8 @@
   <span class='id identifier rubyid_attr_accessor'>attr_accessor</span> <span class='symbol'>:parent</span>
   <span class='id identifier rubyid_attr_reader'>attr_reader</span> <span class='symbol'>:i18n</span>
 
-  <span class='id identifier rubyid_include'>include</span> <span class='const'>Bovem</span><span class='op'>::</span><span class='const'>CommandMethods</span><span class='op'>::</span><span class='const'>Help</span>
-  <span class='id identifier rubyid_include'>include</span> <span class='const'>Bovem</span><span class='op'>::</span><span class='const'>CommandMethods</span><span class='op'>::</span><span class='const'>Children</span>
+  <span class='id identifier rubyid_include'>include</span> <span class='const'><span class='object_link'><a href="../Bovem.html" title="Bovem (module)">Bovem</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="CommandMethods.html" title="Bovem::CommandMethods (module)">CommandMethods</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="CommandMethods/Help.html" title="Bovem::CommandMethods::Help (module)">Help</a></span></span>
+  <span class='id identifier rubyid_include'>include</span> <span class='const'><span class='object_link'><a href="../Bovem.html" title="Bovem (module)">Bovem</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="CommandMethods.html" title="Bovem::CommandMethods (module)">CommandMethods</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="CommandMethods/Children.html" title="Bovem::CommandMethods::Children (module)">Children</a></span></span>
 
   <span class='comment'># Creates a new command.
 </span>  <span class='comment'>#
@@ -5400,7 +5401,7 @@
 </span>  <span class='comment'>#
 </span>  <span class='comment'># @return [Boolean] `true` if command is an application, `false` otherwise.
 </span>  <span class='kw'>def</span> <span class='id identifier rubyid_application?'>application?</span>
-    <span class='id identifier rubyid_is_a?'>is_a?</span><span class='lparen'>(</span><span class='const'>Bovem</span><span class='op'>::</span><span class='const'>Application</span><span class='rparen'>)</span>
+    <span class='id identifier rubyid_is_a?'>is_a?</span><span class='lparen'>(</span><span class='const'><span class='object_link'><a href="../Bovem.html" title="Bovem (module)">Bovem</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="Application.html" title="Bovem::Application (class)">Application</a></span></span><span class='rparen'>)</span>
   <span class='kw'>end</span>
 
   <span class='comment'># Check if this command has a description.
@@ -5442,7 +5443,7 @@
 </span>  <span class='comment'>#
 </span>  <span class='comment'># @param args [Array] The arguments to pass to the command.
 </span>  <span class='kw'>def</span> <span class='id identifier rubyid_execute'>execute</span><span class='lparen'>(</span><span class='id identifier rubyid_args'>args</span><span class='rparen'>)</span>
-    <span class='id identifier rubyid_subcommand'>subcommand</span> <span class='op'>=</span> <span class='const'>Bovem</span><span class='op'>::</span><span class='const'>Parser</span><span class='period'>.</span><span class='id identifier rubyid_parse'>parse</span><span class='lparen'>(</span><span class='kw'>self</span><span class='comma'>,</span> <span class='id identifier rubyid_args'>args</span><span class='rparen'>)</span>
+    <span class='id identifier rubyid_subcommand'>subcommand</span> <span class='op'>=</span> <span class='const'><span class='object_link'><a href="../Bovem.html" title="Bovem (module)">Bovem</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="Parser.html" title="Bovem::Parser (class)">Parser</a></span></span><span class='period'>.</span><span class='id identifier rubyid_parse'><span class='object_link'><a href="Parser.html#parse-instance_method" title="Bovem::Parser#parse (method)">parse</a></span></span><span class='lparen'>(</span><span class='kw'>self</span><span class='comma'>,</span> <span class='id identifier rubyid_args'>args</span><span class='rparen'>)</span>
 
     <span class='kw'>if</span> <span class='id identifier rubyid_subcommand'>subcommand</span><span class='period'>.</span><span class='id identifier rubyid_present?'>present?</span> <span class='comment'># We have a subcommand to call
 </span>      <span class='id identifier rubyid_commands'>commands</span><span class='lbracket'>[</span><span class='id identifier rubyid_subcommand'>subcommand</span><span class='lbracket'>[</span><span class='symbol'>:name</span><span class='rbracket'>]</span><span class='rbracket'>]</span><span class='period'>.</span><span class='id identifier rubyid_execute'>execute</span><span class='lparen'>(</span><span class='id identifier rubyid_subcommand'>subcommand</span><span class='lbracket'>[</span><span class='symbol'>:args</span><span class='rbracket'>]</span><span class='rparen'>)</span>
@@ -5458,7 +5459,7 @@
 
   <span class='comment'># :nodoc:
 </span>  <span class='kw'>def</span> <span class='id identifier rubyid_setup_i18n'>setup_i18n</span><span class='lparen'>(</span><span class='id identifier rubyid_options'>options</span><span class='rparen'>)</span>
-    <span class='ivar'>@i18n</span> <span class='op'>=</span> <span class='const'>Bovem</span><span class='op'>::</span><span class='const'>I18n</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='id identifier rubyid_options'>options</span><span class='lbracket'>[</span><span class='symbol'>:locale</span><span class='rbracket'>]</span><span class='comma'>,</span> <span class='label'>root:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>bovem.application</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='label'>path:</span> <span class='const'>Bovem</span><span class='op'>::</span><span class='const'>Application</span><span class='op'>::</span><span class='const'>LOCALE_ROOT</span><span class='rparen'>)</span>
+    <span class='ivar'>@i18n</span> <span class='op'>=</span> <span class='const'><span class='object_link'><a href="../Bovem.html" title="Bovem (module)">Bovem</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="I18n.html" title="Bovem::I18n (class)">I18n</a></span></span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='id identifier rubyid_options'>options</span><span class='lbracket'>[</span><span class='symbol'>:locale</span><span class='rbracket'>]</span><span class='comma'>,</span> <span class='label'>root:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>bovem.application</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='label'>path:</span> <span class='const'><span class='object_link'><a href="../Bovem.html" title="Bovem (module)">Bovem</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="Application.html" title="Bovem::Application (class)">Application</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="Application.html#LOCALE_ROOT-constant" title="Bovem::Application::LOCALE_ROOT (constant)">LOCALE_ROOT</a></span></span><span class='rparen'>)</span>
   <span class='kw'>end</span>
 
   <span class='comment'># :nodoc:
@@ -5496,7 +5497,7 @@
       <div class="method_details ">
   <h3 class="signature " id="options-instance_method">
   
-    - (<tt>Array</tt>) <strong>options</strong>  <span class="extras">(readonly)</span>
+    #<strong>options</strong>  &#x21d2; <tt>Array</tt>  <span class="extras">(readonly)</span>
   
 
   
@@ -5741,7 +5742,7 @@
     <td>
       <pre class="code"><span class="info file"># File 'lib/bovem/command.rb', line 309</span>
 
-<span class='kw'>class</span> <span class='const'>Command</span>
+<span class='kw'>class</span> <span class='const'><span class='object_link'><a href="" title="Bovem::Command (class)">Command</a></span></span>
   <span class='id identifier rubyid_attr_accessor'>attr_accessor</span> <span class='symbol'>:name</span>
   <span class='id identifier rubyid_attr_accessor'>attr_accessor</span> <span class='symbol'>:description</span>
   <span class='id identifier rubyid_attr_accessor'>attr_accessor</span> <span class='symbol'>:banner</span>
@@ -5753,8 +5754,8 @@
   <span class='id identifier rubyid_attr_accessor'>attr_accessor</span> <span class='symbol'>:parent</span>
   <span class='id identifier rubyid_attr_reader'>attr_reader</span> <span class='symbol'>:i18n</span>
 
-  <span class='id identifier rubyid_include'>include</span> <span class='const'>Bovem</span><span class='op'>::</span><span class='const'>CommandMethods</span><span class='op'>::</span><span class='const'>Help</span>
-  <span class='id identifier rubyid_include'>include</span> <span class='const'>Bovem</span><span class='op'>::</span><span class='const'>CommandMethods</span><span class='op'>::</span><span class='const'>Children</span>
+  <span class='id identifier rubyid_include'>include</span> <span class='const'><span class='object_link'><a href="../Bovem.html" title="Bovem (module)">Bovem</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="CommandMethods.html" title="Bovem::CommandMethods (module)">CommandMethods</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="CommandMethods/Help.html" title="Bovem::CommandMethods::Help (module)">Help</a></span></span>
+  <span class='id identifier rubyid_include'>include</span> <span class='const'><span class='object_link'><a href="../Bovem.html" title="Bovem (module)">Bovem</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="CommandMethods.html" title="Bovem::CommandMethods (module)">CommandMethods</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="CommandMethods/Children.html" title="Bovem::CommandMethods::Children (module)">Children</a></span></span>
 
   <span class='comment'># Creates a new command.
 </span>  <span class='comment'>#
@@ -5857,7 +5858,7 @@
 </span>  <span class='comment'>#
 </span>  <span class='comment'># @return [Boolean] `true` if command is an application, `false` otherwise.
 </span>  <span class='kw'>def</span> <span class='id identifier rubyid_application?'>application?</span>
-    <span class='id identifier rubyid_is_a?'>is_a?</span><span class='lparen'>(</span><span class='const'>Bovem</span><span class='op'>::</span><span class='const'>Application</span><span class='rparen'>)</span>
+    <span class='id identifier rubyid_is_a?'>is_a?</span><span class='lparen'>(</span><span class='const'><span class='object_link'><a href="../Bovem.html" title="Bovem (module)">Bovem</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="Application.html" title="Bovem::Application (class)">Application</a></span></span><span class='rparen'>)</span>
   <span class='kw'>end</span>
 
   <span class='comment'># Check if this command has a description.
@@ -5899,7 +5900,7 @@
 </span>  <span class='comment'>#
 </span>  <span class='comment'># @param args [Array] The arguments to pass to the command.
 </span>  <span class='kw'>def</span> <span class='id identifier rubyid_execute'>execute</span><span class='lparen'>(</span><span class='id identifier rubyid_args'>args</span><span class='rparen'>)</span>
-    <span class='id identifier rubyid_subcommand'>subcommand</span> <span class='op'>=</span> <span class='const'>Bovem</span><span class='op'>::</span><span class='const'>Parser</span><span class='period'>.</span><span class='id identifier rubyid_parse'>parse</span><span class='lparen'>(</span><span class='kw'>self</span><span class='comma'>,</span> <span class='id identifier rubyid_args'>args</span><span class='rparen'>)</span>
+    <span class='id identifier rubyid_subcommand'>subcommand</span> <span class='op'>=</span> <span class='const'><span class='object_link'><a href="../Bovem.html" title="Bovem (module)">Bovem</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="Parser.html" title="Bovem::Parser (class)">Parser</a></span></span><span class='period'>.</span><span class='id identifier rubyid_parse'><span class='object_link'><a href="Parser.html#parse-instance_method" title="Bovem::Parser#parse (method)">parse</a></span></span><span class='lparen'>(</span><span class='kw'>self</span><span class='comma'>,</span> <span class='id identifier rubyid_args'>args</span><span class='rparen'>)</span>
 
     <span class='kw'>if</span> <span class='id identifier rubyid_subcommand'>subcommand</span><span class='period'>.</span><span class='id identifier rubyid_present?'>present?</span> <span class='comment'># We have a subcommand to call
 </span>      <span class='id identifier rubyid_commands'>commands</span><span class='lbracket'>[</span><span class='id identifier rubyid_subcommand'>subcommand</span><span class='lbracket'>[</span><span class='symbol'>:name</span><span class='rbracket'>]</span><span class='rbracket'>]</span><span class='period'>.</span><span class='id identifier rubyid_execute'>execute</span><span class='lparen'>(</span><span class='id identifier rubyid_subcommand'>subcommand</span><span class='lbracket'>[</span><span class='symbol'>:args</span><span class='rbracket'>]</span><span class='rparen'>)</span>
@@ -5915,7 +5916,7 @@
 
   <span class='comment'># :nodoc:
 </span>  <span class='kw'>def</span> <span class='id identifier rubyid_setup_i18n'>setup_i18n</span><span class='lparen'>(</span><span class='id identifier rubyid_options'>options</span><span class='rparen'>)</span>
-    <span class='ivar'>@i18n</span> <span class='op'>=</span> <span class='const'>Bovem</span><span class='op'>::</span><span class='const'>I18n</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='id identifier rubyid_options'>options</span><span class='lbracket'>[</span><span class='symbol'>:locale</span><span class='rbracket'>]</span><span class='comma'>,</span> <span class='label'>root:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>bovem.application</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='label'>path:</span> <span class='const'>Bovem</span><span class='op'>::</span><span class='const'>Application</span><span class='op'>::</span><span class='const'>LOCALE_ROOT</span><span class='rparen'>)</span>
+    <span class='ivar'>@i18n</span> <span class='op'>=</span> <span class='const'><span class='object_link'><a href="../Bovem.html" title="Bovem (module)">Bovem</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="I18n.html" title="Bovem::I18n (class)">I18n</a></span></span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='id identifier rubyid_options'>options</span><span class='lbracket'>[</span><span class='symbol'>:locale</span><span class='rbracket'>]</span><span class='comma'>,</span> <span class='label'>root:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>bovem.application</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='label'>path:</span> <span class='const'><span class='object_link'><a href="../Bovem.html" title="Bovem (module)">Bovem</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="Application.html" title="Bovem::Application (class)">Application</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="Application.html#LOCALE_ROOT-constant" title="Bovem::Application::LOCALE_ROOT (constant)">LOCALE_ROOT</a></span></span><span class='rparen'>)</span>
   <span class='kw'>end</span>
 
   <span class='comment'># :nodoc:
@@ -5953,7 +5954,7 @@
       <div class="method_details ">
   <h3 class="signature " id="parent-instance_method">
   
-    - (<tt><span class='object_link'><a href="" title="Bovem::Command (class)">Command</a></span></tt>) <strong>parent</strong> 
+    #<strong>parent</strong>  &#x21d2; <tt><span class='object_link'><a href="" title="Bovem::Command (class)">Command</a></span></tt> 
   
 
   
@@ -6198,7 +6199,7 @@
     <td>
       <pre class="code"><span class="info file"># File 'lib/bovem/command.rb', line 309</span>
 
-<span class='kw'>class</span> <span class='const'>Command</span>
+<span class='kw'>class</span> <span class='const'><span class='object_link'><a href="" title="Bovem::Command (class)">Command</a></span></span>
   <span class='id identifier rubyid_attr_accessor'>attr_accessor</span> <span class='symbol'>:name</span>
   <span class='id identifier rubyid_attr_accessor'>attr_accessor</span> <span class='symbol'>:description</span>
   <span class='id identifier rubyid_attr_accessor'>attr_accessor</span> <span class='symbol'>:banner</span>
@@ -6210,8 +6211,8 @@
   <span class='id identifier rubyid_attr_accessor'>attr_accessor</span> <span class='symbol'>:parent</span>
   <span class='id identifier rubyid_attr_reader'>attr_reader</span> <span class='symbol'>:i18n</span>
 
-  <span class='id identifier rubyid_include'>include</span> <span class='const'>Bovem</span><span class='op'>::</span><span class='const'>CommandMethods</span><span class='op'>::</span><span class='const'>Help</span>
-  <span class='id identifier rubyid_include'>include</span> <span class='const'>Bovem</span><span class='op'>::</span><span class='const'>CommandMethods</span><span class='op'>::</span><span class='const'>Children</span>
+  <span class='id identifier rubyid_include'>include</span> <span class='const'><span class='object_link'><a href="../Bovem.html" title="Bovem (module)">Bovem</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="CommandMethods.html" title="Bovem::CommandMethods (module)">CommandMethods</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="CommandMethods/Help.html" title="Bovem::CommandMethods::Help (module)">Help</a></span></span>
+  <span class='id identifier rubyid_include'>include</span> <span class='const'><span class='object_link'><a href="../Bovem.html" title="Bovem (module)">Bovem</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="CommandMethods.html" title="Bovem::CommandMethods (module)">CommandMethods</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="CommandMethods/Children.html" title="Bovem::CommandMethods::Children (module)">Children</a></span></span>
 
   <span class='comment'># Creates a new command.
 </span>  <span class='comment'>#
@@ -6314,7 +6315,7 @@
 </span>  <span class='comment'>#
 </span>  <span class='comment'># @return [Boolean] `true` if command is an application, `false` otherwise.
 </span>  <span class='kw'>def</span> <span class='id identifier rubyid_application?'>application?</span>
-    <span class='id identifier rubyid_is_a?'>is_a?</span><span class='lparen'>(</span><span class='const'>Bovem</span><span class='op'>::</span><span class='const'>Application</span><span class='rparen'>)</span>
+    <span class='id identifier rubyid_is_a?'>is_a?</span><span class='lparen'>(</span><span class='const'><span class='object_link'><a href="../Bovem.html" title="Bovem (module)">Bovem</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="Application.html" title="Bovem::Application (class)">Application</a></span></span><span class='rparen'>)</span>
   <span class='kw'>end</span>
 
   <span class='comment'># Check if this command has a description.
@@ -6356,7 +6357,7 @@
 </span>  <span class='comment'>#
 </span>  <span class='comment'># @param args [Array] The arguments to pass to the command.
 </span>  <span class='kw'>def</span> <span class='id identifier rubyid_execute'>execute</span><span class='lparen'>(</span><span class='id identifier rubyid_args'>args</span><span class='rparen'>)</span>
-    <span class='id identifier rubyid_subcommand'>subcommand</span> <span class='op'>=</span> <span class='const'>Bovem</span><span class='op'>::</span><span class='const'>Parser</span><span class='period'>.</span><span class='id identifier rubyid_parse'>parse</span><span class='lparen'>(</span><span class='kw'>self</span><span class='comma'>,</span> <span class='id identifier rubyid_args'>args</span><span class='rparen'>)</span>
+    <span class='id identifier rubyid_subcommand'>subcommand</span> <span class='op'>=</span> <span class='const'><span class='object_link'><a href="../Bovem.html" title="Bovem (module)">Bovem</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="Parser.html" title="Bovem::Parser (class)">Parser</a></span></span><span class='period'>.</span><span class='id identifier rubyid_parse'><span class='object_link'><a href="Parser.html#parse-instance_method" title="Bovem::Parser#parse (method)">parse</a></span></span><span class='lparen'>(</span><span class='kw'>self</span><span class='comma'>,</span> <span class='id identifier rubyid_args'>args</span><span class='rparen'>)</span>
 
     <span class='kw'>if</span> <span class='id identifier rubyid_subcommand'>subcommand</span><span class='period'>.</span><span class='id identifier rubyid_present?'>present?</span> <span class='comment'># We have a subcommand to call
 </span>      <span class='id identifier rubyid_commands'>commands</span><span class='lbracket'>[</span><span class='id identifier rubyid_subcommand'>subcommand</span><span class='lbracket'>[</span><span class='symbol'>:name</span><span class='rbracket'>]</span><span class='rbracket'>]</span><span class='period'>.</span><span class='id identifier rubyid_execute'>execute</span><span class='lparen'>(</span><span class='id identifier rubyid_subcommand'>subcommand</span><span class='lbracket'>[</span><span class='symbol'>:args</span><span class='rbracket'>]</span><span class='rparen'>)</span>
@@ -6372,7 +6373,7 @@
 
   <span class='comment'># :nodoc:
 </span>  <span class='kw'>def</span> <span class='id identifier rubyid_setup_i18n'>setup_i18n</span><span class='lparen'>(</span><span class='id identifier rubyid_options'>options</span><span class='rparen'>)</span>
-    <span class='ivar'>@i18n</span> <span class='op'>=</span> <span class='const'>Bovem</span><span class='op'>::</span><span class='const'>I18n</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='id identifier rubyid_options'>options</span><span class='lbracket'>[</span><span class='symbol'>:locale</span><span class='rbracket'>]</span><span class='comma'>,</span> <span class='label'>root:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>bovem.application</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='label'>path:</span> <span class='const'>Bovem</span><span class='op'>::</span><span class='const'>Application</span><span class='op'>::</span><span class='const'>LOCALE_ROOT</span><span class='rparen'>)</span>
+    <span class='ivar'>@i18n</span> <span class='op'>=</span> <span class='const'><span class='object_link'><a href="../Bovem.html" title="Bovem (module)">Bovem</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="I18n.html" title="Bovem::I18n (class)">I18n</a></span></span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='id identifier rubyid_options'>options</span><span class='lbracket'>[</span><span class='symbol'>:locale</span><span class='rbracket'>]</span><span class='comma'>,</span> <span class='label'>root:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>bovem.application</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='label'>path:</span> <span class='const'><span class='object_link'><a href="../Bovem.html" title="Bovem (module)">Bovem</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="Application.html" title="Bovem::Application (class)">Application</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="Application.html#LOCALE_ROOT-constant" title="Bovem::Application::LOCALE_ROOT (constant)">LOCALE_ROOT</a></span></span><span class='rparen'>)</span>
   <span class='kw'>end</span>
 
   <span class='comment'># :nodoc:
@@ -6410,7 +6411,7 @@
       <div class="method_details ">
   <h3 class="signature " id="synopsis-instance_method">
   
-    - (<tt>String</tt>) <strong>synopsis</strong>(value = nil) 
+    #<strong>synopsis</strong>(value = nil)  &#x21d2; <tt>String</tt> 
   
 
   
@@ -6676,7 +6677,7 @@
     <td>
       <pre class="code"><span class="info file"># File 'lib/bovem/command.rb', line 309</span>
 
-<span class='kw'>class</span> <span class='const'>Command</span>
+<span class='kw'>class</span> <span class='const'><span class='object_link'><a href="" title="Bovem::Command (class)">Command</a></span></span>
   <span class='id identifier rubyid_attr_accessor'>attr_accessor</span> <span class='symbol'>:name</span>
   <span class='id identifier rubyid_attr_accessor'>attr_accessor</span> <span class='symbol'>:description</span>
   <span class='id identifier rubyid_attr_accessor'>attr_accessor</span> <span class='symbol'>:banner</span>
@@ -6688,8 +6689,8 @@
   <span class='id identifier rubyid_attr_accessor'>attr_accessor</span> <span class='symbol'>:parent</span>
   <span class='id identifier rubyid_attr_reader'>attr_reader</span> <span class='symbol'>:i18n</span>
 
-  <span class='id identifier rubyid_include'>include</span> <span class='const'>Bovem</span><span class='op'>::</span><span class='const'>CommandMethods</span><span class='op'>::</span><span class='const'>Help</span>
-  <span class='id identifier rubyid_include'>include</span> <span class='const'>Bovem</span><span class='op'>::</span><span class='const'>CommandMethods</span><span class='op'>::</span><span class='const'>Children</span>
+  <span class='id identifier rubyid_include'>include</span> <span class='const'><span class='object_link'><a href="../Bovem.html" title="Bovem (module)">Bovem</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="CommandMethods.html" title="Bovem::CommandMethods (module)">CommandMethods</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="CommandMethods/Help.html" title="Bovem::CommandMethods::Help (module)">Help</a></span></span>
+  <span class='id identifier rubyid_include'>include</span> <span class='const'><span class='object_link'><a href="../Bovem.html" title="Bovem (module)">Bovem</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="CommandMethods.html" title="Bovem::CommandMethods (module)">CommandMethods</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="CommandMethods/Children.html" title="Bovem::CommandMethods::Children (module)">Children</a></span></span>
 
   <span class='comment'># Creates a new command.
 </span>  <span class='comment'>#
@@ -6792,7 +6793,7 @@
 </span>  <span class='comment'>#
 </span>  <span class='comment'># @return [Boolean] `true` if command is an application, `false` otherwise.
 </span>  <span class='kw'>def</span> <span class='id identifier rubyid_application?'>application?</span>
-    <span class='id identifier rubyid_is_a?'>is_a?</span><span class='lparen'>(</span><span class='const'>Bovem</span><span class='op'>::</span><span class='const'>Application</span><span class='rparen'>)</span>
+    <span class='id identifier rubyid_is_a?'>is_a?</span><span class='lparen'>(</span><span class='const'><span class='object_link'><a href="../Bovem.html" title="Bovem (module)">Bovem</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="Application.html" title="Bovem::Application (class)">Application</a></span></span><span class='rparen'>)</span>
   <span class='kw'>end</span>
 
   <span class='comment'># Check if this command has a description.
@@ -6834,7 +6835,7 @@
 </span>  <span class='comment'>#
 </span>  <span class='comment'># @param args [Array] The arguments to pass to the command.
 </span>  <span class='kw'>def</span> <span class='id identifier rubyid_execute'>execute</span><span class='lparen'>(</span><span class='id identifier rubyid_args'>args</span><span class='rparen'>)</span>
-    <span class='id identifier rubyid_subcommand'>subcommand</span> <span class='op'>=</span> <span class='const'>Bovem</span><span class='op'>::</span><span class='const'>Parser</span><span class='period'>.</span><span class='id identifier rubyid_parse'>parse</span><span class='lparen'>(</span><span class='kw'>self</span><span class='comma'>,</span> <span class='id identifier rubyid_args'>args</span><span class='rparen'>)</span>
+    <span class='id identifier rubyid_subcommand'>subcommand</span> <span class='op'>=</span> <span class='const'><span class='object_link'><a href="../Bovem.html" title="Bovem (module)">Bovem</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="Parser.html" title="Bovem::Parser (class)">Parser</a></span></span><span class='period'>.</span><span class='id identifier rubyid_parse'><span class='object_link'><a href="Parser.html#parse-instance_method" title="Bovem::Parser#parse (method)">parse</a></span></span><span class='lparen'>(</span><span class='kw'>self</span><span class='comma'>,</span> <span class='id identifier rubyid_args'>args</span><span class='rparen'>)</span>
 
     <span class='kw'>if</span> <span class='id identifier rubyid_subcommand'>subcommand</span><span class='period'>.</span><span class='id identifier rubyid_present?'>present?</span> <span class='comment'># We have a subcommand to call
 </span>      <span class='id identifier rubyid_commands'>commands</span><span class='lbracket'>[</span><span class='id identifier rubyid_subcommand'>subcommand</span><span class='lbracket'>[</span><span class='symbol'>:name</span><span class='rbracket'>]</span><span class='rbracket'>]</span><span class='period'>.</span><span class='id identifier rubyid_execute'>execute</span><span class='lparen'>(</span><span class='id identifier rubyid_subcommand'>subcommand</span><span class='lbracket'>[</span><span class='symbol'>:args</span><span class='rbracket'>]</span><span class='rparen'>)</span>
@@ -6850,7 +6851,7 @@
 
   <span class='comment'># :nodoc:
 </span>  <span class='kw'>def</span> <span class='id identifier rubyid_setup_i18n'>setup_i18n</span><span class='lparen'>(</span><span class='id identifier rubyid_options'>options</span><span class='rparen'>)</span>
-    <span class='ivar'>@i18n</span> <span class='op'>=</span> <span class='const'>Bovem</span><span class='op'>::</span><span class='const'>I18n</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='id identifier rubyid_options'>options</span><span class='lbracket'>[</span><span class='symbol'>:locale</span><span class='rbracket'>]</span><span class='comma'>,</span> <span class='label'>root:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>bovem.application</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='label'>path:</span> <span class='const'>Bovem</span><span class='op'>::</span><span class='const'>Application</span><span class='op'>::</span><span class='const'>LOCALE_ROOT</span><span class='rparen'>)</span>
+    <span class='ivar'>@i18n</span> <span class='op'>=</span> <span class='const'><span class='object_link'><a href="../Bovem.html" title="Bovem (module)">Bovem</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="I18n.html" title="Bovem::I18n (class)">I18n</a></span></span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='id identifier rubyid_options'>options</span><span class='lbracket'>[</span><span class='symbol'>:locale</span><span class='rbracket'>]</span><span class='comma'>,</span> <span class='label'>root:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>bovem.application</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='label'>path:</span> <span class='const'><span class='object_link'><a href="../Bovem.html" title="Bovem (module)">Bovem</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="Application.html" title="Bovem::Application (class)">Application</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="Application.html#LOCALE_ROOT-constant" title="Bovem::Application::LOCALE_ROOT (constant)">LOCALE_ROOT</a></span></span><span class='rparen'>)</span>
   <span class='kw'>end</span>
 
   <span class='comment'># :nodoc:
@@ -6893,7 +6894,7 @@
       <div class="method_details first">
   <h3 class="signature first" id="application?-instance_method">
   
-    - (<tt>Boolean</tt>) <strong>application?</strong> 
+    #<strong>application?</strong>  &#x21d2; <tt>Boolean</tt> 
   
 
   
@@ -6940,7 +6941,7 @@
       <pre class="code"><span class="info file"># File 'lib/bovem/command.rb', line 424</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_application?'>application?</span>
-  <span class='id identifier rubyid_is_a?'>is_a?</span><span class='lparen'>(</span><span class='const'>Bovem</span><span class='op'>::</span><span class='const'>Application</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_is_a?'>is_a?</span><span class='lparen'>(</span><span class='const'><span class='object_link'><a href="../Bovem.html" title="Bovem (module)">Bovem</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="Application.html" title="Bovem::Application (class)">Application</a></span></span><span class='rparen'>)</span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -6950,7 +6951,7 @@
       <div class="method_details ">
   <h3 class="signature " id="banner?-instance_method">
   
-    - (<tt>Boolean</tt>) <strong>banner?</strong> 
+    #<strong>banner?</strong>  &#x21d2; <tt>Boolean</tt> 
   
 
   
@@ -7007,7 +7008,7 @@
       <div class="method_details ">
   <h3 class="signature " id="description?-instance_method">
   
-    - (<tt>Boolean</tt>) <strong>description?</strong> 
+    #<strong>description?</strong>  &#x21d2; <tt>Boolean</tt> 
   
 
   
@@ -7064,7 +7065,7 @@
       <div class="method_details ">
   <h3 class="signature " id="execute-instance_method">
   
-    - (<tt>Object</tt>) <strong>execute</strong>(args) 
+    #<strong>execute</strong>(args)  &#x21d2; <tt>Object</tt> 
   
 
   
@@ -7122,7 +7123,7 @@
       <pre class="code"><span class="info file"># File 'lib/bovem/command.rb', line 466</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_execute'>execute</span><span class='lparen'>(</span><span class='id identifier rubyid_args'>args</span><span class='rparen'>)</span>
-  <span class='id identifier rubyid_subcommand'>subcommand</span> <span class='op'>=</span> <span class='const'>Bovem</span><span class='op'>::</span><span class='const'>Parser</span><span class='period'>.</span><span class='id identifier rubyid_parse'>parse</span><span class='lparen'>(</span><span class='kw'>self</span><span class='comma'>,</span> <span class='id identifier rubyid_args'>args</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_subcommand'>subcommand</span> <span class='op'>=</span> <span class='const'><span class='object_link'><a href="../Bovem.html" title="Bovem (module)">Bovem</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="Parser.html" title="Bovem::Parser (class)">Parser</a></span></span><span class='period'>.</span><span class='id identifier rubyid_parse'><span class='object_link'><a href="Parser.html#parse-instance_method" title="Bovem::Parser#parse (method)">parse</a></span></span><span class='lparen'>(</span><span class='kw'>self</span><span class='comma'>,</span> <span class='id identifier rubyid_args'>args</span><span class='rparen'>)</span>
 
   <span class='kw'>if</span> <span class='id identifier rubyid_subcommand'>subcommand</span><span class='period'>.</span><span class='id identifier rubyid_present?'>present?</span> <span class='comment'># We have a subcommand to call
 </span>    <span class='id identifier rubyid_commands'>commands</span><span class='lbracket'>[</span><span class='id identifier rubyid_subcommand'>subcommand</span><span class='lbracket'>[</span><span class='symbol'>:name</span><span class='rbracket'>]</span><span class='rbracket'>]</span><span class='period'>.</span><span class='id identifier rubyid_execute'>execute</span><span class='lparen'>(</span><span class='id identifier rubyid_subcommand'>subcommand</span><span class='lbracket'>[</span><span class='symbol'>:args</span><span class='rbracket'>]</span><span class='rparen'>)</span>
@@ -7141,7 +7142,7 @@
       <div class="method_details ">
   <h3 class="signature " id="full_name-instance_method">
   
-    - (<tt>String</tt>) <strong>full_name</strong>(suffix = nil, separator = &quot;:&quot;) 
+    #<strong>full_name</strong>(suffix = nil, separator = &quot;:&quot;)  &#x21d2; <tt>String</tt> 
   
 
   
@@ -7238,7 +7239,7 @@
       <div class="method_details ">
   <h3 class="signature " id="setup_with-instance_method">
   
-    - (<tt><span class='object_link'><a href="" title="Bovem::Command (class)">Command</a></span></tt>) <strong>setup_with</strong>(options = {}) 
+    #<strong>setup_with</strong>(options = {})  &#x21d2; <tt><span class='object_link'><a href="" title="Bovem::Command (class)">Command</a></span></tt> 
   
 
   
@@ -7343,11 +7344,12 @@
 
 </div>
 
-    <div id="footer">
-  Generated on Thu Aug 18 15:49:52 2016 by
+      <div id="footer">
+  Generated on Thu Jan 12 16:11:00 2017 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
-  0.8.7.6 (ruby-2.3.0).
+  0.9.7 (ruby-2.3.0).
 </div>
 
+    </div>
   </body>
 </html>

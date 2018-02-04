@@ -1,10 +1,9 @@
 # bovem
 
-[![Gem Version](https://badge.fury.io/rb/bovem.png)](http://badge.fury.io/rb/bovem)
-[![Dependency Status](https://gemnasium.com/ShogunPanda/bovem.png?travis)](https://gemnasium.com/ShogunPanda/bovem)
-[![Build Status](https://secure.travis-ci.org/ShogunPanda/bovem.png?branch=master)](http://travis-ci.org/ShogunPanda/bovem)
-[![Code Climate](https://codeclimate.com/github/ShogunPanda/bovem.png)](https://codeclimate.com/github/ShogunPanda/bovem)
-[![Coverage Status](https://coveralls.io/repos/github/ShogunPanda/bovem/badge.svg?branch=master)](https://coveralls.io/github/ShogunPanda/bovem?branch=master)
+[![Gem Version](https://img.shields.io/gem/v/bovem.svg)](https://rubygems.org/gems/bovem)
+[![Dependency Status](https://img.shields.io/gemnasium/ShogunPanda/bovem.svg)](https://gemnasium.com/ShogunPanda/bovem)
+[![Build Status](https://img.shields.io/travis/ShogunPanda/bovem.svg)](http://travis-ci.org/ShogunPanda/bovem)
+[![Coverage Status](https://img.shields.io/coveralls/github/ShogunPanda/bovem.svg)](https://coveralls.io/github/ShogunPanda/bovem)
 
 A command line manager and a collection of utilities for developers.
 
