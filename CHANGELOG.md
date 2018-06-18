@@ -1,3 +1,10 @@
+### 2018-06-18 / 4.0.2
+
+* chore: End of development notice.
+* Updated license links and badges.
+* Updated docs location.
+* Updated docs.
+
 ### 4.0.1 / 2016-03-30
 
 * Minor bugfix.
