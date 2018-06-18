@@ -5,6 +5,10 @@
 [![Build Status](https://img.shields.io/travis/ShogunPanda/bovem.svg)](http://travis-ci.org/ShogunPanda/bovem)
 [![Coverage Status](https://img.shields.io/coveralls/github/ShogunPanda/bovem.svg)](https://coveralls.io/github/ShogunPanda/bovem)
 
+## END OF DEVELOPMENT NOTICE
+
+# This gem has been discontinued.
+
 A command line manager and a collection of utilities for developers.
 
 https://sw.cowtech.it/bovem
@@ -66,6 +70,7 @@ You can use the `--help` switch or the `help command` syntax to navigate through
 After setting up the skeleton, you will just need to write the action bodies and you're done. **Happy coding!**
 
 ### Wrapping up the example
+
 Here's the help screen of the application above for the global application and for the `manage` command.
 
 #### General help
@@ -116,13 +121,13 @@ The API documentation can be found [here](https://sw.cowtech.it/bovem/docs).
 
 ## Contributing to bovem
 
-* Check out the latest master to make sure the feature hasn't been implemented or the bug hasn't been fixed yet.
-* Check out the issue tracker to make sure someone already hasn't requested it and/or contributed it.
-* Fork the project.
-* Start a feature/bugfix branch.
-* Commit and push until you are happy with your contribution.
-* Make sure to add tests for it. This is important so I don't break it in a future version unintentionally.
-* Please try not to mess with the Rakefile, version, or history. If you want to have your own version, or is otherwise necessary, that is fine, but please isolate to its own commit so I can cherry-pick around it.
+- Check out the latest master to make sure the feature hasn't been implemented or the bug hasn't been fixed yet.
+- Check out the issue tracker to make sure someone already hasn't requested it and/or contributed it.
+- Fork the project.
+- Start a feature/bugfix branch.
+- Commit and push until you are happy with your contribution.
+- Make sure to add tests for it. This is important so I don't break it in a future version unintentionally.
+- Please try not to mess with the Rakefile, version, or history. If you want to have your own version, or is otherwise necessary, that is fine, but please isolate to its own commit so I can cherry-pick around it.
 
 ## Copyright
 
