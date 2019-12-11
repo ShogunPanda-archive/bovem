@@ -1,17 +1,8 @@
 # bovem
 
-[![Gem Version](https://img.shields.io/gem/v/bovem.svg)](https://rubygems.org/gems/bovem)
-[![Dependency Status](https://img.shields.io/gemnasium/ShogunPanda/bovem.svg)](https://gemnasium.com/ShogunPanda/bovem)
-[![Build Status](https://img.shields.io/travis/ShogunPanda/bovem.svg)](http://travis-ci.org/ShogunPanda/bovem)
-[![Coverage Status](https://img.shields.io/coveralls/github/ShogunPanda/bovem.svg)](https://coveralls.io/github/ShogunPanda/bovem)
-
-## END OF DEVELOPMENT NOTICE
-
-# This gem has been discontinued.
+## END OF DEVELOPMENT NOTICE - This gem has been discontinued
 
 A command line manager and a collection of utilities for developers.
-
-https://sw.cowtech.it/bovem
 
 ## Description
 
